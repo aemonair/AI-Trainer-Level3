@@ -1,0 +1,2 @@
+date,notebook,summary,completed_steps,errors_found,error_rate,error_points,improvement_actions,fixed,notes
+2026-07-29,1.1.2,完成数据清洗与模型训练,读取数据->缺失值处理->训练预测,1,8%,read_csv 路径错误; NaN 未处理,统一文件路径; 增加数据校验,yes,记录每次数据文件位置
