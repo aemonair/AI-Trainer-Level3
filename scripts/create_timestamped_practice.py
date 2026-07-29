@@ -20,7 +20,7 @@ if not ref_candidates:
     raise SystemExit(f'Missing reference notebook for chapter {chapter} in {item_dir}')
 
 ref_nb = ref_candidates[0]
-now = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+now = datetime.datetime.now().strftime('%Y%m%d%H%M')
 practice_nb = item_dir / f'{chapter}_practice_{now}.ipynb'
 practice_md = item_dir / f'{chapter}_practice_{now}_review.md'
 
