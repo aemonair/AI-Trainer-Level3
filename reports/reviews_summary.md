@@ -1,8 +1,10 @@
 # 复盘聚合报告
 
-| Date | Notebook | Errors | Error Rate | Fixed | Path |
+| Date | Notebook | 完成情况 | 错误详情 | 评分 | Path |
 |---|---|---|---|---|---|
-|  | 1.1.4-materials |  |  |  | 1.1.4-materials/1.1.4_practice_202608011746_review.md |
-|  | 1.1.2-materials |  |  |  | 1.1.2-materials/1.1.2_practice_202608011659_review.md |
-|  | 1.1.2-materials |  |  |  | 1.1.2-materials/1.1.2_practice_202608011716_review.md |
-|  | 1.1.5-materials |  |  |  | 1.1.5-materials/1.1.5_practice_202607292310_review.md |
+| 2026-08-01 | 1.1.4_practice_202608011746_review | 7/9 得分 | 错误1：数据标准化公式括号位置错误（高） | 7/9 (77.8%) | 1.1.4-materials/1.1.4_practice_202608011746_review.md |
+| 2026-08-01 | 1.1.2_practice_202608011659_review | 2/3 任务完成 | 错误1：`fillna` 参数错误<br>错误2：DataFrame调用语法错误 | 10/18 (55.6%) | 1.1.2-materials/1.1.2_practice_202608011659_review.md |
+| 2026-08-01 | 1.1.2_practice_202608011716_review | 3/3 任务完成 | 无错误 | 18/18 (100%) | 1.1.2-materials/1.1.2_practice_202608011716_review.md |
+| 2026-08-01 | 1.1.5_practice_202608011810_review | 3/4 任务完成 | 错误1：`agg()` 参数错误（中）<br>错误2：无 | 20/22 (90.9%) | 1.1.5-materials/1.1.5_practice_202608011810_review.md |
+| 2026-08-01 | 1.1.5_practice_202608011831_review | 4/4 任务完成 | 错误1：缺少 `sort_index()`（低） | 21.5/22 (97.7%) | 1.1.5-materials/1.1.5_practice_202608011831_review.md |
+| 2026-08-01 | 2.1.1_practice_202608011914_review | 7/8 得分 | 错误1：检查缺失值方法错误（中）<br>错误2：删除异常值不够精确（低） | 7/8 (87.5%) | 2.1.1-materials/2.1.1_practice_202608011914_review.md |
