@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-在每个以 "-素材" 结尾的目录中批量创建 `复盘.md` 模板（如果不存在）。
+在每个以 "-materials" 结尾的目录中批量创建 `复盘.md` 模板（如果不存在）。
 """
 from pathlib import Path
 import datetime
@@ -8,7 +8,7 @@ import datetime
 ROOT = Path('.').resolve()
 count = 0
 for p in sorted(ROOT.iterdir()):
-    if p.is_dir() and p.name.endswith('-素材'):
+    if p.is_dir() and p.name.endswith('-materials'):
         target = p / '复盘.md'
         if target.exists():
             continue

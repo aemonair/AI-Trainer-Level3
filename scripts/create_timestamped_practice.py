@@ -16,18 +16,15 @@ args = parser.parse_args()
 
 chapter = args.chapter
 do_review = args.review
-item_dir = ROOT / f'{chapter}-素材'
+item_dir = ROOT / f'{chapter}-materials'
 base_nb = item_dir / f'{chapter}.ipynb'
-ref_candidates = sorted(item_dir.glob(f'{chapter}_andy*.ipynb'))
-
 if not item_dir.exists():
     raise SystemExit(f'Missing chapter folder: {item_dir}')
 if not base_nb.exists():
     raise SystemExit(f'Missing base template notebook: {base_nb}')
-if not ref_candidates:
-    raise SystemExit(f'Missing reference notebook for chapter {chapter} in {item_dir}')
 
-ref_nb = ref_candidates[0]
+# 使用模板文件创建练习
+ref_nb = base_nb
 now = datetime.datetime.now().strftime('%Y%m%d%H%M')
 practice_nb = item_dir / f'{chapter}_practice_{now}.ipynb'
 practice_md = item_dir / f'{chapter}_practice_{now}_review.md'
@@ -58,22 +55,21 @@ if do_review:
 
 - 练习 notebook：`{practice_nb.name}`
 - 模板 notebook：`{base_nb.name}`（保持填空原样）
-- 参考实现 notebook：`{ref_nb.name}`
 
 ## 练习目标
-- 在 `{practice_nb.name}` 中完成下划线填空题
+- 在 `{practice_nb.name}` 中完成所有下划线填空
 - 运行并验证结果是否正确
-- 和参考实现进行对比，记录差异与错误点
+- 和 `_guide.md` 对照，记录差异与错误点
 
 ## 练习步骤
 1. 打开 `{practice_nb.name}`，完成所有下划线填空
 2. 运行 notebook，确认计算结果没有异常
-3. 与参考实现 `{ref_nb.name}` 对照，补充差异记录
+3. 与 `_guide.md` 对照，补充差异记录
 
 ## 练习结果记录
 - 问题点：
   - 
-- 与参考实现不同之处：
+- 与标准答案不同之处：
   - 
 - 发现的错误：
   - 
