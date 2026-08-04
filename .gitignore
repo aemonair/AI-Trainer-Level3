@@ -22,3 +22,5 @@ venv/
 build/
 dist/
 *.egg-info/
+uv.lock
+uv.lock
