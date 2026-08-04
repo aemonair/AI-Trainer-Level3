@@ -32,6 +32,40 @@
 | [2.2.4](2.2.4-materials/) | 低碳生活行为影响因素预测线性回归模型开发与测试 | [练习](2.2.4-materials/2.2.4.ipynb) | [答案](answers/1.1.1%20-2.2.5%20参考答案/2.2.4/2.2.4.ipynb) | ⏳ |
 | [2.2.5](2.2.5-materials/) | 智能步数预测模型开发与测试 | [练习](2.2.5-materials/2.2.5.ipynb) | [答案](answers/1.1.1%20-2.2.5%20参考答案/2.2.5/2.2.5.ipynb) | ⏳ |
 
+## 🚀 环境搭建
+
+### 1. 安装 uv
+```bash
+# macOS / Linux
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Windows
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+### 2. 克隆仓库并创建环境
+```bash
+git clone <仓库地址>
+cd 人工智能训练师_3级_sucai
+
+# 创建虚拟环境
+uv venv
+
+# 激活环境
+source .venv/bin/activate        # macOS / Linux
+.venv\Scripts\activate           # Windows
+
+# 安装依赖（自动适配当前平台）
+uv pip install . --index-url https://pypi.tuna.tsinghua.edu.cn/simple
+```
+
+> **跨平台说明**：`pyproject.toml` 已配置平台特定的依赖版本，uv 会自动根据当前系统（Windows/macOS ARM64/macOS Intel/Linux）选择合适的包版本。
+
+### 3. 验证环境
+```bash
+python -c "import pandas, sklearn, onnx; print('环境安装成功！')"
+```
+
 ## 🚀 快速开始
 
 ### 创建练习文件
