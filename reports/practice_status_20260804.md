@@ -21,38 +21,38 @@
 
 | 章节 | 最新练习文件 | 得分 | 状态 | 主要问题 |
 |------|-------------|------|------|---------|
-| 1.1.1 | [1.1.1_practice_20260802_andy.ipynb](1.1.1-materials/1.1.1_practice_20260802_andy.ipynb) | 92 | ✅ 优秀 | 填空错误 1处 |
-| 1.1.2 | [1.1.2_practice_20260802.ipynb](1.1.2-materials/1.1.2_practice_20260802.ipynb) | 92 | ✅ 优秀 | 填空错误 1处 |
-| 1.1.3 | [1.1.3_practice_20260802.ipynb](1.1.3-materials/1.1.3_practice_20260802.ipynb) | 0 | ❌ 未填空 | 未填空 2处，填空错误 11处 |
-| 1.1.4 | [1.1.4_practice_20260802.ipynb](1.1.4-materials/1.1.4_practice_20260802.ipynb) | 0 | ❌ 未填空 | 未填空 2处，填空错误 22处 |
-| 1.1.5 | [1.1.5_practice_20260802.ipynb](1.1.5-materials/1.1.5_practice_20260802.ipynb) | 34 | ❌ 不及格 | 填空错误 7处 |
+| 1.1.1 | [1.1.1_practice_20260802_andy.ipynb](../1.1.1-materials/1.1.1_practice_20260802_andy.ipynb) | 92 | ✅ 优秀 | 填空错误 1处 |
+| 1.1.2 | [1.1.2_practice_20260802.ipynb](../1.1.2-materials/1.1.2_practice_20260802.ipynb) | 92 | ✅ 优秀 | 填空错误 1处 |
+| 1.1.3 | [1.1.3_practice_20260802.ipynb](../1.1.3-materials/1.1.3_practice_20260802.ipynb) | 0 | ❌ 未填空 | 未填空 2处，填空错误 11处 |
+| 1.1.4 | [1.1.4_practice_20260802.ipynb](../1.1.4-materials/1.1.4_practice_20260802.ipynb) | 0 | ❌ 未填空 | 未填空 2处，填空错误 22处 |
+| 1.1.5 | [1.1.5_practice_20260802.ipynb](../1.1.5-materials/1.1.5_practice_20260802.ipynb) | 34 | ❌ 不及格 | 填空错误 7处 |
 
 ### 2.1 数据清洗和标注
 
 | 章节 | 最新练习文件 | 得分 | 状态 | 主要问题 |
 |------|-------------|------|------|---------|
-| 2.1.1 | [2.1.1_practice_20260802_v2.ipynb](2.1.1-materials/2.1.1_practice_20260802_v2.ipynb) | 28 | ❌ 不及格 | 填空错误 9处 |
-| 2.1.2 | [2.1.2_practice_20260802_v2.ipynb](2.1.2-materials/2.1.2_practice_20260802_v2.ipynb) | 84 | ✅ 良好 | 填空错误 2处 |
-| 2.1.3 | [2.1.3_practice_20260802_v2.ipynb](2.1.3-materials/2.1.3_practice_20260802_v2.ipynb) | 18 | ❌ 不及格 | 填空错误 9处 |
-| 2.1.4 | [2.1.4_practice_20260802_v3.ipynb](2.1.4-materials/2.1.4_practice_20260802_v3.ipynb) | 72 | ✅ 良好 | 填空错误 1处，输出不匹配 2处 |
-| 2.1.5 | [2.1.5_practice_20260802_v3.ipynb](2.1.5-materials/2.1.5_practice_20260802_v3.ipynb) | 48 | ❌ 不及格 | 填空错误 4处，输出不匹配 2处 |
+| 2.1.1 | [2.1.1_practice_20260802_v2.ipynb](../2.1.1-materials/2.1.1_practice_20260802_v2.ipynb) | 28 | ❌ 不及格 | 填空错误 9处 |
+| 2.1.2 | [2.1.2_practice_20260802_v2.ipynb](../2.1.2-materials/2.1.2_practice_20260802_v2.ipynb) | 84 | ✅ 良好 | 填空错误 2处 |
+| 2.1.3 | [2.1.3_practice_20260802_v2.ipynb](../2.1.3-materials/2.1.3_practice_20260802_v2.ipynb) | 18 | ❌ 不及格 | 填空错误 9处 |
+| 2.1.4 | [2.1.4_practice_20260802_v3.ipynb](../2.1.4-materials/2.1.4_practice_20260802_v3.ipynb) | 72 | ✅ 良好 | 填空错误 1处，输出不匹配 2处 |
+| 2.1.5 | [2.1.5_practice_20260802_v3.ipynb](../2.1.5-materials/2.1.5_practice_20260802_v3.ipynb) | 48 | ❌ 不及格 | 填空错误 4处，输出不匹配 2处 |
 
 ### 2.2 模型开发
 
 | 章节 | 最新练习文件 | 得分 | 状态 | 主要问题 |
 |------|-------------|------|------|---------|
-| 2.2.1 | [2.2.1_practice_20260802_v1.ipynb](2.2.1-materials/2.2.1_practice_20260802_v1.ipynb) | 68 | ⚠️ 及格 | 填空错误 4处 |
-| 2.2.2 | [2.2.2-practice_202608020955.ipynb](2.2.2-materials/2.2.2-practice_202608020955.ipynb) | 84 | ✅ 良好 | 填空错误 2处 |
-| 2.2.3 | [2.2.3_practice_202608021035.ipynb](2.2.3-materials/2.2.3_practice_202608021035.ipynb) | 84 | ✅ 良好 | 填空错误 2处 |
-| 2.2.4 | [2.2.4_practice_202608021121.ipynb](2.2.4-materials/2.2.4_practice_202608021121.ipynb) | 68 | ⚠️ 及格 | 填空错误 4处 |
-| 2.2.5 | [2.2.5_practice_202608021154.ipynb](2.2.5-materials/2.2.5_practice_202608021154.ipynb) | 0 | ❌ 未填空 | 未填空 1处，填空错误 17处 |
+| 2.2.1 | [2.2.1_practice_20260802_v1.ipynb](../2.2.1-materials/2.2.1_practice_20260802_v1.ipynb) | 68 | ⚠️ 及格 | 填空错误 4处 |
+| 2.2.2 | [2.2.2-practice_202608020955.ipynb](../2.2.2-materials/2.2.2-practice_202608020955.ipynb) | 84 | ✅ 良好 | 填空错误 2处 |
+| 2.2.3 | [2.2.3_practice_202608021035.ipynb](../2.2.3-materials/2.2.3_practice_202608021035.ipynb) | 84 | ✅ 良好 | 填空错误 2处 |
+| 2.2.4 | [2.2.4_practice_202608021121.ipynb](../2.2.4-materials/2.2.4_practice_202608021121.ipynb) | 68 | ⚠️ 及格 | 填空错误 4处 |
+| 2.2.5 | [2.2.5_practice_202608021154.ipynb](../2.2.5-materials/2.2.5_practice_202608021154.ipynb) | 0 | ❌ 未填空 | 未填空 1处，填空错误 17处 |
 
 ### 3.2 ONNX 模型推理
 
 | 章节 | 最新练习文件 | 得分 | 状态 | 主要问题 |
 |------|-------------|------|------|---------|
-| 3.2.1 | [3.2.1_practice_202608021542.ipynb](3.2.1-materials/3.2.1_practice_202608021542.ipynb) | 92 | ✅ 优秀 | 填空错误 1处 |
-| 3.2.5 | [3.2.5_practice_20260802.ipynb](3.2.5-materials/3.2.5_practice_20260802.ipynb) | 12 | ❌ 不及格 | 未填空 1处，填空错误 10处 |
+| 3.2.1 | [3.2.1_practice_202608021542.ipynb](../3.2.1-materials/3.2.1_practice_202608021542.ipynb) | 92 | ✅ 优秀 | 填空错误 1处 |
+| 3.2.5 | [3.2.5_practice_20260802.ipynb](../3.2.5-materials/3.2.5_practice_20260802.ipynb) | 12 | ❌ 不及格 | 未填空 1处，填空错误 10处 |
 
 ## 📈 各模块平均分
 

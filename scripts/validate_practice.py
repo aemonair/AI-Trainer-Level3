@@ -476,12 +476,12 @@ def compare_fill_answers(practice_path: Path, template_path: Path, answer_path: 
             })
             continue
         
-        # 对比答案
-        expected = ba['answer']
-        filled = fa['filled_answer']
+        # 对比答案（统一引号后再对比）
+        expected = ba['answer'].replace("'", '"').strip()
+        filled = fa['filled_answer'].replace("'", '"').strip()
         
         if expected and filled:
-            similarity = difflib.SequenceMatcher(None, expected.strip(), filled.strip()).ratio()
+            similarity = difflib.SequenceMatcher(None, expected, filled).ratio()
             if similarity < 0.95:
                 differences.append({
                     'cell_index': ba['cell_index'],
