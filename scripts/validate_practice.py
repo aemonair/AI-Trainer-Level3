@@ -7,6 +7,7 @@
 2. 实现方式对比：对比关键函数、参数使用是否与参考答案一致
 3. 执行结果对比：对比 notebook 的输出是否与参考答案一致
 4. 多版本进步趋势：对比同一章节的多个版本，看是否有进步
+5. IPython历史命令分析：分析答题过程中的命令演化、修正次数、错误类型
 
 对比标准：
 - 参考答案：answers/1.1.1 - 4.2.5参考答案/{chapter}/{chapter}.ipynb
@@ -45,10 +46,17 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument('--latest', action='store_true', help='只验证每个章节最新的练习文件')
     parser.add_argument('--all-versions', action='store_true', help='验证所有章节的所有版本')
     parser.add_argument('--file', type=str, help='验证特定文件路径')
+    parser.add_argument('--session', type=str, help='验证特定Session目录')
     parser.add_argument('--compare-mode', choices=['fill', 'implementation', 'result', 'both', 'all'], 
                        default='all',
-                       help='对比模式：fill=填空, implementation=实现, result=结果, both=填空+实现, all=全部')
+                       help='[已弃用] 对比模式：fill=填空, implementation=实现, result=结果, both=填空+实现, all=全部。建议使用 --check-fill/--check-output/--check-impl 标志位')
+    parser.add_argument('--check-fill', action='store_true', help='对比填空答案')
+    parser.add_argument('--check-output', action='store_true', help='对比执行结果')
+    parser.add_argument('--check-impl', action='store_true', help='对比实现细节')
     parser.add_argument('--output-report', action='store_true', help='生成详细Markdown报告')
+    parser.add_argument('--output-json', action='store_true', help='输出结构化JSON报告（推荐）')
+    parser.add_argument('--audit-process', action='store_true', help='启用回溯审计（分析execution_log.json中的中间错误）')
+    parser.add_argument('--analyze-history', action='store_true', help='分析IPython历史命令（对比答题过程）')
     return parser.parse_args()
 
 
@@ -173,7 +181,7 @@ def extract_filled_answers(practice_path: Path, template_path: Path) -> List[Dic
     """
     提取练习文件中填写的答案
     
-    通过对比模板和练习文件，提取每个填空处的实际填写内容
+    修复：使用正则匹配而非 index() 硬字符匹配，容忍空格/缩进差异
     """
     template_nb = load_notebook(template_path)
     practice_nb = load_notebook(practice_path)
@@ -198,12 +206,9 @@ def extract_filled_answers(practice_path: Path, template_path: Path) -> List[Dic
         t_matches = list(re.finditer(blank_pattern, t_source))
         
         for j, match in enumerate(t_matches):
-            # 提取填空的答案
             blank_start = match.start()
             blank_end = match.end()
             
-            # 在练习文件中对应位置的内容
-            # 由于可能长度不同，使用行号定位
             t_line_num = t_source[:blank_start].count('\n')
             t_lines = t_source.split('\n')
             p_lines = p_source.split('\n')
@@ -212,24 +217,49 @@ def extract_filled_answers(practice_path: Path, template_path: Path) -> List[Dic
                 t_line = t_lines[t_line_num]
                 p_line = p_lines[t_line_num] if t_line_num < len(p_lines) else ''
                 
-                # 提取填空处的答案
-                # 在模板行中找到 _____ 的位置
                 t_blank_match = re.search(r'_{3,}', t_line)
                 if t_blank_match:
-                    # 在练习行中提取对应位置的内容
-                    t_before = t_line[:t_blank_match.start()]
-                    t_after = t_line[t_blank_match.end():]
+                    t_before = t_line[:t_blank_match.start()].strip()
+                    t_after = t_line[t_blank_match.end():].strip()
                     
-                    # 在练习行中查找对应内容
-                    if t_before.strip() in p_line:
-                        start_idx = p_line.index(t_before.strip()) + len(t_before.strip())
-                        if t_after.strip() and t_after.strip() in p_line[start_idx:]:
-                            end_idx = p_line.index(t_after.strip(), start_idx)
-                            answer = p_line[start_idx:end_idx].strip()
+                    # 使用正则匹配，忽略空格差异
+                    answer = None
+                    
+                    # 策略1：赋值模式提取
+                    if '=' in t_before:
+                        assign_pattern = r'=\s*(.+?)(?:\s*' + re.escape(t_after) + r'\s*$|$)' if t_after else r'=\s*(.+?)\s*$'
+                        match = re.search(assign_pattern, p_line.strip())
+                        if match:
+                            answer = match.group(1).strip()
+                    
+                    # 策略2：before/after 锚点匹配（容忍空格）
+                    if answer is None and t_before:
+                        before_regex = r'\s*'.join(re.escape(c) for c in t_before)
+                        after_regex = r'\s*'.join(re.escape(c) for c in t_after) if t_after else ''
+                        
+                        if after_regex:
+                            full_pattern = before_regex + r'\s*(.*?)\s*' + after_regex
                         else:
-                            answer = p_line[start_idx:].strip()
-                    else:
-                        answer = p_line.strip()
+                            full_pattern = before_regex + r'\s*(.*?)\s*$'
+                        
+                        match = re.search(full_pattern, p_line.strip())
+                        if match:
+                            answer = match.group(1).strip()
+                    
+                    # 策略3：兜底
+                    if answer is None:
+                        before_no_space = t_before.replace(' ', '')
+                        p_line_no_space = p_line.strip().replace(' ', '')
+                        if before_no_space in p_line_no_space:
+                            idx = p_line_no_space.index(before_no_space)
+                            remaining = p_line_no_space[idx + len(before_no_space):]
+                            if t_after:
+                                after_no_space = t_after.replace(' ', '')
+                                if after_no_space in remaining:
+                                    remaining = remaining[:remaining.index(after_no_space)]
+                            answer = remaining.strip()
+                        else:
+                            answer = p_line.strip()
                     
                     filled.append({
                         'cell_index': i,
@@ -244,6 +274,8 @@ def extract_filled_answers(practice_path: Path, template_path: Path) -> List[Dic
 def extract_blank_answers_from_template_and_answer(template_path: Path, answer_path: Path) -> List[Dict]:
     """
     精确提取模板中每个填空处的标准答案
+    
+    修复：使用标准化匹配，容忍空格/缩进差异
     
     返回: [
         {
@@ -262,12 +294,22 @@ def extract_blank_answers_from_template_and_answer(template_path: Path, answer_p
     if not template_nb or not answer_nb:
         return []
     
+    # 过滤掉自动注入的日志初始化Cell
+    def is_auto_init_cell(cell):
+        tags = cell.get('metadata', {}).get('tags', [])
+        return 'auto-init-execution-logger' in tags
+    
+    template_cells = [c for c in template_nb.get('cells', []) if not is_auto_init_cell(c)]
+    answer_cells = [c for c in answer_nb.get('cells', []) if not is_auto_init_cell(c)]
+    
+    # 辅助函数：标准化行（去除所有空格、制表符，统一引号）
+    def normalize_line(line: str) -> str:
+        no_space = re.sub(r'[\s]', '', line)
+        return no_space.replace("'", '"')
+    
     blank_answers = []
     
-    for i, (t_cell, a_cell) in enumerate(zip(
-        template_nb.get('cells', []),
-        answer_nb.get('cells', [])
-    )):
+    for i, (t_cell, a_cell) in enumerate(zip(template_cells, answer_cells)):
         if t_cell.get('cell_type') != 'code':
             continue
         
@@ -283,40 +325,57 @@ def extract_blank_answers_from_template_and_answer(template_path: Path, answer_p
             if not blanks:
                 continue
             
+            # 标准化答案行（用于匹配）
+            norm_a_line = normalize_line(a_line)
+            
             # 逐个填空提取
             prev_end = 0
             for b_idx, blank in enumerate(blanks):
                 # 获取填空前后的内容
-                before = t_line[prev_end:blank.start()]
+                before_raw = t_line[prev_end:blank.start()]
                 after_blank = t_line[blank.end():]
                 
                 # 查找下一个填空的位置
                 if b_idx + 1 < len(blanks):
                     next_blank_start = blanks[b_idx + 1].start()
-                    after = t_line[blank.end():next_blank_start]
+                    after_raw = t_line[blank.end():next_blank_start]
                 else:
-                    after = after_blank
+                    after_raw = after_blank
                 
-                # 在答案行中定位
+                # 标准化前后文本
+                before_norm = normalize_line(before_raw)
+                after_norm = normalize_line(after_raw)
+                
+                # 在标准化后的答案行中定位
                 answer_text = None
-                if before.strip() in a_line:
-                    start_idx = a_line.index(before.strip()) + len(before.strip())
-                    
-                    if after.strip() and after.strip() in a_line[start_idx:]:
-                        end_idx = a_line.index(after.strip(), start_idx)
-                        answer_text = a_line[start_idx:end_idx].strip()
+                start_idx = -1
+                
+                if before_norm:
+                    start_idx = norm_a_line.find(before_norm)
+                    if start_idx != -1:
+                        start_idx += len(before_norm)
                     else:
-                        # 最后一个填空，取到行尾
-                        answer_text = a_line[start_idx:].strip()
+                        start_idx = 0
+                else:
+                    start_idx = 0
+                
+                if start_idx != -1 and after_norm:
+                    end_idx = norm_a_line.find(after_norm, start_idx)
+                    if end_idx != -1:
+                        answer_text = norm_a_line[start_idx:end_idx]
+                    else:
+                        answer_text = norm_a_line[start_idx:]
+                elif start_idx != -1:
+                    answer_text = norm_a_line[start_idx:]
                 
                 blank_answers.append({
                     'cell_index': i,
                     'line_index': j,
                     'blank_index': b_idx,
                     'template_line': t_line.strip(),
-                    'answer': answer_text,
-                    'before': before.strip(),
-                    'after': after.strip()
+                    'answer': answer_text.strip() if answer_text else None,
+                    'before': before_raw.strip(),
+                    'after': after_raw.strip()
                 })
                 
                 prev_end = blank.end()
@@ -325,20 +384,7 @@ def extract_blank_answers_from_template_and_answer(template_path: Path, answer_p
 
 
 def extract_practice_filled_answers(practice_path: Path, template_path: Path) -> List[Dict]:
-    """
-    从练习文件中精确提取每个填空处填写的答案
-    
-    返回: [
-        {
-            'cell_index': 0,
-            'line_index': 4,
-            'blank_index': 0,
-            'practice_line': 'data = pd.read_csv("patient_data.csv")',
-            'filled_answer': 'pd.read_csv("patient_data.csv")',
-        },
-        ...
-    ]
-    """
+    """从练习文件中精确提取每个填空处填写的答案（修复空格/缩进容错）"""
     practice_nb = load_notebook(practice_path)
     template_nb = load_notebook(template_path)
     
@@ -347,10 +393,22 @@ def extract_practice_filled_answers(practice_path: Path, template_path: Path) ->
     
     filled_answers = []
     
-    for i, (p_cell, t_cell) in enumerate(zip(
-        practice_nb.get('cells', []),
-        template_nb.get('cells', [])
-    )):
+    # 过滤掉自动注入的日志初始化Cell
+    def is_auto_init_cell(cell):
+        tags = cell.get('metadata', {}).get('tags', [])
+        return 'auto-init-execution-logger' in tags
+    
+    practice_cells = [c for c in practice_nb.get('cells', []) if not is_auto_init_cell(c)]
+    template_cells = [c for c in template_nb.get('cells', []) if not is_auto_init_cell(c)]
+    
+    # 辅助函数：标准化行（去除所有空格、制表符，统一引号）
+    def normalize_line(line: str) -> str:
+        # 移除所有空格和制表符
+        no_space = re.sub(r'[\s]', '', line)
+        # 统一引号为双引号
+        return no_space.replace("'", '"')
+    
+    for i, (p_cell, t_cell) in enumerate(zip(practice_cells, template_cells)):
         if t_cell.get('cell_type') != 'code':
             continue
         
@@ -360,46 +418,63 @@ def extract_practice_filled_answers(practice_path: Path, template_path: Path) ->
         p_lines = p_source.split('\n')
         t_lines = t_source.split('\n')
         
-        # 查找模板中的填空
         for j, (p_line, t_line) in enumerate(zip(p_lines, t_lines)):
             blanks = list(re.finditer(r'_{3,}', t_line))
             if not blanks:
                 continue
             
-            # 逐个填空提取
+            # 标准化模板行和练习行（用于定位）
+            norm_t_line = normalize_line(t_line)
+            norm_p_line = normalize_line(p_line)
+            
             prev_end = 0
             for b_idx, blank in enumerate(blanks):
-                # 获取填空前后的内容
-                before = t_line[prev_end:blank.start()]
-                after_blank = t_line[blank.end():]
+                # 获取填空前后的文本（原始文本）
+                before_raw = t_line[prev_end:blank.start()]
+                after_raw = t_line[blank.end():]
                 
-                # 查找下一个填空的位置
-                if b_idx + 1 < len(blanks):
-                    next_blank_start = blanks[b_idx + 1].start()
-                    after = t_line[blank.end():next_blank_start]
-                else:
-                    after = after_blank
+                # 标准化前后文本
+                before_norm = normalize_line(before_raw)
+                after_norm = normalize_line(after_raw)
                 
-                # 在练习行中定位
                 filled_text = None
-                if before.strip() in p_line:
-                    start_idx = p_line.index(before.strip()) + len(before.strip())
-                    
-                    if after.strip() and after.strip() in p_line[start_idx:]:
-                        end_idx = p_line.index(after.strip(), start_idx)
-                        filled_text = p_line[start_idx:end_idx].strip()
+                
+                # 1. 尝试在标准化后的练习行中查找
+                start_idx = -1
+                if before_norm:
+                    start_idx = norm_p_line.find(before_norm)
+                    if start_idx != -1:
+                        start_idx += len(before_norm)
                     else:
-                        # 最后一个填空，取到行尾
-                        filled_text = p_line[start_idx:].strip()
+                        # 降级：尝试去掉before，直接取开头
+                        start_idx = 0
+                else:
+                    start_idx = 0
+                
+                if start_idx != -1 and after_norm:
+                    end_idx = norm_p_line.find(after_norm, start_idx)
+                    if end_idx != -1:
+                        filled_text = norm_p_line[start_idx:end_idx]
+                    else:
+                        filled_text = norm_p_line[start_idx:]
+                elif start_idx != -1:
+                    filled_text = norm_p_line[start_idx:]
+                
+                # 如果还是没取到，尝试用正则提取（兜底）
+                if not filled_text and norm_p_line:
+                    # 尝试匹配 变量 = 值 的模式
+                    match = re.search(r'=\s*([^#\n]+)', norm_p_line)
+                    if match:
+                        filled_text = match.group(1).strip()
                 
                 filled_answers.append({
                     'cell_index': i,
                     'line_index': j,
                     'blank_index': b_idx,
                     'practice_line': p_line.strip(),
-                    'filled_answer': filled_text,
-                    'before': before.strip(),
-                    'after': after.strip()
+                    'filled_answer': filled_text.strip() if filled_text else None,
+                    'before': before_raw.strip(),
+                    'after': after_raw.strip()
                 })
                 
                 prev_end = blank.end()
@@ -407,124 +482,178 @@ def extract_practice_filled_answers(practice_path: Path, template_path: Path) ->
     return filled_answers
 
 
+def normalize_code(code: str) -> str:
+    """
+    标准化代码：统一引号和空格，用于对比
+    
+    规则：
+    1. 单引号转双引号
+    2. 去除所有空格（除了字符串内部的空格）
+    3. 去除注释行（#开头的行）
+    """
+    lines = code.split('\n')
+    # 去除注释行和空行
+    code_lines = [line for line in lines if not line.strip().startswith('#') and line.strip()]
+    
+    # 合并所有行
+    normalized = '\n'.join(code_lines)
+    
+    # 统一引号：单引号转双引号
+    normalized = normalized.replace("'", '"')
+    
+    # 去除所有空格（除了字符串内部的空格）
+    # 先保护字符串内部的空格
+    import re
+    # 匹配双引号字符串
+    def protect_string_spaces(match):
+        s = match.group()
+        return s.replace(' ', '\x00')  # 用null字符临时替换空格
+    
+    normalized = re.sub(r'"[^"]*"', protect_string_spaces, normalized)
+    # 去除所有空格
+    normalized = normalized.replace(' ', '')
+    # 恢复字符串内部的空格
+    normalized = normalized.replace('\x00', ' ')
+    
+    return normalized.strip()
+
+
 def compare_fill_answers(practice_path: Path, template_path: Path, answer_path: Path) -> List[Dict]:
     """
-    对比填空答案是否正确（精确到每个填空）
+    对比填空答案是否正确（整单元格精确对比）
+    
+    规则：
+    1. 单双引号差异不算错误
+    2. 空格差异不算错误
+    3. 注释行（#开头）会被忽略
+    4. 其他必须完全一样
+    5. 不能增加额外行（除了注释行）
+    6. 自动跳过带 auto-init-execution-logger 标签的单元格（日志初始化Cell）
     """
-    # 提取标准答案
-    blank_answers = extract_blank_answers_from_template_and_answer(template_path, answer_path)
+    answer_nb = load_notebook(answer_path)
+    practice_nb = load_notebook(practice_path)
     
-    # 提取练习填写的答案
-    filled_answers = extract_practice_filled_answers(practice_path, template_path)
+    if not answer_nb or not practice_nb:
+        return []
     
-    if not blank_answers or not filled_answers:
-        # 回退到整行对比
-        answer_nb = load_notebook(answer_path)
-        practice_nb = load_notebook(practice_path)
-        
-        if not answer_nb or not practice_nb:
-            return []
-        
-        differences = []
-        for i, (a_cell, p_cell) in enumerate(zip(
-            answer_nb.get('cells', []),
-            practice_nb.get('cells', [])
-        )):
-            if a_cell.get('cell_type') != 'code':
-                continue
-            
-            a_source = ''.join(a_cell.get('source', []))
-            p_source = ''.join(p_cell.get('source', []))
-            
-            if a_source.strip() == p_source.strip():
-                continue
-            
-            similarity = difflib.SequenceMatcher(None, a_source.strip(), p_source.strip()).ratio()
-            
-            if similarity < 0.95:
-                differences.append({
-                    'cell_index': i,
-                    'similarity': similarity,
-                    'answer_code': a_source[:300],
-                    'practice_code': p_source[:300],
-                })
-        return differences
-    
-    # 精确对比每个填空
     differences = []
     
-    # 创建查找字典
-    filled_dict = {}
-    for fa in filled_answers:
-        key = (fa['cell_index'], fa['line_index'], fa['blank_index'])
-        filled_dict[key] = fa
+    # 过滤掉自动注入的日志初始化Cell
+    def is_auto_init_cell(cell):
+        tags = cell.get('metadata', {}).get('tags', [])
+        return 'auto-init-execution-logger' in tags
     
-    for ba in blank_answers:
-        key = (ba['cell_index'], ba['line_index'], ba['blank_index'])
-        fa = filled_dict.get(key)
-        
-        if not fa:
-            differences.append({
-                'cell_index': ba['cell_index'],
-                'line_index': ba['line_index'],
-                'blank_index': ba['blank_index'],
-                'type': 'missing_fill',
-                'template_line': ba['template_line'],
-                'expected_answer': ba['answer'],
-                'filled_answer': None,
-                'similarity': 0.0
-            })
+    answer_cells = [c for c in answer_nb.get('cells', []) if not is_auto_init_cell(c)]
+    practice_cells = [c for c in practice_nb.get('cells', []) if not is_auto_init_cell(c)]
+    
+    for i, (a_cell, p_cell) in enumerate(zip(answer_cells, practice_cells)):
+        if a_cell.get('cell_type') != 'code':
             continue
         
-        # 对比答案（统一引号后再对比）
-        expected = ba['answer'].replace("'", '"').strip() if ba['answer'] else ''
-        filled = fa['filled_answer'].replace("'", '"').strip() if fa['filled_answer'] else ''
+        a_source = ''.join(a_cell.get('source', []))
+        p_source = ''.join(p_cell.get('source', []))
         
-        if expected and filled:
-            similarity = difflib.SequenceMatcher(None, expected, filled).ratio()
-            if similarity < 0.95:
+        # 标准化后对比
+        a_normalized = normalize_code(a_source)
+        p_normalized = normalize_code(p_source)
+        
+        if a_normalized != p_normalized:
+            # 找出具体的差异行
+            a_lines = [line for line in a_source.split('\n') if not line.strip().startswith('#') and line.strip()]
+            p_lines = [line for line in p_source.split('\n') if not line.strip().startswith('#') and line.strip()]
+            
+            # 检查行数是否一致
+            if len(a_lines) != len(p_lines):
                 differences.append({
-                    'cell_index': ba['cell_index'],
-                    'line_index': ba['line_index'],
-                    'blank_index': ba['blank_index'],
-                    'type': 'incorrect_fill',
-                    'template_line': ba['template_line'],
-                    'expected_answer': expected,
-                    'filled_answer': filled,
-                    'similarity': similarity
+                    'cell_index': i,
+                    'type': 'line_count_mismatch',
+                    'answer_lines': len(a_lines),
+                    'practice_lines': len(p_lines),
+                    'description': f'答案有{len(a_lines)}行代码，你的代码有{len(p_lines)}行（不能增加或删除代码行，注释行除外）'
                 })
-        elif expected and not filled:
-            differences.append({
-                'cell_index': ba['cell_index'],
-                'line_index': ba['line_index'],
-                'blank_index': ba['blank_index'],
-                'type': 'empty_fill',
-                'template_line': ba['template_line'],
-                'expected_answer': expected,
-                'filled_answer': None,
-                'similarity': 0.0
-            })
+            else:
+                # 逐行对比
+                for j, (a_line, p_line) in enumerate(zip(a_lines, p_lines)):
+                    if normalize_code(a_line) != normalize_code(p_line):
+                        differences.append({
+                            'cell_index': i,
+                            'line_index': j,
+                            'type': 'line_mismatch',
+                            'answer_line': a_line.strip(),
+                            'practice_line': p_line.strip(),
+                            'description': f'第{j+1}行不匹配'
+                        })
     
     return differences
 
 
 def extract_outputs(nb: Dict) -> List[Dict]:
-    """提取所有输出"""
+    """
+    提取所有输出
+    
+    修复：支持 text/plain、text/html（DataFrame样式化输出）、image/png（可视化）
+    """
     outputs = []
     for cell in nb.get('cells', []):
         if cell.get('cell_type') == 'code':
             cell_outputs = []
             for output in cell.get('outputs', []):
+                output_data = {}
                 if output.get('output_type') == 'stream':
-                    cell_outputs.append(''.join(output.get('text', [])))
+                    output_data['text'] = ''.join(output.get('text', []))
+                    output_data['type'] = 'text'
                 elif output.get('output_type') == 'execute_result':
-                    cell_outputs.append(str(output.get('data', {}).get('text/plain', '')))
+                    data = output.get('data', {})
+                    # 优先级：text/html > text/plain（DataFrame 优先用 HTML）
+                    if 'text/html' in data:
+                        # 剥离 HTML 标签，只保留文本内容
+                        html_content = ''.join(data['text/html'])
+                        output_data['text'] = _strip_html_tags(html_content)
+                        output_data['type'] = 'html'
+                        output_data['html_raw'] = html_content
+                    elif 'text/plain' in data:
+                        output_data['text'] = str(data['text/plain'])
+                        output_data['type'] = 'text'
+                    
+                    # 如果有图片（Matplotlib 可视化），计算哈希
+                    if 'image/png' in data:
+                        import base64
+                        import hashlib
+                        png_b64 = data['image/png']
+                        if isinstance(png_b64, list):
+                            png_b64 = ''.join(png_b64)
+                        png_bytes = base64.b64decode(png_b64)
+                        img_hash = hashlib.md5(png_bytes).hexdigest()
+                        output_data['image_hash'] = img_hash
+                        output_data['type'] = 'image'
+                        # 如果没有文本，使用哈希作为代表
+                        if 'text' not in output_data:
+                            output_data['text'] = f'[image:{img_hash[:8]}]'
+                
+                cell_outputs.append(output_data)
             outputs.append(cell_outputs)
     return outputs
 
 
+def _strip_html_tags(html: str) -> str:
+    """剥离 HTML 标签，保留文本内容"""
+    import re
+    # 移除 <style> 和 <script> 块
+    text = re.sub(r'<style[^>]*>.*?</style>', '', html, flags=re.DOTALL)
+    text = re.sub(r'<script[^>]*>.*?</script>', '', text, flags=re.DOTALL)
+    # 移除 HTML 标签
+    text = re.sub(r'<[^>]+>', ' ', text)
+    # 去除多余空白
+    text = re.sub(r'\s+', ' ', text).strip()
+    return text
+
+
 def compare_outputs(practice_outputs: List[Dict], answer_outputs: List[Dict]) -> List[Dict]:
-    """对比执行结果"""
+    """
+    对比执行结果
+    
+    修复：支持图片哈希对比、HTML文本对比
+    """
     differences = []
     
     max_len = max(len(practice_outputs), len(answer_outputs))
@@ -544,17 +673,37 @@ def compare_outputs(practice_outputs: List[Dict], answer_outputs: List[Dict]) ->
         p_out = practice_outputs[i]
         a_out = answer_outputs[i]
         
-        for j, (p, a) in enumerate(zip(p_out, a_out)):
-            if p.strip() != a.strip():
-                similarity = difflib.SequenceMatcher(None, p.strip(), a.strip()).ratio()
+        for j, (p_data, a_data) in enumerate(zip(p_out, a_out)):
+            p_text = p_data.get('text', '')
+            a_text = a_data.get('text', '')
+            
+            # 图片类型：优先用哈希对比
+            if p_data.get('type') == 'image' and a_data.get('type') == 'image':
+                p_hash = p_data.get('image_hash')
+                a_hash = a_data.get('image_hash')
+                if p_hash and a_hash:
+                    if p_hash != a_hash:
+                        differences.append({
+                            'cell': i,
+                            'output_index': j,
+                            'type': 'image_mismatch',
+                            'practice_hash': p_hash,
+                            'answer_hash': a_hash,
+                            'description': '图片内容不匹配'
+                        })
+                    continue
+            
+            # 文本对比
+            if p_text.strip() != a_text.strip():
+                similarity = difflib.SequenceMatcher(None, p_text.strip(), a_text.strip()).ratio()
                 if similarity < 0.95:
                     differences.append({
                         'cell': i,
                         'output_index': j,
                         'type': 'output_mismatch',
                         'similarity': similarity,
-                        'practice': p[:200],
-                        'answer': a[:200]
+                        'practice': p_text[:200],
+                        'answer': a_text[:200]
                     })
     
     return differences
@@ -568,6 +717,7 @@ def check_implementation_details(practice_path: Path, answer_path: Path) -> List
     - 是否使用了正确的函数（pd.cut vs pd.qcut）
     - 参数是否正确（bins, labels, right等）
     - 变量命名是否一致
+    - 关键逻辑错误（如dropna没有赋值）
     """
     answer_nb = load_notebook(answer_path)
     practice_nb = load_notebook(practice_path)
@@ -576,6 +726,14 @@ def check_implementation_details(practice_path: Path, answer_path: Path) -> List
         return []
     
     issues = []
+    
+    # 过滤掉自动注入的日志初始化Cell
+    def is_auto_init_cell(cell):
+        tags = cell.get('metadata', {}).get('tags', [])
+        return 'auto-init-execution-logger' in tags
+    
+    answer_cells = [c for c in answer_nb.get('cells', []) if not is_auto_init_cell(c)]
+    practice_cells = [c for c in practice_nb.get('cells', []) if not is_auto_init_cell(c)]
     
     # 提取关键函数调用
     def extract_key_functions(code: str) -> List[str]:
@@ -593,15 +751,47 @@ def check_implementation_details(practice_path: Path, answer_path: Path) -> List
             functions.extend(re.findall(pattern, code))
         return functions
     
-    for i, (a_cell, p_cell) in enumerate(zip(
-        answer_nb.get('cells', []),
-        practice_nb.get('cells', [])
-    )):
+    # 检查关键逻辑错误
+    def check_logical_errors(code: str) -> List[Dict]:
+        """检查常见的逻辑错误"""
+        errors = []
+        
+        # 检查 dropna() 没有赋值的情况
+        if re.search(r"(\w+)\['\w+'\]\.dropna\(\)", code) and not re.search(r"(\w+)\s*=\s*\w+\['\w+'\]\.dropna\(\)", code):
+            errors.append({
+                'type': 'logical_error',
+                'description': 'dropna() 没有赋值回去，不会修改原始DataFrame',
+                'code_snippet': re.search(r"\w+\['\w+'\]\.dropna\(\)", code).group()
+            })
+        
+        # 检查 fillna() 没有赋值的情况
+        if re.search(r"(\w+)\['\w+'\]\.fillna\([^)]+\)", code) and not re.search(r"(\w+)\['\w+'\]\s*=\s*\w+\['\w+'\]\.fillna\(", code):
+            errors.append({
+                'type': 'logical_error',
+                'description': 'fillna() 没有赋值回去，不会修改原始DataFrame',
+                'code_snippet': re.search(r"\w+\['\w+'\]\.fillna\([^)]+\)", code).group()
+            })
+        
+        return errors
+    
+    for i, (a_cell, p_cell) in enumerate(zip(answer_cells, practice_cells)):
         if a_cell.get('cell_type') != 'code':
             continue
         
         a_source = ''.join(a_cell.get('source', []))
         p_source = ''.join(p_cell.get('source', []))
+        
+        # 检查逻辑错误
+        logical_errors = check_logical_errors(p_source)
+        for err in logical_errors:
+            issues.append({
+                'cell_index': i,
+                'type': 'logical_error',
+                'description': err['description'],
+                'code_snippet': err['code_snippet'],
+                'answer_code': a_source[:200],
+                'practice_code': p_source[:200]
+            })
         
         a_funcs = set(extract_key_functions(a_source))
         p_funcs = set(extract_key_functions(p_source))
@@ -684,9 +874,389 @@ def analyze_progress(chapter: str, practice_files: List[Path]) -> Dict:
     }
 
 
-def validate_single_practice(practice_path: Path, compare_mode: str = 'all', detailed: bool = True) -> Dict:
-    """验证单个练习文件"""
-    chapter = practice_path.name.split('_practice_')[0]
+def classify_knowledge_point(chapter: str, error_detail: Dict) -> str:
+    """
+    根据章节和错误详情分类知识点
+    
+    返回:
+        知识点名称，如 'Pandas', 'NumPy', 'Matplotlib', '数据清洗', '数据可视化'
+    """
+    chapter_to_kp = {
+        '1.1': 'Python基础',
+        '1.2': 'Python基础',
+        '2.1': 'Pandas',
+        '2.2': 'Pandas',
+        '2.3': '数据清洗',
+        '3.1': 'NumPy',
+        '3.2': 'NumPy',
+        '4.1': '数据可视化',
+        '4.2': '数据可视化',
+    }
+    
+    base_chapter = '.'.join(chapter.split('.')[:2])
+    knowledge_point = chapter_to_kp.get(base_chapter, '其他')
+    
+    error_type = error_detail.get('type', '')
+    if 'fillna' in str(error_detail) or 'merge' in str(error_detail) or 'groupby' in str(error_detail):
+        knowledge_point = 'Pandas'
+    elif 'np.where' in str(error_detail) or 'np.array' in str(error_detail):
+        knowledge_point = 'NumPy'
+    elif 'plot' in str(error_detail) or 'matplotlib' in str(error_detail):
+        knowledge_point = '数据可视化'
+    
+    return knowledge_point
+
+
+def extract_chapter_from_path(practice_path: Path) -> str:
+    """
+    从文件路径中提取章节号
+    
+    支持两种模式：
+    1. 旧模式：2.1.1_practice_202608052138.ipynb → 2.1.1
+    2. manifest.json：从同目录的manifest.json中读取chapter
+    
+    参数:
+        practice_path: 练习文件路径
+    
+    返回:
+        章节号字符串
+    """
+    # 尝试从文件名提取（旧模式）
+    if '_practice_' in practice_path.name:
+        return practice_path.name.split('_practice_')[0]
+    
+    # 尝试从manifest.json读取
+    manifest_path = practice_path.parent / f'{practice_path.stem}_manifest.json'
+    if not manifest_path.exists():
+        # 尝试查找同目录下所有manifest.json
+        for manifest in practice_path.parent.glob('*_manifest.json'):
+            with open(manifest, 'r', encoding='utf-8') as f:
+                metadata = json.load(f)
+                if metadata.get('practice_file') == str(practice_path):
+                    return metadata.get('chapter', 'unknown')
+    
+    if manifest_path.exists():
+        with open(manifest_path, 'r', encoding='utf-8') as f:
+            metadata = json.load(f)
+            if 'chapter' in metadata:
+                return metadata['chapter']
+    
+    # 默认返回未知章节
+    return 'unknown'
+
+
+def load_manifest(practice_path: Path) -> Optional[Dict]:
+    """
+    加载考试manifest.json
+    
+    参数:
+        practice_path: 练习文件路径
+    
+    返回:
+        manifest数据字典
+    """
+    # 尝试从文件名提取exam_id
+    if '_practice_' in practice_path.name:
+        exam_id = practice_path.stem  # 例如：2.1.1_practice_202608052138
+        manifest_path = practice_path.parent / f'{exam_id}_manifest.json'
+        if manifest_path.exists():
+            with open(manifest_path, 'r', encoding='utf-8') as f:
+                return json.load(f)
+    
+    # 尝试查找同目录下所有manifest.json
+    for manifest in practice_path.parent.glob('*_manifest.json'):
+        with open(manifest, 'r', encoding='utf-8') as f:
+            metadata = json.load(f)
+            if metadata.get('practice_file') == str(practice_path):
+                return metadata
+    
+    return None
+
+
+def find_execution_log(practice_path: Path) -> Optional[Path]:
+    """查找与练习文件对应的execution_log.json"""
+    practice_name = practice_path.stem  # 不带扩展名的文件名
+    
+    # 尝试在同目录查找
+    log_path = practice_path.parent / f'{practice_name}_execution_log.json'
+    if log_path.exists():
+        return log_path
+    
+    # 尝试在Session目录查找
+    session_dir = practice_path.parent
+    if session_dir.name.startswith('20') and 'chapter' in session_dir.name:
+        log_path = session_dir / 'execution_log.json'
+        if log_path.exists():
+            return log_path
+    
+    return None
+
+
+def match_session_by_timestamp(practice_path: Path, sessions: Dict[int, List[str]]) -> Optional[int]:
+    """
+    通过时间戳匹配练习文件到IPython session
+    
+    策略：
+    1. 从文件名提取时间戳
+    2. 从execution_log.json获取start_time
+    3. 找到最接近该时间的session（IPython session是顺序递增的）
+    
+    返回:
+        session_id 或 None
+    """
+    import re
+    import json
+    from datetime import datetime
+    
+    # 策略1：从execution_log.json获取start_time
+    practice_name = practice_path.stem
+    log_path = practice_path.parent / f'{practice_name}_execution_log.json'
+    
+    target_time = None
+    
+    if log_path.exists():
+        try:
+            with open(log_path, 'r', encoding='utf-8') as f:
+                log_data = json.load(f)
+                if 'session_start' in log_data:
+                    target_time = datetime.fromisoformat(log_data['session_start'])
+        except Exception:
+            pass
+    
+    # 策略2：从文件名提取时间戳
+    if not target_time:
+        match = re.search(r'practice_(\d{12})', practice_path.name)
+        if match:
+            timestamp_str = match.group(1)
+            try:
+                target_time = datetime.strptime(timestamp_str, '%Y%m%d%H%M')
+            except Exception:
+                pass
+    
+    if not target_time:
+        return None
+    
+    # IPython的session ID是顺序递增的，找到最接近target_time的session
+    # 由于我们无法直接获取session的时间，我们假设最近的session就是目标session
+    # 这里我们返回最大的session_id（最新的session）
+    if sessions:
+        return max(sessions.keys())
+    
+    return None
+
+
+def analyze_ipython_history_for_practice(practice_path: Path, chapter: str) -> Optional[Dict]:
+    """
+    分析IPython历史命令，对比答题过程
+    
+    参数:
+        practice_path: 练习文件路径
+        chapter: 章节号
+    
+    返回:
+        历史分析结果字典，如果无法分析则返回None
+    """
+    import os
+    import sqlite3
+    from collections import defaultdict
+    
+    # 加载IPython历史
+    history_path = os.path.expanduser('~/.ipython/profile_default/history.sqlite')
+    if not os.path.exists(history_path):
+        return None
+    
+    try:
+        conn = sqlite3.connect(history_path)
+        cur = conn.cursor()
+        cur.execute('SELECT session, line, source FROM history ORDER BY session, line')
+        history_rows = cur.fetchall()
+        conn.close()
+    except Exception:
+        return None
+    
+    # 按session分组
+    sessions = defaultdict(list)
+    for session, line, source in history_rows:
+        if source.strip():
+            sessions[session].append(source.strip())
+    
+    # 根据章节关键词匹配session
+    chapter_keywords = {
+        # 1.1.x 章节
+        '1.1.1': ['patient_data', 'RiskLevel', 'BMI', 'AgeGroup', 'DaysInHospital'],
+        '1.1.2': ['sensor_data', 'SensorType', 'Temperature', 'Humidity'],
+        '1.1.3': ['credit_data', 'CreditScore', 'Income', 'LoanAmount'],
+        '1.1.4': ['user_behavior', 'PurchaseAmount', 'Gender', 'Age'],
+        '1.1.5': ['vehicle_traffic', 'Speed', 'VehicleType'],
+        
+        # 2.1.x 章节
+        '2.1.1': ['auto-mpg', 'horsepower', 'mpg', 'StandardScaler', 'train_test_split'],
+        '2.1.2': ['大学生低碳', '低碳行为积极性', '月生活费', 'pd.read_excel'],
+        '2.1.3': ['finance', 'CreditScore', 'Income', 'LoanAmount'],
+        '2.1.4': ['medical_data', '就诊日期', '诊断日期', '诊断延迟', '病程', '治疗结果', '疾病类型'],
+        '2.1.5': ['健康咨询', '客户数据集', 'CustomerID', 'Purchase', 'Membership'],
+        
+        # 2.2.x 章节
+        '2.2.1': ['finance', 'XGBoost', 'RandomForest', 'train_test_split'],
+        '2.2.2': ['auto-mpg', 'RandomForest', 'StandardScaler', 'train_test_split'],
+        '2.2.3': ['fitness analysis', 'RandomForest', 'XGBoost', 'Your gender', 'daily_steps'],
+        '2.2.4': ['大学生低碳', 'XGBoost', 'train_test_split', '低碳行为积极性'],
+        '2.2.5': ['fitness analysis', 'DecisionTree', 'daily_steps', 'Your gender'],
+        
+        # 3.x 章节
+        '3.2.1': ['resnet', 'onnxruntime', 'ort.InferenceSession', 'softmax', 'top5'],
+        '3.2.2': ['mnist', 'onnxruntime', 'ort.InferenceSession'],
+        '3.2.3': ['emotion-ferplus', 'onnxruntime', 'emotion'],
+        '3.2.4': ['flower-detection', 'onnxruntime', 'flower'],
+        '3.2.5': ['voc-model-labels', 'version-RFB-320', 'cv2.imread', 'box_utils'],
+    }
+    
+    keywords = chapter_keywords.get(chapter, [])
+    matched_session = None
+    
+    # 策略1：通过关键词匹配
+    for session_id, commands in sessions.items():
+        full_text = ' '.join(commands)
+        if any(kw in full_text for kw in keywords):
+            matched_session = session_id
+            break
+    
+    # 策略2：如果关键词匹配失败，尝试通过时间戳匹配
+    if not matched_session:
+        matched_session = match_session_by_timestamp(practice_path, sessions)
+    
+    if not matched_session:
+        return None
+    
+    # 分析该session的命令
+    commands = sessions[matched_session]
+    
+    analysis = {
+        'session_id': matched_session,
+        'total_commands': len(commands),
+        'key_commands': [],
+        'error_patterns': [],
+        'correction_count': 0,
+        'suggestions': [],
+    }
+    
+    # 提取关键命令
+    key_patterns = [
+        (r'groupby', '分组操作'),
+        (r'isin\(', '布尔过滤'),
+        (r'dropna', '缺失值处理'),
+        (r'between\(', '区间判断'),
+        (r'value_counts', '计数统计'),
+        (r'agg\(', '聚合操作'),
+        (r'np\.where', '条件替换'),
+        (r'pd\.cut', '区间分组'),
+        (r'fillna', '缺失值填充'),
+        (r'read_csv', '数据读取'),
+    ]
+    
+    for cmd in commands:
+        for pattern, desc in key_patterns:
+            if re.search(pattern, cmd):
+                analysis['key_commands'].append({
+                    'command': cmd[:100],
+                    'type': desc,
+                })
+    
+    # 检测错误模式
+    error_patterns = [
+        (r'pd\.dropna\(\)', '错误：应写为 data = data.dropna()'),
+        (r'\.bewteen\(', '拼写错误：应为 .between()'),
+        (r'data\.length', '错误：应使用 len(data)'),
+        (r'\|\|', '错误：Pandas中应使用 | 而不是 ||'),
+        (r"data\['\w+'\]\['\w+','\w+'\]", '错误：应使用 .isin([...])'),
+    ]
+    
+    for cmd in commands:
+        for pattern, desc in error_patterns:
+            if re.search(pattern, cmd):
+                analysis['error_patterns'].append({
+                    'command': cmd[:100],
+                    'error_type': desc,
+                })
+    
+    # 计算修正次数
+    command_groups = defaultdict(int)
+    for cmd in commands:
+        normalized = re.sub(r'\s+', ' ', cmd).replace("'", '"').strip()[:50]
+        command_groups[normalized] += 1
+    
+    analysis['correction_count'] = sum(1 for count in command_groups.values() if count > 1)
+    
+    # 生成建议
+    if any('pd.dropna()' in cmd for cmd in commands):
+        analysis['suggestions'].append('缺失值处理：应写为 data = data.dropna()，不要把 dropna 写成 pd.dropna()')
+    
+    if any('isin(' in cmd for cmd in commands):
+        analysis['suggestions'].append('布尔过滤：先定义 mask = data[col].isin([...])，再用 data[mask] 做筛选')
+    
+    if any('between(' in cmd for cmd in commands):
+        analysis['suggestions'].append('区间判断：检查列名与拼写，常见写法是 data[col].between(18, 70)')
+    
+    if any('groupby' in cmd and 'agg' in cmd for cmd in commands):
+        analysis['suggestions'].append('分组聚合：优先用 groupby(...).agg({...}) 或 groupby(...)[col].agg([...])')
+    
+    if any('pd.cut' in cmd for cmd in commands):
+        analysis['suggestions'].append('区间分组：先定义 bins 和 labels，再用 pd.cut() 分组')
+    
+    return analysis
+
+
+def count_blanks_in_template(template_path: Path) -> int:
+    """统计模板中填空的总数量"""
+    nb = load_notebook(template_path)
+    if not nb:
+        return 0
+    
+    count = 0
+    for cell in nb.get('cells', []):
+        if cell.get('cell_type') != 'code':
+            continue
+        source = ''.join(cell.get('source', []))
+        count += len(re.findall(r'_{3,}', source))
+    
+    return count
+
+
+def validate_single_practice(practice_path: Path, compare_mode: str = 'all', detailed: bool = True, start_time: Optional[str] = None, audit_process: bool = False, analyze_history: bool = False, check_fill: bool = True, check_impl: bool = True, check_output: bool = True) -> Dict:
+    """
+    验证单个练习文件
+    
+    参数:
+        practice_path: 练习文件路径
+        compare_mode: 对比模式（已弃用，使用 check_fill/check_impl/check_output）
+        detailed: 是否生成详细信息
+        start_time: 考试开始时间（ISO格式，可选）
+        audit_process: 是否启用回溯审计（分析中间错误）
+        analyze_history: 是否分析IPython历史命令
+        check_fill: 是否检查填空（默认开启）
+        check_impl: 是否检查实现（默认开启）
+        check_output: 是否检查输出（默认开启）
+    
+    返回:
+        验证结果字典
+    """
+    chapter = extract_chapter_from_path(practice_path)
+    
+    # 如果没有提供start_time，尝试从manifest.json读取
+    if not start_time:
+        manifest = load_manifest(practice_path)
+        if manifest and 'start_time' in manifest:
+            start_time = manifest['start_time']
+    
+    # 修复：动态计算总分，根据填空数量分配权重
+    template_path = find_template_file(chapter)
+    total_blanks = count_blanks_in_template(template_path) if template_path else 0
+    
+    # 基础分100分，按填空数量均分；如果没有填空，基础分100
+    if total_blanks > 0:
+        score_per_blank = 100.0 / total_blanks
+    else:
+        score_per_blank = 100.0
     
     result = {
         'file': str(practice_path),
@@ -694,24 +1264,36 @@ def validate_single_practice(practice_path: Path, compare_mode: str = 'all', det
         'errors': [],
         'warnings': [],
         'score': 100,
+        'total_score': 100,
+        'total_blanks': total_blanks,
+        'score_per_blank': round(score_per_blank, 2),
         'fill_comparison': [],
         'implementation_comparison': [],
         'result_comparison': [],
+        'knowledge_points': {},
+        'start_time': start_time,
+        'end_time': datetime.now().isoformat(),
+        'process_audit': None,  # 回溯审计结果
+        'ipython_history': None,  # IPython历史命令分析
     }
     
     # 1. 检查是否还有空白未填
     blanks = check_unfilled_blanks(practice_path)
     if blanks:
-        result['errors'].append({
+        deduction = len(blanks) * score_per_blank
+        error_detail = {
             'type': 'unfilled_blanks',
             'count': len(blanks),
-            'details': blanks
-        })
-        result['score'] -= len(blanks) * 5
+            'details': blanks,
+            'deduction': round(deduction, 2),
+            'knowledge_point': classify_knowledge_point(chapter, {'type': 'unfilled'}),
+            'topic': '未填空',
+        }
+        result['errors'].append(error_detail)
+        result['score'] -= error_detail['deduction']
     
     # 2. 查找参考答案和模板
     answer_path = find_answer_file(chapter)
-    template_path = find_template_file(chapter)
     
     if answer_path and template_path:
         practice_nb = load_notebook(practice_path)
@@ -719,47 +1301,115 @@ def validate_single_practice(practice_path: Path, compare_mode: str = 'all', det
         
         if practice_nb and answer_nb:
             # 填空对比
-            if compare_mode in ['fill', 'both', 'all']:
+            if check_fill or compare_mode in ['fill', 'both', 'all']:
                 fill_diffs = compare_fill_answers(practice_path, template_path, answer_path)
                 result['fill_comparison'] = fill_diffs
                 if fill_diffs:
-                    result['errors'].append({
+                    deduction = len(fill_diffs) * score_per_blank
+                    error_detail = {
                         'type': 'fill_incorrect',
                         'count': len(fill_diffs),
-                        'details': fill_diffs
-                    })
-                    result['score'] -= len(fill_diffs) * 8
+                        'details': fill_diffs,
+                        'deduction': round(deduction, 2),
+                        'knowledge_point': classify_knowledge_point(chapter, fill_diffs[0]),
+                        'topic': '填空错误',
+                    }
+                    result['errors'].append(error_detail)
+                    result['score'] -= error_detail['deduction']
             
             # 实现细节对比
-            if compare_mode in ['implementation', 'both', 'all']:
+            if check_impl or compare_mode in ['implementation', 'both', 'all']:
                 impl_issues = check_implementation_details(practice_path, answer_path)
                 result['implementation_comparison'] = impl_issues
                 if impl_issues:
-                    result['warnings'].append({
+                    warning_detail = {
                         'type': 'implementation_differs',
                         'count': len(impl_issues),
-                        'details': impl_issues
-                    })
-                    result['score'] -= len(impl_issues) * 3
+                        'details': impl_issues,
+                        'deduction': len(impl_issues) * 3,
+                        'knowledge_point': classify_knowledge_point(chapter, impl_issues[0]),
+                        'topic': '实现差异',
+                    }
+                    result['warnings'].append(warning_detail)
+                    result['score'] -= warning_detail['deduction']
             
             # 执行结果对比
-            if compare_mode in ['result', 'both', 'all']:
+            if check_output or compare_mode in ['result', 'both', 'all']:
                 p_outputs = extract_outputs(practice_nb)
                 a_outputs = extract_outputs(answer_nb)
                 output_diffs = compare_outputs(p_outputs, a_outputs)
                 result['result_comparison'] = output_diffs
                 if output_diffs:
-                    result['errors'].append({
+                    error_detail = {
                         'type': 'output_mismatch',
                         'count': len(output_diffs),
-                        'details': output_diffs
-                    })
-                    result['score'] -= len(output_diffs) * 10
+                        'details': output_diffs,
+                        'deduction': len(output_diffs) * 10,
+                        'knowledge_point': classify_knowledge_point(chapter, output_diffs[0]),
+                        'topic': '输出不匹配',
+                    }
+                    result['errors'].append(error_detail)
+                    result['score'] -= error_detail['deduction']
+    
+    # 3. 回溯审计（如果启用）
+    if audit_process:
+        import sys
+        sys.path.insert(0, str(ROOT))
+        from process_auditor import ProcessAuditor
+        
+        # 查找execution_log文件
+        execution_log_path = find_execution_log(practice_path)
+        
+        if execution_log_path and execution_log_path.exists():
+            logger.info(f"🔍 启用回溯审计: {execution_log_path.name}")
+            auditor = ProcessAuditor(execution_log_path, practice_path, answer_path if answer_path else None)
+            audit_result = auditor.audit()
+            result['process_audit'] = audit_result
+            
+            # 应用过程罚分
+            if audit_result['process_penalty'] > 0:
+                result['score'] -= audit_result['process_penalty']
+                logger.info(f"   ⚠️ 过程罚分: -{audit_result['process_penalty']}分 (检测到{audit_result['error_attempts']}次错误尝试)")
+            else:
+                logger.info(f"   ✅ 过程完美，无罚分")
+        else:
+            logger.info(f"   ⚠️ 未找到execution_log文件，跳过回溯审计")
+    
+    # 4. IPython历史命令分析（如果启用）
+    if analyze_history:
+        logger.info(f"📜 分析IPython历史命令...")
+        history_analysis = analyze_ipython_history_for_practice(practice_path, chapter)
+        result['ipython_history'] = history_analysis
+        
+        if history_analysis:
+            logger.info(f"   匹配到session: {history_analysis['session_id']}")
+            logger.info(f"   命令数: {history_analysis['total_commands']}")
+            logger.info(f"   修正次数: {history_analysis['correction_count']}")
+            if history_analysis['error_patterns']:
+                logger.info(f"   错误模式: {len(history_analysis['error_patterns'])}个")
+            if history_analysis['suggestions']:
+                logger.info(f"   建议: {len(history_analysis['suggestions'])}条")
+        else:
+            logger.info(f"   ⚠️ 未匹配到IPython session")
     
     # 确保分数不低于0
     result['score'] = max(0, result['score'])
     
+    # 计算耗时
+    if start_time:
+        start_dt = datetime.fromisoformat(start_time)
+        end_dt = datetime.fromisoformat(result['end_time'])
+        result['duration_minutes'] = int((end_dt - start_dt).total_seconds() / 60)
+    
     return result
+
+
+def generate_json_report(result: Dict, output_path: Path):
+    """生成结构化JSON报告（用于Session）"""
+    with open(output_path, 'w', encoding='utf-8') as f:
+        json.dump(result, f, ensure_ascii=False, indent=2)
+    
+    logger.info(f"JSON报告已保存: {output_path}")
 
 
 def generate_markdown_report(results: List[Dict], output_path: Path):
@@ -811,6 +1461,25 @@ def generate_markdown_report(results: List[Dict], output_path: Path):
                     report.append(f"- 实现差异: {warn['count']}处")
                     for d in warn.get('details', [])[:3]:
                         report.append(f"  - 单元格 {d['cell_index']}: 缺少函数 {d.get('missing', [])}")
+        
+        # 添加IPython历史命令分析
+        if r.get('ipython_history'):
+            hist = r['ipython_history']
+            report.append("#### 📜 IPython历史命令分析\n")
+            report.append(f"- **Session ID**: {hist['session_id']}\n")
+            report.append(f"- **命令数**: {hist['total_commands']}\n")
+            report.append(f"- **修正次数**: {hist['correction_count']}\n")
+            
+            if hist['error_patterns']:
+                report.append("**错误模式:**\n")
+                for err in hist['error_patterns'][:5]:
+                    report.append(f"- {err['error_type']}")
+                    report.append(f"  - `{err['command']}`\n")
+            
+            if hist['suggestions']:
+                report.append("**建议:**\n")
+                for sug in hist['suggestions']:
+                    report.append(f"- {sug}\n")
         
         if not r['errors'] and not r['warnings']:
             report.append("✅ 完全正确！\n")
@@ -875,6 +1544,25 @@ def print_validation_report(results: List[Dict]):
                 if warn['type'] == 'implementation_differs':
                     print(f"  - 实现差异: {warn['count']}处")
         
+        # 显示IPython历史命令分析
+        if r.get('ipython_history'):
+            hist = r['ipython_history']
+            print(f"\n📜 IPython历史命令分析:")
+            print(f"  Session: {hist['session_id']}")
+            print(f"  命令数: {hist['total_commands']}")
+            print(f"  修正次数: {hist['correction_count']}")
+            
+            if hist['error_patterns']:
+                print(f"\n  ❌ 错误模式 ({len(hist['error_patterns'])}个):")
+                for err in hist['error_patterns'][:5]:
+                    print(f"    - {err['error_type']}")
+                    print(f"      `{err['command']}`")
+            
+            if hist['suggestions']:
+                print(f"\n  💡 建议:")
+                for sug in hist['suggestions']:
+                    print(f"    - {sug}")
+        
         if not r['errors'] and not r['warnings']:
             print(f"\n✅ 完全正确！")
     
@@ -891,15 +1579,106 @@ def print_validation_report(results: List[Dict]):
     print(f"平均分: {avg_score:.1f}")
 
 
+def resolve_compare_mode(args: argparse.Namespace) -> str:
+    """从新的标志位或旧的compare-mode解析对比模式"""
+    # 如果使用了新标志位，优先使用
+    if args.check_fill or args.check_output or args.check_impl:
+        modes = []
+        if args.check_fill:
+            modes.append('fill')
+        if args.check_impl:
+            modes.append('implementation')
+        if args.check_output:
+            modes.append('result')
+        if len(modes) == 3:
+            return 'all'
+        elif len(modes) == 0:
+            return 'all'
+        elif len(modes) == 1:
+            return modes[0]
+        else:
+            return 'both'
+    # 否则使用旧的compare-mode
+    return args.compare_mode
+
+
 def main():
     args = parse_args()
+    
+    # 解析对比模式
+    compare_mode = resolve_compare_mode(args)
+    
+    # 检查是否是Session模式（兼容旧的sessions/目录）
+    if args.session:
+        from pathlib import Path as PathLib
+        session_dir = PathLib(args.session)
+        if not session_dir.exists():
+            logger.error(f"Session目录不存在: {session_dir}")
+            return
+        
+        practice_path = session_dir / 'practice.ipynb'
+        if not practice_path.exists():
+            logger.error(f"练习文件不存在: {practice_path}")
+            return
+        
+        # 读取metadata.json获取开始时间
+        metadata_path = session_dir / 'metadata.json'
+        start_time = None
+        if metadata_path.exists():
+            import json as json_module
+            metadata = json_module.loads(metadata_path.read_text(encoding='utf-8'))
+            start_time = metadata.get('start_time')
+        
+        result = validate_single_practice(
+            practice_path,
+            compare_mode=compare_mode,
+            start_time=start_time,
+            audit_process=args.audit_process,
+            analyze_history=args.analyze_history,
+            check_fill=args.check_fill,
+            check_impl=args.check_impl,
+            check_output=args.check_output
+        )
+        
+        # 保存JSON报告到Session目录
+        report_path = session_dir / 'report.json'
+        generate_json_report(result, report_path)
+        
+        # 更新metadata状态
+        if metadata_path.exists():
+            import json as json_module
+            metadata = json_module.loads(metadata_path.read_text(encoding='utf-8'))
+            metadata['status'] = 'completed'
+            metadata['score'] = result['score']
+            metadata_path.write_text(json_module.dumps(metadata, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+        
+        print_validation_report([result])
+        return
     
     if args.file:
         practice_path = Path(args.file)
         if not practice_path.exists():
             logger.error(f"文件不存在: {practice_path}")
             return
-        results = [validate_single_practice(practice_path, compare_mode=args.compare_mode)]
+        
+        result = validate_single_practice(practice_path, compare_mode=compare_mode, audit_process=args.audit_process, analyze_history=args.analyze_history, check_fill=args.check_fill, check_impl=args.check_impl, check_output=args.check_output)
+        results = [result]
+        
+        # 更新manifest.json（如果存在）
+        manifest = load_manifest(practice_path)
+        if manifest:
+            manifest_path = practice_path.parent / f'{practice_path.stem}_manifest.json'
+            manifest['status'] = 'completed'
+            manifest['score'] = result['score']
+            manifest['end_time'] = result['end_time']
+            manifest['duration_minutes'] = result.get('duration_minutes')
+            manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+            logger.info(f"已更新manifest: {manifest_path.name}")
+        
+        # 生成result.json（阅卷结果）
+        result_path = practice_path.parent / f'{practice_path.stem}_result.json'
+        generate_json_report(result, result_path)
+        
     else:
         practice_files = find_practice_files(
             chapter=args.chapter,
@@ -915,8 +1694,22 @@ def main():
         results = []
         for pf in practice_files:
             logger.info(f"\n验证: {pf.name}")
-            result = validate_single_practice(pf, compare_mode=args.compare_mode)
+            result = validate_single_practice(pf, compare_mode=compare_mode, audit_process=args.audit_process, analyze_history=args.analyze_history, check_fill=args.check_fill, check_impl=args.check_impl, check_output=args.check_output)
             results.append(result)
+            
+            # 更新manifest.json（如果存在）
+            manifest = load_manifest(pf)
+            if manifest:
+                manifest_path = pf.parent / f'{pf.stem}_manifest.json'
+                manifest['status'] = 'completed'
+                manifest['score'] = result['score']
+                manifest['end_time'] = result['end_time']
+                manifest['duration_minutes'] = result.get('duration_minutes')
+                manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+            
+            # 生成result.json（阅卷结果）
+            result_path = pf.parent / f'{pf.stem}_result.json'
+            generate_json_report(result, result_path)
     
     print_validation_report(results)
     
@@ -924,6 +1717,11 @@ def main():
         output_path = ROOT / 'reports' / f"validation_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.md"
         output_path.parent.mkdir(parents=True, exist_ok=True)
         generate_markdown_report(results, output_path)
+    
+    if args.output_json:
+        for result in results:
+            json_path = ROOT / 'reports' / f"{result['chapter']}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+            generate_json_report(result, json_path)
 
 
 if __name__ == '__main__':
