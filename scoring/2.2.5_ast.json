@@ -1,0 +1,652 @@
+{
+  "exam": {
+    "chapter": "2.2.5",
+    "title": "第2.2.5章操作题（AST 版本）",
+    "total_score": 17,
+    "passing_score": 10,
+    "time_limit_minutes": 30
+  },
+  "items": [
+    {
+      "id": "M1",
+      "score": 1,
+      "description": "加载数据集",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "pandas",
+        "数据加载",
+        "模型训练"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "analysis.csv pd.read_csv read_"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "analysis.csv pd.read_csv read_"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 7,
+        "template": "df = __________",
+        "common_errors": [
+          "文件名拼写错误",
+          "忘记加引号",
+          "参数顺序错误（应该是 X_train, y_train）"
+        ]
+      }
+    },
+    {
+      "id": "M2",
+      "score": 1,
+      "description": "显示数据前几行",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "df.head head print"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "df.head head print"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 10,
+        "template": "print(__________)",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M3",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "pandas"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "get_dummies pd.get_dummies"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "get_dummies pd.get_dummies"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 14,
+        "template": "X = __________(X)  # 将分类变量转为数值变量",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M4",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "easy",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "daily_steps"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "daily_steps"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 17,
+        "template": "y = __________",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M5",
+      "score": 1,
+      "description": "划分训练集和测试集",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "sklearn",
+        "数据集划分"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "train_test_split"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "train_test_split"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 20,
+        "template": "X_train, X_test, y_train, y_test = __________(__________, random_state=42)",
+        "common_errors": [
+          "忘记 random_state 参数",
+          "test_size 比例错误"
+        ]
+      }
+    },
+    {
+      "id": "M6",
+      "score": 1,
+      "description": "划分训练集和测试集",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "sklearn",
+        "数据集划分"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "train_test_split"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "train_test_split"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 20,
+        "template": "X_train, X_test, y_train, y_test = __________(__________, random_state=42)",
+        "common_errors": [
+          "忘记 random_state 参数",
+          "test_size 比例错误"
+        ]
+      }
+    },
+    {
+      "id": "M7",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "DecisionTreeRegressor"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "DecisionTreeRegressor"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 23,
+        "template": "__________ = __________(random_state=42)",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M8",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "DecisionTreeRegressor"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "DecisionTreeRegressor"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 23,
+        "template": "__________ = __________(random_state=42)",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M9",
+      "score": 1,
+      "description": "训练模型",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "模型训练"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "dt_model.fit"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "dt_model.fit"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 25,
+        "template": "__________",
+        "common_errors": [
+          "参数顺序错误（应该是 X_train, y_train）"
+        ]
+      }
+    },
+    {
+      "id": "M10",
+      "score": 1,
+      "description": "保存模型",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "pickle"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "dump pickle.dump"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "dump pickle.dump"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 29,
+        "template": "pickle.__________",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M11",
+      "score": 1,
+      "description": "模型预测",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "模型预测"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "dt_model.predict predict"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "dt_model.predict predict"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 32,
+        "template": "y_pred = __________",
+        "common_errors": [
+          "使用 X_train 而非 X_test"
+        ]
+      }
+    },
+    {
+      "id": "M12",
+      "score": 1,
+      "description": "保存结果到文件",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "数据导出"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "to_csv results.to_csv"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "to_csv results.to_csv"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 37,
+        "template": "__________(__________, index=False, sep='\\t')",
+        "common_errors": [
+          "忘记 index=False",
+          "文件名错误"
+        ]
+      }
+    },
+    {
+      "id": "M13",
+      "score": 1,
+      "description": "保存结果到文件",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "数据导出"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "to_csv results.to_csv"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "to_csv results.to_csv"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 37,
+        "template": "__________(__________, index=False, sep='\\t')",
+        "common_errors": [
+          "忘记 index=False",
+          "文件名错误"
+        ]
+      }
+    },
+    {
+      "id": "M14",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "easy",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "open"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "open"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 41,
+        "template": "with open(__________) as f:",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M15",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "mean_squared_error"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "mean_squared_error"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 42,
+        "template": "f.write(f'均方误差: {__________}\\n')",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M16",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "mean_absolute_error"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "mean_absolute_error"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 43,
+        "template": "f.write(f'平均绝对误差: {__________}\\n')",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M17",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "模型评估"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "r2_score"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "r2_score"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 44,
+        "template": "f.write(f'决定系数: {__________}\\n')",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    }
+  ],
+  "grading_rules": {
+    "exam_mode": {
+      "strict_matching": true,
+      "allow_partial_credit": false,
+      "deduction_for_syntax_error": 0.5,
+      "deduction_for_typo": 0
+    },
+    "practice_mode": {
+      "strict_matching": false,
+      "allow_partial_credit": true,
+      "semantic_matching": true,
+      "provide_hints": true
+    }
+  },
+  "metadata": {
+    "version": "ast",
+    "generated_at": "2026-08-06T23:47:28.620135",
+    "converted_from": "2.2.5_v2.json",
+    "difficulty_distribution": {
+      "easy": 2,
+      "medium": 15,
+      "hard": 0
+    },
+    "knowledge_point_coverage": {
+      "pandas": 2,
+      "数据加载": 1,
+      "模型训练": 2,
+      "基础语法": 7,
+      "sklearn": 2,
+      "数据集划分": 2,
+      "pickle": 1,
+      "模型预测": 1,
+      "数据导出": 2,
+      "模型评估": 1
+    }
+  }
+}

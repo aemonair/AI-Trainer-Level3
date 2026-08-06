@@ -38,6 +38,48 @@ logging.basicConfig(level=logging.INFO, format='%(message)s')
 logger = logging.getLogger(__name__)
 
 ROOT = Path(__file__).resolve().parent.parent
+SCORING_DIR = ROOT / 'scoring'
+
+
+def load_scoring_schema(chapter: str) -> Optional[Dict]:
+    """
+    加载评分标准文件
+    
+    参数:
+        chapter: 章节号（如 '1.1.1'）
+    
+    返回:
+        评分标准字典，如果不存在则返回None
+    
+    评分标准结构:
+    {
+        'chapter': '1.1.1',
+        'total_score': 22,
+        'items': [
+            {
+                'id': 'M1',
+                'cell_index': 0,
+                'line_index': 4,
+                'blank_index': 0,
+                'type': 'api_call',
+                'description': '读取数据集',
+                'score': 1,
+                'answer': 'data = pd.read_csv("patient_data.csv")',
+                'template_line': 'data = _____'
+            }
+        ]
+    }
+    """
+    schema_path = SCORING_DIR / f'{chapter}.json'
+    if not schema_path.exists():
+        return None
+    
+    try:
+        with open(schema_path, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except Exception as e:
+        logger.warning(f"读取评分标准失败 {schema_path}: {e}")
+        return None
 
 
 def parse_args() -> argparse.Namespace:
@@ -1222,6 +1264,157 @@ def count_blanks_in_template(template_path: Path) -> int:
     return count
 
 
+def is_auto_init_cell(cell: Dict) -> bool:
+    """判断是否是自动注入的日志初始化Cell"""
+    tags = cell.get('metadata', {}).get('tags', [])
+    if 'auto-init-execution-logger' in tags:
+        return True
+    source = ''.join(cell.get('source', []))
+    if 'ExecutionLogger' in source and '自动初始化' in source:
+        return True
+    return False
+
+
+def align_cells_to_practice(template_nb: Dict, practice_nb: Dict) -> Dict[int, int]:
+    """
+    对齐模板和练习文件的Cell索引
+    
+    返回: {template_cell_index: practice_cell_index}
+    """
+    mapping = {}
+    
+    template_cells = [c for c in template_nb.get('cells', []) if not is_auto_init_cell(c) and c.get('cell_type') == 'code']
+    
+    practice_code_cells = []
+    for idx, c in enumerate(practice_nb.get('cells', [])):
+        if not is_auto_init_cell(c) and c.get('cell_type') == 'code':
+            practice_code_cells.append((idx, c))
+    
+    for t_idx, t_cell in enumerate(template_cells):
+        t_id = t_cell.get('id')
+        t_source = ''.join(t_cell.get('source', []))[:50]
+        
+        matched = False
+        for p_idx, p_cell in practice_code_cells:
+            p_id = p_cell.get('id')
+            p_source = ''.join(p_cell.get('source', []))[:50]
+            
+            if t_id and t_id == p_id:
+                mapping[t_idx] = p_idx
+                matched = True
+                break
+            
+            if t_source and t_source in p_source:
+                mapping[t_idx] = p_idx
+                matched = True
+                break
+        
+        if not matched:
+            mapping[t_idx] = t_idx
+    
+    return mapping
+
+
+def score_with_schema(schema: Dict, practice_path: Path) -> Dict:
+    """
+    基于评分标准对练习文件进行严格评分
+    
+    参数:
+        schema: 评分标准字典
+        practice_path: 练习文件路径
+    
+    返回:
+        {
+            'total_score': 22,
+            'earned_score': 18,
+            'percentage': 81.8,
+            'details': [...],
+            'errors': [...],
+        }
+    """
+    practice_nb = load_notebook(practice_path)
+    if not practice_nb:
+        return {
+            'total_score': schema['total_score'],
+            'earned_score': 0,
+            'percentage': 0,
+            'details': [],
+            'errors': [{'type': 'file_load_error', 'message': '无法加载练习文件'}],
+        }
+    
+    template_path = find_template_file(schema['chapter'])
+    template_nb = load_notebook(template_path) if template_path else None
+    
+    cell_mapping = {}
+    if template_nb:
+        cell_mapping = align_cells_to_practice(template_nb, practice_nb)
+    
+    details = []
+    errors = []
+    earned_score = 0
+    
+    for item in schema['items']:
+        template_cell_idx = item['cell_index']
+        line_idx = item['line_index']
+        
+        practice_cell_idx = cell_mapping.get(template_cell_idx, template_cell_idx)
+        
+        user_answer = ''
+        correct = False
+        
+        if practice_cell_idx < len(practice_nb.get('cells', [])):
+            cell = practice_nb['cells'][practice_cell_idx]
+            if cell.get('cell_type') == 'code':
+                source = ''.join(cell.get('source', []))
+                lines = source.split('\n')
+                if line_idx < len(lines):
+                    user_answer = lines[line_idx].strip()
+        
+        if user_answer:
+            correct_answer = item.get('answer', '')
+            if correct_answer:
+                user_norm = normalize_code(user_answer)
+                correct_norm = normalize_code(correct_answer)
+                correct = (user_norm == correct_norm)
+        
+        if correct:
+            earned_score += item['score']
+        
+        detail = {
+            'item_id': item['id'],
+            'description': item['description'],
+            'max_score': item['score'],
+            'earned_score': item['score'] if correct else 0,
+            'correct': correct,
+            'user_answer': user_answer,
+            'correct_answer': item.get('answer', ''),
+            'type': item.get('type', 'unknown'),
+        }
+        details.append(detail)
+        
+        if not correct:
+            errors.append({
+                'type': 'schema_fill_incorrect',
+                'item_id': item['id'],
+                'description': item['description'],
+                'deduction': item['score'],
+                'user_answer': user_answer,
+                'correct_answer': item.get('answer', ''),
+                'knowledge_point': item.get('type', 'unknown'),
+            })
+    
+    total_score = schema['total_score']
+    percentage = (earned_score / total_score * 100) if total_score > 0 else 0
+    
+    return {
+        'total_score': total_score,
+        'earned_score': earned_score,
+        'percentage': round(percentage, 1),
+        'details': details,
+        'errors': errors,
+    }
+
+
 def validate_single_practice(practice_path: Path, compare_mode: str = 'all', detailed: bool = True, start_time: Optional[str] = None, audit_process: bool = False, analyze_history: bool = False, check_fill: bool = True, check_impl: bool = True, check_output: bool = True) -> Dict:
     """
     验证单个练习文件
@@ -1242,21 +1435,21 @@ def validate_single_practice(practice_path: Path, compare_mode: str = 'all', det
     """
     chapter = extract_chapter_from_path(practice_path)
     
-    # 如果没有提供start_time，尝试从manifest.json读取
     if not start_time:
         manifest = load_manifest(practice_path)
         if manifest and 'start_time' in manifest:
             start_time = manifest['start_time']
     
-    # 修复：动态计算总分，根据填空数量分配权重
     template_path = find_template_file(chapter)
     total_blanks = count_blanks_in_template(template_path) if template_path else 0
     
-    # 基础分100分，按填空数量均分；如果没有填空，基础分100
     if total_blanks > 0:
         score_per_blank = 100.0 / total_blanks
     else:
         score_per_blank = 100.0
+    
+    scoring_schema = load_scoring_schema(chapter)
+    use_schema = scoring_schema is not None
     
     result = {
         'file': str(practice_path),
@@ -1273,11 +1466,85 @@ def validate_single_practice(practice_path: Path, compare_mode: str = 'all', det
         'knowledge_points': {},
         'start_time': start_time,
         'end_time': datetime.now().isoformat(),
-        'process_audit': None,  # 回溯审计结果
-        'ipython_history': None,  # IPython历史命令分析
+        'process_audit': None,
+        'ipython_history': None,
+        'scoring_mode': 'schema' if use_schema else 'dynamic',
+        'schema_details': [],
     }
     
-    # 1. 检查是否还有空白未填
+    if use_schema:
+        logger.info(f"📋 使用评分标准: {chapter} (总分: {scoring_schema['total_score']})")
+        
+        schema_result = score_with_schema(scoring_schema, practice_path)
+        
+        result['total_score'] = schema_result['total_score']
+        result['score'] = schema_result['earned_score']
+        result['schema_details'] = schema_result['details']
+        
+        for err in schema_result['errors']:
+            result['errors'].append(err)
+        
+        blanks = check_unfilled_blanks(practice_path)
+        if blanks:
+            error_detail = {
+                'type': 'unfilled_blanks',
+                'count': len(blanks),
+                'details': blanks,
+                'deduction': len(blanks),
+                'knowledge_point': classify_knowledge_point(chapter, {'type': 'unfilled'}),
+                'topic': '未填空',
+            }
+            result['errors'].append(error_detail)
+            result['score'] -= error_detail['deduction']
+        
+        if check_impl or compare_mode in ['implementation', 'both', 'all']:
+            answer_path = find_answer_file(chapter)
+            if answer_path:
+                impl_issues = check_implementation_details(practice_path, answer_path)
+                result['implementation_comparison'] = impl_issues
+                if impl_issues:
+                    warning_detail = {
+                        'type': 'implementation_differs',
+                        'count': len(impl_issues),
+                        'details': impl_issues,
+                        'deduction': len(impl_issues) * 3,
+                        'knowledge_point': classify_knowledge_point(chapter, impl_issues[0]),
+                        'topic': '实现差异',
+                    }
+                    result['warnings'].append(warning_detail)
+                    result['score'] -= warning_detail['deduction']
+        
+        if check_output or compare_mode in ['result', 'both', 'all']:
+            answer_path = find_answer_file(chapter)
+            if answer_path:
+                practice_nb = load_notebook(practice_path)
+                answer_nb = load_notebook(answer_path)
+                if practice_nb and answer_nb:
+                    p_outputs = extract_outputs(practice_nb)
+                    a_outputs = extract_outputs(answer_nb)
+                    output_diffs = compare_outputs(p_outputs, a_outputs)
+                    result['result_comparison'] = output_diffs
+                    if output_diffs:
+                        error_detail = {
+                            'type': 'output_mismatch',
+                            'count': len(output_diffs),
+                            'details': output_diffs,
+                            'deduction': len(output_diffs) * 10,
+                            'knowledge_point': classify_knowledge_point(chapter, output_diffs[0]),
+                            'topic': '输出不匹配',
+                        }
+                        result['errors'].append(error_detail)
+                        result['score'] -= error_detail['deduction']
+        
+        result['score'] = max(0, result['score'])
+        
+        if start_time:
+            start_dt = datetime.fromisoformat(start_time)
+            end_dt = datetime.fromisoformat(result['end_time'])
+            result['duration_minutes'] = int((end_dt - start_dt).total_seconds() / 60)
+        
+        return result
+    
     blanks = check_unfilled_blanks(practice_path)
     if blanks:
         deduction = len(blanks) * score_per_blank
@@ -1292,7 +1559,6 @@ def validate_single_practice(practice_path: Path, compare_mode: str = 'all', det
         result['errors'].append(error_detail)
         result['score'] -= error_detail['deduction']
     
-    # 2. 查找参考答案和模板
     answer_path = find_answer_file(chapter)
     
     if answer_path and template_path:
@@ -1300,7 +1566,6 @@ def validate_single_practice(practice_path: Path, compare_mode: str = 'all', det
         answer_nb = load_notebook(answer_path)
         
         if practice_nb and answer_nb:
-            # 填空对比
             if check_fill or compare_mode in ['fill', 'both', 'all']:
                 fill_diffs = compare_fill_answers(practice_path, template_path, answer_path)
                 result['fill_comparison'] = fill_diffs
@@ -1317,7 +1582,6 @@ def validate_single_practice(practice_path: Path, compare_mode: str = 'all', det
                     result['errors'].append(error_detail)
                     result['score'] -= error_detail['deduction']
             
-            # 实现细节对比
             if check_impl or compare_mode in ['implementation', 'both', 'all']:
                 impl_issues = check_implementation_details(practice_path, answer_path)
                 result['implementation_comparison'] = impl_issues

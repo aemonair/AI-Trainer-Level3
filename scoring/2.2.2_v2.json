@@ -1,0 +1,706 @@
+{
+  "exam": {
+    "chapter": "2.2.2",
+    "title": "智慧交通中燃油效率随机森林模型开发与测试",
+    "total_score": 21,
+    "passing_score": 15,
+    "time_limit_minutes": 30
+  },
+
+  "items": [
+    {
+      "id": "M1",
+      "score": 1,
+      "description": "正确加载 auto-mpg.csv 数据集",
+      "difficulty": "easy",
+      "knowledge_points": ["pandas", "read_csv", "数据加载"],
+      
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": ["pd.read_csv"],
+              "must_assign_to": "df",
+              "must_have_arg": "'auto-mpg.csv'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": ["read_csv", "read_excel", "pd.read"],
+              "result_type": "DataFrame",
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 9,
+        "template": "df = __________",
+        "common_errors": [
+          "忘记加 pd 前缀",
+          "文件名拼写错误",
+          "忘记引号"
+        ]
+      }
+    },
+
+    {
+      "id": "M2",
+      "score": 1,
+      "description": "使用 head() 显示数据集前五行",
+      "difficulty": "easy",
+      "knowledge_points": ["pandas", "head", "数据预览"],
+      
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": ["df.head"],
+              "must_be_in": "print"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [".head()", ".head(5)"],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 12,
+        "template": "print(__________)",
+        "common_errors": [
+          "忘记用 print 包裹",
+          "写成 df.head(5) 但题目要求默认5行"
+        ]
+      }
+    },
+
+    {
+      "id": "M3",
+      "score": 1,
+      "description": "使用 pd.to_numeric 转换 horsepower 列为数值类型",
+      "difficulty": "medium",
+      "knowledge_points": ["pandas", "to_numeric", "类型转换"],
+      
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": ["pd.to_numeric"],
+              "must_have_arg": "errors='coerce'",
+              "must_assign_to": "df['horsepower']"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": ["pd.to_numeric", "astype(float)"],
+              "must_handle_errors": true,
+              "target_column": "horsepower"
+            }
+          ]
+        }
+      },
+
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 16,
+        "template": "df['horsepower'] = __________(__________, errors='coerce')",
+        "common_errors": [
+          "忘记 errors='coerce' 参数",
+          "使用 astype 但不处理异常值"
+        ]
+      }
+    },
+
+    {
+      "id": "M4",
+      "score": 1,
+      "description": "使用 dropna() 删除包含缺失值的行",
+      "difficulty": "easy",
+      "knowledge_points": ["pandas", "dropna", "缺失值处理"],
+      
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": ["dropna"],
+              "must_assign_to": "df"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": ["dropna", "fillna"],
+              "allow_inplace": true,
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 18,
+        "template": "df = __________",
+        "common_errors": [
+          "忘记赋值回 df",
+          "使用 fillna 但题目要求 dropna"
+        ]
+      }
+    },
+
+    {
+      "id": "M5",
+      "score": 1,
+      "description": "正确选择特征变量 X（DataFrame）",
+      "difficulty": "easy",
+      "knowledge_points": ["pandas", "特征选择", "DataFrame"],
+      
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": ["df[["],
+              "must_assign_to": "X",
+              "must_have_columns": ["cylinders", "displacement", "horsepower", "weight", "acceleration", "model year", "origin"]
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_be_dataframe_subset": true,
+              "must_assign_to": "X",
+              "min_columns": 5
+            }
+          ]
+        }
+      },
+
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 21,
+        "template": "X = __________",
+        "common_errors": [
+          "列名拼写错误",
+          "忘记某些特征列",
+          "使用单括号返回 Series 而非 DataFrame"
+        ]
+      }
+    },
+
+    {
+      "id": "M6",
+      "score": 1,
+      "description": "正确选择目标变量 y（mpg 列）",
+      "difficulty": "easy",
+      "knowledge_points": ["pandas", "目标变量", "Series"],
+      
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": ["df['mpg']"],
+              "must_assign_to": "y"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": ["df['mpg']", "df.mpg"],
+              "must_assign_to": "y"
+            }
+          ]
+        }
+      },
+
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 22,
+        "template": "y = __________",
+        "common_errors": [
+          "写成 df[['mpg']] 返回 DataFrame 而非 Series",
+          "列名拼写错误"
+        ]
+      }
+    },
+
+    {
+      "id": "M7",
+      "score": 1,
+      "description": "使用 train_test_split 划分训练集和测试集",
+      "difficulty": "medium",
+      "knowledge_points": ["sklearn", "train_test_split", "数据集划分"],
+      
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": ["train_test_split"],
+              "must_have_arg": "test_size=0.2",
+              "must_have_arg": "random_state=42",
+              "must_unpack_to": ["X_train", "X_test", "y_train", "y_test"]
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": ["train_test_split"],
+              "must_have_arg_any": ["test_size=0.2", "test_size=.2"],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 25,
+        "template": "X_train, X_test, y_train, y_test = __________(__________, random_state=42)",
+        "common_errors": [
+          "忘记 random_state 参数",
+          "test_size 比例错误",
+          "变量顺序错误"
+        ]
+      }
+    },
+
+    {
+      "id": "M8",
+      "score": 1,
+      "description": "创建包含 StandardScaler 和 LinearRegression 的 Pipeline",
+      "difficulty": "hard",
+      "knowledge_points": ["sklearn", "Pipeline", "StandardScaler", "LinearRegression"],
+      
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": ["Pipeline"],
+              "must_contain": ["StandardScaler"],
+              "must_contain": ["LinearRegression"],
+              "must_assign_to": "pipeline",
+              "must_have_steps": ["scaler", "linreg"]
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_all": ["Pipeline", "StandardScaler", "LinearRegression"],
+              "allow_different_step_names": true,
+              "must_have_at_least": 2
+            }
+          ]
+        }
+      },
+
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 28,
+        "template": "pipeline = __________([('scaler', __________),('linreg', __________)])",
+        "common_errors": [
+          "忘记 StandardScaler",
+          "Pipeline 步骤名称错误",
+          "忘记括号或引号"
+        ]
+      }
+    },
+
+    {
+      "id": "M9",
+      "score": 1,
+      "description": "训练 Pipeline 模型（调用 fit 方法）",
+      "difficulty": "easy",
+      "knowledge_points": ["sklearn", "fit", "模型训练"],
+      
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": ["pipeline.fit"],
+              "must_have_args": ["X_train", "y_train"]
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_call_method": "fit",
+              "must_have_training_data": true
+            }
+          ]
+        }
+      },
+
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 31,
+        "template": "__________",
+        "common_errors": [
+          "忘记调用 fit",
+          "参数顺序错误（应该是 X_train, y_train）",
+          "写成 predict 而非 fit"
+        ]
+      }
+    },
+
+    {
+      "id": "M10",
+      "score": 1,
+      "description": "使用 pickle.dump 保存训练好的模型",
+      "difficulty": "medium",
+      "knowledge_points": ["pickle", "dump", "模型保存"],
+      
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": ["pickle.dump"],
+              "must_have_arg": "pipeline",
+              "must_have_arg": "model_file"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": ["pickle.dump", "joblib.dump", "model.save"],
+              "must_save_model": true
+            }
+          ]
+        }
+      },
+
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 35,
+        "template": "pickle.__________",
+        "common_errors": [
+          "参数顺序错误（应该是 model, file）",
+          "忘记打开文件",
+          "文件模式错误（应该是 'wb'）"
+        ]
+      }
+    },
+
+    {
+      "id": "M11",
+      "score": 1,
+      "description": "使用训练好的模型进行预测",
+      "difficulty": "easy",
+      "knowledge_points": ["sklearn", "predict", "模型预测"],
+      
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": ["pipeline.predict"],
+              "must_have_arg": "X_test",
+              "must_assign_to": "y_pred"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_call_method": "predict",
+              "must_use_test_data": true,
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 38,
+        "template": "y_pred = __________",
+        "common_errors": [
+          "使用 X_train 而非 X_test",
+          "忘记赋值",
+          "写成 transform 而非 predict"
+        ]
+      }
+    },
+
+    {
+      "id": "M12",
+      "score": 1,
+      "description": "将预测结果保存为 CSV 文件",
+      "difficulty": "easy",
+      "knowledge_points": ["pandas", "to_csv", "结果保存"],
+      
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": ["to_csv"],
+              "must_have_arg": "'2.2.2_results.txt'",
+              "must_have_arg": "index=False"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": ["to_csv", "to_excel", "save"],
+              "must_save_results": true
+            }
+          ]
+        }
+      },
+
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 40,
+        "template": "__________('2.2.2_results.txt', index=False)",
+        "common_errors": [
+          "文件名错误",
+          "忘记 index=False",
+          "DataFrame 名称错误"
+        ]
+      }
+    },
+
+    {
+      "id": "M13",
+      "score": 1,
+      "description": "初始化 RandomForestRegressor 模型（n_estimators=100）",
+      "difficulty": "medium",
+      "knowledge_points": ["sklearn", "RandomForestRegressor", "模型初始化"],
+      
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": ["RandomForestRegressor"],
+              "must_have_arg": "n_estimators=100",
+              "must_have_arg": "random_state=42",
+              "must_assign_to": "rf_model"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain": ["RandomForestRegressor"],
+              "must_have_param": "n_estimators",
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 48,
+        "template": "rf_model = __________(__________, random_state=42)",
+        "common_errors": [
+          "忘记 n_estimators 参数",
+          "参数值错误",
+          "类名拼写错误"
+        ]
+      }
+    },
+
+    {
+      "id": "M14",
+      "score": 1,
+      "description": "训练随机森林模型",
+      "difficulty": "easy",
+      "knowledge_points": ["sklearn", "fit", "随机森林训练"],
+      
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": ["rf_model.fit"],
+              "must_have_args": ["X_train", "y_train"]
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_call_method": "fit",
+              "must_use_rf_model": true
+            }
+          ]
+        }
+      },
+
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 50,
+        "template": "__________",
+        "common_errors": [
+          "忘记调用 fit",
+          "参数顺序错误",
+          "使用错误的模型变量名"
+        ]
+      }
+    },
+
+    {
+      "id": "M15",
+      "score": 1,
+      "description": "使用随机森林模型进行预测",
+      "difficulty": "easy",
+      "knowledge_points": ["sklearn", "predict", "随机森林预测"],
+      
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": ["rf_model.predict"],
+              "must_have_arg": "X_test",
+              "must_assign_to": "y_pred_rf"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_call_method": "predict",
+              "must_use_rf_model": true,
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 53,
+        "template": "y_pred_rf = __________",
+        "common_errors": [
+          "使用错误的模型",
+          "使用 X_train 而非 X_test",
+          "变量名错误"
+        ]
+      }
+    },
+
+    {
+      "id": "M16",
+      "score": 1,
+      "description": "保存随机森林预测结果",
+      "difficulty": "easy",
+      "knowledge_points": ["pandas", "to_csv", "结果保存"],
+      
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": ["to_csv"],
+              "must_have_arg": "'2.2.2_results_rf.txt'",
+              "must_have_arg": "index=False"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": ["to_csv", "to_excel"],
+              "must_save_rf_results": true
+            }
+          ]
+        }
+      },
+
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 57,
+        "template": "__________('2.2.2_results_rf.txt', index=False)",
+        "common_errors": [
+          "文件名忘记 _rf 后缀",
+          "DataFrame 名称错误",
+          "忘记 index=False"
+        ]
+      }
+    }
+  ],
+
+  "grading_rules": {
+    "exam_mode": {
+      "strict_matching": true,
+      "allow_partial_credit": false,
+      "deduction_for_syntax_error": 0.5,
+      "deduction_for_typo": 0
+    },
+    "practice_mode": {
+      "strict_matching": false,
+      "allow_partial_credit": true,
+      "semantic_matching": true,
+      "provide_hints": true
+    }
+  },
+
+  "metadata": {
+    "version": "2.0",
+    "generated_at": "2026-08-06T22:41:01.999778",
+    "template_file": "2.2.2-materials/2.2.2.ipynb",
+    "answer_file": "answers/1.1.1 - 4.2.5参考答案/2.2.2/2.2.2.ipynb",
+    "difficulty_distribution": {
+      "easy": 10,
+      "medium": 4,
+      "hard": 2
+    },
+    "knowledge_point_coverage": {
+      "pandas": 6,
+      "sklearn": 7,
+      "pickle": 1,
+      "数据预处理": 2,
+      "模型训练": 3,
+      "模型评估": 2
+    }
+  }
+}

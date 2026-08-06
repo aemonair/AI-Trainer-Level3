@@ -1,0 +1,428 @@
+{
+  "exam": {
+    "chapter": "3.2.4",
+    "title": "加载模型",
+    "total_score": 15,
+    "passing_score": 9,
+    "time_limit_minutes": 30
+  },
+  "items": [
+    {
+      "id": "M1",
+      "score": 2,
+      "description": "加载模型",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "ort.InferenceSession",
+                "detection.onnx",
+                "InferenceSession"
+              ],
+              "must_assign_to": "session"
+            },
+            {
+              "must_have_arg": "'flower-detection.onnx'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "ort.InferenceSession",
+                "detection.onnx",
+                "InferenceSession"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 22,
+        "template": "session = _________________",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M2",
+      "score": 2,
+      "description": "加载类别标签",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "open",
+                "labels.txt"
+              ]
+            },
+            {
+              "must_have_arg": "'labels.txt'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "open",
+                "labels.txt"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 26,
+        "template": "with _________________ as f:",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M3",
+      "score": 2,
+      "description": "加载图片",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "Image.open",
+                "flower_test.png",
+                "convert"
+              ],
+              "must_assign_to": "image"
+            },
+            {
+              "must_have_arg": "'flower_test.png'"
+            },
+            {
+              "must_have_arg": "'RGB'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "Image.open",
+                "open",
+                "flower_test.png"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 36,
+        "template": "image = _________________('RGB')",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M4",
+      "score": 2,
+      "description": "预处理图片",
+      "difficulty": "easy",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "preprocess_image"
+              ],
+              "must_assign_to": "processed_image"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "preprocess_image"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 40,
+        "template": "processed_image = _________________",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M5",
+      "score": 2,
+      "description": "进行图片识别",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "session.run"
+              ],
+              "must_assign_to": "output"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "run",
+                "session.run"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 48,
+        "template": "output = _________________([output_name], {input_name: processed_image})[0]",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M6",
+      "score": 2,
+      "description": "应用 softmax 函数获取识别分类后的准确率",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "softmax",
+                "scipy.special.softmax"
+              ],
+              "must_assign_to": "accuracy"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "softmax",
+                "scipy.special.softmax"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 52,
+        "template": "accuracy = _________________(output, axis=-1)",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M7",
+      "score": 1,
+      "description": "模型预测",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "模型预测",
+        "numpy"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "argmax",
+                "np.argmax"
+              ],
+              "must_assign_to": "predicted_idx"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "argmax",
+                "np.argmax"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 56,
+        "template": "predicted_idx =  __________",
+        "common_errors": [
+          "使用 X_train 而非 X_test"
+        ]
+      }
+    },
+    {
+      "id": "M8",
+      "score": 1,
+      "description": "模型预测",
+      "difficulty": "easy",
+      "knowledge_points": [
+        "模型预测"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_assign_to": "prob_percentage"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "prob_percentage =  a"
+              ]
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 60,
+        "template": "prob_percentage =  __________",
+        "common_errors": [
+          "使用 X_train 而非 X_test"
+        ]
+      }
+    },
+    {
+      "id": "M9",
+      "score": 1,
+      "description": "模型预测",
+      "difficulty": "easy",
+      "knowledge_points": [
+        "模型预测"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_assign_to": "predicted_label"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "predicted_label = la"
+              ]
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 64,
+        "template": "predicted_label = __________",
+        "common_errors": [
+          "使用 X_train 而非 X_test"
+        ]
+      }
+    }
+  ],
+  "grading_rules": {
+    "exam_mode": {
+      "strict_matching": true,
+      "allow_partial_credit": false,
+      "deduction_for_syntax_error": 0.5,
+      "deduction_for_typo": 0
+    },
+    "practice_mode": {
+      "strict_matching": false,
+      "allow_partial_credit": true,
+      "semantic_matching": true,
+      "provide_hints": true
+    }
+  },
+  "metadata": {
+    "version": "2.0",
+    "generated_at": "2026-08-06T23:14:48.991153",
+    "converted_from": "3.2.4.json",
+    "difficulty_distribution": {
+      "easy": 3,
+      "medium": 5,
+      "hard": 1
+    },
+    "knowledge_point_coverage": {
+      "基础语法": 6,
+      "模型预测": 3,
+      "numpy": 1
+    }
+  }
+}

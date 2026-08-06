@@ -1,0 +1,570 @@
+{
+  "exam": {
+    "chapter": "3.2.2",
+    "title": "加载ONNX模型",
+    "total_score": 17,
+    "passing_score": 10,
+    "time_limit_minutes": 30
+  },
+  "items": [
+    {
+      "id": "M1",
+      "score": 2,
+      "description": "加载ONNX模型",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "InferenceSession",
+                "mnist.onnx",
+                "onnxruntime.InferenceSession"
+              ],
+              "must_assign_to": "ort_session"
+            },
+            {
+              "must_have_arg": "'mnist.onnx'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "InferenceSession",
+                "mnist.onnx",
+                "onnxruntime.InferenceSession"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 6,
+        "template": "ort_session = __________________",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M2",
+      "score": 2,
+      "description": "加载图像",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "Image.open",
+                "open",
+                "img_test.png"
+              ],
+              "must_assign_to": "image"
+            },
+            {
+              "must_have_arg": "'img_test.png'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "Image.open",
+                "open",
+                "img_test.png"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 10,
+        "template": "image = __________________('L')  # 转为灰度图",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M3",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "image.resize",
+                "resize"
+              ],
+              "must_assign_to": "image"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "image.resize",
+                "resize"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 14,
+        "template": "image = __________________((28, 28))  # 调整大小为MNIST模型的输入尺寸2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M4",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "numpy"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "array",
+                "np.float32",
+                "np.array"
+              ],
+              "must_assign_to": "image_array"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "array",
+                "np.float32",
+                "np.array"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 15,
+        "template": "image_array = __________________(__________________, dtype=np.float32)  # 转为numpy数组2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M5",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "numpy"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "array",
+                "np.float32",
+                "np.array"
+              ],
+              "must_assign_to": "image_array"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "array",
+                "np.float32",
+                "np.array"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 15,
+        "template": "image_array = __________________(__________________, dtype=np.float32)  # 转为numpy数组2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M6",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "numpy"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "expand_dims",
+                "np.expand_dims"
+              ],
+              "must_assign_to": "image_array"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "expand_dims",
+                "np.expand_dims"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 16,
+        "template": "image_array = __________________(__________________, axis=0)  # 添加batch维度2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M7",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "numpy"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "expand_dims",
+                "np.expand_dims"
+              ],
+              "must_assign_to": "image_array"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "expand_dims",
+                "np.expand_dims"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 16,
+        "template": "image_array = __________________(__________________, axis=0)  # 添加batch维度2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M8",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "numpy"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "expand_dims",
+                "np.expand_dims"
+              ],
+              "must_assign_to": "image_array"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "expand_dims",
+                "np.expand_dims"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 17,
+        "template": "image_array = __________________(__________________, axis=0)  # 添加通道维度2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M9",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "numpy"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "expand_dims",
+                "np.expand_dims"
+              ],
+              "must_assign_to": "image_array"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "expand_dims",
+                "np.expand_dims"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 17,
+        "template": "image_array = __________________(__________________, axis=0)  # 添加通道维度2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M10",
+      "score": 2,
+      "description": "返回模型输入列表",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "get_inputs",
+                "ort_session.get_inputs"
+              ],
+              "must_assign_to": "ort_inputs"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "get_inputs",
+                "ort_session.get_inputs"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 21,
+        "template": "ort_inputs = {__________________()[0].name: image_array}",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M11",
+      "score": 2,
+      "description": "执行预测",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "ort_session.run"
+              ],
+              "must_assign_to": "ort_outs"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "run",
+                "ort_session.run"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 23,
+        "template": "ort_outs = __________________(None, ort_inputs)",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M12",
+      "score": 2,
+      "description": "获取预测结果",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "模型预测",
+        "numpy"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "argmax",
+                "np.argmax"
+              ],
+              "must_assign_to": "predicted_class"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "argmax",
+                "np.argmax"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 27,
+        "template": "predicted_class = __________________",
+        "common_errors": [
+          "使用 X_train 而非 X_test"
+        ]
+      }
+    }
+  ],
+  "grading_rules": {
+    "exam_mode": {
+      "strict_matching": true,
+      "allow_partial_credit": false,
+      "deduction_for_syntax_error": 0.5,
+      "deduction_for_typo": 0
+    },
+    "practice_mode": {
+      "strict_matching": false,
+      "allow_partial_credit": true,
+      "semantic_matching": true,
+      "provide_hints": true
+    }
+  },
+  "metadata": {
+    "version": "2.0",
+    "generated_at": "2026-08-06T23:14:48.988804",
+    "converted_from": "3.2.2.json",
+    "difficulty_distribution": {
+      "easy": 0,
+      "medium": 9,
+      "hard": 3
+    },
+    "knowledge_point_coverage": {
+      "基础语法": 5,
+      "numpy": 7,
+      "模型预测": 1
+    }
+  }
+}

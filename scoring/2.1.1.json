@@ -1,0 +1,187 @@
+{
+  "chapter": "2.1.1",
+  "total_score": 20,
+  "items": [
+    {
+      "id": "M1",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 3,
+      "type": "api_call",
+      "description": "加载数据集并显示数据集的前五行",
+      "score": 1,
+      "answer": "data = pd.read_csv('auto-mpg.csv')",
+      "template_line": "data = __________"
+    },
+    {
+      "id": "M2",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 5,
+      "type": "api_call",
+      "description": "加载数据集并显示数据集的前五行",
+      "score": 1,
+      "answer": "print(data.head())",
+      "template_line": "print(__________)"
+    },
+    {
+      "id": "M3",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 12,
+      "type": "api_call",
+      "description": "检查缺失值并删除缺失值所在的行",
+      "score": 1,
+      "answer": "print(data.isnull().sum())",
+      "template_line": "print(__________.__________.__________)"
+    },
+    {
+      "id": "M4",
+      "cell_index": 0,
+      "blank_index": 1,
+      "line_index": 12,
+      "type": "api_call",
+      "description": "检查缺失值并删除缺失值所在的行",
+      "score": 1,
+      "answer": "print(data.isnull().sum())",
+      "template_line": "print(__________.__________.__________)"
+    },
+    {
+      "id": "M5",
+      "cell_index": 0,
+      "blank_index": 2,
+      "line_index": 12,
+      "type": "api_call",
+      "description": "检查缺失值并删除缺失值所在的行",
+      "score": 1,
+      "answer": "print(data.isnull().sum())",
+      "template_line": "print(__________.__________.__________)"
+    },
+    {
+      "id": "M6",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 13,
+      "type": "api_call",
+      "description": "检查缺失值并删除缺失值所在的行",
+      "score": 2,
+      "answer": "data = data.dropna()",
+      "template_line": "data = __________"
+    },
+    {
+      "id": "M7",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 16,
+      "type": "api_call",
+      "description": "将 'horsepower' 列转换为数值类型，并（删除）处理转换中的异常值",
+      "score": 1,
+      "answer": "data['horsepower'] = pd.to_numeric(data['horsepower'], errors='coerce')",
+      "template_line": "data['horsepower'] = __________(data['horsepower'], errors='coerce')"
+    },
+    {
+      "id": "M8",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 17,
+      "type": "api_call",
+      "description": "将 'horsepower' 列转换为数值类型，并（删除）处理转换中的异常值",
+      "score": 1,
+      "answer": "data = data.dropna(subset=['horsepower'])",
+      "template_line": "data = __________"
+    },
+    {
+      "id": "M9",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 30,
+      "type": "api_call",
+      "description": "对数值型数据进行标准化处理",
+      "score": 1,
+      "answer": "data[numerical_features] = scaler.fit_transform(data[numerical_features])",
+      "template_line": "data[numerical_features] = __________"
+    },
+    {
+      "id": "M10",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 34,
+      "type": "api_call",
+      "description": "选择特征、自变量和目标变量",
+      "score": 2,
+      "answer": "selected_features = ['cylinders','displacement','horsepower','weight','acceleration','model year','origin']",
+      "template_line": "selected_features = __________"
+    },
+    {
+      "id": "M11",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 35,
+      "type": "api_call",
+      "description": "选择特征、自变量和目标变量",
+      "score": 2,
+      "answer": "X = data[selected_features]",
+      "template_line": "X = __________"
+    },
+    {
+      "id": "M12",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 36,
+      "type": "api_call",
+      "description": "选择特征、自变量和目标变量",
+      "score": 2,
+      "answer": "y = data['mpg']",
+      "template_line": "y = __________"
+    },
+    {
+      "id": "M13",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 39,
+      "type": "api_call",
+      "description": "划分数据集为训练集和测试集（训练集占8成）",
+      "score": 1,
+      "answer": "X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)",
+      "template_line": "X_train, X_test, y_train, y_test = __________(__________, random_state=42)"
+    },
+    {
+      "id": "M14",
+      "cell_index": 0,
+      "blank_index": 1,
+      "line_index": 39,
+      "type": "api_call",
+      "description": "划分数据集为训练集和测试集（训练集占8成）",
+      "score": 1,
+      "answer": "X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)",
+      "template_line": "X_train, X_test, y_train, y_test = __________(__________, random_state=42)"
+    },
+    {
+      "id": "M15",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 47,
+      "type": "api_call",
+      "description": "保存清洗和处理后的数据（不存储额外的索引号）",
+      "score": 1,
+      "answer": "cleaned_data.to_csv('2.1.1_cleaned_data.csv', index=False)",
+      "template_line": "__________('2.1.1_cleaned_data.csv', __________)"
+    },
+    {
+      "id": "M16",
+      "cell_index": 0,
+      "blank_index": 1,
+      "line_index": 47,
+      "type": "api_call",
+      "description": "保存清洗和处理后的数据（不存储额外的索引号）",
+      "score": 1,
+      "answer": "cleaned_data.to_csv('2.1.1_cleaned_data.csv', index=False)",
+      "template_line": "__________('2.1.1_cleaned_data.csv', __________)"
+    }
+  ],
+  "metadata": {
+    "generated_at": "2026-08-06T22:41:01.993159",
+    "template_file": "2.1.1-materials/2.1.1.ipynb",
+    "answer_file": "answers/1.1.1 - 4.2.5参考答案/2.1.1/2.1.1.ipynb"
+  }
+}

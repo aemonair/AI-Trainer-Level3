@@ -1,0 +1,356 @@
+{
+  "exam": {
+    "chapter": "3.2.4",
+    "title": "加载模型（AST 版本）",
+    "total_score": 15,
+    "passing_score": 9,
+    "time_limit_minutes": 30
+  },
+  "items": [
+    {
+      "id": "M1",
+      "score": 2,
+      "description": "加载模型",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "ort.InferenceSession detection"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "ort.InferenceSession detection"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 22,
+        "template": "session = _________________",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M2",
+      "score": 2,
+      "description": "加载类别标签",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "open labels.txt"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "open labels.txt"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 26,
+        "template": "with _________________ as f:",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M3",
+      "score": 2,
+      "description": "加载图片",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "Image.open flower_test.png con"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "Image.open flower_test.png con"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 36,
+        "template": "image = _________________('RGB')",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M4",
+      "score": 2,
+      "description": "预处理图片",
+      "difficulty": "easy",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "preprocess_image"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "preprocess_image"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 40,
+        "template": "processed_image = _________________",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M5",
+      "score": 2,
+      "description": "进行图片识别",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "session.run"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "session.run"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 48,
+        "template": "output = _________________([output_name], {input_name: processed_image})[0]",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M6",
+      "score": 2,
+      "description": "应用 softmax 函数获取识别分类后的准确率",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "softmax scipy.special.softmax"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "softmax scipy.special.softmax"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 52,
+        "template": "accuracy = _________________(output, axis=-1)",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M7",
+      "score": 1,
+      "description": "模型预测",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "模型预测",
+        "numpy"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "argmax np.argmax"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "argmax np.argmax"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 56,
+        "template": "predicted_idx =  __________",
+        "common_errors": [
+          "使用 X_train 而非 X_test"
+        ]
+      }
+    },
+    {
+      "id": "M8",
+      "score": 1,
+      "description": "模型预测",
+      "difficulty": "easy",
+      "knowledge_points": [
+        "模型预测"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "prob_percentage =  __________"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "prob_percentage =  __________"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 60,
+        "template": "prob_percentage =  __________",
+        "common_errors": [
+          "使用 X_train 而非 X_test"
+        ]
+      }
+    },
+    {
+      "id": "M9",
+      "score": 1,
+      "description": "模型预测",
+      "difficulty": "easy",
+      "knowledge_points": [
+        "模型预测"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "predicted_label = __________"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "predicted_label = __________"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 64,
+        "template": "predicted_label = __________",
+        "common_errors": [
+          "使用 X_train 而非 X_test"
+        ]
+      }
+    }
+  ],
+  "grading_rules": {
+    "exam_mode": {
+      "strict_matching": true,
+      "allow_partial_credit": false,
+      "deduction_for_syntax_error": 0.5,
+      "deduction_for_typo": 0
+    },
+    "practice_mode": {
+      "strict_matching": false,
+      "allow_partial_credit": true,
+      "semantic_matching": true,
+      "provide_hints": true
+    }
+  },
+  "metadata": {
+    "version": "ast",
+    "generated_at": "2026-08-06T23:47:28.623204",
+    "converted_from": "3.2.4_v2.json",
+    "difficulty_distribution": {
+      "easy": 3,
+      "medium": 5,
+      "hard": 1
+    },
+    "knowledge_point_coverage": {
+      "基础语法": 6,
+      "模型预测": 3,
+      "numpy": 1
+    }
+  }
+}

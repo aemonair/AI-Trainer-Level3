@@ -1,0 +1,143 @@
+{
+  "chapter": "3.2.2",
+  "total_score": 17,
+  "items": [
+    {
+      "id": "M1",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 6,
+      "type": "api_call",
+      "description": "加载ONNX模型",
+      "score": 2,
+      "answer": "ort_session = onnxruntime.InferenceSession('mnist.onnx')",
+      "template_line": "ort_session = __________________"
+    },
+    {
+      "id": "M2",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 10,
+      "type": "api_call",
+      "description": "加载图像",
+      "score": 2,
+      "answer": "image = Image.open('img_test.png').convert('L')  # 转为灰度图",
+      "template_line": "image = __________________('L')  # 转为灰度图"
+    },
+    {
+      "id": "M3",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 14,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "image = image.resize((28, 28))  # 调整大小为MNIST模型的输入尺寸2分",
+      "template_line": "image = __________________((28, 28))  # 调整大小为MNIST模型的输入尺寸2分"
+    },
+    {
+      "id": "M4",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 15,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "image_array = np.array(image, dtype=np.float32)  # 转为numpy数组2分",
+      "template_line": "image_array = __________________(__________________, dtype=np.float32)  # 转为numpy数组2分"
+    },
+    {
+      "id": "M5",
+      "cell_index": 0,
+      "blank_index": 1,
+      "line_index": 15,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "image_array = np.array(image, dtype=np.float32)  # 转为numpy数组2分",
+      "template_line": "image_array = __________________(__________________, dtype=np.float32)  # 转为numpy数组2分"
+    },
+    {
+      "id": "M6",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 16,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "image_array = np.expand_dims(image_array, axis=0)  # 添加batch维度2分",
+      "template_line": "image_array = __________________(__________________, axis=0)  # 添加batch维度2分"
+    },
+    {
+      "id": "M7",
+      "cell_index": 0,
+      "blank_index": 1,
+      "line_index": 16,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "image_array = np.expand_dims(image_array, axis=0)  # 添加batch维度2分",
+      "template_line": "image_array = __________________(__________________, axis=0)  # 添加batch维度2分"
+    },
+    {
+      "id": "M8",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 17,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "image_array = np.expand_dims(image_array, axis=0)  # 添加通道维度2分",
+      "template_line": "image_array = __________________(__________________, axis=0)  # 添加通道维度2分"
+    },
+    {
+      "id": "M9",
+      "cell_index": 0,
+      "blank_index": 1,
+      "line_index": 17,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "image_array = np.expand_dims(image_array, axis=0)  # 添加通道维度2分",
+      "template_line": "image_array = __________________(__________________, axis=0)  # 添加通道维度2分"
+    },
+    {
+      "id": "M10",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 21,
+      "type": "api_call",
+      "description": "返回模型输入列表",
+      "score": 2,
+      "answer": "ort_inputs = {ort_session.get_inputs()[0].name: image_array}",
+      "template_line": "ort_inputs = {__________________()[0].name: image_array}"
+    },
+    {
+      "id": "M11",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 23,
+      "type": "api_call",
+      "description": "执行预测",
+      "score": 2,
+      "answer": "ort_outs = ort_session.run(None, ort_inputs)",
+      "template_line": "ort_outs = __________________(None, ort_inputs)"
+    },
+    {
+      "id": "M12",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 27,
+      "type": "model_training",
+      "description": "获取预测结果",
+      "score": 2,
+      "answer": "predicted_class = np.argmax(ort_outs[0])",
+      "template_line": "predicted_class = __________________"
+    }
+  ],
+  "metadata": {
+    "generated_at": "2026-08-06T22:41:02.005856",
+    "template_file": "3.2.2-materials/3.2.2.ipynb",
+    "answer_file": "answers/1.1.1 - 4.2.5参考答案/3.2.2/3.2.2.ipynb"
+  }
+}

@@ -1,0 +1,832 @@
+{
+  "exam": {
+    "chapter": "1.1.1",
+    "title": "读取数据集（AST 版本）",
+    "total_score": 22,
+    "passing_score": 13,
+    "time_limit_minutes": 30
+  },
+  "items": [
+    {
+      "id": "M1",
+      "score": 1,
+      "description": "读取数据集",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "pandas",
+        "数据加载"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "pd.read_csv read_csv patient_d"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "pd.read_csv read_csv patient_d"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 4,
+        "template": "data = _____________",
+        "common_errors": [
+          "文件名拼写错误",
+          "忘记加引号"
+        ]
+      }
+    },
+    {
+      "id": "M2",
+      "score": 1,
+      "description": "创建新列'RiskLevel'，根据住院天数判断风险等级",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "条件筛选",
+        "numpy"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "低风险患者 高风险患者 where"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "低风险患者 高风险患者 where"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 2,
+        "template": "_____________ = _____________(_____________, '高风险患者', '低风险患者')",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M3",
+      "score": 1,
+      "description": "创建新列'RiskLevel'，根据住院天数判断风险等级",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "条件筛选",
+        "numpy"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "低风险患者 高风险患者 where"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "低风险患者 高风险患者 where"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 2,
+        "template": "_____________ = _____________(_____________, '高风险患者', '低风险患者')",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M4",
+      "score": 1,
+      "description": "创建新列'RiskLevel'，根据住院天数判断风险等级",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "条件筛选",
+        "numpy"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "低风险患者 高风险患者 where"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "低风险患者 高风险患者 where"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 2,
+        "template": "_____________ = _____________(_____________, '高风险患者', '低风险患者')",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M5",
+      "score": 1,
+      "description": "统计不同风险等级的患者数量",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "数据统计"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "RiskLevel value_counts"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "RiskLevel value_counts"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 4,
+        "template": "risk_counts = data_____________._____________",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M6",
+      "score": 1,
+      "description": "统计不同风险等级的患者数量",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "数据统计"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "RiskLevel value_counts"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "RiskLevel value_counts"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 4,
+        "template": "risk_counts = data_____________._____________",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M7",
+      "score": 1,
+      "description": "计算高风险患者占比",
+      "difficulty": "easy",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "高风险患者"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "高风险患者"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 6,
+        "template": "high_risk_ratio = risk_counts['高风险患者'] / _____________",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M8",
+      "score": 1,
+      "description": "计算低风险患者占比",
+      "difficulty": "easy",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "低风险患者"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "低风险患者"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 8,
+        "template": "low_risk_ratio = risk_counts['低风险患者'] / _____________",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M9",
+      "score": 1,
+      "description": "根据BMI值划分指定区间",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "pandas",
+        "数据分箱"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "BMIRange pd.cut"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "BMIRange pd.cut"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 5,
+        "template": "data['BMIRange'] = _____________(_____________, _____________, _____________, right=False)  # 使用左闭右开区间",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M10",
+      "score": 1,
+      "description": "根据BMI值划分指定区间",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "pandas",
+        "数据分箱"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "BMIRange pd.cut"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "BMIRange pd.cut"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 5,
+        "template": "data['BMIRange'] = _____________(_____________, _____________, _____________, right=False)  # 使用左闭右开区间",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M11",
+      "score": 1,
+      "description": "根据BMI值划分指定区间",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "pandas",
+        "数据分箱"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "BMIRange pd.cut"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "BMIRange pd.cut"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 5,
+        "template": "data['BMIRange'] = _____________(_____________, _____________, _____________, right=False)  # 使用左闭右开区间",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M12",
+      "score": 1,
+      "description": "根据BMI值划分指定区间",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "pandas",
+        "数据分箱"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "BMIRange pd.cut"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "BMIRange pd.cut"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 5,
+        "template": "data['BMIRange'] = _____________(_____________, _____________, _____________, right=False)  # 使用左闭右开区间",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M13",
+      "score": 1,
+      "description": "计算每个BMI区间中高风险患者的比例",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "数据分组"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "高风险患者 BMIRange data.groupby"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "高风险患者 BMIRange data.groupby"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 7,
+        "template": "bmi_risk_rate = _____________(_____________)['RiskLevel'].apply(lambda x: (x == '高风险患者').mean())",
+        "common_errors": [
+          "列名拼写错误",
+          "忘记指定聚合函数"
+        ]
+      }
+    },
+    {
+      "id": "M14",
+      "score": 1,
+      "description": "计算每个BMI区间中高风险患者的比例",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "数据分组"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "高风险患者 BMIRange data.groupby"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "高风险患者 BMIRange data.groupby"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 7,
+        "template": "bmi_risk_rate = _____________(_____________)['RiskLevel'].apply(lambda x: (x == '高风险患者').mean())",
+        "common_errors": [
+          "列名拼写错误",
+          "忘记指定聚合函数"
+        ]
+      }
+    },
+    {
+      "id": "M15",
+      "score": 1,
+      "description": "统计每个BMI区间的患者数量",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "数据统计"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "BMIRange value_counts"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "BMIRange value_counts"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 9,
+        "template": "bmi_patient_count = data_____________",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M16",
+      "score": 1,
+      "description": "根据年龄值划分指定区间",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "pandas",
+        "数据分箱"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "AgeRange pd.cut"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "AgeRange pd.cut"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 3,
+        "line_index": 5,
+        "template": "data['AgeRange'] = _____________(_____________, _____________, _____________, right=False)  # 使用左闭右开区间",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M17",
+      "score": 1,
+      "description": "根据年龄值划分指定区间",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "pandas",
+        "数据分箱"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "AgeRange pd.cut"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "AgeRange pd.cut"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 3,
+        "line_index": 5,
+        "template": "data['AgeRange'] = _____________(_____________, _____________, _____________, right=False)  # 使用左闭右开区间",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M18",
+      "score": 1,
+      "description": "根据年龄值划分指定区间",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "pandas",
+        "数据分箱"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "AgeRange pd.cut"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "AgeRange pd.cut"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 3,
+        "line_index": 5,
+        "template": "data['AgeRange'] = _____________(_____________, _____________, _____________, right=False)  # 使用左闭右开区间",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M19",
+      "score": 1,
+      "description": "根据年龄值划分指定区间",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "pandas",
+        "数据分箱"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "AgeRange pd.cut"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "AgeRange pd.cut"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 3,
+        "line_index": 5,
+        "template": "data['AgeRange'] = _____________(_____________, _____________, _____________, right=False)  # 使用左闭右开区间",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M20",
+      "score": 1,
+      "description": "计算每个年龄区间中高风险患者的比例",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "数据分组"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "高风险患者 data.groupby apply"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "高风险患者 data.groupby apply"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 3,
+        "line_index": 7,
+        "template": "age_risk_rate = _____________(_____________)['RiskLevel'].apply(lambda x: (x == '高风险患者').mean())",
+        "common_errors": [
+          "列名拼写错误",
+          "忘记指定聚合函数"
+        ]
+      }
+    },
+    {
+      "id": "M21",
+      "score": 1,
+      "description": "计算每个年龄区间中高风险患者的比例",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "数据分组"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "高风险患者 data.groupby apply"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "高风险患者 data.groupby apply"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 3,
+        "line_index": 7,
+        "template": "age_risk_rate = _____________(_____________)['RiskLevel'].apply(lambda x: (x == '高风险患者').mean())",
+        "common_errors": [
+          "列名拼写错误",
+          "忘记指定聚合函数"
+        ]
+      }
+    },
+    {
+      "id": "M22",
+      "score": 1,
+      "description": "统计每个年龄区间的患者数量",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "数据统计"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "value_counts AgeRange"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "value_counts AgeRange"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 3,
+        "line_index": 9,
+        "template": "age_patient_count = data_____________",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    }
+  ],
+  "grading_rules": {
+    "exam_mode": {
+      "strict_matching": true,
+      "allow_partial_credit": false,
+      "deduction_for_syntax_error": 0.5,
+      "deduction_for_typo": 0
+    },
+    "practice_mode": {
+      "strict_matching": false,
+      "allow_partial_credit": true,
+      "semantic_matching": true,
+      "provide_hints": true
+    }
+  },
+  "metadata": {
+    "version": "ast",
+    "generated_at": "2026-08-06T23:47:28.604780",
+    "converted_from": "1.1.1_v2.json",
+    "difficulty_distribution": {
+      "easy": 2,
+      "medium": 5,
+      "hard": 15
+    },
+    "knowledge_point_coverage": {
+      "pandas": 9,
+      "数据加载": 1,
+      "条件筛选": 3,
+      "numpy": 3,
+      "数据统计": 4,
+      "基础语法": 2,
+      "数据分箱": 8,
+      "数据分组": 4
+    }
+  }
+}

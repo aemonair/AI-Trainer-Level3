@@ -1,0 +1,1052 @@
+{
+  "exam": {
+    "chapter": "2.2.3",
+    "title": "第2.2.3章操作题",
+    "total_score": 23,
+    "passing_score": 13,
+    "time_limit_minutes": 30
+  },
+  "items": [
+    {
+      "id": "M1",
+      "score": 1,
+      "description": "加载数据集",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "pandas",
+        "数据加载",
+        "模型训练"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "analysis.csv",
+                "pd.read_csv",
+                "read_csv"
+              ],
+              "must_assign_to": "df"
+            },
+            {
+              "must_have_arg": "'fitness analysis.csv'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "analysis.csv",
+                "pd.read_csv",
+                "read_csv"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 8,
+        "template": "df = __________",
+        "common_errors": [
+          "文件名拼写错误",
+          "忘记加引号",
+          "参数顺序错误（应该是 X_train, y_train）"
+        ]
+      }
+    },
+    {
+      "id": "M2",
+      "score": 1,
+      "description": "显示数据前几行",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "df.head",
+                "head",
+                "print"
+              ]
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "df.head",
+                "head",
+                "print"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 11,
+        "template": "print(__________)",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M3",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "pandas"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "get_dummies",
+                "pd.get_dummies"
+              ],
+              "must_assign_to": "X"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "get_dummies",
+                "pd.get_dummies"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 21,
+        "template": "X = __________(X)  # 将分类变量转为数值变量",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M4",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "apply",
+                "split",
+                "Your age"
+              ],
+              "must_assign_to": "y"
+            },
+            {
+              "must_have_arg": "'Your age'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "apply",
+                "split",
+                "int"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 24,
+        "template": "y = __________(lambda x: int(x.split(' ')[0]))  # 假设年龄段为整数",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M5",
+      "score": 1,
+      "description": "划分训练集和测试集",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "sklearn",
+        "数据集划分"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "train_test_split"
+              ]
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "train_test_split"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 27,
+        "template": "X_train, X_test, y_train, y_test = __________(__________, random_state=42)",
+        "common_errors": [
+          "忘记 random_state 参数",
+          "test_size 比例错误"
+        ]
+      }
+    },
+    {
+      "id": "M6",
+      "score": 1,
+      "description": "划分训练集和测试集",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "sklearn",
+        "数据集划分"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "train_test_split"
+              ]
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "train_test_split"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 27,
+        "template": "X_train, X_test, y_train, y_test = __________(__________, random_state=42)",
+        "common_errors": [
+          "忘记 random_state 参数",
+          "test_size 比例错误"
+        ]
+      }
+    },
+    {
+      "id": "M7",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "随机森林"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "RandomForestRegressor"
+              ],
+              "must_assign_to": "rf_model"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "RandomForestRegressor"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 30,
+        "template": "rf_model = __________(__________, random_state=42)",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M8",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "随机森林"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "RandomForestRegressor"
+              ],
+              "must_assign_to": "rf_model"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "RandomForestRegressor"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 30,
+        "template": "rf_model = __________(__________, random_state=42)",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M9",
+      "score": 1,
+      "description": "训练模型",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "模型训练"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "rf_model.fit"
+              ]
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "fit",
+                "rf_model.fit"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 32,
+        "template": "__________",
+        "common_errors": [
+          "参数顺序错误（应该是 X_train, y_train）"
+        ]
+      }
+    },
+    {
+      "id": "M10",
+      "score": 1,
+      "description": "保存模型",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "pickle"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "dump",
+                "pickle.dump"
+              ]
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "dump",
+                "pickle.dump"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 36,
+        "template": "pickle.__________",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M11",
+      "score": 1,
+      "description": "模型预测",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "模型预测"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "predict",
+                "rf_model.predict"
+              ],
+              "must_assign_to": "y_pred"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "predict",
+                "rf_model.predict"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 39,
+        "template": "y_pred = __________",
+        "common_errors": [
+          "使用 X_train 而非 X_test"
+        ]
+      }
+    },
+    {
+      "id": "M12",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "模型评估"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "score",
+                "rf_model.score"
+              ],
+              "must_assign_to": "train_score"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "score",
+                "rf_model.score"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 44,
+        "template": "train_score = __________   #训练集分数",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M13",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "模型评估"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "score",
+                "rf_model.score"
+              ],
+              "must_assign_to": "test_score"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "score",
+                "rf_model.score"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 45,
+        "template": "test_score = __________    #测试集分数",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M14",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "easy",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "mean_squared_error"
+              ],
+              "must_assign_to": "mse"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "mean_squared_error"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 46,
+        "template": "mse = __________  #均方误差",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M15",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "easy",
+      "knowledge_points": [
+        "模型评估"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "r2_score"
+              ],
+              "must_assign_to": "r2"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "r2_score"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 47,
+        "template": "r2 = __________  #决定系数",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M16",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "XGBRegressor",
+                "xgb.XGBRegressor"
+              ],
+              "must_assign_to": "xgb_model"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "XGBRegressor",
+                "xgb.XGBRegressor"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 56,
+        "template": "xgb_model = __________(__________, random_state=42)",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M17",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "XGBRegressor",
+                "xgb.XGBRegressor"
+              ],
+              "must_assign_to": "xgb_model"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "XGBRegressor",
+                "xgb.XGBRegressor"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 56,
+        "template": "xgb_model = __________(__________, random_state=42)",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M18",
+      "score": 1,
+      "description": "训练模型",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "模型训练"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "xgb_model.fit"
+              ]
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "fit",
+                "xgb_model.fit"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 58,
+        "template": "__________",
+        "common_errors": [
+          "参数顺序错误（应该是 X_train, y_train）"
+        ]
+      }
+    },
+    {
+      "id": "M19",
+      "score": 1,
+      "description": "模型预测",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "模型预测"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "xgb_model.predict",
+                "predict"
+              ],
+              "must_assign_to": "y_pred_xgb"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "xgb_model.predict",
+                "predict"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 60,
+        "template": "y_pred_xgb = __________",
+        "common_errors": [
+          "使用 X_train 而非 X_test"
+        ]
+      }
+    },
+    {
+      "id": "M20",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "模型评估"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "xgb_report_file.write",
+                "score",
+                "XGBoost训练集得分: {xgb_model.score(X_train, y_train)}\\n"
+              ]
+            },
+            {
+              "must_have_arg": "'XGBoost训练集得分: {xgb_model.score(X_train, y_train)}\\n'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "xgb_model.score",
+                "score",
+                "xgb_report_file.write"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 66,
+        "template": "xgb_report_file.write(f'XGBoost训练集得分: {__________}\\n')",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M21",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "模型评估"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "xgb_report_file.write",
+                "score",
+                "xgb_model.score"
+              ]
+            },
+            {
+              "must_have_arg": "'XGBoost测试集得分: {xgb_model.score(X_test, y_test)}\\n'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "xgb_model.score",
+                "score",
+                "xgb_report_file.write"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 67,
+        "template": "xgb_report_file.write(f'XGBoost测试集得分: {__________}\\n')",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M22",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "XGBoost均方误差(MSE): {mean_squared_error(y_test, y_pred_xgb)}\\n",
+                "mean_squared_error",
+                "xgb_report_file.write"
+              ]
+            },
+            {
+              "must_have_arg": "'XGBoost均方误差(MSE): {mean_squared_error(y_test, y_pred_xgb)}\\n'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "mean_squared_error",
+                "xgb_report_file.write",
+                "write"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 68,
+        "template": "xgb_report_file.write(f'XGBoost均方误差(MSE): {__________}\\n')",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M23",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "模型评估"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "XGBoost决定系数(R^2): {r2_score(y_test, y_pred_xgb)}\\n",
+                "r2_score",
+                "xgb_report_file.write"
+              ]
+            },
+            {
+              "must_have_arg": "'XGBoost决定系数(R^2): {r2_score(y_test, y_pred_xgb)}\\n'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "r2_score",
+                "xgb_report_file.write",
+                "write"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 69,
+        "template": "xgb_report_file.write(f'XGBoost决定系数(R^2): {__________)}\\n')",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    }
+  ],
+  "grading_rules": {
+    "exam_mode": {
+      "strict_matching": true,
+      "allow_partial_credit": false,
+      "deduction_for_syntax_error": 0.5,
+      "deduction_for_typo": 0
+    },
+    "practice_mode": {
+      "strict_matching": false,
+      "allow_partial_credit": true,
+      "semantic_matching": true,
+      "provide_hints": true
+    }
+  },
+  "metadata": {
+    "version": "2.0",
+    "generated_at": "2026-08-06T23:14:48.981806",
+    "converted_from": "2.2.3.json",
+    "difficulty_distribution": {
+      "easy": 2,
+      "medium": 18,
+      "hard": 3
+    },
+    "knowledge_point_coverage": {
+      "pandas": 2,
+      "数据加载": 1,
+      "模型训练": 3,
+      "基础语法": 6,
+      "sklearn": 2,
+      "数据集划分": 2,
+      "随机森林": 2,
+      "pickle": 1,
+      "模型预测": 2,
+      "模型评估": 6
+    }
+  }
+}

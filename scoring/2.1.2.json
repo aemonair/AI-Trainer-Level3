@@ -1,0 +1,176 @@
+{
+  "chapter": "2.1.2",
+  "total_score": 15,
+  "items": [
+    {
+      "id": "M1",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 2,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "data = pd.read_excel('大学生低碳生活行为的影响因素数据集.xlsx')",
+      "template_line": "data = __________"
+    },
+    {
+      "id": "M2",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 7,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "initial_row_count = data.shape[0]   #处理前的数据行数",
+      "template_line": "initial_row_count = __________   #处理前的数据行数"
+    },
+    {
+      "id": "M3",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 8,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "data = data.dropna()                #删除缺失值所在行",
+      "template_line": "data = __________                #删除缺失值所在行"
+    },
+    {
+      "id": "M4",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 9,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "final_row_count = data.shape[0]     #处理后的数据行数",
+      "template_line": "final_row_count = __________     #处理后的数据行数"
+    },
+    {
+      "id": "M5",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 13,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "data = data.drop_duplicates()",
+      "template_line": "data = __________"
+    },
+    {
+      "id": "M6",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 18,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "data[numerical_features] = scaler.fit_transform(data[numerical_features])",
+      "template_line": "data[numerical_features] = __________"
+    },
+    {
+      "id": "M7",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 21,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "selected_features = ['1.您的性别○男性   ○女性',",
+      "template_line": "selected_features = [__________]"
+    },
+    {
+      "id": "M8",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 22,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "'2.您的年级○大一   ○大二   ○大三   ○大四',",
+      "template_line": "X = __________"
+    },
+    {
+      "id": "M9",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 25,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "'5.您进行过绿色低碳的相关生活方式吗?',",
+      "template_line": "y = __________"
+    },
+    {
+      "id": "M10",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 29,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "]",
+      "template_line": "X_train, X_test, y_train, y_test = __________(__________, random_state=42)"
+    },
+    {
+      "id": "M11",
+      "cell_index": 0,
+      "blank_index": 1,
+      "line_index": 29,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "]",
+      "template_line": "X_train, X_test, y_train, y_test = __________(__________, random_state=42)"
+    },
+    {
+      "id": "M12",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 32,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "# 创建目标变量",
+      "template_line": "cleaned_data = __________(__________, axis=1)"
+    },
+    {
+      "id": "M13",
+      "cell_index": 0,
+      "blank_index": 1,
+      "line_index": 32,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "# 创建目标变量",
+      "template_line": "cleaned_data = __________(__________, axis=1)"
+    },
+    {
+      "id": "M14",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 33,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "y = data['低碳行为积极性']",
+      "template_line": "__________('2.1.2_cleaned_data.csv', __________)"
+    },
+    {
+      "id": "M15",
+      "cell_index": 0,
+      "blank_index": 1,
+      "line_index": 33,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "y = data['低碳行为积极性']",
+      "template_line": "__________('2.1.2_cleaned_data.csv', __________)"
+    }
+  ],
+  "metadata": {
+    "generated_at": "2026-08-06T22:41:01.993860",
+    "template_file": "2.1.2-materials/2.1.2.ipynb",
+    "answer_file": "answers/1.1.1 - 4.2.5参考答案/2.1.2/2.1.2.ipynb"
+  }
+}

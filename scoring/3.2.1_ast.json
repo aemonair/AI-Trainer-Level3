@@ -1,0 +1,284 @@
+{
+  "exam": {
+    "chapter": "3.2.1",
+    "title": "模型加载（AST 版本）",
+    "total_score": 16,
+    "passing_score": 9,
+    "time_limit_minutes": 30
+  },
+  "items": [
+    {
+      "id": "M1",
+      "score": 2,
+      "description": "模型加载",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "ort.InferenceSession resnet.on"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "ort.InferenceSession resnet.on"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 22,
+        "template": "session = _________________",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M2",
+      "score": 2,
+      "description": "加载图片",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "Image.open convert img_test.jp"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "Image.open convert img_test.jp"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 37,
+        "template": "image = _________________('RGB')",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M3",
+      "score": 2,
+      "description": "预处理图片",
+      "difficulty": "easy",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "preprocess_image"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "preprocess_image"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 41,
+        "template": "processed_image = _________________",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M4",
+      "score": 2,
+      "description": "进行图片识别",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "session.run"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "session.run"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 49,
+        "template": "output = _________________([output_name], {input_name: processed_image})[0]",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M5",
+      "score": 2,
+      "description": "应用 softmax 函数获取概率",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "softmax scipy.special.softmax"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "softmax scipy.special.softmax"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 53,
+        "template": "probabilities = _________________(output, axis=-1)",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M6",
+      "score": 3,
+      "description": "获取最高的5个概率和对应的类别索引",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "numpy"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "np.argsort argsort"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "np.argsort argsort"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 57,
+        "template": "top5_idx = _________________[-5:][::-1]",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M7",
+      "score": 3,
+      "description": "获取最高的5个概率和对应的类别索引",
+      "difficulty": "easy",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "top5_prob = _________________"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "top5_prob = _________________"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 58,
+        "template": "top5_prob = _________________",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    }
+  ],
+  "grading_rules": {
+    "exam_mode": {
+      "strict_matching": true,
+      "allow_partial_credit": false,
+      "deduction_for_syntax_error": 0.5,
+      "deduction_for_typo": 0
+    },
+    "practice_mode": {
+      "strict_matching": false,
+      "allow_partial_credit": true,
+      "semantic_matching": true,
+      "provide_hints": true
+    }
+  },
+  "metadata": {
+    "version": "ast",
+    "generated_at": "2026-08-06T23:47:28.621100",
+    "converted_from": "3.2.1_v2.json",
+    "difficulty_distribution": {
+      "easy": 2,
+      "medium": 4,
+      "hard": 1
+    },
+    "knowledge_point_coverage": {
+      "基础语法": 6,
+      "numpy": 1
+    }
+  }
+}

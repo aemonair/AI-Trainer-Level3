@@ -1,0 +1,648 @@
+{
+  "exam": {
+    "chapter": "1.1.3",
+    "title": "第1.1.3章操作题",
+    "total_score": 13,
+    "passing_score": 7,
+    "time_limit_minutes": 30
+  },
+  "items": [
+    {
+      "id": "M1",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "isnull",
+                "data.isnull"
+              ],
+              "must_assign_to": "missing_values"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "isnull",
+                "sum",
+                "data.isnull"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 1,
+        "template": "missing_values = data._________       #数据缺失值统计 2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M2",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "duplicated",
+                "data.duplicated"
+              ],
+              "must_assign_to": "duplicate_values"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "sum",
+                "duplicated",
+                "data.duplicated"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 2,
+        "template": "duplicate_values = data._________     #数据重复值统计 2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M3",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "is_age_valid",
+                "between"
+              ]
+            },
+            {
+              "must_have_arg": "'is_age_valid'"
+            },
+            {
+              "must_have_arg": "'Age'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "between"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 1,
+        "template": "data['is_age_valid'] = _________._________(18, 70)              #Age数据的合理性审核 2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M4",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "is_age_valid",
+                "between"
+              ]
+            },
+            {
+              "must_have_arg": "'is_age_valid'"
+            },
+            {
+              "must_have_arg": "'Age'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "between"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 1,
+        "template": "data['is_age_valid'] = _________._________(18, 70)              #Age数据的合理性审核 2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M5",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "easy",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "Income",
+                "is_income_valid"
+              ]
+            },
+            {
+              "must_have_arg": "'is_income_valid'"
+            },
+            {
+              "must_have_arg": "'Income'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "data['is_income_vali"
+              ]
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 2,
+        "template": "data['is_income_valid'] = _________ > _________                 #Income数据的合理性审核 2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M6",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "easy",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "Income",
+                "is_income_valid"
+              ]
+            },
+            {
+              "must_have_arg": "'is_income_valid'"
+            },
+            {
+              "must_have_arg": "'Income'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "data['is_income_vali"
+              ]
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 2,
+        "template": "data['is_income_valid'] = _________ > _________                 #Income数据的合理性审核 2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M7",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "Income",
+                "is_loan_amount_valid",
+                "LoanAmount"
+              ]
+            },
+            {
+              "must_have_arg": "'is_loan_amount_valid'"
+            },
+            {
+              "must_have_arg": "'LoanAmount'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "data['is_loan_amount"
+              ]
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 3,
+        "template": "data['is_loan_amount_valid'] = _________ < (_________ * 5)      #LoanAmount数据的合理性审核 2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M8",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "Income",
+                "is_loan_amount_valid",
+                "LoanAmount"
+              ]
+            },
+            {
+              "must_have_arg": "'is_loan_amount_valid'"
+            },
+            {
+              "must_have_arg": "'LoanAmount'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "data['is_loan_amount"
+              ]
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 3,
+        "template": "data['is_loan_amount_valid'] = _________ < (_________ * 5)      #LoanAmount数据的合理性审核 2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M9",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "模型评估"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "is_credit_score_valid",
+                "CreditScore",
+                "between"
+              ]
+            },
+            {
+              "must_have_arg": "'is_credit_score_valid'"
+            },
+            {
+              "must_have_arg": "'CreditScore'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "between"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 4,
+        "template": "data['is_credit_score_valid'] = _________._________(300, 850)   #CreditScore数据的合理性审核 2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M10",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "模型评估"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "is_credit_score_valid",
+                "CreditScore",
+                "between"
+              ]
+            },
+            {
+              "must_have_arg": "'is_credit_score_valid'"
+            },
+            {
+              "must_have_arg": "'CreditScore'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "between"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 4,
+        "template": "data['is_credit_score_valid'] = _________._________(300, 850)   #CreditScore数据的合理性审核 2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M11",
+      "score": 1,
+      "description": "保存结果到文件",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "数据导出"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "to_csv",
+                "cleaned_credit_data.csv",
+                "cleaned_data.to_csv"
+              ]
+            },
+            {
+              "must_have_arg": "'cleaned_credit_data.csv'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "to_csv",
+                "cleaned_credit_data.csv",
+                "cleaned_data.to_csv"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 3,
+        "line_index": 8,
+        "template": "_________._________(_________, index=False)",
+        "common_errors": [
+          "忘记 index=False",
+          "文件名错误"
+        ]
+      }
+    },
+    {
+      "id": "M12",
+      "score": 1,
+      "description": "保存结果到文件",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "数据导出"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "to_csv",
+                "cleaned_credit_data.csv",
+                "cleaned_data.to_csv"
+              ]
+            },
+            {
+              "must_have_arg": "'cleaned_credit_data.csv'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "to_csv",
+                "cleaned_credit_data.csv",
+                "cleaned_data.to_csv"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 3,
+        "line_index": 8,
+        "template": "_________._________(_________, index=False)",
+        "common_errors": [
+          "忘记 index=False",
+          "文件名错误"
+        ]
+      }
+    },
+    {
+      "id": "M13",
+      "score": 1,
+      "description": "保存结果到文件",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "数据导出"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "to_csv",
+                "cleaned_credit_data.csv",
+                "cleaned_data.to_csv"
+              ]
+            },
+            {
+              "must_have_arg": "'cleaned_credit_data.csv'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "to_csv",
+                "cleaned_credit_data.csv",
+                "cleaned_data.to_csv"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 3,
+        "line_index": 8,
+        "template": "_________._________(_________, index=False)",
+        "common_errors": [
+          "忘记 index=False",
+          "文件名错误"
+        ]
+      }
+    }
+  ],
+  "grading_rules": {
+    "exam_mode": {
+      "strict_matching": true,
+      "allow_partial_credit": false,
+      "deduction_for_syntax_error": 0.5,
+      "deduction_for_typo": 0
+    },
+    "practice_mode": {
+      "strict_matching": false,
+      "allow_partial_credit": true,
+      "semantic_matching": true,
+      "provide_hints": true
+    }
+  },
+  "metadata": {
+    "version": "2.0",
+    "generated_at": "2026-08-06T23:14:48.968002",
+    "converted_from": "1.1.3.json",
+    "difficulty_distribution": {
+      "easy": 2,
+      "medium": 6,
+      "hard": 5
+    },
+    "knowledge_point_coverage": {
+      "基础语法": 8,
+      "模型评估": 2,
+      "数据导出": 3
+    }
+  }
+}

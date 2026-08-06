@@ -1,0 +1,927 @@
+{
+  "exam": {
+    "chapter": "1.1.2",
+    "title": "读取数据集",
+    "total_score": 34,
+    "passing_score": 20,
+    "time_limit_minutes": 30
+  },
+  "items": [
+    {
+      "id": "M1",
+      "score": 2,
+      "description": "读取数据集",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "pandas",
+        "数据加载"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "pd.read_csv",
+                "sensor_data.csv",
+                "read_csv"
+              ],
+              "must_assign_to": "data"
+            },
+            {
+              "must_have_arg": "'sensor_data.csv'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "pd.read_csv",
+                "sensor_data.csv",
+                "read_csv"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 4,
+        "template": "data = _____________",
+        "common_errors": [
+          "文件名拼写错误",
+          "忘记加引号"
+        ]
+      }
+    },
+    {
+      "id": "M2",
+      "score": 1,
+      "description": "对传感器类型进行分组，并计算每个组的数据数量和平均值",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "数据分组"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "data.groupby",
+                "count",
+                "mean"
+              ],
+              "must_assign_to": "sensor_stats"
+            },
+            {
+              "must_have_arg": "'SensorType'"
+            },
+            {
+              "must_have_arg": "'Value'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "data.groupby",
+                "agg",
+                "groupby"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 2,
+        "template": "sensor_stats = _____________(_____________)['Value']._____________",
+        "common_errors": [
+          "列名拼写错误",
+          "忘记指定聚合函数"
+        ]
+      }
+    },
+    {
+      "id": "M3",
+      "score": 1,
+      "description": "对传感器类型进行分组，并计算每个组的数据数量和平均值",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "数据分组"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "data.groupby",
+                "count",
+                "mean"
+              ],
+              "must_assign_to": "sensor_stats"
+            },
+            {
+              "must_have_arg": "'SensorType'"
+            },
+            {
+              "must_have_arg": "'Value'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "data.groupby",
+                "agg",
+                "groupby"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 2,
+        "template": "sensor_stats = _____________(_____________)['Value']._____________",
+        "common_errors": [
+          "列名拼写错误",
+          "忘记指定聚合函数"
+        ]
+      }
+    },
+    {
+      "id": "M4",
+      "score": 1,
+      "description": "对传感器类型进行分组，并计算每个组的数据数量和平均值",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "数据分组"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "data.groupby",
+                "count",
+                "mean"
+              ],
+              "must_assign_to": "sensor_stats"
+            },
+            {
+              "must_have_arg": "'SensorType'"
+            },
+            {
+              "must_have_arg": "'Value'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "data.groupby",
+                "agg",
+                "groupby"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 2,
+        "template": "sensor_stats = _____________(_____________)['Value']._____________",
+        "common_errors": [
+          "列名拼写错误",
+          "忘记指定聚合函数"
+        ]
+      }
+    },
+    {
+      "id": "M5",
+      "score": 1,
+      "description": "筛选出温度和湿度数据，然后按位置和传感器类型分组，计算每个组的平均值",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "数据分组"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "unstack",
+                "Humidity",
+                "Location"
+              ],
+              "must_assign_to": "location_stats"
+            },
+            {
+              "must_have_arg": "'SensorType'"
+            },
+            {
+              "must_have_arg": "'Temperature'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "mean",
+                "unstack",
+                "groupby"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 2,
+        "template": "location_stats = data[data['SensorType']._____________._____________['Value'].mean().unstack()",
+        "common_errors": [
+          "列名拼写错误",
+          "忘记指定聚合函数"
+        ]
+      }
+    },
+    {
+      "id": "M6",
+      "score": 1,
+      "description": "筛选出温度和湿度数据，然后按位置和传感器类型分组，计算每个组的平均值",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "数据分组"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "unstack",
+                "Humidity",
+                "Location"
+              ],
+              "must_assign_to": "location_stats"
+            },
+            {
+              "must_have_arg": "'SensorType'"
+            },
+            {
+              "must_have_arg": "'Temperature'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "mean",
+                "unstack",
+                "groupby"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 2,
+        "template": "location_stats = data[data['SensorType']._____________._____________['Value'].mean().unstack()",
+        "common_errors": [
+          "列名拼写错误",
+          "忘记指定聚合函数"
+        ]
+      }
+    },
+    {
+      "id": "M7",
+      "score": 3,
+      "description": "标记异常值",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "条件筛选",
+        "numpy"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "where",
+                "np.where",
+                "is_abnormal"
+              ]
+            },
+            {
+              "must_have_arg": "'is_abnormal'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "where",
+                "np.where"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 3,
+        "line_index": 2,
+        "template": "data['is_abnormal'] = _____________(",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M8",
+      "score": 3,
+      "description": "标记异常值",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "Value",
+                "Temperature",
+                "SensorType"
+              ]
+            },
+            {
+              "must_have_arg": "'SensorType'"
+            },
+            {
+              "must_have_arg": "'Temperature'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "((data['SensorType']"
+              ]
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 3,
+        "line_index": 3,
+        "template": "((_____________) & ((data['Value'] < -10) | (data['Value'] > 50))) |",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M9",
+      "score": 3,
+      "description": "标记异常值",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "Value",
+                "Humidity",
+                "SensorType"
+              ]
+            },
+            {
+              "must_have_arg": "'SensorType'"
+            },
+            {
+              "must_have_arg": "'Humidity'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "((data['SensorType']"
+              ]
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 3,
+        "line_index": 4,
+        "template": "((_____________) & ((data['Value'] < 0) | (data['Value'] > 100))),",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M10",
+      "score": 2,
+      "description": "输出异常值数量",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "is_abnormal",
+                "异常值数量:",
+                "print"
+              ]
+            },
+            {
+              "must_have_arg": "'异常值数量:'"
+            },
+            {
+              "must_have_arg": "'is_abnormal'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "sum",
+                "print"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 3,
+        "line_index": 8,
+        "template": "print(\"异常值数量:\", data['is_abnormal']._____________)",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M11",
+      "score": 2,
+      "description": "使用前向填充和后向填充的方法填补缺失值",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "缺失值处理"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "fillna",
+                "Value",
+                "ffill"
+              ]
+            },
+            {
+              "must_have_arg": "'Value'"
+            },
+            {
+              "must_have_arg": "'ffill'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "fillna"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 3,
+        "line_index": 11,
+        "template": "data['Value']._____________(_____________, inplace=True)",
+        "common_errors": [
+          "忘记赋值回原变量"
+        ]
+      }
+    },
+    {
+      "id": "M12",
+      "score": 2,
+      "description": "使用前向填充和后向填充的方法填补缺失值",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "缺失值处理"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "fillna",
+                "Value",
+                "ffill"
+              ]
+            },
+            {
+              "must_have_arg": "'Value'"
+            },
+            {
+              "must_have_arg": "'ffill'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "fillna"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 3,
+        "line_index": 11,
+        "template": "data['Value']._____________(_____________, inplace=True)",
+        "common_errors": [
+          "忘记赋值回原变量"
+        ]
+      }
+    },
+    {
+      "id": "M13",
+      "score": 2,
+      "description": "使用前向填充和后向填充的方法填补缺失值",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "缺失值处理"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "fillna",
+                "Value",
+                "bfill"
+              ]
+            },
+            {
+              "must_have_arg": "'Value'"
+            },
+            {
+              "must_have_arg": "'bfill'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "fillna"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 3,
+        "line_index": 12,
+        "template": "data['Value']._____________(_____________, inplace=True)",
+        "common_errors": [
+          "忘记赋值回原变量"
+        ]
+      }
+    },
+    {
+      "id": "M14",
+      "score": 2,
+      "description": "使用前向填充和后向填充的方法填补缺失值",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "缺失值处理"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "fillna",
+                "Value",
+                "bfill"
+              ]
+            },
+            {
+              "must_have_arg": "'Value'"
+            },
+            {
+              "must_have_arg": "'bfill'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "fillna"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 3,
+        "line_index": 12,
+        "template": "data['Value']._____________(_____________, inplace=True)",
+        "common_errors": [
+          "忘记赋值回原变量"
+        ]
+      }
+    },
+    {
+      "id": "M15",
+      "score": 2,
+      "description": "删除用于标记异常值的列，并将清洗后的数据保存到新的CSV文件中",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "is_abnormal",
+                "drop",
+                "data.drop"
+              ],
+              "must_assign_to": "cleaned_data"
+            },
+            {
+              "must_have_arg": "'is_abnormal'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "drop",
+                "data.drop"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 3,
+        "line_index": 15,
+        "template": "cleaned_data = _____________(_____________=['is_abnormal'])",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M16",
+      "score": 2,
+      "description": "删除用于标记异常值的列，并将清洗后的数据保存到新的CSV文件中",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "is_abnormal",
+                "drop",
+                "data.drop"
+              ],
+              "must_assign_to": "cleaned_data"
+            },
+            {
+              "must_have_arg": "'is_abnormal'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "drop",
+                "data.drop"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 3,
+        "line_index": 15,
+        "template": "cleaned_data = _____________(_____________=['is_abnormal'])",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M17",
+      "score": 2,
+      "description": "删除用于标记异常值的列，并将清洗后的数据保存到新的CSV文件中",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "数据导出"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "to_csv",
+                "cleaned_sensor_data.csv",
+                "cleaned_data.to_csv"
+              ]
+            },
+            {
+              "must_have_arg": "'cleaned_sensor_data.csv'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "to_csv",
+                "cleaned_sensor_data.csv",
+                "cleaned_data.to_csv"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 3,
+        "line_index": 16,
+        "template": "_____________('cleaned_sensor_data.csv', _____________)",
+        "common_errors": [
+          "忘记 index=False",
+          "文件名错误"
+        ]
+      }
+    },
+    {
+      "id": "M18",
+      "score": 2,
+      "description": "删除用于标记异常值的列，并将清洗后的数据保存到新的CSV文件中",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "数据导出"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "to_csv",
+                "cleaned_sensor_data.csv",
+                "cleaned_data.to_csv"
+              ]
+            },
+            {
+              "must_have_arg": "'cleaned_sensor_data.csv'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "to_csv",
+                "cleaned_sensor_data.csv",
+                "cleaned_data.to_csv"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 3,
+        "line_index": 16,
+        "template": "_____________('cleaned_sensor_data.csv', _____________)",
+        "common_errors": [
+          "忘记 index=False",
+          "文件名错误"
+        ]
+      }
+    }
+  ],
+  "grading_rules": {
+    "exam_mode": {
+      "strict_matching": true,
+      "allow_partial_credit": false,
+      "deduction_for_syntax_error": 0.5,
+      "deduction_for_typo": 0
+    },
+    "practice_mode": {
+      "strict_matching": false,
+      "allow_partial_credit": true,
+      "semantic_matching": true,
+      "provide_hints": true
+    }
+  },
+  "metadata": {
+    "version": "2.0",
+    "generated_at": "2026-08-06T23:14:48.966409",
+    "converted_from": "1.1.2.json",
+    "difficulty_distribution": {
+      "easy": 0,
+      "medium": 11,
+      "hard": 7
+    },
+    "knowledge_point_coverage": {
+      "pandas": 1,
+      "数据加载": 1,
+      "数据分组": 5,
+      "条件筛选": 1,
+      "numpy": 1,
+      "基础语法": 5,
+      "缺失值处理": 4,
+      "数据导出": 2
+    }
+  }
+}

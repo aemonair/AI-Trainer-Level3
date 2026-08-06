@@ -1,0 +1,1346 @@
+{
+  "exam": {
+    "chapter": "1.1.5",
+    "title": "从本地文件中读取数据",
+    "total_score": 40,
+    "passing_score": 24,
+    "time_limit_minutes": 30
+  },
+  "items": [
+    {
+      "id": "M1",
+      "score": 2,
+      "description": "从本地文件中读取数据",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "pandas",
+        "数据加载"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "pd.read_csv",
+                "read_csv",
+                "vehicle_traffic_data.csv"
+              ],
+              "must_assign_to": "data"
+            },
+            {
+              "must_have_arg": "'vehicle_traffic_data.csv'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "pd.read_csv",
+                "read_csv",
+                "vehicle_traffic_data.csv"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 6,
+        "template": "data = _____________",
+        "common_errors": [
+          "文件名拼写错误",
+          "忘记加引号"
+        ]
+      }
+    },
+    {
+      "id": "M2",
+      "score": 2,
+      "description": "打印数据的前5条记录",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "data.head",
+                "head",
+                "print"
+              ]
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "data.head",
+                "head",
+                "print"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 10,
+        "template": "print(_____________)",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M3",
+      "score": 2,
+      "description": "处理缺失值（删除）",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "缺失值处理"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "data.dropna",
+                "dropna"
+              ],
+              "must_assign_to": "data"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "data.dropna",
+                "dropna"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 2,
+        "template": "data = _____________",
+        "common_errors": [
+          "忘记赋值回原变量"
+        ]
+      }
+    },
+    {
+      "id": "M4",
+      "score": 1,
+      "description": "处理缺失值（删除）",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "astype"
+              ]
+            },
+            {
+              "must_have_arg": "'Age'"
+            },
+            {
+              "must_have_arg": "'Age'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "astype"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 5,
+        "template": "data_____________ = _____________(int)       #Age数据类型转换为int 1分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M5",
+      "score": 1,
+      "description": "处理缺失值（删除）",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "astype"
+              ]
+            },
+            {
+              "must_have_arg": "'Age'"
+            },
+            {
+              "must_have_arg": "'Age'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "astype"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 5,
+        "template": "data_____________ = _____________(int)       #Age数据类型转换为int 1分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M6",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "astype",
+                "Speed"
+              ]
+            },
+            {
+              "must_have_arg": "'Speed'"
+            },
+            {
+              "must_have_arg": "'Speed'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "astype"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 6,
+        "template": "data_____________ = _____________(float)     #Speed数据类型转换为float 1分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M7",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "astype",
+                "Speed"
+              ]
+            },
+            {
+              "must_have_arg": "'Speed'"
+            },
+            {
+              "must_have_arg": "'Speed'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "astype"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 6,
+        "template": "data_____________ = _____________(float)     #Speed数据类型转换为float 1分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M8",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "astype",
+                "TravelDistance"
+              ]
+            },
+            {
+              "must_have_arg": "'TravelDistance'"
+            },
+            {
+              "must_have_arg": "'TravelDistance'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "astype"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 7,
+        "template": "data_____________ = _____________(float)     #TravelDistance数据类型转换为float 1分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M9",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "astype",
+                "TravelDistance"
+              ]
+            },
+            {
+              "must_have_arg": "'TravelDistance'"
+            },
+            {
+              "must_have_arg": "'TravelDistance'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "astype"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 7,
+        "template": "data_____________ = _____________(float)     #TravelDistance数据类型转换为float 1分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M10",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "astype",
+                "TravelTime"
+              ]
+            },
+            {
+              "must_have_arg": "'TravelTime'"
+            },
+            {
+              "must_have_arg": "'TravelTime'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "astype"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 8,
+        "template": "data_____________ = _____________(float)     #TravelTime数据类型转换为float 1分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M11",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "astype",
+                "TravelTime"
+              ]
+            },
+            {
+              "must_have_arg": "'TravelTime'"
+            },
+            {
+              "must_have_arg": "'TravelTime'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "astype"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 8,
+        "template": "data_____________ = _____________(float)     #TravelTime数据类型转换为float 1分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M12",
+      "score": 2,
+      "description": "处理异常值",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "between"
+              ],
+              "must_assign_to": "data"
+            },
+            {
+              "must_have_arg": "'Age'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "between"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 11,
+        "template": "data = data[(_____________(18, 70))  &",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M13",
+      "score": 2,
+      "description": "处理异常值",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "Speed",
+                "between"
+              ]
+            },
+            {
+              "must_have_arg": "'Speed'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "between"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 12,
+        "template": "(_____________(0, 200)) &",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M14",
+      "score": 2,
+      "description": "处理异常值",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "TravelDistance",
+                "between"
+              ]
+            },
+            {
+              "must_have_arg": "'TravelDistance'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "between"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 13,
+        "template": "(_____________(1, 1000)) &",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M15",
+      "score": 2,
+      "description": "处理异常值",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "TravelTime",
+                "between"
+              ]
+            },
+            {
+              "must_have_arg": "'TravelTime'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "between"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 14,
+        "template": "(_____________(1, 1440))]",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M16",
+      "score": 1,
+      "description": "保存清洗后的数据",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "数据导出"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "cleaned_vehicle_traffic_data.csv",
+                "to_csv",
+                "data.to_csv"
+              ]
+            },
+            {
+              "must_have_arg": "'cleaned_vehicle_traffic_data.csv'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "cleaned_vehicle_traffic_data.csv",
+                "to_csv",
+                "data.to_csv"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 17,
+        "template": "_____________('cleaned_vehicle_traffic_data.csv', index=False)",
+        "common_errors": [
+          "忘记 index=False",
+          "文件名错误"
+        ]
+      }
+    },
+    {
+      "id": "M17",
+      "score": 1,
+      "description": "审核字段合理性",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "between"
+              ],
+              "must_assign_to": "unreasonable_data"
+            },
+            {
+              "must_have_arg": "'Age'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "between"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 2,
+        "template": "unreasonable_data = data[~((_____________(18, 70)) &",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M18",
+      "score": 1,
+      "description": "审核字段合理性",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "Speed",
+                "between"
+              ]
+            },
+            {
+              "must_have_arg": "'Speed'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "between"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 3,
+        "template": "(_____________(0, 200)) &",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M19",
+      "score": 1,
+      "description": "审核字段合理性",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "TravelDistance",
+                "between"
+              ]
+            },
+            {
+              "must_have_arg": "'TravelDistance'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "between"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 4,
+        "template": "(_____________(1, 1000)) &",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M20",
+      "score": 1,
+      "description": "审核字段合理性",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "TravelTime",
+                "between"
+              ]
+            },
+            {
+              "must_have_arg": "'TravelTime'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "between"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 5,
+        "template": "(_____________(1, 1440)))]",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M21",
+      "score": 2,
+      "description": "统计每种交通事件的发生次数",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "数据统计"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "value_counts",
+                "TrafficEvent"
+              ],
+              "must_assign_to": "traffic_event_counts"
+            },
+            {
+              "must_have_arg": "'TrafficEvent'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "value_counts"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 10,
+        "template": "traffic_event_counts = _____________",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M22",
+      "score": 1,
+      "description": "统计不同性别的平均车速、行驶距离和行驶时间",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "数据分组"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "TravelDistance",
+                "data.groupby",
+                "mean"
+              ],
+              "must_assign_to": "gender_stats"
+            },
+            {
+              "must_have_arg": "'Gender'"
+            },
+            {
+              "must_have_arg": "'Speed'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "data.groupby",
+                "agg",
+                "groupby"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 14,
+        "template": "gender_stats = data._____________._____________",
+        "common_errors": [
+          "列名拼写错误",
+          "忘记指定聚合函数"
+        ]
+      }
+    },
+    {
+      "id": "M23",
+      "score": 1,
+      "description": "统计不同性别的平均车速、行驶距离和行驶时间",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "数据分组"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "TravelDistance",
+                "data.groupby",
+                "mean"
+              ],
+              "must_assign_to": "gender_stats"
+            },
+            {
+              "must_have_arg": "'Gender'"
+            },
+            {
+              "must_have_arg": "'Speed'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "data.groupby",
+                "agg",
+                "groupby"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 14,
+        "template": "gender_stats = data._____________._____________",
+        "common_errors": [
+          "列名拼写错误",
+          "忘记指定聚合函数"
+        ]
+      }
+    },
+    {
+      "id": "M24",
+      "score": 1,
+      "description": "统计不同年龄段的驾驶员数",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "pandas",
+        "数据分箱"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "AgeGroup",
+                "pd.cut"
+              ]
+            },
+            {
+              "must_have_arg": "'AgeGroup'"
+            },
+            {
+              "must_have_arg": "'Age'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "cut",
+                "pd.cut"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 20,
+        "template": "data['AgeGroup'] = _____________(_____________,_____________,_____________, right=False)",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M25",
+      "score": 1,
+      "description": "统计不同年龄段的驾驶员数",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "pandas",
+        "数据分箱"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "AgeGroup",
+                "pd.cut"
+              ]
+            },
+            {
+              "must_have_arg": "'AgeGroup'"
+            },
+            {
+              "must_have_arg": "'Age'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "cut",
+                "pd.cut"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 20,
+        "template": "data['AgeGroup'] = _____________(_____________,_____________,_____________, right=False)",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M26",
+      "score": 1,
+      "description": "统计不同年龄段的驾驶员数",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "pandas",
+        "数据分箱"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "AgeGroup",
+                "pd.cut"
+              ]
+            },
+            {
+              "must_have_arg": "'AgeGroup'"
+            },
+            {
+              "must_have_arg": "'Age'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "cut",
+                "pd.cut"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 20,
+        "template": "data['AgeGroup'] = _____________(_____________,_____________,_____________, right=False)",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M27",
+      "score": 1,
+      "description": "统计不同年龄段的驾驶员数",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "pandas",
+        "数据分箱"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "AgeGroup",
+                "pd.cut"
+              ]
+            },
+            {
+              "must_have_arg": "'AgeGroup'"
+            },
+            {
+              "must_have_arg": "'Age'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "cut",
+                "pd.cut"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 20,
+        "template": "data['AgeGroup'] = _____________(_____________,_____________,_____________, right=False)",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M28",
+      "score": 5,
+      "description": "统计不同年龄段的驾驶员数",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "数据统计"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "AgeGroup",
+                "value_counts"
+              ],
+              "must_assign_to": "age_group_counts"
+            },
+            {
+              "must_have_arg": "'AgeGroup'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "value_counts"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 21,
+        "template": "age_group_counts = _____________",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    }
+  ],
+  "grading_rules": {
+    "exam_mode": {
+      "strict_matching": true,
+      "allow_partial_credit": false,
+      "deduction_for_syntax_error": 0.5,
+      "deduction_for_typo": 0
+    },
+    "practice_mode": {
+      "strict_matching": false,
+      "allow_partial_credit": true,
+      "semantic_matching": true,
+      "provide_hints": true
+    }
+  },
+  "metadata": {
+    "version": "2.0",
+    "generated_at": "2026-08-06T23:14:48.971620",
+    "converted_from": "1.1.5.json",
+    "difficulty_distribution": {
+      "easy": 0,
+      "medium": 22,
+      "hard": 6
+    },
+    "knowledge_point_coverage": {
+      "pandas": 5,
+      "数据加载": 1,
+      "基础语法": 17,
+      "缺失值处理": 1,
+      "数据导出": 1,
+      "数据统计": 2,
+      "数据分组": 2,
+      "数据分箱": 4
+    }
+  }
+}

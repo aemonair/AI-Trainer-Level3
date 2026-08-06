@@ -1,0 +1,242 @@
+{
+  "chapter": "2.2.2",
+  "total_score": 21,
+  "items": [
+    {
+      "id": "M1",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 9,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "df = pd.read_csv('auto-mpg.csv')",
+      "template_line": "df = __________"
+    },
+    {
+      "id": "M2",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 12,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "print(df.head())",
+      "template_line": "print(__________)"
+    },
+    {
+      "id": "M3",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 16,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "df['horsepower'] = pd.to_numeric(df['horsepower'], errors='coerce')",
+      "template_line": "df['horsepower'] = __________(__________, errors='coerce')"
+    },
+    {
+      "id": "M4",
+      "cell_index": 0,
+      "blank_index": 1,
+      "line_index": 16,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "df['horsepower'] = pd.to_numeric(df['horsepower'], errors='coerce')",
+      "template_line": "df['horsepower'] = __________(__________, errors='coerce')"
+    },
+    {
+      "id": "M5",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 18,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "df = df.dropna()",
+      "template_line": "df = __________"
+    },
+    {
+      "id": "M6",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 21,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "X = df[['cylinders', 'displacement', 'horsepower', 'weight', 'acceleration', 'model year', 'origin']]",
+      "template_line": "X = __________"
+    },
+    {
+      "id": "M7",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 22,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "y = df['mpg']",
+      "template_line": "y = __________"
+    },
+    {
+      "id": "M8",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 25,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)",
+      "template_line": "X_train, X_test, y_train, y_test = __________(__________, random_state=42)"
+    },
+    {
+      "id": "M9",
+      "cell_index": 0,
+      "blank_index": 1,
+      "line_index": 25,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)",
+      "template_line": "X_train, X_test, y_train, y_test = __________(__________, random_state=42)"
+    },
+    {
+      "id": "M10",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 28,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "pipeline = Pipeline([('scaler', StandardScaler()),('linreg', LinearRegression())])",
+      "template_line": "pipeline = __________([('scaler', __________),('linreg', __________)])"
+    },
+    {
+      "id": "M11",
+      "cell_index": 0,
+      "blank_index": 1,
+      "line_index": 28,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "pipeline = Pipeline([('scaler', StandardScaler()),('linreg', LinearRegression())])",
+      "template_line": "pipeline = __________([('scaler', __________),('linreg', __________)])"
+    },
+    {
+      "id": "M12",
+      "cell_index": 0,
+      "blank_index": 2,
+      "line_index": 28,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "pipeline = Pipeline([('scaler', StandardScaler()),('linreg', LinearRegression())])",
+      "template_line": "pipeline = __________([('scaler', __________),('linreg', __________)])"
+    },
+    {
+      "id": "M13",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 31,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "pipeline.fit(X_train, y_train)",
+      "template_line": "__________"
+    },
+    {
+      "id": "M14",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 35,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "pickle.dump(pipeline, model_file)",
+      "template_line": "pickle.__________"
+    },
+    {
+      "id": "M15",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 38,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "y_pred = pipeline.predict(X_test)",
+      "template_line": "y_pred = __________"
+    },
+    {
+      "id": "M16",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 40,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "results_df.to_csv('2.2.2_results.txt', index=False)",
+      "template_line": "__________('2.2.2_results.txt', index=False)"
+    },
+    {
+      "id": "M17",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 48,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "rf_model = RandomForestRegressor(n_estimators=100, random_state=42)",
+      "template_line": "rf_model = __________(__________, random_state=42)"
+    },
+    {
+      "id": "M18",
+      "cell_index": 0,
+      "blank_index": 1,
+      "line_index": 48,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "rf_model = RandomForestRegressor(n_estimators=100, random_state=42)",
+      "template_line": "rf_model = __________(__________, random_state=42)"
+    },
+    {
+      "id": "M19",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 50,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "rf_model.fit(X_train, y_train)",
+      "template_line": "__________"
+    },
+    {
+      "id": "M20",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 53,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "y_pred_rf = rf_model.predict(X_test)",
+      "template_line": "y_pred_rf = __________"
+    },
+    {
+      "id": "M21",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 57,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "results_rf_df.to_csv('2.2.2_results_rf.txt', index=False)",
+      "template_line": "__________('2.2.2_results_rf.txt', index=False)"
+    }
+  ],
+  "metadata": {
+    "generated_at": "2026-08-06T22:41:01.999778",
+    "template_file": "2.2.2-materials/2.2.2.ipynb",
+    "answer_file": "answers/1.1.1 - 4.2.5参考答案/2.2.2/2.2.2.ipynb"
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "file": "/Users/air/Downloads/GUIDE_AI_3/人工智能训练师_3级_sucai/2.1.1-materials/2.1.1_practice_202608052155.ipynb",
+  "chapter": "2.1.1",
+  "errors": [
+    {
+      "type": "fill_incorrect",
+      "count": 2,
+      "details": [
+        {
+          "cell_index": 0,
+          "type": "line_count_mismatch",
+          "answer_lines": 26,
+          "practice_lines": 6,
+          "description": "答案有26行代码，你的代码有6行（不能增加或删除代码行，注释行除外）"
+        },
+        {
+          "cell_index": 1,
+          "type": "line_count_mismatch",
+          "answer_lines": 0,
+          "practice_lines": 26,
+          "description": "答案有0行代码，你的代码有26行（不能增加或删除代码行，注释行除外）"
+        }
+      ],
+      "deduction": 16,
+      "knowledge_point": "Pandas",
+      "topic": "填空错误"
+    }
+  ],
+  "warnings": [
+    {
+      "type": "implementation_differs",
+      "count": 1,
+      "details": [
+        {
+          "cell_index": 0,
+          "type": "missing_function",
+          "missing": [
+            "pd.read_csv",
+            "pd.to_numeric"
+          ],
+          "answer_code": "import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = pd.read_csv('auto-mpg.csv')\nprint(\"数据集的前五行:\")\nprint(data.head())\n\n# 显示每一列的数据类型\nprint(data.dtypes)\n\n# 检查缺失值并删除缺失值所在的行  2分\nprint(\"\\n检查缺失值:\")\nprint(data.i",
+          "practice_code": "# 2.1.1 考试会话\n\n- **考试ID**: 2.1.1_202608052155\n- **开始时间**: 2026-08-05 21:55:29\n- **章节**: 2.1.1\n\n## 考试说明\n1. 完成所有下划线填空\n2. 运行并验证结果\n3. 使用 `validate_practice.py` 进行评分\n"
+        }
+      ],
+      "deduction": 3,
+      "knowledge_point": "Pandas",
+      "topic": "实现差异"
+    }
+  ],
+  "score": 81,
+  "total_score": 100,
+  "fill_comparison": [
+    {
+      "cell_index": 0,
+      "type": "line_count_mismatch",
+      "answer_lines": 26,
+      "practice_lines": 6,
+      "description": "答案有26行代码，你的代码有6行（不能增加或删除代码行，注释行除外）"
+    },
+    {
+      "cell_index": 1,
+      "type": "line_count_mismatch",
+      "answer_lines": 0,
+      "practice_lines": 26,
+      "description": "答案有0行代码，你的代码有26行（不能增加或删除代码行，注释行除外）"
+    }
+  ],
+  "implementation_comparison": [
+    {
+      "cell_index": 0,
+      "type": "missing_function",
+      "missing": [
+        "pd.read_csv",
+        "pd.to_numeric"
+      ],
+      "answer_code": "import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = pd.read_csv('auto-mpg.csv')\nprint(\"数据集的前五行:\")\nprint(data.head())\n\n# 显示每一列的数据类型\nprint(data.dtypes)\n\n# 检查缺失值并删除缺失值所在的行  2分\nprint(\"\\n检查缺失值:\")\nprint(data.i",
+      "practice_code": "# 2.1.1 考试会话\n\n- **考试ID**: 2.1.1_202608052155\n- **开始时间**: 2026-08-05 21:55:29\n- **章节**: 2.1.1\n\n## 考试说明\n1. 完成所有下划线填空\n2. 运行并验证结果\n3. 使用 `validate_practice.py` 进行评分\n"
+    }
+  ],
+  "result_comparison": [],
+  "knowledge_points": {},
+  "start_time": "2026-08-05T21:55:29.825838",
+  "end_time": "2026-08-05T23:18:22.095747",
+  "process_audit": null,
+  "ipython_history": {
+    "session_id": 32,
+    "total_commands": 5,
+    "key_commands": [
+      {
+        "command": "import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = pandas.read_csv(\"auto-mpg.csv\")\nprint(\"数据集的前五行:\")\np",
+        "type": "缺失值处理"
+      },
+      {
+        "command": "import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = pandas.read_csv(\"auto-mpg.csv\")\nprint(\"数据集的前五行:\")\np",
+        "type": "数据读取"
+      },
+      {
+        "command": "import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = pd.read_csv(\"auto-mpg.csv\")\nprint(\"数据集的前五行:\")\nprint",
+        "type": "缺失值处理"
+      },
+      {
+        "command": "import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = pd.read_csv(\"auto-mpg.csv\")\nprint(\"数据集的前五行:\")\nprint",
+        "type": "数据读取"
+      },
+      {
+        "command": "import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = pd.read_csv(\"auto-mpg.csv\")\nprint(\"数据集的前五行:\")\nprint",
+        "type": "缺失值处理"
+      },
+      {
+        "command": "import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = pd.read_csv(\"auto-mpg.csv\")\nprint(\"数据集的前五行:\")\nprint",
+        "type": "数据读取"
+      },
+      {
+        "command": "import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = pd.read_csv(\"auto-mpg.csv\")\nprint(\"数据集的前五行:\")\nprint",
+        "type": "缺失值处理"
+      },
+      {
+        "command": "import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = pd.read_csv(\"auto-mpg.csv\")\nprint(\"数据集的前五行:\")\nprint",
+        "type": "数据读取"
+      },
+      {
+        "command": "import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = pd.read_csv(\"auto-mpg.csv\")\nprint(\"数据集的前五行:\")\nprint",
+        "type": "缺失值处理"
+      },
+      {
+        "command": "import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = pd.read_csv(\"auto-mpg.csv\")\nprint(\"数据集的前五行:\")\nprint",
+        "type": "数据读取"
+      }
+    ],
+    "error_patterns": [],
+    "correction_count": 1,
+    "suggestions": []
+  },
+  "duration_minutes": 82
+}

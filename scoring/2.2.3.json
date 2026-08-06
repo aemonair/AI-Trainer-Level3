@@ -1,0 +1,264 @@
+{
+  "chapter": "2.2.3",
+  "total_score": 23,
+  "items": [
+    {
+      "id": "M1",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 8,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "df = pd.read_csv('fitness analysis.csv')",
+      "template_line": "df = __________"
+    },
+    {
+      "id": "M2",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 11,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "print(df.head())",
+      "template_line": "print(__________)"
+    },
+    {
+      "id": "M3",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 21,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "X = pd.get_dummies(X)  # 将分类变量转为数值变量",
+      "template_line": "X = __________(X)  # 将分类变量转为数值变量"
+    },
+    {
+      "id": "M4",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 24,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "y = df['Your age'].apply(lambda x: int(x.split(' ')[0]))  # 假设年龄段为整数",
+      "template_line": "y = __________(lambda x: int(x.split(' ')[0]))  # 假设年龄段为整数"
+    },
+    {
+      "id": "M5",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 27,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)",
+      "template_line": "X_train, X_test, y_train, y_test = __________(__________, random_state=42)"
+    },
+    {
+      "id": "M6",
+      "cell_index": 0,
+      "blank_index": 1,
+      "line_index": 27,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)",
+      "template_line": "X_train, X_test, y_train, y_test = __________(__________, random_state=42)"
+    },
+    {
+      "id": "M7",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 30,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "rf_model = RandomForestRegressor(n_estimators=100, random_state=42)",
+      "template_line": "rf_model = __________(__________, random_state=42)"
+    },
+    {
+      "id": "M8",
+      "cell_index": 0,
+      "blank_index": 1,
+      "line_index": 30,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "rf_model = RandomForestRegressor(n_estimators=100, random_state=42)",
+      "template_line": "rf_model = __________(__________, random_state=42)"
+    },
+    {
+      "id": "M9",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 32,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "rf_model.fit(X_train, y_train)",
+      "template_line": "__________"
+    },
+    {
+      "id": "M10",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 36,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "pickle.dump(rf_model, model_file)",
+      "template_line": "pickle.__________"
+    },
+    {
+      "id": "M11",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 39,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "y_pred = rf_model.predict(X_test)",
+      "template_line": "y_pred = __________"
+    },
+    {
+      "id": "M12",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 44,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "train_score = rf_model.score(X_train, y_train)   #训练集分数",
+      "template_line": "train_score = __________   #训练集分数"
+    },
+    {
+      "id": "M13",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 45,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "test_score = rf_model.score(X_test, y_test)    #测试集分数",
+      "template_line": "test_score = __________    #测试集分数"
+    },
+    {
+      "id": "M14",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 46,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "mse = mean_squared_error(y_test, y_pred)  #均方误差",
+      "template_line": "mse = __________  #均方误差"
+    },
+    {
+      "id": "M15",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 47,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "r2 = r2_score(y_test, y_pred)  #决定系数",
+      "template_line": "r2 = __________  #决定系数"
+    },
+    {
+      "id": "M16",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 56,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "xgb_model = xgb.XGBRegressor(n_estimators=100, random_state=42)",
+      "template_line": "xgb_model = __________(__________, random_state=42)"
+    },
+    {
+      "id": "M17",
+      "cell_index": 0,
+      "blank_index": 1,
+      "line_index": 56,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "xgb_model = xgb.XGBRegressor(n_estimators=100, random_state=42)",
+      "template_line": "xgb_model = __________(__________, random_state=42)"
+    },
+    {
+      "id": "M18",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 58,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "xgb_model.fit(X_train, y_train)",
+      "template_line": "__________"
+    },
+    {
+      "id": "M19",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 60,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "y_pred_xgb = xgb_model.predict(X_test)",
+      "template_line": "y_pred_xgb = __________"
+    },
+    {
+      "id": "M20",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 66,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "xgb_report_file.write(f'XGBoost训练集得分: {xgb_model.score(X_train, y_train)}\\n')",
+      "template_line": "xgb_report_file.write(f'XGBoost训练集得分: {__________}\\n')"
+    },
+    {
+      "id": "M21",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 67,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "xgb_report_file.write(f'XGBoost测试集得分: {xgb_model.score(X_test, y_test)}\\n')",
+      "template_line": "xgb_report_file.write(f'XGBoost测试集得分: {__________}\\n')"
+    },
+    {
+      "id": "M22",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 68,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "xgb_report_file.write(f'XGBoost均方误差(MSE): {mean_squared_error(y_test, y_pred_xgb)}\\n')",
+      "template_line": "xgb_report_file.write(f'XGBoost均方误差(MSE): {__________}\\n')"
+    },
+    {
+      "id": "M23",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 69,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "xgb_report_file.write(f'XGBoost决定系数(R^2): {r2_score(y_test, y_pred_xgb)}\\n')",
+      "template_line": "xgb_report_file.write(f'XGBoost决定系数(R^2): {__________)}\\n')"
+    }
+  ],
+  "metadata": {
+    "generated_at": "2026-08-06T22:41:02.000857",
+    "template_file": "2.2.3-materials/2.2.3.ipynb",
+    "answer_file": "answers/1.1.1 - 4.2.5参考答案/2.2.3/2.2.3.ipynb"
+  }
+}

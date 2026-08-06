@@ -1,0 +1,1166 @@
+{
+  "exam": {
+    "chapter": "1.1.4",
+    "title": "从本地文件中读取数据",
+    "total_score": 27,
+    "passing_score": 16,
+    "time_limit_minutes": 30
+  },
+  "items": [
+    {
+      "id": "M1",
+      "score": 2,
+      "description": "从本地文件中读取数据",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "数据加载"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "user_behavior_data.csv",
+                "read_csv",
+                "pandas.read_csv"
+              ],
+              "must_assign_to": "data"
+            },
+            {
+              "must_have_arg": "'user_behavior_data.csv'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "user_behavior_data.csv",
+                "read_csv",
+                "pandas.read_csv"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 6,
+        "template": "data =  _______________________________",
+        "common_errors": [
+          "文件名拼写错误",
+          "忘记加引号"
+        ]
+      }
+    },
+    {
+      "id": "M2",
+      "score": 2,
+      "description": "打印数据的前5条记录",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "data.head",
+                "head",
+                "print"
+              ]
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "data.head",
+                "head",
+                "print"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 10,
+        "template": "print(________________________________)",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M3",
+      "score": 2,
+      "description": "处理缺失值（删除）",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "缺失值处理"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "data.dropna",
+                "dropna"
+              ],
+              "must_assign_to": "data"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "data.dropna",
+                "dropna"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 2,
+        "template": "data = ________________________________",
+        "common_errors": [
+          "忘记赋值回原变量"
+        ]
+      }
+    },
+    {
+      "id": "M4",
+      "score": 1,
+      "description": "处理缺失值（删除）",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "astype"
+              ]
+            },
+            {
+              "must_have_arg": "'Age'"
+            },
+            {
+              "must_have_arg": "'Age'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "astype"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 5,
+        "template": "data________________ = ________________(int)   # Age数据类型转换为int 2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M5",
+      "score": 1,
+      "description": "处理缺失值（删除）",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "astype"
+              ]
+            },
+            {
+              "must_have_arg": "'Age'"
+            },
+            {
+              "must_have_arg": "'Age'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "astype"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 5,
+        "template": "data________________ = ________________(int)   # Age数据类型转换为int 2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M6",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "astype",
+                "PurchaseAmount"
+              ]
+            },
+            {
+              "must_have_arg": "'PurchaseAmount'"
+            },
+            {
+              "must_have_arg": "'PurchaseAmount'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "astype"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 6,
+        "template": "data________________ = ________________(float) # PurchaseAmount数据类型转换为float  2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M7",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "astype",
+                "PurchaseAmount"
+              ]
+            },
+            {
+              "must_have_arg": "'PurchaseAmount'"
+            },
+            {
+              "must_have_arg": "'PurchaseAmount'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "astype"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 6,
+        "template": "data________________ = ________________(float) # PurchaseAmount数据类型转换为float  2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M8",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "astype",
+                "ReviewScore"
+              ]
+            },
+            {
+              "must_have_arg": "'ReviewScore'"
+            },
+            {
+              "must_have_arg": "'ReviewScore'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "astype"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 7,
+        "template": "data________________ = ________________(int)   # ReviewScore数据类型转换为int 2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M9",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "astype",
+                "ReviewScore"
+              ]
+            },
+            {
+              "must_have_arg": "'ReviewScore'"
+            },
+            {
+              "must_have_arg": "'ReviewScore'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "astype"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 7,
+        "template": "data________________ = ________________(int)   # ReviewScore数据类型转换为int 2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M10",
+      "score": 1,
+      "description": "处理异常值",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "between"
+              ],
+              "must_assign_to": "data"
+            },
+            {
+              "must_have_arg": "'Age'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "between"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 10,
+        "template": "data = data[(________________.________________(18, 70)) &",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M11",
+      "score": 1,
+      "description": "处理异常值",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "between"
+              ],
+              "must_assign_to": "data"
+            },
+            {
+              "must_have_arg": "'Age'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "between"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 10,
+        "template": "data = data[(________________.________________(18, 70)) &",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M12",
+      "score": 1,
+      "description": "处理异常值",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "ReviewScore",
+                "between"
+              ]
+            },
+            {
+              "must_have_arg": "'ReviewScore'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "between"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 12,
+        "template": "(________________.________________(1, 5))]",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M13",
+      "score": 1,
+      "description": "处理异常值",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "ReviewScore",
+                "between"
+              ]
+            },
+            {
+              "must_have_arg": "'ReviewScore'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "between"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 12,
+        "template": "(________________.________________(1, 5))]",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M14",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "mean",
+                "PurchaseAmount"
+              ]
+            },
+            {
+              "must_have_arg": "'PurchaseAmount'"
+            },
+            {
+              "must_have_arg": "'PurchaseAmount'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "mean",
+                "std"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 15,
+        "template": "data['PurchaseAmount'] = (data['PurchaseAmount'] - ________________) / ________________  # PurchaseAmount数据标准化 2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M15",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "mean",
+                "PurchaseAmount"
+              ]
+            },
+            {
+              "must_have_arg": "'PurchaseAmount'"
+            },
+            {
+              "must_have_arg": "'PurchaseAmount'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "mean",
+                "std"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 15,
+        "template": "data['PurchaseAmount'] = (data['PurchaseAmount'] - ________________) / ________________  # PurchaseAmount数据标准化 2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M16",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "mean",
+                "ReviewScore"
+              ]
+            },
+            {
+              "must_have_arg": "'ReviewScore'"
+            },
+            {
+              "must_have_arg": "'ReviewScore'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "mean",
+                "std"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 16,
+        "template": "data['ReviewScore'] = (data['ReviewScore'] - ________________) / ________________        # ReviewScore数据标准化 2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M17",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "mean",
+                "ReviewScore"
+              ]
+            },
+            {
+              "must_have_arg": "'ReviewScore'"
+            },
+            {
+              "must_have_arg": "'ReviewScore'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "mean",
+                "std"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 16,
+        "template": "data['ReviewScore'] = (data['ReviewScore'] - ________________) / ________________        # ReviewScore数据标准化 2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M18",
+      "score": 1,
+      "description": "保存清洗后的数据",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "数据导出"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "to_csv",
+                "data.to_csv",
+                "cleaned_user_behavior_data.csv"
+              ]
+            },
+            {
+              "must_have_arg": "'cleaned_user_behavior_data.csv'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "to_csv",
+                "data.to_csv",
+                "cleaned_user_behavior_data.csv"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 19,
+        "template": "________________('cleaned_user_behavior_data.csv', index=False)",
+        "common_errors": [
+          "忘记 index=False",
+          "文件名错误"
+        ]
+      }
+    },
+    {
+      "id": "M19",
+      "score": 1,
+      "description": "统计每个购买类别的用户数",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "数据统计"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "PurchaseCategory",
+                "value_counts"
+              ],
+              "must_assign_to": "purchase_category_counts"
+            },
+            {
+              "must_have_arg": "'PurchaseCategory'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "value_counts"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 2,
+        "template": "purchase_category_counts = ________________.________________",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M20",
+      "score": 1,
+      "description": "统计每个购买类别的用户数",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "数据统计"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "PurchaseCategory",
+                "value_counts"
+              ],
+              "must_assign_to": "purchase_category_counts"
+            },
+            {
+              "must_have_arg": "'PurchaseCategory'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "value_counts"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 2,
+        "template": "purchase_category_counts = ________________.________________",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M21",
+      "score": 1,
+      "description": "统计不同性别的平均购买金额",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "数据分组"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "data.groupby",
+                "mean",
+                "groupby"
+              ],
+              "must_assign_to": "gender_purchase_amount_mean"
+            },
+            {
+              "must_have_arg": "'Gender'"
+            },
+            {
+              "must_have_arg": "'PurchaseAmount'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "data.groupby",
+                "mean",
+                "groupby"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 6,
+        "template": "gender_purchase_amount_mean = ________________(________________)['PurchaseAmount'].mean()",
+        "common_errors": [
+          "列名拼写错误",
+          "忘记指定聚合函数"
+        ]
+      }
+    },
+    {
+      "id": "M22",
+      "score": 1,
+      "description": "统计不同性别的平均购买金额",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "数据分组"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "data.groupby",
+                "mean",
+                "groupby"
+              ],
+              "must_assign_to": "gender_purchase_amount_mean"
+            },
+            {
+              "must_have_arg": "'Gender'"
+            },
+            {
+              "must_have_arg": "'PurchaseAmount'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "data.groupby",
+                "mean",
+                "groupby"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 6,
+        "template": "gender_purchase_amount_mean = ________________(________________)['PurchaseAmount'].mean()",
+        "common_errors": [
+          "列名拼写错误",
+          "忘记指定聚合函数"
+        ]
+      }
+    },
+    {
+      "id": "M23",
+      "score": 1,
+      "description": "统计不同年龄段的用户数",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "数据分箱"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "pandas.cut",
+                "AgeGroup"
+              ]
+            },
+            {
+              "must_have_arg": "'AgeGroup'"
+            },
+            {
+              "must_have_arg": "'Age'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "pandas.cut",
+                "cut"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 12,
+        "template": "data['AgeGroup'] = pandas.________________(________________, right=False)",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M24",
+      "score": 1,
+      "description": "统计不同年龄段的用户数",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "数据分箱"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "pandas.cut",
+                "AgeGroup"
+              ]
+            },
+            {
+              "must_have_arg": "'AgeGroup'"
+            },
+            {
+              "must_have_arg": "'Age'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "pandas.cut",
+                "cut"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 12,
+        "template": "data['AgeGroup'] = pandas.________________(________________, right=False)",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    }
+  ],
+  "grading_rules": {
+    "exam_mode": {
+      "strict_matching": true,
+      "allow_partial_credit": false,
+      "deduction_for_syntax_error": 0.5,
+      "deduction_for_typo": 0
+    },
+    "practice_mode": {
+      "strict_matching": false,
+      "allow_partial_credit": true,
+      "semantic_matching": true,
+      "provide_hints": true
+    }
+  },
+  "metadata": {
+    "version": "2.0",
+    "generated_at": "2026-08-06T23:14:48.969740",
+    "converted_from": "1.1.4.json",
+    "difficulty_distribution": {
+      "easy": 0,
+      "medium": 14,
+      "hard": 10
+    },
+    "knowledge_point_coverage": {
+      "数据加载": 1,
+      "基础语法": 15,
+      "缺失值处理": 1,
+      "数据导出": 1,
+      "数据统计": 2,
+      "数据分组": 2,
+      "数据分箱": 2
+    }
+  }
+}

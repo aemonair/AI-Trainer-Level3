@@ -1,0 +1,110 @@
+{
+  "chapter": "3.2.4",
+  "total_score": 15,
+  "items": [
+    {
+      "id": "M1",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 22,
+      "type": "api_call",
+      "description": "加载模型",
+      "score": 2,
+      "answer": "session = ort.InferenceSession('flower-detection.onnx')",
+      "template_line": "session = _________________"
+    },
+    {
+      "id": "M2",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 26,
+      "type": "api_call",
+      "description": "加载类别标签",
+      "score": 2,
+      "answer": "with open('labels.txt') as f:",
+      "template_line": "with _________________ as f:"
+    },
+    {
+      "id": "M3",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 36,
+      "type": "api_call",
+      "description": "加载图片",
+      "score": 2,
+      "answer": "image = Image.open('flower_test.png').convert('RGB')",
+      "template_line": "image = _________________('RGB')"
+    },
+    {
+      "id": "M4",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 40,
+      "type": "api_call",
+      "description": "预处理图片",
+      "score": 2,
+      "answer": "processed_image = preprocess_image(image)",
+      "template_line": "processed_image = _________________"
+    },
+    {
+      "id": "M5",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 48,
+      "type": "api_call",
+      "description": "进行图片识别",
+      "score": 2,
+      "answer": "output = session.run([output_name], {input_name: processed_image})[0]",
+      "template_line": "output = _________________([output_name], {input_name: processed_image})[0]"
+    },
+    {
+      "id": "M6",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 52,
+      "type": "api_call",
+      "description": "应用 softmax 函数获取识别分类后的准确率",
+      "score": 2,
+      "answer": "accuracy = scipy.special.softmax(output, axis=-1)",
+      "template_line": "accuracy = _________________(output, axis=-1)"
+    },
+    {
+      "id": "M7",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 56,
+      "type": "model_training",
+      "description": "未知",
+      "score": 1,
+      "answer": "predicted_idx =  np.argmax(accuracy[0])",
+      "template_line": "predicted_idx =  __________"
+    },
+    {
+      "id": "M8",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 60,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "prob_percentage =  accuracy[0, predicted_idx] * 100",
+      "template_line": "prob_percentage =  __________"
+    },
+    {
+      "id": "M9",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 64,
+      "type": "model_training",
+      "description": "未知",
+      "score": 1,
+      "answer": "predicted_label = labels[predicted_idx]",
+      "template_line": "predicted_label = __________"
+    }
+  ],
+  "metadata": {
+    "generated_at": "2026-08-06T22:41:02.007633",
+    "template_file": "3.2.4-materials/3.2.4.ipynb",
+    "answer_file": "answers/1.1.1 - 4.2.5参考答案/3.2.4/3.2.4.ipynb"
+  }
+}

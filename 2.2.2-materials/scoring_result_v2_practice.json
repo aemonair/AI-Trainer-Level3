@@ -1,0 +1,171 @@
+{
+  "chapter": "2.2.2",
+  "title": "智慧交通中燃油效率随机森林模型开发与测试",
+  "mode": "practice",
+  "total_score": 16,
+  "earned_score": 15,
+  "percentage": 93.8,
+  "details": [
+    {
+      "item_id": "M1",
+      "description": "正确加载 auto-mpg.csv 数据集",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data = pd.read_excel('auto-mpg.xlsx')",
+      "difficulty": "easy"
+    },
+    {
+      "item_id": "M2",
+      "description": "使用 head() 显示数据集前五行",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data.head()",
+      "difficulty": "easy"
+    },
+    {
+      "item_id": "M3",
+      "description": "使用 pd.to_numeric 转换 horsepower 列为数值类型",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data['horsepower'] = pd.to_numeric(data['horsepower'], errors='coerce')",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M4",
+      "description": "使用 dropna() 删除包含缺失值的行",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "features = data[['cylinders', 'displacement', 'horsepower', 'weight', 'acceleration', 'model year', 'origin']]",
+      "difficulty": "easy"
+    },
+    {
+      "item_id": "M5",
+      "description": "正确选择特征变量 X（DataFrame）",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "X_train, X_test, y_train, y_test = train_test_split(features, target, test_size=0.2, random_state=42)",
+      "difficulty": "easy"
+    },
+    {
+      "item_id": "M6",
+      "description": "正确选择目标变量 y（mpg 列）",
+      "earned": 0,
+      "max": 1,
+      "correct": false,
+      "details": "失败规则: ['{\\'must_contain_any\\': [\"df[\\'mpg\\']\", \\'df.mpg\\'], \\'must_assign_to\\': \\'y\\'}']",
+      "user_code": "X_train, X_test, y_train, y_test = train_test_split(features, target, test_size=0.2, random_state=42)",
+      "difficulty": "easy"
+    },
+    {
+      "item_id": "M7",
+      "description": "使用 train_test_split 划分训练集和测试集",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "pipe = Pipeline([('scaler', StandardScaler()), ('reg', LinearRegression())])",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M8",
+      "description": "创建包含 StandardScaler 和 LinearRegression 的 Pipeline",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "pipe.fit(X_train, y_train)",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M9",
+      "description": "训练 Pipeline 模型（调用 fit 方法）",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "with open('2.2.2_model.pkl', 'wb') as f:",
+      "difficulty": "easy"
+    },
+    {
+      "item_id": "M10",
+      "description": "使用 pickle.dump 保存训练好的模型",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "predictions = pipe.predict(X_test)",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M11",
+      "description": "使用训练好的模型进行预测",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "predictions = pipe.predict(X_test)",
+      "difficulty": "easy"
+    },
+    {
+      "item_id": "M12",
+      "description": "将预测结果保存为 CSV 文件",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "with open('2.2.2_report.txt', 'w') as results_file:",
+      "difficulty": "easy"
+    },
+    {
+      "item_id": "M13",
+      "description": "初始化 RandomForestRegressor 模型（n_estimators=100）",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "rf_preds = rf.predict(X_test)",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M14",
+      "description": "训练随机森林模型",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "rf_preds = rf.predict(X_test)",
+      "difficulty": "easy"
+    },
+    {
+      "item_id": "M15",
+      "description": "使用随机森林模型进行预测",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "with open('2.2.2_report_rf.txt', 'w') as results_rf_file:",
+      "difficulty": "easy"
+    },
+    {
+      "item_id": "M16",
+      "description": "保存随机森林预测结果",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "results_rf_df.to_csv('2.2.2_results_rf.txt', index=False)",
+      "difficulty": "easy"
+    }
+  ],
+  "graded_at": "2026-08-06T23:12:01.387199"
+}

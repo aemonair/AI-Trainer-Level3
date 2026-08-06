@@ -1,0 +1,275 @@
+{
+  "chapter": "1.1.4",
+  "total_score": 27,
+  "items": [
+    {
+      "id": "M1",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 6,
+      "type": "api_call",
+      "description": "从本地文件中读取数据",
+      "score": 2,
+      "answer": "data =  pandas.read_csv('user_behavior_data.csv')",
+      "template_line": "data =  _______________________________"
+    },
+    {
+      "id": "M2",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 10,
+      "type": "api_call",
+      "description": "打印数据的前5条记录",
+      "score": 2,
+      "answer": "print(data.head())",
+      "template_line": "print(________________________________)"
+    },
+    {
+      "id": "M3",
+      "cell_index": 1,
+      "blank_index": 0,
+      "line_index": 2,
+      "type": "api_call",
+      "description": "处理缺失值（删除）",
+      "score": 2,
+      "answer": "data = data.dropna()",
+      "template_line": "data = ________________________________"
+    },
+    {
+      "id": "M4",
+      "cell_index": 1,
+      "blank_index": 0,
+      "line_index": 5,
+      "type": "api_call",
+      "description": "处理缺失值（删除）",
+      "score": 1,
+      "answer": "data['Age'] = data['Age'].astype(int)   # Age数据类型转换为int 2分",
+      "template_line": "data________________ = ________________(int)   # Age数据类型转换为int 2分"
+    },
+    {
+      "id": "M5",
+      "cell_index": 1,
+      "blank_index": 1,
+      "line_index": 5,
+      "type": "api_call",
+      "description": "处理缺失值（删除）",
+      "score": 1,
+      "answer": "data['Age'] = data['Age'].astype(int)   # Age数据类型转换为int 2分",
+      "template_line": "data________________ = ________________(int)   # Age数据类型转换为int 2分"
+    },
+    {
+      "id": "M6",
+      "cell_index": 1,
+      "blank_index": 0,
+      "line_index": 6,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "data['PurchaseAmount'] = data['PurchaseAmount'].astype(float) # PurchaseAmount数据类型转换为float  2分",
+      "template_line": "data________________ = ________________(float) # PurchaseAmount数据类型转换为float  2分"
+    },
+    {
+      "id": "M7",
+      "cell_index": 1,
+      "blank_index": 1,
+      "line_index": 6,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "data['PurchaseAmount'] = data['PurchaseAmount'].astype(float) # PurchaseAmount数据类型转换为float  2分",
+      "template_line": "data________________ = ________________(float) # PurchaseAmount数据类型转换为float  2分"
+    },
+    {
+      "id": "M8",
+      "cell_index": 1,
+      "blank_index": 0,
+      "line_index": 7,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "data['ReviewScore'] = data['ReviewScore'].astype(int)   # ReviewScore数据类型转换为int 2分",
+      "template_line": "data________________ = ________________(int)   # ReviewScore数据类型转换为int 2分"
+    },
+    {
+      "id": "M9",
+      "cell_index": 1,
+      "blank_index": 1,
+      "line_index": 7,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "data['ReviewScore'] = data['ReviewScore'].astype(int)   # ReviewScore数据类型转换为int 2分",
+      "template_line": "data________________ = ________________(int)   # ReviewScore数据类型转换为int 2分"
+    },
+    {
+      "id": "M10",
+      "cell_index": 1,
+      "blank_index": 0,
+      "line_index": 10,
+      "type": "api_call",
+      "description": "处理异常值",
+      "score": 1,
+      "answer": "data = data[(data['Age'].between(18, 70)) &",
+      "template_line": "data = data[(________________.________________(18, 70)) &"
+    },
+    {
+      "id": "M11",
+      "cell_index": 1,
+      "blank_index": 1,
+      "line_index": 10,
+      "type": "api_call",
+      "description": "处理异常值",
+      "score": 1,
+      "answer": "data = data[(data['Age'].between(18, 70)) &",
+      "template_line": "data = data[(________________.________________(18, 70)) &"
+    },
+    {
+      "id": "M12",
+      "cell_index": 1,
+      "blank_index": 0,
+      "line_index": 12,
+      "type": "api_call",
+      "description": "处理异常值",
+      "score": 1,
+      "answer": "(data['ReviewScore'].between(1, 5))]",
+      "template_line": "(________________.________________(1, 5))]"
+    },
+    {
+      "id": "M13",
+      "cell_index": 1,
+      "blank_index": 1,
+      "line_index": 12,
+      "type": "api_call",
+      "description": "处理异常值",
+      "score": 1,
+      "answer": "(data['ReviewScore'].between(1, 5))]",
+      "template_line": "(________________.________________(1, 5))]"
+    },
+    {
+      "id": "M14",
+      "cell_index": 1,
+      "blank_index": 0,
+      "line_index": 15,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "data['PurchaseAmount'] = (data['PurchaseAmount'] - data['PurchaseAmount'].mean()) / data['PurchaseAmount'].std()  # PurchaseAmount数据标准化 2分",
+      "template_line": "data['PurchaseAmount'] = (data['PurchaseAmount'] - ________________) / ________________  # PurchaseAmount数据标准化 2分"
+    },
+    {
+      "id": "M15",
+      "cell_index": 1,
+      "blank_index": 1,
+      "line_index": 15,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "data['PurchaseAmount'] = (data['PurchaseAmount'] - data['PurchaseAmount'].mean()) / data['PurchaseAmount'].std()  # PurchaseAmount数据标准化 2分",
+      "template_line": "data['PurchaseAmount'] = (data['PurchaseAmount'] - ________________) / ________________  # PurchaseAmount数据标准化 2分"
+    },
+    {
+      "id": "M16",
+      "cell_index": 1,
+      "blank_index": 0,
+      "line_index": 16,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "data['ReviewScore'] = (data['ReviewScore'] - data['ReviewScore'].mean()) / data['ReviewScore'].std()        # ReviewScore数据标准化 2分",
+      "template_line": "data['ReviewScore'] = (data['ReviewScore'] - ________________) / ________________        # ReviewScore数据标准化 2分"
+    },
+    {
+      "id": "M17",
+      "cell_index": 1,
+      "blank_index": 1,
+      "line_index": 16,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "data['ReviewScore'] = (data['ReviewScore'] - data['ReviewScore'].mean()) / data['ReviewScore'].std()        # ReviewScore数据标准化 2分",
+      "template_line": "data['ReviewScore'] = (data['ReviewScore'] - ________________) / ________________        # ReviewScore数据标准化 2分"
+    },
+    {
+      "id": "M18",
+      "cell_index": 1,
+      "blank_index": 0,
+      "line_index": 19,
+      "type": "api_call",
+      "description": "保存清洗后的数据",
+      "score": 1,
+      "answer": "data.to_csv('cleaned_user_behavior_data.csv', index=False)",
+      "template_line": "________________('cleaned_user_behavior_data.csv', index=False)"
+    },
+    {
+      "id": "M19",
+      "cell_index": 2,
+      "blank_index": 0,
+      "line_index": 2,
+      "type": "api_call",
+      "description": "统计每个购买类别的用户数",
+      "score": 1,
+      "answer": "purchase_category_counts = data['PurchaseCategory'].value_counts()",
+      "template_line": "purchase_category_counts = ________________.________________"
+    },
+    {
+      "id": "M20",
+      "cell_index": 2,
+      "blank_index": 1,
+      "line_index": 2,
+      "type": "api_call",
+      "description": "统计每个购买类别的用户数",
+      "score": 1,
+      "answer": "purchase_category_counts = data['PurchaseCategory'].value_counts()",
+      "template_line": "purchase_category_counts = ________________.________________"
+    },
+    {
+      "id": "M21",
+      "cell_index": 2,
+      "blank_index": 0,
+      "line_index": 6,
+      "type": "api_call",
+      "description": "统计不同性别的平均购买金额",
+      "score": 1,
+      "answer": "gender_purchase_amount_mean = data.groupby('Gender')['PurchaseAmount'].mean()",
+      "template_line": "gender_purchase_amount_mean = ________________(________________)['PurchaseAmount'].mean()"
+    },
+    {
+      "id": "M22",
+      "cell_index": 2,
+      "blank_index": 1,
+      "line_index": 6,
+      "type": "api_call",
+      "description": "统计不同性别的平均购买金额",
+      "score": 1,
+      "answer": "gender_purchase_amount_mean = data.groupby('Gender')['PurchaseAmount'].mean()",
+      "template_line": "gender_purchase_amount_mean = ________________(________________)['PurchaseAmount'].mean()"
+    },
+    {
+      "id": "M23",
+      "cell_index": 2,
+      "blank_index": 0,
+      "line_index": 12,
+      "type": "api_call",
+      "description": "统计不同年龄段的用户数",
+      "score": 1,
+      "answer": "data['AgeGroup'] = pandas.cut(data['Age'], bins=bins, labels=labels, right=False)",
+      "template_line": "data['AgeGroup'] = pandas.________________(________________, right=False)"
+    },
+    {
+      "id": "M24",
+      "cell_index": 2,
+      "blank_index": 1,
+      "line_index": 12,
+      "type": "api_call",
+      "description": "统计不同年龄段的用户数",
+      "score": 1,
+      "answer": "data['AgeGroup'] = pandas.cut(data['Age'], bins=bins, labels=labels, right=False)",
+      "template_line": "data['AgeGroup'] = pandas.________________(________________, right=False)"
+    }
+  ],
+  "metadata": {
+    "generated_at": "2026-08-06T22:41:01.990897",
+    "template_file": "1.1.4-materials/1.1.4.ipynb",
+    "answer_file": "answers/1.1.1 - 4.2.5参考答案/1.1.4/1.1.4.ipynb"
+  }
+}

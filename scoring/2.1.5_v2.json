@@ -1,0 +1,781 @@
+{
+  "exam": {
+    "chapter": "2.1.5",
+    "title": "第2.1.5章操作题",
+    "total_score": 16,
+    "passing_score": 9,
+    "time_limit_minutes": 30
+  },
+  "items": [
+    {
+      "id": "M1",
+      "score": 1,
+      "description": "加载数据集",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "pandas",
+        "数据加载"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "健康咨询客户数据集.csv",
+                "pd.read_csv",
+                "read_csv"
+              ],
+              "must_assign_to": "data"
+            },
+            {
+              "must_have_arg": "'健康咨询客户数据集.csv'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "pd.read_csv",
+                "read_csv"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 3,
+        "template": "data = __________",
+        "common_errors": [
+          "文件名拼写错误",
+          "忘记加引号"
+        ]
+      }
+    },
+    {
+      "id": "M2",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "data.info",
+                "info",
+                "print"
+              ]
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "data.info",
+                "info",
+                "print"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 6,
+        "template": "print(__________)",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M3",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "isnull",
+                "print",
+                "data.isnull"
+              ]
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "isnull",
+                "print",
+                "sum"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 9,
+        "template": "print(__________)",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M4",
+      "score": 1,
+      "description": "删除缺失值",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "缺失值处理"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "data.dropna",
+                "dropna"
+              ],
+              "must_assign_to": "data_cleaned"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "data.dropna",
+                "dropna"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 12,
+        "template": "data_cleaned = __________",
+        "common_errors": [
+          "忘记赋值回原变量"
+        ]
+      }
+    },
+    {
+      "id": "M5",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "pandas",
+        "类型转换"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "to_numeric",
+                "pd.to_numeric",
+                "coerce"
+              ]
+            },
+            {
+              "must_have_arg": "'Your age'"
+            },
+            {
+              "must_have_arg": "'Your age'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "pd.to_numeric",
+                "data_cleaned.loc",
+                "to_numeric"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 15,
+        "template": "data_cleaned.loc[:, 'Your age'] = __________(__________, errors='coerce')",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M6",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "pandas",
+        "类型转换"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "to_numeric",
+                "pd.to_numeric",
+                "coerce"
+              ]
+            },
+            {
+              "must_have_arg": "'Your age'"
+            },
+            {
+              "must_have_arg": "'Your age'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "pd.to_numeric",
+                "data_cleaned.loc",
+                "to_numeric"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 15,
+        "template": "data_cleaned.loc[:, 'Your age'] = __________(__________, errors='coerce')",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M7",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "astype",
+                "data_cleaned.loc",
+                "Your age"
+              ]
+            },
+            {
+              "must_have_arg": "'Your age'"
+            },
+            {
+              "must_have_arg": "'Your age'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "astype",
+                "data_cleaned.loc"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 18,
+        "template": "data_cleaned.loc[:, 'Your age'] = data_cleaned['Your age'].__________",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M8",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "drop_duplicates",
+                "data_cleaned.drop_duplicates"
+              ],
+              "must_assign_to": "data_cleaned"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "drop_duplicates",
+                "data_cleaned.drop_duplicates"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 24,
+        "template": "data_cleaned = __________",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M9",
+      "score": 1,
+      "description": "训练模型",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "模型训练"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "fit_transform",
+                "label_encoder.fit_transform",
+                "How do you describe your current level of fitness ?"
+              ]
+            },
+            {
+              "must_have_arg": "'How do you describe your current level of fitness ?'"
+            },
+            {
+              "must_have_arg": "'How do you describe your current level of fitness ?'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "fit_transform",
+                "label_encoder.fit_transform"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 32,
+        "template": "data_cleaned[__________] = __________",
+        "common_errors": [
+          "参数顺序错误（应该是 X_train, y_train）"
+        ]
+      }
+    },
+    {
+      "id": "M10",
+      "score": 1,
+      "description": "训练模型",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "模型训练"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "fit_transform",
+                "label_encoder.fit_transform",
+                "How do you describe your current level of fitness ?"
+              ]
+            },
+            {
+              "must_have_arg": "'How do you describe your current level of fitness ?'"
+            },
+            {
+              "must_have_arg": "'How do you describe your current level of fitness ?'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "fit_transform",
+                "label_encoder.fit_transform"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 32,
+        "template": "data_cleaned[__________] = __________",
+        "common_errors": [
+          "参数顺序错误（应该是 X_train, y_train）"
+        ]
+      }
+    },
+    {
+      "id": "M11",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "matplotlib"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "exercise_frequency_counts.plot.pie",
+                "plt.cm.Paired.colors",
+                "%1.1f%%"
+              ]
+            },
+            {
+              "must_have_arg": "'%1.1f%%'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "exercise_frequency_counts.plot.pie",
+                "plt.cm.Paired.colors",
+                "pie"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 52,
+        "template": "__________(autopct='%1.1f%%', startangle=90, colors=plt.cm.Paired.colors)",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M12",
+      "score": 1,
+      "description": "划分训练集和测试集",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "sklearn",
+        "数据集划分"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "train_test_split"
+              ]
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "train_test_split"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 65,
+        "template": "train_data, test_data = __________(__________, random_state=42)",
+        "common_errors": [
+          "忘记 random_state 参数",
+          "test_size 比例错误"
+        ]
+      }
+    },
+    {
+      "id": "M13",
+      "score": 1,
+      "description": "划分训练集和测试集",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "sklearn",
+        "数据集划分"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "train_test_split"
+              ]
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "train_test_split"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 65,
+        "template": "train_data, test_data = __________(__________, random_state=42)",
+        "common_errors": [
+          "忘记 random_state 参数",
+          "test_size 比例错误"
+        ]
+      }
+    },
+    {
+      "id": "M14",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "_cleaned_data.csv",
+                "2.1.5_cleaned_data.csv"
+              ],
+              "must_assign_to": "cleaned_file_path"
+            },
+            {
+              "must_have_arg": "'2.1.5_cleaned_data.csv'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "_cleaned_data.csv"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 68,
+        "template": "cleaned_file_path = '__________'",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M15",
+      "score": 1,
+      "description": "保存结果到文件",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "数据导出"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "data_filled.to_csv",
+                "to_csv"
+              ]
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "data_filled.to_csv",
+                "to_csv"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 69,
+        "template": "__________(__________, index=False)",
+        "common_errors": [
+          "忘记 index=False",
+          "文件名错误"
+        ]
+      }
+    },
+    {
+      "id": "M16",
+      "score": 1,
+      "description": "保存结果到文件",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "数据导出"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "data_filled.to_csv",
+                "to_csv"
+              ]
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "data_filled.to_csv",
+                "to_csv"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 69,
+        "template": "__________(__________, index=False)",
+        "common_errors": [
+          "忘记 index=False",
+          "文件名错误"
+        ]
+      }
+    }
+  ],
+  "grading_rules": {
+    "exam_mode": {
+      "strict_matching": true,
+      "allow_partial_credit": false,
+      "deduction_for_syntax_error": 0.5,
+      "deduction_for_typo": 0
+    },
+    "practice_mode": {
+      "strict_matching": false,
+      "allow_partial_credit": true,
+      "semantic_matching": true,
+      "provide_hints": true
+    }
+  },
+  "metadata": {
+    "version": "2.0",
+    "generated_at": "2026-08-06T23:14:48.978567",
+    "converted_from": "2.1.5.json",
+    "difficulty_distribution": {
+      "easy": 0,
+      "medium": 13,
+      "hard": 3
+    },
+    "knowledge_point_coverage": {
+      "pandas": 3,
+      "数据加载": 1,
+      "基础语法": 5,
+      "缺失值处理": 1,
+      "类型转换": 2,
+      "模型训练": 2,
+      "matplotlib": 1,
+      "sklearn": 2,
+      "数据集划分": 2,
+      "数据导出": 2
+    }
+  }
+}

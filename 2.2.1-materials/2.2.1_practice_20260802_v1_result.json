@@ -1,0 +1,64 @@
+{
+  "file": "/Users/air/Downloads/GUIDE_AI_3/人工智能训练师_3级_sucai/2.2.1-materials/2.2.1_practice_20260802_v1.ipynb",
+  "chapter": "2.2.1",
+  "errors": [],
+  "warnings": [],
+  "score": 100,
+  "total_score": 100,
+  "fill_comparison": [],
+  "implementation_comparison": [],
+  "result_comparison": [],
+  "knowledge_points": {},
+  "start_time": null,
+  "end_time": "2026-08-05T23:18:22.140346",
+  "process_audit": null,
+  "ipython_history": {
+    "session_id": 32,
+    "total_commands": 5,
+    "key_commands": [
+      {
+        "command": "import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = pandas.read_csv(\"auto-mpg.csv\")\nprint(\"数据集的前五行:\")\np",
+        "type": "缺失值处理"
+      },
+      {
+        "command": "import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = pandas.read_csv(\"auto-mpg.csv\")\nprint(\"数据集的前五行:\")\np",
+        "type": "数据读取"
+      },
+      {
+        "command": "import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = pd.read_csv(\"auto-mpg.csv\")\nprint(\"数据集的前五行:\")\nprint",
+        "type": "缺失值处理"
+      },
+      {
+        "command": "import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = pd.read_csv(\"auto-mpg.csv\")\nprint(\"数据集的前五行:\")\nprint",
+        "type": "数据读取"
+      },
+      {
+        "command": "import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = pd.read_csv(\"auto-mpg.csv\")\nprint(\"数据集的前五行:\")\nprint",
+        "type": "缺失值处理"
+      },
+      {
+        "command": "import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = pd.read_csv(\"auto-mpg.csv\")\nprint(\"数据集的前五行:\")\nprint",
+        "type": "数据读取"
+      },
+      {
+        "command": "import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = pd.read_csv(\"auto-mpg.csv\")\nprint(\"数据集的前五行:\")\nprint",
+        "type": "缺失值处理"
+      },
+      {
+        "command": "import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = pd.read_csv(\"auto-mpg.csv\")\nprint(\"数据集的前五行:\")\nprint",
+        "type": "数据读取"
+      },
+      {
+        "command": "import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = pd.read_csv(\"auto-mpg.csv\")\nprint(\"数据集的前五行:\")\nprint",
+        "type": "缺失值处理"
+      },
+      {
+        "command": "import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = pd.read_csv(\"auto-mpg.csv\")\nprint(\"数据集的前五行:\")\nprint",
+        "type": "数据读取"
+      }
+    ],
+    "error_patterns": [],
+    "correction_count": 1,
+    "suggestions": []
+  }
+}

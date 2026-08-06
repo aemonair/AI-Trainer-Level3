@@ -1,0 +1,198 @@
+{
+  "chapter": "2.2.5",
+  "total_score": 17,
+  "items": [
+    {
+      "id": "M1",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 7,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "df = pd.read_csv('fitness analysis.csv')",
+      "template_line": "df = __________"
+    },
+    {
+      "id": "M2",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 10,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "print(df.head())",
+      "template_line": "print(__________)"
+    },
+    {
+      "id": "M3",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 14,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "X = pd.get_dummies(X)  # 将分类变量转为数值变量",
+      "template_line": "X = __________(X)  # 将分类变量转为数值变量"
+    },
+    {
+      "id": "M4",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 17,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "y = df['daily_steps']",
+      "template_line": "y = __________"
+    },
+    {
+      "id": "M5",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 20,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)",
+      "template_line": "X_train, X_test, y_train, y_test = __________(__________, random_state=42)"
+    },
+    {
+      "id": "M6",
+      "cell_index": 0,
+      "blank_index": 1,
+      "line_index": 20,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)",
+      "template_line": "X_train, X_test, y_train, y_test = __________(__________, random_state=42)"
+    },
+    {
+      "id": "M7",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 23,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "dt_model = DecisionTreeRegressor(random_state=42)",
+      "template_line": "__________ = __________(random_state=42)"
+    },
+    {
+      "id": "M8",
+      "cell_index": 0,
+      "blank_index": 1,
+      "line_index": 23,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "dt_model = DecisionTreeRegressor(random_state=42)",
+      "template_line": "__________ = __________(random_state=42)"
+    },
+    {
+      "id": "M9",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 25,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "dt_model.fit(X_train, y_train)",
+      "template_line": "__________"
+    },
+    {
+      "id": "M10",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 29,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "pickle.dump(dt_model, model_file)",
+      "template_line": "pickle.__________"
+    },
+    {
+      "id": "M11",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 32,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "y_pred = dt_model.predict(X_test)",
+      "template_line": "y_pred = __________"
+    },
+    {
+      "id": "M12",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 37,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "results.to_csv(results_filename, index=False, sep='\\t')",
+      "template_line": "__________(__________, index=False, sep='\\t')"
+    },
+    {
+      "id": "M13",
+      "cell_index": 0,
+      "blank_index": 1,
+      "line_index": 37,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "results.to_csv(results_filename, index=False, sep='\\t')",
+      "template_line": "__________(__________, index=False, sep='\\t')"
+    },
+    {
+      "id": "M14",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 41,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "with open(report_filename, 'w') as f:",
+      "template_line": "with open(__________) as f:"
+    },
+    {
+      "id": "M15",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 42,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "f.write(f'均方误差: {mean_squared_error(y_test, y_pred)}\\n')",
+      "template_line": "f.write(f'均方误差: {__________}\\n')"
+    },
+    {
+      "id": "M16",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 43,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "f.write(f'平均绝对误差: {mean_absolute_error(y_test, y_pred)}\\n')",
+      "template_line": "f.write(f'平均绝对误差: {__________}\\n')"
+    },
+    {
+      "id": "M17",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 44,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "f.write(f'决定系数: {r2_score(y_test, y_pred)}\\n')",
+      "template_line": "f.write(f'决定系数: {__________}\\n')"
+    }
+  ],
+  "metadata": {
+    "generated_at": "2026-08-06T22:41:02.003660",
+    "template_file": "2.2.5-materials/2.2.5.ipynb",
+    "answer_file": "answers/1.1.1 - 4.2.5参考答案/2.2.5/2.2.5.ipynb"
+  }
+}

@@ -1,0 +1,888 @@
+{
+  "exam": {
+    "chapter": "1.1.4",
+    "title": "从本地文件中读取数据（AST 版本）",
+    "total_score": 27,
+    "passing_score": 16,
+    "time_limit_minutes": 30
+  },
+  "items": [
+    {
+      "id": "M1",
+      "score": 2,
+      "description": "从本地文件中读取数据",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "数据加载"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "user_behavior_data.csv read_cs"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "user_behavior_data.csv read_cs"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 6,
+        "template": "data =  _______________________________",
+        "common_errors": [
+          "文件名拼写错误",
+          "忘记加引号"
+        ]
+      }
+    },
+    {
+      "id": "M2",
+      "score": 2,
+      "description": "打印数据的前5条记录",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "data.head head print"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "data.head head print"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 10,
+        "template": "print(________________________________)",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M3",
+      "score": 2,
+      "description": "处理缺失值（删除）",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "缺失值处理"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "data.dropna dropna"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "data.dropna dropna"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 2,
+        "template": "data = ________________________________",
+        "common_errors": [
+          "忘记赋值回原变量"
+        ]
+      }
+    },
+    {
+      "id": "M4",
+      "score": 1,
+      "description": "处理缺失值（删除）",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "astype"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "astype"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 5,
+        "template": "data________________ = ________________(int)   # Age数据类型转换为int 2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M5",
+      "score": 1,
+      "description": "处理缺失值（删除）",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "astype"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "astype"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 5,
+        "template": "data________________ = ________________(int)   # Age数据类型转换为int 2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M6",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "astype PurchaseAmount"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "astype PurchaseAmount"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 6,
+        "template": "data________________ = ________________(float) # PurchaseAmount数据类型转换为float  2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M7",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "astype PurchaseAmount"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "astype PurchaseAmount"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 6,
+        "template": "data________________ = ________________(float) # PurchaseAmount数据类型转换为float  2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M8",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "astype ReviewScore"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "astype ReviewScore"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 7,
+        "template": "data________________ = ________________(int)   # ReviewScore数据类型转换为int 2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M9",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "astype ReviewScore"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "astype ReviewScore"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 7,
+        "template": "data________________ = ________________(int)   # ReviewScore数据类型转换为int 2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M10",
+      "score": 1,
+      "description": "处理异常值",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "between"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "between"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 10,
+        "template": "data = data[(________________.________________(18, 70)) &",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M11",
+      "score": 1,
+      "description": "处理异常值",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "between"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "between"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 10,
+        "template": "data = data[(________________.________________(18, 70)) &",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M12",
+      "score": 1,
+      "description": "处理异常值",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "ReviewScore between"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "ReviewScore between"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 12,
+        "template": "(________________.________________(1, 5))]",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M13",
+      "score": 1,
+      "description": "处理异常值",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "ReviewScore between"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "ReviewScore between"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 12,
+        "template": "(________________.________________(1, 5))]",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M14",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "mean PurchaseAmount"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "mean PurchaseAmount"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 15,
+        "template": "data['PurchaseAmount'] = (data['PurchaseAmount'] - ________________) / ________________  # PurchaseAmount数据标准化 2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M15",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "mean PurchaseAmount"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "mean PurchaseAmount"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 15,
+        "template": "data['PurchaseAmount'] = (data['PurchaseAmount'] - ________________) / ________________  # PurchaseAmount数据标准化 2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M16",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "mean ReviewScore"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "mean ReviewScore"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 16,
+        "template": "data['ReviewScore'] = (data['ReviewScore'] - ________________) / ________________        # ReviewScore数据标准化 2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M17",
+      "score": 1,
+      "description": "完成代码填空",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "mean ReviewScore"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "mean ReviewScore"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 16,
+        "template": "data['ReviewScore'] = (data['ReviewScore'] - ________________) / ________________        # ReviewScore数据标准化 2分",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M18",
+      "score": 1,
+      "description": "保存清洗后的数据",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "数据导出"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "to_csv data.to_csv cleaned_use"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "to_csv data.to_csv cleaned_use"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 1,
+        "line_index": 19,
+        "template": "________________('cleaned_user_behavior_data.csv', index=False)",
+        "common_errors": [
+          "忘记 index=False",
+          "文件名错误"
+        ]
+      }
+    },
+    {
+      "id": "M19",
+      "score": 1,
+      "description": "统计每个购买类别的用户数",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "数据统计"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "PurchaseCategory value_counts"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "PurchaseCategory value_counts"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 2,
+        "template": "purchase_category_counts = ________________.________________",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M20",
+      "score": 1,
+      "description": "统计每个购买类别的用户数",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "数据统计"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "PurchaseCategory value_counts"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "PurchaseCategory value_counts"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 2,
+        "template": "purchase_category_counts = ________________.________________",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M21",
+      "score": 1,
+      "description": "统计不同性别的平均购买金额",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "数据分组"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "data.groupby mean groupby"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "data.groupby mean groupby"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 6,
+        "template": "gender_purchase_amount_mean = ________________(________________)['PurchaseAmount'].mean()",
+        "common_errors": [
+          "列名拼写错误",
+          "忘记指定聚合函数"
+        ]
+      }
+    },
+    {
+      "id": "M22",
+      "score": 1,
+      "description": "统计不同性别的平均购买金额",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "数据分组"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "data.groupby mean groupby"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "data.groupby mean groupby"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 6,
+        "template": "gender_purchase_amount_mean = ________________(________________)['PurchaseAmount'].mean()",
+        "common_errors": [
+          "列名拼写错误",
+          "忘记指定聚合函数"
+        ]
+      }
+    },
+    {
+      "id": "M23",
+      "score": 1,
+      "description": "统计不同年龄段的用户数",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "数据分箱"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "pandas.cut AgeGroup"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "pandas.cut AgeGroup"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 12,
+        "template": "data['AgeGroup'] = pandas.________________(________________, right=False)",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M24",
+      "score": 1,
+      "description": "统计不同年龄段的用户数",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "数据分箱"
+      ],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "pandas.cut AgeGroup"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "pandas.cut AgeGroup"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 2,
+        "line_index": 12,
+        "template": "data['AgeGroup'] = pandas.________________(________________, right=False)",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    }
+  ],
+  "grading_rules": {
+    "exam_mode": {
+      "strict_matching": true,
+      "allow_partial_credit": false,
+      "deduction_for_syntax_error": 0.5,
+      "deduction_for_typo": 0
+    },
+    "practice_mode": {
+      "strict_matching": false,
+      "allow_partial_credit": true,
+      "semantic_matching": true,
+      "provide_hints": true
+    }
+  },
+  "metadata": {
+    "version": "ast",
+    "generated_at": "2026-08-06T23:47:28.607906",
+    "converted_from": "1.1.4_v2.json",
+    "difficulty_distribution": {
+      "easy": 0,
+      "medium": 14,
+      "hard": 10
+    },
+    "knowledge_point_coverage": {
+      "数据加载": 1,
+      "基础语法": 15,
+      "缺失值处理": 1,
+      "数据导出": 1,
+      "数据统计": 2,
+      "数据分组": 2,
+      "数据分箱": 2
+    }
+  }
+}

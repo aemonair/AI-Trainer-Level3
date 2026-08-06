@@ -1,0 +1,88 @@
+{
+  "chapter": "3.2.3",
+  "total_score": 17,
+  "items": [
+    {
+      "id": "M1",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 20,
+      "type": "api_call",
+      "description": "定义情感类别与数字标签的映射表",
+      "score": 3,
+      "answer": "emotion_table = {'neutral':0, 'happiness':1, 'surprise':2, 'sadness':3, 'anger':4, 'disgust':5, 'fear':6, 'contempt':7}",
+      "template_line": "emotion_table = {____________}"
+    },
+    {
+      "id": "M2",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 24,
+      "type": "api_call",
+      "description": "加载模型",
+      "score": 3,
+      "answer": "ort_session = ort.InferenceSession('emotion-ferplus.onnx')    # 使用onnxruntime创建一个会话，用于加载并运行模型",
+      "template_line": "ort_session = ____________    # 使用onnxruntime创建一个会话，用于加载并运行模型"
+    },
+    {
+      "id": "M3",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 28,
+      "type": "api_call",
+      "description": "加载本地图片并进行预处理",
+      "score": 3,
+      "answer": "input_data = preprocess('img_test.png')",
+      "template_line": "input_data = ____________"
+    },
+    {
+      "id": "M4",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 36,
+      "type": "api_call",
+      "description": "运行模型，进行预测",
+      "score": 1,
+      "answer": "ort_outs = ort_session.run(None, ort_inputs)",
+      "template_line": "ort_outs = ____________(None, ____________)"
+    },
+    {
+      "id": "M5",
+      "cell_index": 0,
+      "blank_index": 1,
+      "line_index": 36,
+      "type": "api_call",
+      "description": "运行模型，进行预测",
+      "score": 1,
+      "answer": "ort_outs = ort_session.run(None, ort_inputs)",
+      "template_line": "ort_outs = ____________(None, ____________)"
+    },
+    {
+      "id": "M6",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 40,
+      "type": "model_training",
+      "description": "解码模型输出，找到预测概率最高的情感类别",
+      "score": 3,
+      "answer": "predicted_label = np.argmax(ort_outs[0])",
+      "template_line": "predicted_label = ____________(ort_outs[0])"
+    },
+    {
+      "id": "M7",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 44,
+      "type": "model_training",
+      "description": "根据预测的标签找到对应的情感名称",
+      "score": 3,
+      "answer": "predicted_emotion = list(emotion_table.keys())[predicted_label]",
+      "template_line": "predicted_emotion = ____________[predicted_label]"
+    }
+  ],
+  "metadata": {
+    "generated_at": "2026-08-06T22:41:02.006759",
+    "template_file": "3.2.3-materials/3.2.3.ipynb",
+    "answer_file": "answers/1.1.1 - 4.2.5参考答案/3.2.3/3.2.3.ipynb"
+  }
+}

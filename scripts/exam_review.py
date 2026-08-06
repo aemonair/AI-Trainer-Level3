@@ -1,24 +1,19 @@
 #!/usr/bin/env python3
 """
-考试化错题统计与分析脚本
+考试分析报告生成器
 
 核心功能：
-1. 读取 exam_db.csv，计算加权风险分
-2. 输出高危题目清单（按危险系数排序）
-3. 生成考试前24小时急救清单
-4. 支持 --weak 模式只看重点复习题目
-
-加权风险分 = 错误次数*2 + 连续错误*3 - 最近正确*1
+1. 读取Session的report.json
+2. 生成面向考生的考试分析报告
+3. 提供学习建议和改进方向
 
 用法:
-  python3 scripts/exam_review.py              # 显示全部
-  python3 scripts/exam_review.py --weak       # 只看高危题目
-  python3 scripts/exam_review.py --rescue     # 考试前24小时急救清单
-  python3 scripts/exam_review.py --update     # 从 review.md 自动更新 exam_db.csv
+  python3 scripts/exam_review.py --session 2026-08-05-1430-chapter1.1.1
+  python3 scripts/exam_review.py --latest
+  python3 scripts/exam_review.py --chapter 1.1.1
 """
 from pathlib import Path
-import csv
-import re
+import json
 import argparse
 import logging
 from datetime import datetime
@@ -28,298 +23,278 @@ logging.basicConfig(level=logging.INFO, format='%(message)s')
 logger = logging.getLogger(__name__)
 
 ROOT = Path(__file__).resolve().parent.parent
-DB_PATH = ROOT / 'exam_db.csv'
+SESSIONS_DIR = ROOT / 'sessions'
 
 
-def load_db() -> List[Dict]:
-    """加载考试数据库"""
-    if not DB_PATH.exists():
-        logger.error(f"数据库文件不存在: {DB_PATH}")
-        return []
-    
-    with open(DB_PATH, 'r', encoding='utf-8') as f:
-        reader = csv.DictReader(f)
-        return list(reader)
-
-
-def calc_risk_score(row: Dict) -> float:
-    """
-    计算加权风险分
-    
-    公式：错误次数*2 + 连续错误*3 - 最近正确*1
-    """
-    errors = int(row.get('累计错误次数', 0))
-    consecutive = int(row.get('连续错误次数', 0))
-    recent_correct = 1 if row.get('最近一次结果') == '正确' else 0
-    
-    return errors * 2 + consecutive * 3 - recent_correct * 1
-
-
-def classify_status(row: Dict) -> str:
-    """自动判断掌握状态"""
-    risk = calc_risk_score(row)
-    recent = row.get('最近一次结果', '')
-    
-    if risk <= 1 and recent == '正确':
-        return '✅ 已掌握'
-    elif risk >= 5:
-        return '🚨 高危'
-    elif risk >= 3:
-        return '⚠️ 注意'
-    else:
-        return '🟡 一般'
-
-
-def show_all(db: List[Dict]):
-    """显示全部题目状态"""
-    print("\n📊 考试风险矩阵\n")
-    print(f"{'题目ID':<10} {'练习次数':<8} {'最近结果':<8} {'累计错误':<8} {'连续错误':<8} {'风险分':<8} {'状态'}")
-    print("-" * 80)
-    
-    for row in sorted(db, key=lambda x: calc_risk_score(x), reverse=True):
-        risk = calc_risk_score(row)
-        status = classify_status(row)
-        print(
-            f"{row['题目ID']:<10} "
-            f"{row['总练习次数']:<8} "
-            f"{row['最近一次结果']:<8} "
-            f"{row['累计错误次数']:<8} "
-            f"{row['连续错误次数']:<8} "
-            f"{risk:<8} "
-            f"{status}"
-        )
-
-
-def show_weak(db: List[Dict]):
-    """显示高危题目（重点复习）"""
-    weak = []
-    mastered = []
-    
-    for row in db:
-        risk = calc_risk_score(row)
-        if risk >= 3:
-            weak.append((risk, row))
-        else:
-            mastered.append(row)
-    
-    # 按风险分降序排列
-    weak.sort(key=lambda x: x[0], reverse=True)
-    
-    print("\n🚨 重点复习（按危险系数排序）：")
-    if not weak:
-        print("  暂无高危题目，继续保持！")
-    else:
-        for i, (risk, row) in enumerate(weak, 1):
-            trap = row.get('最大陷阱', '未知')
-            print(f"{i}. {row['题目ID']} {row.get('核心考点', '')}  |  "
-                  f"错误{row['累计错误次数']}次，最近连续错{row['连续错误次数']}次  |  "
-                  f"陷阱：{trap}")
-    
-    print(f"\n✅ 已掌握（可跳过）：")
-    if not mastered:
-        print("  暂无已掌握题目")
-    else:
-        for i, row in enumerate(mastered, 1):
-            print(f"{i}. {row['题目ID']} {row.get('核心考点', '')}  |  "
-                  f"最近{row['总练习次数']}次全对")
-
-
-def show_rescue(db: List[Dict]):
-    """考试前24小时急救清单"""
-    print("\n🆘 考试前24小时急救清单\n")
-    print("筛选条件：最近3次平均分 < 60% 或 连续错误 >= 2\n")
-    
-    rescue = []
-    for row in db:
-        consecutive = int(row.get('连续错误次数', 0))
-        errors = int(row.get('累计错误次数', 0))
-        total = int(row.get('总练习次数', 1))
-        
-        # 简单判断：连续错误 >= 2 或 错误率 > 50%
-        error_rate = errors / total if total > 0 else 0
-        if consecutive >= 2 or error_rate > 0.5:
-            rescue.append(row)
-    
-    if not rescue:
-        print("✅ 无高危题目，可以直接上考场！")
-        return
-    
-    rescue.sort(key=lambda x: int(x['连续错误次数']), reverse=True)
-    
-    print("⚠️ 必须复习的题目：")
-    for i, row in enumerate(rescue, 1):
-        print(f"\n{i}. {row['题目ID']}")
-        print(f"   核心考点：{row.get('核心考点', '未知')}")
-        print(f"   最大陷阱：{row.get('最大陷阱', '未知')}")
-        print(f"   关键代码：{row.get('关键代码骨架', '未知')}")
-
-
-def extract_score_from_review(content: str) -> Optional[float]:
-    """
-    从 review 文件中提取评分百分比
-    
-    支持格式：
-    - | **总计** | **18** | **18** | **100%** |
-    - | 总计 | 18 | 18 | 100% |
-    """
-    pattern = re.compile(
-        r'\|\s*\*?总计\*?\s*\|'
-        r'\s*\*?[\d.]+\*?\s*\|'
-        r'\s*\*?([\d.]+)\*?\s*\|'
-        r'\s*\*?([\d.]+)%\*?\s*\|',
-        re.IGNORECASE
+def parse_args() -> argparse.Namespace:
+    """解析命令行参数"""
+    parser = argparse.ArgumentParser(
+        description='生成考试分析报告'
     )
-    match = pattern.search(content)
-    if match:
-        try:
-            return float(match.group(2))
-        except ValueError:
-            return None
-    return None
+    parser.add_argument(
+        '--session',
+        type=str,
+        default=None,
+        help='指定Session ID'
+    )
+    parser.add_argument(
+        '--latest',
+        action='store_true',
+        help='分析最新的Session'
+    )
+    parser.add_argument(
+        '--chapter',
+        type=str,
+        default=None,
+        help='只分析特定章节'
+    )
+    parser.add_argument(
+        '--output',
+        type=Path,
+        default=None,
+        help='输出文件路径（默认：Session目录下的summary.md）'
+    )
+    return parser.parse_args()
 
 
-def is_review_correct(content: str) -> bool:
-    """
-    判断一次练习是否正确
+def load_session_report(session_id: str) -> Optional[Dict]:
+    """加载指定Session的报告"""
+    session_dir = SESSIONS_DIR / session_id
     
-    优先级：
-    1. 评分 >= 90% → 正确
-    2. 有 ❌ 错误记录 → 错误
-    3. 默认正确
-    """
-    score = extract_score_from_review(content)
-    if score is not None:
-        return score >= 90
+    if not session_dir.exists():
+        logger.error(f"Session不存在: {session_dir}")
+        return None
     
-    # 回退：检查是否有明确的错误标记
-    # 注意：要排除"历史错误分析"等章节
-    error_section = re.search(r'## ❌ 错误记录\n(.*?)(?=##|$)', content, re.DOTALL)
-    if error_section:
-        return '错误1' not in error_section.group(1)
+    report_path = session_dir / 'report.json'
+    if not report_path.exists():
+        logger.error(f"报告文件不存在: {report_path}")
+        return None
     
-    return True
+    with open(report_path, 'r', encoding='utf-8') as f:
+        return json.load(f)
 
 
-def update_db_from_reviews():
-    """从 review.md 文件自动更新 exam_db.csv"""
-    logger.info("正在扫描所有 review.md 文件...")
+def get_latest_session(chapter: Optional[str] = None) -> Optional[str]:
+    """获取最新的Session ID"""
+    if not SESSIONS_DIR.exists():
+        return None
     
-    reviews = list(ROOT.rglob('*_review.md'))
-    logger.info(f"找到 {len(reviews)} 个 review 文件")
-    
-    # 按题目ID分组
-    topic_reviews: Dict[str, List[Path]] = {}
-    for r in reviews:
-        match = re.match(r'^(\d+\.\d+\.\d+)', r.stem)
-        if match:
-            topic_id = match.group(1)
-            topic_reviews.setdefault(topic_id, []).append(r)
-    
-    logger.info(f"涉及 {len(topic_reviews)} 个题目")
-    
-    # 加载现有数据库（保留手动录入的考点/陷阱/代码）
-    existing_db = {}
-    if DB_PATH.exists():
-        with open(DB_PATH, 'r', encoding='utf-8') as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                existing_db[row['题目ID']] = row
-    
-    # 构建新数据库
-    new_rows = []
-    for topic_id in sorted(topic_reviews.keys()):
-        files = sorted(topic_reviews[topic_id])
-        total = len(files)
+    sessions = []
+    for session_dir in sorted(SESSIONS_DIR.iterdir()):
+        if not session_dir.is_dir():
+            continue
         
-        # 分析最后一次练习的结果
-        last_file = files[-1]
-        content = last_file.read_text(encoding='utf-8')
-        recent_correct = is_review_correct(content)
-        recent_result = '正确' if recent_correct else '错误'
+        session_id = session_dir.name
+        if chapter and chapter not in session_id:
+            continue
         
-        # 统计每次练习的错误情况
-        results_sequence = []
-        total_errors = 0
-        for f in files:
-            c = f.read_text(encoding='utf-8')
-            is_correct = is_review_correct(c)
-            results_sequence.append(is_correct)
+        report_path = session_dir / 'report.json'
+        if report_path.exists():
+            sessions.append(session_id)
+    
+    return sessions[-1] if sessions else None
+
+
+def generate_exam_report(report: Dict) -> str:
+    """
+    生成考试分析报告（Markdown格式）
+    
+    参数:
+        report: 评分报告字典
+    
+    返回:
+        Markdown格式的考试分析报告
+    """
+    lines = []
+    
+    # 标题
+    chapter = report.get('chapter', '未知')
+    session_id = report.get('session_id', '未知')
+    score = report.get('score', 0)
+    total_score = report.get('total_score', 100)
+    
+    lines.append(f"# 📋 考试分析报告\n")
+    lines.append(f"**章节**: {chapter}\n")
+    lines.append(f"**会话ID**: {session_id}\n")
+    lines.append(f"**生成时间**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+    
+    # 本次考试概况
+    lines.append("\n## 📊 本次考试\n")
+    lines.append(f"| 指标 | 数值 |")
+    lines.append(f"|------|------|")
+    lines.append(f"| 得分 | {score}/{total_score} |")
+    
+    duration = report.get('duration_minutes')
+    if duration:
+        lines.append(f"| 耗时 | {duration}分钟 |")
+    
+    start_time = report.get('start_time')
+    end_time = report.get('end_time')
+    if start_time and end_time:
+        lines.append(f"| 开始时间 | {start_time[:16]} |")
+        lines.append(f"| 结束时间 | {end_time[:16]} |")
+    
+    # 目标分数判断
+    target_score = 90
+    gap = score - target_score
+    lines.append(f"| 目标分数 | {target_score} |")
+    lines.append(f"| 差距 | {gap:+d} {'✅' if gap >= 0 else '❌'} |\n")
+    
+    # 错误分析
+    errors = report.get('errors', [])
+    warnings = report.get('warnings', [])
+    
+    if errors or warnings:
+        lines.append("\n## ❌ 主要失分点\n")
+        
+        all_issues = errors + warnings
+        all_issues.sort(key=lambda x: x.get('deduction', 0), reverse=True)
+        
+        for i, issue in enumerate(all_issues, 1):
+            issue_type = issue.get('type', '未知')
+            topic = issue.get('topic', '未知')
+            kp = issue.get('knowledge_point', '其他')
+            deduction = issue.get('deduction', 0)
+            count = issue.get('count', 1)
             
-            # 统计错误数（排除历史回顾章节）
-            # 移除"历史错误分析"等章节，只保留当前练习的错误
-            c_cleaned = re.sub(r'## .*历史.*?(?=## |\Z)', '', c, flags=re.DOTALL)
-            # 匹配 ### 错误N 或 #### 错误N
-            total_errors += len(re.findall(r'#{3,4} 错误\d+', c_cleaned))
-        
-        # 连续错误次数（从后往前数）
-        consecutive_errors = 0
-        for is_correct in reversed(results_sequence):
-            if not is_correct:
-                consecutive_errors += 1
-            else:
-                break
-        
-        # 从现有数据库保留手动录入的信息
-        existing = existing_db.get(topic_id, {})
-        core_point = existing.get('核心考点', '')
-        trap = existing.get('最大陷阱', '')
-        code_skeleton = existing.get('关键代码骨架', '')
-        
-        new_rows.append({
-            '题目ID': topic_id,
-            '总练习次数': total,
-            '最近一次结果': recent_result,
-            '累计错误次数': total_errors,
-            '连续错误次数': consecutive_errors,
-            '掌握状态': '',
-            '核心考点': core_point,
-            '最大陷阱': trap,
-            '关键代码骨架': code_skeleton
-        })
+            lines.append(f"### {i}. {kp} - {topic} (扣{deduction}分)\n")
+            lines.append(f"- **错误类型**: {issue_type}\n")
+            lines.append(f"- **错误次数**: {count}次\n")
+            
+            # 显示具体错误详情
+            details = issue.get('details', [])
+            if details and len(details) > 0:
+                detail = details[0]
+                if 'expected_answer' in detail and 'filled_answer' in detail:
+                    lines.append(f"- **期望答案**: `{detail['expected_answer']}`\n")
+                    lines.append(f"- **你的答案**: `{detail['filled_answer']}`\n")
+                elif 'missing' in detail:
+                    lines.append(f"- **缺少函数**: {detail['missing']}\n")
+            
+            lines.append("")
     
-    # 写入新数据库
-    fieldnames = ['题目ID', '总练习次数', '最近一次结果', '累计错误次数', 
-                  '连续错误次数', '掌握状态', '核心考点', '最大陷阱', '关键代码骨架']
+    if not errors and not warnings:
+        lines.append("\n## ✅ 恭喜！完全正确！\n")
+        lines.append("本次考试没有发现错误，继续保持！\n")
     
-    with open(DB_PATH, 'w', encoding='utf-8', newline='') as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
-        writer.writeheader()
-        for row in new_rows:
-            risk = row['累计错误次数'] * 2 + row['连续错误次数'] * 3 - (1 if row['最近一次结果'] == '正确' else 0)
-            if risk <= 1 and row['最近一次结果'] == '正确':
-                row['掌握状态'] = '已掌握'
-            elif risk >= 5:
-                row['掌握状态'] = '高危'
-            elif risk >= 3:
-                row['掌握状态'] = '注意'
-            else:
-                row['掌握状态'] = '一般'
-            writer.writerow(row)
+    # 学习建议
+    lines.append("\n## 💡 学习建议\n")
     
-    logger.info(f"已更新 {DB_PATH}，共 {len(new_rows)} 条记录")
+    if errors:
+        # 按知识点分组
+        kp_errors = {}
+        for error in errors:
+            kp = error.get('knowledge_point', '其他')
+            if kp not in kp_errors:
+                kp_errors[kp] = []
+            kp_errors[kp].append(error)
+        
+        lines.append("建议优先复习以下知识点：\n")
+        for kp, kp_errs in sorted(kp_errors.items(), key=lambda x: len(x[1]), reverse=True):
+            error_count = sum(e.get('count', 1) for e in kp_errs)
+            lines.append(f"1. **{kp}** - {error_count}个错误\n")
+        
+        lines.append("\n具体建议：\n")
+        for kp, kp_errs in kp_errors.items():
+            for err in kp_errs:
+                topic = err.get('topic', '未知')
+                lines.append(f"- 复习 {kp} 的 {topic} 相关知识点\n")
+    else:
+        lines.append("本次表现优秀！建议：\n")
+        lines.append("- 继续保持当前学习状态\n")
+        lines.append("- 可以尝试更高难度的练习\n")
+        lines.append("- 帮助其他同学解答问题\n")
+    
+    # 进步趋势（如果有历史数据）
+    lines.append("\n## 📈 进步趋势\n")
+    
+    # 查找同一章节的历史Session
+    chapter_sessions = []
+    if SESSIONS_DIR.exists():
+        for session_dir in sorted(SESSIONS_DIR.iterdir()):
+            if not session_dir.is_dir():
+                continue
+            
+            session_id = session_dir.name
+            if chapter not in session_id:
+                continue
+            
+            report_path = session_dir / 'report.json'
+            if report_path.exists():
+                with open(report_path, 'r', encoding='utf-8') as f:
+                    session_report = json.load(f)
+                    if 'score' in session_report:
+                        chapter_sessions.append({
+                            'session_id': session_id,
+                            'score': session_report['score'],
+                            'end_time': session_report.get('end_time', ''),
+                        })
+    
+    if len(chapter_sessions) >= 2:
+        lines.append(f"本章练习次数: {len(chapter_sessions)}\n")
+        
+        first_score = chapter_sessions[0]['score']
+        latest_score = chapter_sessions[-1]['score']
+        improvement = latest_score - first_score
+        
+        lines.append(f"首次得分: {first_score}\n")
+        lines.append(f"最近得分: {latest_score}\n")
+        lines.append(f"提升: {improvement:+d}分 {'📈' if improvement > 0 else '📉'}\n")
+        
+        lines.append("\n成绩变化:\n")
+        score_trend = [str(s['score']) for s in chapter_sessions]
+        lines.append(" → ".join(score_trend) + "\n")
+    else:
+        lines.append("暂无历史数据，继续练习后将显示进步趋势。\n")
+    
+    return '\n'.join(lines)
 
 
 def main():
-    parser = argparse.ArgumentParser(description='考试化错题统计与分析')
-    parser.add_argument('--weak', action='store_true', help='只看高危题目')
-    parser.add_argument('--rescue', action='store_true', help='考试前24小时急救清单')
-    parser.add_argument('--update', action='store_true', help='从 review.md 自动更新数据库')
-    args = parser.parse_args()
+    args = parse_args()
     
-    if args.update:
-        update_db_from_reviews()
+    # 确定要分析的Session
+    session_id = args.session
+    
+    if not session_id:
+        if args.latest:
+            session_id = get_latest_session(chapter=args.chapter)
+            if not session_id:
+                logger.error("未找到任何Session")
+                return
+        elif args.chapter:
+            session_id = get_latest_session(chapter=args.chapter)
+            if not session_id:
+                logger.error(f"未找到章节 {args.chapter} 的Session")
+                return
+    
+    if not session_id:
+        logger.error("请指定 --session 或 --latest 参数")
         return
     
-    db = load_db()
-    if not db:
+    # 加载报告
+    report = load_session_report(session_id)
+    if not report:
         return
     
-    if args.weak:
-        show_weak(db)
-    elif args.rescue:
-        show_rescue(db)
+    # 生成报告
+    summary_text = generate_exam_report(report)
+    
+    # 输出
+    if args.output:
+        output_path = args.output
     else:
-        show_all(db)
+        session_dir = SESSIONS_DIR / session_id
+        output_path = session_dir / 'summary.md'
+    
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(summary_text, encoding='utf-8')
+    
+    logger.info(f"考试分析报告已保存: {output_path}")
+    
+    # 打印到控制台
+    print("\n" + "="*60)
+    print(summary_text)
 
 
 if __name__ == '__main__':

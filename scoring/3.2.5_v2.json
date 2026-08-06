@@ -1,0 +1,475 @@
+{
+  "exam": {
+    "chapter": "3.2.5",
+    "title": "从标签文件中读取每一行，并去除行首尾的空白字符，得到类别名称",
+    "total_score": 17,
+    "passing_score": 10,
+    "time_limit_minutes": 30
+  },
+  "items": [
+    {
+      "id": "M1",
+      "score": 2,
+      "description": "从标签文件中读取每一行，并去除行首尾的空白字符，得到类别名称列表",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "strip",
+                "labels.txt",
+                "voc-model-labels.txt"
+              ],
+              "must_assign_to": "class_names"
+            },
+            {
+              "must_have_arg": "'voc-model-labels.txt'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "strip",
+                "labels.txt",
+                "readlines"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 37,
+        "template": "class_names = [_______________ for name in open('voc-model-labels.txt').readlines()]",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M2",
+      "score": 2,
+      "description": "创建 ONNX Runtime 的推理会话，用于运行模型进行推理",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "version-RFB-320.onnx",
+                "ort.InferenceSession",
+                "InferenceSession"
+              ],
+              "must_assign_to": "ort_session"
+            },
+            {
+              "must_have_arg": "'version-RFB-320.onnx'"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "ort.InferenceSession",
+                "InferenceSession"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 40,
+        "template": "ort_session = _______________('version-RFB-320.onnx')",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M3",
+      "score": 2,
+      "description": "获取模型输入的名称",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "get_inputs",
+                "ort_session.get_inputs"
+              ],
+              "must_assign_to": "input_name"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "get_inputs",
+                "ort_session.get_inputs"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 43,
+        "template": "input_name = _______________()[0].name",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M4",
+      "score": 2,
+      "description": "如果保存结果的目录不存在，则创建该目录",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "makedirs",
+                "os.makedirs"
+              ]
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "makedirs",
+                "os.makedirs"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 57,
+        "template": "os._______________",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M5",
+      "score": 2,
+      "description": "使用 OpenCV 读取图像文件",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "imread",
+                "cv2.imread"
+              ],
+              "must_assign_to": "orig_image"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "imread",
+                "cv2.imread"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 67,
+        "template": "orig_image = _______________",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M6",
+      "score": 1,
+      "description": "将图像调整为 320x240 的尺寸（符合模型输入的尺寸要求）",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "cv2.resize",
+                "resize"
+              ],
+              "must_assign_to": "image"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "cv2.resize",
+                "resize"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 71,
+        "template": "image = _______________(_______________, (320, 240))",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M7",
+      "score": 1,
+      "description": "将图像调整为 320x240 的尺寸（符合模型输入的尺寸要求）",
+      "difficulty": "hard",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "cv2.resize",
+                "resize"
+              ],
+              "must_assign_to": "image"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "cv2.resize",
+                "resize"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 71,
+        "template": "image = _______________(_______________, (320, 240))",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M8",
+      "score": 2,
+      "description": "定义图像归一化的均值数组",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "numpy"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "array",
+                "np.array"
+              ],
+              "must_assign_to": "image_mean"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "array",
+                "np.array"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 73,
+        "template": "image_mean = _______________([127, 127, 127])",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M9",
+      "score": 1,
+      "description": "在第一个维度上扩展一个维度，将图像变为 (1, 通道数, 高度, 宽度)，以符合模型输入的维度要求",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "numpy"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "expand_dims",
+                "np.expand_dims"
+              ],
+              "must_assign_to": "image"
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "expand_dims",
+                "np.expand_dims"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 79,
+        "template": "image = _______________(image, axis=0)",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    },
+    {
+      "id": "M10",
+      "score": 2,
+      "description": "使用 ONNX Runtime 运行模型，输入图像数据，得到模型输出的置信度和边界框",
+      "difficulty": "medium",
+      "knowledge_points": [
+        "基础语法"
+      ],
+      "validators": {
+        "exam": {
+          "type": "exact",
+          "rules": [
+            {
+              "must_contain": [
+                "ort_session.run"
+              ]
+            }
+          ]
+        },
+        "practice": {
+          "type": "semantic",
+          "rules": [
+            {
+              "must_contain_any": [
+                "run",
+                "ort_session.run"
+              ],
+              "allow_variable_rename": true
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 85,
+        "template": "confidences, boxes = _______________(None, {input_name: image})",
+        "common_errors": [
+          "语法错误"
+        ]
+      }
+    }
+  ],
+  "grading_rules": {
+    "exam_mode": {
+      "strict_matching": true,
+      "allow_partial_credit": false,
+      "deduction_for_syntax_error": 0.5,
+      "deduction_for_typo": 0
+    },
+    "practice_mode": {
+      "strict_matching": false,
+      "allow_partial_credit": true,
+      "semantic_matching": true,
+      "provide_hints": true
+    }
+  },
+  "metadata": {
+    "version": "2.0",
+    "generated_at": "2026-08-06T23:14:48.992052",
+    "converted_from": "3.2.5.json",
+    "difficulty_distribution": {
+      "easy": 0,
+      "medium": 7,
+      "hard": 3
+    },
+    "knowledge_point_coverage": {
+      "基础语法": 8,
+      "numpy": 2
+    }
+  }
+}

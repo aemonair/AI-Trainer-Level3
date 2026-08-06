@@ -1,0 +1,220 @@
+{
+  "chapter": "2.1.4",
+  "total_score": 19,
+  "items": [
+    {
+      "id": "M1",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 3,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "data = pd.read_csv('medical_data.csv', encoding='gbk')",
+      "template_line": "data = _________"
+    },
+    {
+      "id": "M2",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 8,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "print(data.info())",
+      "template_line": "print(_________)"
+    },
+    {
+      "id": "M3",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 18,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "data.rename(columns={'病人ID':'患者ID'}, inplace=True)",
+      "template_line": "_________(_________, inplace=True)"
+    },
+    {
+      "id": "M4",
+      "cell_index": 0,
+      "blank_index": 1,
+      "line_index": 18,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "data.rename(columns={'病人ID':'患者ID'}, inplace=True)",
+      "template_line": "_________(_________, inplace=True)"
+    },
+    {
+      "id": "M5",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 26,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "data['诊断延迟'] = (data['诊断日期'] - data['就诊日期']).dt.days",
+      "template_line": "data['诊断延迟'] = _________.dt.days"
+    },
+    {
+      "id": "M6",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 30,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "data = data[(data['诊断延迟'] >= 0) & (data['年龄'] > 0) & (data['年龄'] < 120)]",
+      "template_line": "data = _________[(_________ >= 0) & (_________ > 0) & (_________ < 120)]"
+    },
+    {
+      "id": "M7",
+      "cell_index": 0,
+      "blank_index": 1,
+      "line_index": 30,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "data = data[(data['诊断延迟'] >= 0) & (data['年龄'] > 0) & (data['年龄'] < 120)]",
+      "template_line": "data = _________[(_________ >= 0) & (_________ > 0) & (_________ < 120)]"
+    },
+    {
+      "id": "M8",
+      "cell_index": 0,
+      "blank_index": 2,
+      "line_index": 30,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "data = data[(data['诊断延迟'] >= 0) & (data['年龄'] > 0) & (data['年龄'] < 120)]",
+      "template_line": "data = _________[(_________ >= 0) & (_________ > 0) & (_________ < 120)]"
+    },
+    {
+      "id": "M9",
+      "cell_index": 0,
+      "blank_index": 3,
+      "line_index": 30,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "data = data[(data['诊断延迟'] >= 0) & (data['年龄'] > 0) & (data['年龄'] < 120)]",
+      "template_line": "data = _________[(_________ >= 0) & (_________ > 0) & (_________ < 120)]"
+    },
+    {
+      "id": "M10",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 37,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "data.drop_duplicates(inplace=True)",
+      "template_line": "_________(inplace=True)"
+    },
+    {
+      "id": "M11",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 46,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "columns_to_normalize = ['年龄', '体重', '身高']",
+      "template_line": "columns_to_normalize = [_________]"
+    },
+    {
+      "id": "M12",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 47,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "data[columns_to_normalize] = scaler.fit_transform(data[columns_to_normalize])",
+      "template_line": "data[columns_to_normalize] = _________"
+    },
+    {
+      "id": "M13",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 64,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "treatment_outcome_distribution.plot(kind='bar', stacked=True)",
+      "template_line": "_________(_________, stacked=True)"
+    },
+    {
+      "id": "M14",
+      "cell_index": 0,
+      "blank_index": 1,
+      "line_index": 64,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "treatment_outcome_distribution.plot(kind='bar', stacked=True)",
+      "template_line": "_________(_________, stacked=True)"
+    },
+    {
+      "id": "M15",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 74,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "plt.scatter(data['年龄'], data['疾病严重程度'])",
+      "template_line": "_________(_________, _________)"
+    },
+    {
+      "id": "M16",
+      "cell_index": 0,
+      "blank_index": 1,
+      "line_index": 74,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "plt.scatter(data['年龄'], data['疾病严重程度'])",
+      "template_line": "_________(_________, _________)"
+    },
+    {
+      "id": "M17",
+      "cell_index": 0,
+      "blank_index": 2,
+      "line_index": 74,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "plt.scatter(data['年龄'], data['疾病严重程度'])",
+      "template_line": "_________(_________, _________)"
+    },
+    {
+      "id": "M18",
+      "cell_index": 0,
+      "blank_index": 0,
+      "line_index": 85,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "data.to_csv(output_path, index=False)",
+      "template_line": "_________(_________, index=False)"
+    },
+    {
+      "id": "M19",
+      "cell_index": 0,
+      "blank_index": 1,
+      "line_index": 85,
+      "type": "api_call",
+      "description": "未知",
+      "score": 1,
+      "answer": "data.to_csv(output_path, index=False)",
+      "template_line": "_________(_________, index=False)"
+    }
+  ],
+  "metadata": {
+    "generated_at": "2026-08-06T22:41:01.996365",
+    "template_file": "2.1.4-materials/2.1.4.ipynb",
+    "answer_file": "answers/1.1.1 - 4.2.5参考答案/2.1.4/2.1.4.ipynb"
+  }
+}

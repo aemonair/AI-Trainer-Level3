@@ -1,0 +1,78 @@
+{
+  "file": "/Users/air/Downloads/GUIDE_AI_3/人工智能训练师_3级_sucai/2.1.3-materials/2.1.3_practice_202608052242.ipynb",
+  "chapter": "2.1.3",
+  "errors": [
+    {
+      "type": "fill_incorrect",
+      "count": 2,
+      "details": [
+        {
+          "cell_index": 0,
+          "line_index": 15,
+          "type": "line_mismatch",
+          "answer_line": "IQR = Q3 - Q1",
+          "practice_line": "IQR = Q1 - Q3",
+          "description": "第16行不匹配"
+        },
+        {
+          "cell_index": 0,
+          "line_index": 26,
+          "type": "line_mismatch",
+          "answer_line": "X = data_cleaned.drop(columns=['Unnamed: 0', target_variable])   #1分",
+          "practice_line": "X = data_cleaned.drop(columns=['Unnamed: 0'])   #1分",
+          "description": "第27行不匹配"
+        }
+      ],
+      "deduction": 16,
+      "knowledge_point": "Pandas",
+      "topic": "填空错误"
+    }
+  ],
+  "warnings": [],
+  "score": 84,
+  "total_score": 100,
+  "fill_comparison": [
+    {
+      "cell_index": 0,
+      "line_index": 15,
+      "type": "line_mismatch",
+      "answer_line": "IQR = Q3 - Q1",
+      "practice_line": "IQR = Q1 - Q3",
+      "description": "第16行不匹配"
+    },
+    {
+      "cell_index": 0,
+      "line_index": 26,
+      "type": "line_mismatch",
+      "answer_line": "X = data_cleaned.drop(columns=['Unnamed: 0', target_variable])   #1分",
+      "practice_line": "X = data_cleaned.drop(columns=['Unnamed: 0'])   #1分",
+      "description": "第27行不匹配"
+    }
+  ],
+  "implementation_comparison": [],
+  "result_comparison": [],
+  "knowledge_points": {},
+  "start_time": "2026-08-05T22:42:45.450635",
+  "end_time": "2026-08-05T23:18:22.104579",
+  "process_audit": null,
+  "ipython_history": {
+    "session_id": 3,
+    "total_commands": 4,
+    "key_commands": [
+      {
+        "command": "import pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\n# 读取数据集\ndata = pd.read_csv('c",
+        "type": "数据读取"
+      },
+      {
+        "command": "# 2. 数据合理性审核\ndata['is_age_valid'] = data['Age'].between(18, 70)              #Age数据的合理性审核 2分\ndata['i",
+        "type": "区间判断"
+      }
+    ],
+    "error_patterns": [],
+    "correction_count": 0,
+    "suggestions": [
+      "区间判断：检查列名与拼写，常见写法是 data[col].between(18, 70)"
+    ]
+  },
+  "duration_minutes": 35
+}

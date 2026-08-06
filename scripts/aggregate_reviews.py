@@ -1,27 +1,28 @@
 #!/usr/bin/env python3
 """
-聚合仓库中所有 `*_review.md` 文件为 CSV 和 Markdown 报告。
+成绩中心（Score Center）
 
-改进点：
-- 统一解析策略，新老格式归一化
-- 增强异常处理和日志记录
-- 保留时间信息，支持更精确的排序
-- 分离任务完成度和评分字段
-- 支持命令行参数
-- 优化正则表达式可读性
+核心功能：
+1. 读取所有Session的report.json
+2. 统计分析：成绩趋势、知识点掌握度、通过率、错题本
+3. 生成综合性成绩报告
 
 用法:
   python3 scripts/aggregate_reviews.py
-  python3 scripts/aggregate_reviews.py --scan-dir . --output-dir reports
-  python3 scripts/aggregate_reviews.py --pattern '*_review.md'
+  python3 scripts/aggregate_reviews.py --chapter 1.1.1
+  python3 scripts/aggregate_reviews.py --output-dir reports
+  python3 scripts/aggregate_reviews.py --format markdown
+  python3 scripts/aggregate_reviews.py --format json
 """
 from pathlib import Path
 import csv
+import json
 import re
 import argparse
 import logging
 from datetime import datetime
 from typing import Optional, Dict, List, Tuple
+from collections import defaultdict
 
 # 配置日志
 logging.basicConfig(
@@ -30,385 +31,381 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# 字段常量
-CSV_FIELDNAMES = [
-    'datetime', 'notebook', 'path',
-    'tasks_completed', 'tasks_total',
-    'score', 'total_score', 'percentage',
-    'errors_count', 'errors_summary'
-]
+ROOT = Path(__file__).resolve().parent.parent
+SESSIONS_DIR = ROOT / 'sessions'
 
 
 def parse_args() -> argparse.Namespace:
     """解析命令行参数"""
     parser = argparse.ArgumentParser(
-        description='聚合所有 *_review.md 文件为 CSV 和 Markdown 报告'
+        description='成绩中心：聚合所有Session报告为统计分析'
     )
     parser.add_argument(
-        '--scan-dir',
-        type=Path,
-        default=Path('.').resolve(),
-        help='扫描目录（默认：当前目录）'
+        '--chapter',
+        type=str,
+        default=None,
+        help='只统计特定章节（如 1.1.1）'
     )
     parser.add_argument(
         '--output-dir',
         type=Path,
         default=None,
-        help='输出目录（默认：扫描目录下的 reports/）'
+        help='输出目录（默认：ROOT/reports）'
     )
     parser.add_argument(
-        '--pattern',
-        type=str,
-        default='*_review.md',
-        help='文件匹配模式（默认：*_review.md）'
+        '--format',
+        choices=['markdown', 'json', 'csv'],
+        default='markdown',
+        help='输出格式（默认：markdown）'
+    )
+    parser.add_argument(
+        '--limit',
+        type=int,
+        default=None,
+        help='限制显示的Session数量'
     )
     return parser.parse_args()
 
 
-def extract_datetime(text: str) -> Tuple[Optional[datetime], str]:
+def load_session_reports(chapter: Optional[str] = None) -> List[Dict]:
     """
-    从Review文件标题中提取日期时间
+    加载所有Session的report.json
     
-    支持格式：
-    - YYYY-MM-DD HH:MM
-    - YYYYMMDDHHMM
-    - YYYY-MM-DD
+    参数:
+        chapter: 章节过滤（可选）
     
-    返回: (datetime对象, 格式化字符串)
+    返回:
+        报告列表
     """
-    patterns = [
-        (r'# .+ Review - (\d{4}-\d{2}-\d{2} \d{2}:\d{2})', '%Y-%m-%d %H:%M'),
-        (r'# .+ Review - (\d{12})', '%Y%m%d%H%M'),
-        (r'# .+ review \((\d{12})\)', '%Y%m%d%H%M'),
-        (r'# .+ Review - (\d{4}-\d{2}-\d{2})', '%Y-%m-%d'),
-    ]
+    if not SESSIONS_DIR.exists():
+        logger.warning(f"Sessions目录不存在: {SESSIONS_DIR}")
+        return []
     
-    for pattern, fmt in patterns:
-        match = re.search(pattern, text)
-        if match:
-            try:
-                dt = datetime.strptime(match.group(1), fmt)
-                return dt, dt.strftime('%Y-%m-%d %H:%M')
-            except ValueError as e:
-                logger.warning(f"日期解析失败: {match.group(1)}, 错误: {e}")
+    reports = []
     
-    return None, ''
-
-
-def extract_errors_new_format(text: str) -> List[Dict[str, str]]:
-    """
-    提取新格式错误（### 错误1：...）
-    
-    返回结构化的错误列表，每个错误包含：
-    - name: 错误名称
-    - wrong_code: 错误代码
-    - correct_code: 正确代码
-    - reason: 错误原因
-    """
-    errors = []
-    
-    # 匹配错误块（包含所有子项）
-    # 注意：不使用 re.VERBOSE，因为需要保留 \n 的语义
-    error_pattern = re.compile(
-        r'### (错误\d+：[^\n]+)\n'
-        r'(.*?)(?=### 错误\d+：|$)',
-        re.DOTALL
-    )
-    
-    # 提取代码块的正则
-    code_pattern = re.compile(
-        r'\*\*错误代码\*\*[:：]\s*`(.*?)`',
-        re.DOTALL
-    )
-    correct_pattern = re.compile(
-        r'\*\*正确写法\*\*[:：]\s*`(.*?)`',
-        re.DOTALL
-    )
-    reason_pattern = re.compile(
-        r'\*\*原因\*\*[:：]\s*(.*?)(?=\n\*|$)',
-        re.DOTALL
-    )
-    
-    for match in error_pattern.finditer(text):
-        error_name = match.group(1).strip()
-        error_content = match.group(2)
+    for session_dir in sorted(SESSIONS_DIR.iterdir()):
+        if not session_dir.is_dir():
+            continue
         
-        wrong_match = code_pattern.search(error_content)
-        correct_match = correct_pattern.search(error_content)
-        reason_match = reason_pattern.search(error_content)
+        session_id = session_dir.name
         
-        errors.append({
-            'name': error_name,
-            'wrong_code': wrong_match.group(1).strip() if wrong_match else '',
-            'correct_code': correct_match.group(1).strip() if correct_match else '',
-            'reason': reason_match.group(1).strip() if reason_match else ''
-        })
-    
-    return errors
-
-
-def extract_errors_old_format(text: str) -> List[Dict[str, str]]:
-    """
-    提取旧格式错误（#### 错误1：... + 代码块）
-    
-    返回与新格式相同的结构化数据
-    """
-    errors = []
-    
-    pattern = re.compile(
-        r'#### (错误\d+：.+?)\n'
-        r'```python\n(.*?)```\n'
-        r'.*?正确写法.*?```python\n(.*?)```',
-        re.DOTALL
-    )
-    
-    for match in pattern.finditer(text):
-        errors.append({
-            'name': match.group(1).strip(),
-            'wrong_code': match.group(2).strip(),
-            'correct_code': match.group(3).strip(),
-            'reason': ''
-        })
-    
-    return errors
-
-
-def extract_errors(text: str) -> List[Dict[str, str]]:
-    """
-    统一错误提取入口
-    
-    优先尝试新格式，失败则尝试旧格式
-    返回归一化的错误列表
-    """
-    # 先尝试新格式
-    new_errors = extract_errors_new_format(text)
-    if new_errors:
-        return new_errors
-    
-    # 回退到旧格式
-    old_errors = extract_errors_old_format(text)
-    if old_errors:
-        return old_errors
-    
-    return []
-
-
-def extract_score(text: str) -> Dict[str, Optional[float]]:
-    """
-    从评分表格中提取分数
-    
-    返回: {score, total, percentage}
-    """
-    pattern = re.compile(
-        r'\|\s*\*\*总计\*\*\s*\|'
-        r'\s*\*{0,2}(\d+(?:\.\d+)?)\*{0,2}\s*\|'
-        r'\s*\*{0,2}(\d+(?:\.\d+)?)\*{0,2}\s*\|'
-        r'\s*\*{0,2}([\d.]+)%.*?\|',
-        re.VERBOSE
-    )
-    
-    match = pattern.search(text)
-    if match:
+        if chapter and chapter not in session_id:
+            continue
+        
+        report_path = session_dir / 'report.json'
+        if not report_path.exists():
+            continue
+        
         try:
-            score = float(match.group(1))
-            total = float(match.group(2))
-            percentage = float(match.group(3))
-            
-            # 验证数值有效性
-            if total > 0 and 0 <= percentage <= 100:
-                return {
-                    'score': score,
-                    'total': total,
-                    'percentage': percentage
-                }
-        except ValueError as e:
-            logger.warning(f"评分数值解析失败: {e}")
+            with open(report_path, 'r', encoding='utf-8') as f:
+                report = json.load(f)
+                report['session_id'] = session_id
+                report['session_dir'] = str(session_dir)
+                reports.append(report)
+        except Exception as e:
+            logger.warning(f"加载报告失败 {report_path}: {e}")
     
-    return {'score': None, 'total': None, 'percentage': None}
+    # 按时间排序
+    reports.sort(key=lambda x: x.get('end_time', ''), reverse=True)
+    
+    return reports
 
 
-def extract_tasks(text: str) -> Tuple[int, int]:
+def calculate_statistics(reports: List[Dict]) -> Dict:
     """
-    提取任务完成情况
+    计算综合统计信息
     
-    返回: (completed_count, total_count)
+    返回:
+        统计信息字典
     """
-    total_pattern = re.compile(r'### 任务\d+：')
-    completed_pattern = re.compile(r'### 任务\d+：.+? ✅')
+    if not reports:
+        return {
+            'total_sessions': 0,
+            'avg_score': 0,
+            'max_score': 0,
+            'min_score': 0,
+            'pass_rate': 0,
+            'score_trend': [],
+            'knowledge_points': {},
+            'frequent_errors': [],
+        }
     
-    total_tasks = len(total_pattern.findall(text))
-    completed_tasks = len(completed_pattern.findall(text))
+    scores = [r['score'] for r in reports if 'score' in r]
+    pass_threshold = 60
+    passed = sum(1 for s in scores if s >= pass_threshold)
     
-    return completed_tasks, total_tasks
-
-
-def format_errors_summary(errors: List[Dict[str, str]], max_length: int = 150) -> str:
-    """
-    格式化错误摘要，用于Markdown表格显示
+    # 成绩趋势（最近10次）
+    score_trend = [r['score'] for r in reports[:10] if 'score' in r]
+    score_trend.reverse()
     
-    - 统一格式：错误名: 错误代码 → 正确代码
-    - 安全截断，添加省略号
-    - 避免破坏HTML标签
-    """
-    if not errors:
-        return '无错误'
+    # 稳定性指标统计（从process_audit中提取）
+    stability_scores = []
+    process_penalties = []
+    error_attempts_list = []
     
-    parts = []
-    for err in errors:
-        if err.get('wrong_code') and err.get('correct_code'):
-            part = f"{err['name']}: `{err['wrong_code']}` → `{err['correct_code']}`"
-        else:
-            part = err['name']
-        parts.append(part)
+    for report in reports:
+        audit = report.get('process_audit')
+        if audit:
+            stability_scores.append(audit.get('stability_score', 100))
+            process_penalties.append(audit.get('process_penalty', 0))
+            error_attempts_list.append(audit.get('error_attempts', 0))
     
-    full_text = '<br>'.join(parts)
+    avg_stability = sum(stability_scores) / len(stability_scores) if stability_scores else None
+    avg_process_penalty = sum(process_penalties) / len(process_penalties) if process_penalties else 0
+    avg_error_attempts = sum(error_attempts_list) / len(error_attempts_list) if error_attempts_list else 0
     
-    # 安全截断
-    if len(full_text) > max_length:
-        # 找到最后一个完整的<br>标签
-        truncated = full_text[:max_length]
-        last_br = truncated.rfind('<br>')
-        if last_br > 0:
-            truncated = truncated[:last_br]
-        return truncated + '…'
+    # 知识点统计
+    kp_stats = defaultdict(lambda: {'scores': [], 'errors': 0})
+    for report in reports:
+        for error in report.get('errors', []):
+            kp = error.get('knowledge_point', '其他')
+            kp_stats[kp]['errors'] += 1
+            kp_stats[kp]['scores'].append(report.get('score', 0))
     
-    return full_text
-
-
-def parse_review_file(md_path: Path) -> Optional[Dict]:
-    """
-    解析单个Review文件
+    knowledge_points = {}
+    for kp, stats in kp_stats.items():
+        avg_score = sum(stats['scores']) / len(stats['scores']) if stats['scores'] else 0
+        knowledge_points[kp] = {
+            'avg_score': avg_score,
+            'error_count': stats['errors'],
+            'practice_count': len(stats['scores']),
+        }
     
-    返回结构化的数据字典，失败时返回None
-    """
-    try:
-        text = md_path.read_text(encoding='utf-8')
-    except Exception as e:
-        logger.error(f"读取文件失败 {md_path}: {e}")
-        return None
+    # 高频错题
+    error_counter = defaultdict(int)
+    for report in reports:
+        for error in report.get('errors', []):
+            topic = error.get('topic', '未知')
+            kp = error.get('knowledge_point', '其他')
+            error_counter[f"{kp}.{topic}"] += 1
     
-    if not text.strip():
-        logger.warning(f"文件为空: {md_path}")
-        return None
+    frequent_errors = sorted(
+        [{'topic': k, 'count': v} for k, v in error_counter.items()],
+        key=lambda x: x['count'],
+        reverse=True
+    )[:10]
     
-    rel = md_path.relative_to(ROOT)
-    notebook = md_path.stem
-    
-    # 提取所有字段
-    dt, datetime_str = extract_datetime(text)
-    errors = extract_errors(text)
-    score_data = extract_score(text)
-    completed_tasks, total_tasks = extract_tasks(text)
-    
-    # 构建数据行
     return {
-        'datetime': datetime_str,
-        'notebook': notebook,
-        'path': str(rel),
-        'tasks_completed': completed_tasks if total_tasks > 0 else '',
-        'tasks_total': total_tasks if total_tasks > 0 else '',
-        'score': score_data['score'] if score_data['score'] is not None else '',
-        'total_score': score_data['total'] if score_data['total'] is not None else '',
-        'percentage': f"{score_data['percentage']}%" if score_data['percentage'] is not None else '',
-        'errors_count': len(errors),
-        'errors_summary': format_errors_summary(errors)
+        'total_sessions': len(reports),
+        'avg_score': sum(scores) / len(scores) if scores else 0,
+        'max_score': max(scores) if scores else 0,
+        'min_score': min(scores) if scores else 0,
+        'pass_rate': passed / len(scores) * 100 if scores else 0,
+        'score_trend': score_trend,
+        'knowledge_points': knowledge_points,
+        'frequent_errors': frequent_errors,
+        # 新增：稳定性指标
+        'avg_stability_score': avg_stability,
+        'avg_process_penalty': avg_process_penalty,
+        'avg_error_attempts': avg_error_attempts,
+        'stability_data_count': len(stability_scores),
     }
 
 
-def write_csv(rows: List[Dict], filepath: Path):
-    """写入CSV文件"""
-    with filepath.open('w', newline='', encoding='utf-8') as f:
-        writer = csv.DictWriter(f, fieldnames=CSV_FIELDNAMES)
-        writer.writeheader()
-        for row in rows:
-            writer.writerow({k: row.get(k, '') for k in CSV_FIELDNAMES})
-
-
-def write_markdown(rows: List[Dict], filepath: Path):
-    """写入Markdown报告"""
-    with filepath.open('w', encoding='utf-8') as f:
-        f.write('# 复盘聚合报告\n\n')
-        f.write(f'- 生成时间: {datetime.now().strftime("%Y-%m-%d %H:%M")}\n')
-        f.write(f'- 文件总数: {len(rows)}\n\n')
+def generate_markdown_report(stats: Dict, reports: List[Dict], output_path: Path):
+    """生成Markdown格式的成绩报告"""
+    with open(output_path, 'w', encoding='utf-8') as f:
+        f.write("# 📊 成绩中心报告\n\n")
+        f.write(f"生成时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
         
-        # 表头与CSV字段顺序一致
-        f.write('| 日期时间 | Notebook | 任务完成 | 得分 | 错误数 | 错误详情 | Path |\n')
-        f.write('|---|---|---|---|---|---|---|\n')
+        # 总体统计
+        f.write("## 📈 总体统计\n\n")
+        f.write(f"| 指标 | 数值 |\n")
+        f.write(f"|------|------|\n")
+        f.write(f"| 考试次数 | {stats['total_sessions']} |\n")
+        f.write(f"| 平均分 | {stats['avg_score']:.1f} |\n")
+        f.write(f"| 最高分 | {stats['max_score']} |\n")
+        f.write(f"| 最低分 | {stats['min_score']} |\n")
+        f.write(f"| 通过率 | {stats['pass_rate']:.1f}% |\n\n")
         
-        for r in rows:
-            # 构建任务完成字符串
-            if r['tasks_total']:
-                tasks_str = f"{r['tasks_completed']}/{r['tasks_total']}"
-            else:
-                tasks_str = '-'
+        # 稳定性指标（新增）
+        if stats.get('stability_data_count', 0) > 0:
+            f.write("## 🎯 稳定性指标\n\n")
+            f.write(f"| 指标 | 数值 |\n")
+            f.write(f"|------|------|\n")
+            f.write(f"| 平均稳定性得分 | {stats['avg_stability_score']:.1f}/100 |\n")
+            f.write(f"| 平均过程罚分 | {stats['avg_process_penalty']:.1f}分 |\n")
+            f.write(f"| 平均错误尝试次数 | {stats['avg_error_attempts']:.1f}次 |\n")
+            f.write(f"| 有审计数据的考试 | {stats['stability_data_count']}次 |\n\n")
             
-            # 构建得分字符串
-            if r['score'] != '':
-                score_str = f"{r['score']}/{r['total_score']} ({r['percentage']})"
+            # 稳定性评级
+            if stats['avg_stability_score'] >= 90:
+                stability_level = "✅ 稳定发挥（考试时不易紧张）"
+            elif stats['avg_stability_score'] >= 70:
+                stability_level = "🟡 中等稳定（偶尔会犯小错）"
             else:
-                score_str = '-'
+                stability_level = "⚠️ 波动较大（需要加强熟练度）"
+            
+            f.write(f"**稳定性评级**: {stability_level}\n\n")
+        
+        # 成绩趋势
+        if stats['score_trend']:
+            f.write("## 📊 成绩趋势（最近10次）\n\n")
+            trend_str = " → ".join([str(s) for s in stats['score_trend']])
+            f.write(f"{trend_str}\n\n")
+        
+        # 知识点掌握度
+        if stats['knowledge_points']:
+            f.write("## 🎯 知识点掌握度\n\n")
+            f.write("| 知识点 | 平均分 | 练习次数 | 错误次数 | 掌握度 |\n")
+            f.write("|--------|--------|---------|---------|--------|\n")
+            
+            for kp, kp_stats in sorted(stats['knowledge_points'].items()):
+                avg = kp_stats['avg_score']
+                if avg >= 85:
+                    level = "✅ 优秀"
+                elif avg >= 70:
+                    level = "✅ 良好"
+                elif avg >= 60:
+                    level = "🟡 一般"
+                else:
+                    level = "⚠️ 需加强"
+                
+                f.write(
+                    f"| {kp} | {avg:.1f} | "
+                    f"{kp_stats['practice_count']} | "
+                    f"{kp_stats['error_count']} | "
+                    f"{level} |\n"
+                )
+            f.write("\n")
+        
+        # 高频错题
+        if stats['frequent_errors']:
+            f.write("## 🚨 高频错题\n\n")
+            for i, err in enumerate(stats['frequent_errors'], 1):
+                f.write(f"{i}. {err['topic']} - 错误{err['count']}次\n")
+            f.write("\n")
+        
+        # 最近考试记录
+        f.write("## 📝 最近考试记录\n\n")
+        f.write("| 会话ID | 章节 | 得分 | 耗时 | 时间 |\n")
+        f.write("|--------|------|------|------|------|\n")
+        
+        for report in reports[:10]:
+            session_id = report.get('session_id', '未知')
+            chapter = report.get('chapter', '未知')
+            score = report.get('score', 'N/A')
+            duration = report.get('duration_minutes', 'N/A')
+            end_time = report.get('end_time', '未知')[:16]
+            
+            duration_str = f"{duration}分钟" if duration != 'N/A' else 'N/A'
             
             f.write(
-                f"| {r['datetime']} | {r['notebook']} | {tasks_str} "
-                f"| {score_str} | {r['errors_count']} "
-                f"| {r['errors_summary']} | {r['path']} |\n"
+                f"| {session_id} | {chapter} | "
+                f"{score} | {duration_str} | "
+                f"{end_time} |\n"
             )
+
+
+def generate_json_report(stats: Dict, reports: List[Dict], output_path: Path):
+    """生成JSON格式的成绩报告"""
+    report_data = {
+        'generated_at': datetime.now().isoformat(),
+        'statistics': stats,
+        'recent_sessions': [
+            {
+                'session_id': r.get('session_id'),
+                'chapter': r.get('chapter'),
+                'score': r.get('score'),
+                'duration_minutes': r.get('duration_minutes'),
+                'end_time': r.get('end_time'),
+            }
+            for r in reports[:10]
+        ]
+    }
+    
+    with open(output_path, 'w', encoding='utf-8') as f:
+        json.dump(report_data, f, ensure_ascii=False, indent=2)
+
+
+def generate_csv_report(reports: List[Dict], output_path: Path):
+    """生成CSV格式的成绩报告"""
+    fieldnames = [
+        'session_id', 'chapter', 'score', 'total_score',
+        'duration_minutes', 'end_time', 'errors_count'
+    ]
+    
+    with open(output_path, 'w', newline='', encoding='utf-8') as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer.writeheader()
+        
+        for report in reports:
+            writer.writerow({
+                'session_id': report.get('session_id', ''),
+                'chapter': report.get('chapter', ''),
+                'score': report.get('score', ''),
+                'total_score': report.get('total_score', ''),
+                'duration_minutes': report.get('duration_minutes', ''),
+                'end_time': report.get('end_time', ''),
+                'errors_count': len(report.get('errors', [])),
+            })
 
 
 def main():
     args = parse_args()
     
     global ROOT
-    ROOT = args.scan_dir.resolve()
-    
-    if not ROOT.exists():
-        logger.error(f"扫描目录不存在: {ROOT}")
-        return
+    ROOT = Path('.').resolve()
+    SESSIONS_DIR = ROOT / 'sessions'
     
     # 确定输出目录
     outdir = args.output_dir if args.output_dir else ROOT / 'reports'
-    
-    # 确保输出目录是目录而不是文件
-    if outdir.exists() and not outdir.is_dir():
-        logger.error(f"输出路径已存在且不是目录: {outdir}")
-        return
-    
     outdir.mkdir(parents=True, exist_ok=True)
     
-    # 扫描所有Review文件
-    logger.info(f"扫描目录: {ROOT}")
-    logger.info(f"文件模式: {args.pattern}")
+    # 加载所有Session报告
+    logger.info(f"加载Session报告...")
+    reports = load_session_reports(chapter=args.chapter)
     
-    rows = []
-    failed_files = []
+    if not reports:
+        logger.warning("未找到任何Session报告")
+        logger.info("请先使用 create_timestamped_practice.py 创建Session，然后使用 validate_practice.py --session 进行评分")
+        return
     
-    for md in sorted(ROOT.rglob(args.pattern)):
-        if md.is_file():
-            row = parse_review_file(md)
-            if row:
-                rows.append(row)
-            else:
-                failed_files.append(md)
+    logger.info(f"成功加载 {len(reports)} 个Session报告")
     
-    # 按日期时间排序
-    rows.sort(key=lambda x: x.get('datetime', ''), reverse=True)
+    # 计算统计信息
+    stats = calculate_statistics(reports)
     
-    # 写入输出文件
-    csvfile = outdir / 'reviews_summary.csv'
-    mdfile = outdir / 'reviews_summary.md'
+    # 生成报告
+    if args.format == 'markdown':
+        output_path = outdir / 'score_center_report.md'
+        generate_markdown_report(stats, reports, output_path)
+        logger.info(f"Markdown报告已生成: {output_path}")
     
-    write_csv(rows, csvfile)
-    write_markdown(rows, mdfile)
+    elif args.format == 'json':
+        output_path = outdir / 'score_center_report.json'
+        generate_json_report(stats, reports, output_path)
+        logger.info(f"JSON报告已生成: {output_path}")
     
-    # 输出统计信息
-    logger.info(f"成功解析: {len(rows)} 个文件")
-    if failed_files:
-        logger.warning(f"失败文件: {len(failed_files)} 个")
-        for f in failed_files:
-            logger.warning(f"  - {f}")
+    elif args.format == 'csv':
+        output_path = outdir / 'score_center_report.csv'
+        generate_csv_report(reports, output_path)
+        logger.info(f"CSV报告已生成: {output_path}")
     
-    logger.info(f"CSV报告: {csvfile}")
-    logger.info(f"Markdown报告: {mdfile}")
+    # 打印摘要
+    print("\n" + "="*60)
+    print("📊 成绩中心摘要")
+    print("="*60)
+    print(f"考试次数: {stats['total_sessions']}")
+    print(f"平均分: {stats['avg_score']:.1f}")
+    print(f"最高分: {stats['max_score']}")
+    print(f"最低分: {stats['min_score']}")
+    print(f"通过率: {stats['pass_rate']:.1f}%")
+    
+    if stats['score_trend']:
+        print(f"\n成绩趋势: {' → '.join([str(s) for s in stats['score_trend']])}")
+    
+    # 稳定性指标摘要
+    if stats.get('stability_data_count', 0) > 0:
+        print(f"\n🎯 稳定性指标:")
+        print(f"  平均稳定性得分: {stats['avg_stability_score']:.1f}/100")
+        print(f"  平均过程罚分: {stats['avg_process_penalty']:.1f}分")
+        print(f"  平均错误尝试: {stats['avg_error_attempts']:.1f}次")
+    
+    if stats['frequent_errors']:
+        print(f"\n高频错题:")
+        for i, err in enumerate(stats['frequent_errors'][:5], 1):
+            print(f"  {i}. {err['topic']} - 错误{err['count']}次")
 
 
 if __name__ == '__main__':

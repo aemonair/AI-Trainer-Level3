@@ -1,0 +1,177 @@
+{
+  "exam": {
+    "chapter": "2.2.2",
+    "title": "智慧交通中燃油效率随机森林模型开发与测试（AST 版本）",
+    "total_score": 16,
+    "passing_score": 10,
+    "time_limit_minutes": 30
+  },
+  "items": [
+    {
+      "id": "M1",
+      "score": 1,
+      "description": "正确加载 auto-mpg.csv 数据集",
+      "difficulty": "easy",
+      "knowledge_points": ["pandas", "数据加载"],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": {"function": "read_csv", "module": "pd"},
+              "must_assign": "df"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "read_csv"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 9,
+        "template": "df = __________",
+        "common_errors": ["忘记加 pd 前缀", "文件名拼写错误"]
+      }
+    },
+    {
+      "id": "M7",
+      "score": 1,
+      "description": "使用 train_test_split 划分训练集和测试集",
+      "difficulty": "medium",
+      "knowledge_points": ["sklearn", "数据集划分"],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "train_test_split",
+              "must_have_arg": {
+                "function": "train_test_split",
+                "param": "test_size",
+                "value": "0.2"
+              }
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "train_test_split"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 25,
+        "template": "X_train, X_test, y_train, y_test = __________",
+        "common_errors": ["忘记 random_state 参数", "test_size 比例错误"]
+      }
+    },
+    {
+      "id": "M8",
+      "score": 1,
+      "description": "创建包含 StandardScaler 和 LinearRegression 的 Pipeline",
+      "difficulty": "hard",
+      "knowledge_points": ["sklearn", "Pipeline", "数据标准化", "线性回归"],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "Pipeline",
+              "must_assign": "pipeline"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "Pipeline"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 28,
+        "template": "pipe = __________",
+        "common_errors": ["步骤名称错误", "忘记括号或引号"]
+      }
+    },
+    {
+      "id": "M13",
+      "score": 1,
+      "description": "初始化 RandomForestRegressor 模型",
+      "difficulty": "medium",
+      "knowledge_points": ["sklearn", "随机森林"],
+      "validators": {
+        "exam": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "RandomForestRegressor",
+              "must_assign": "rf_model"
+            }
+          ]
+        },
+        "practice": {
+          "type": "ast_check",
+          "rules": [
+            {
+              "must_call": "RandomForestRegressor"
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "cell_index": 0,
+        "line_index": 48,
+        "template": "rf_model = __________",
+        "common_errors": ["忘记括号", "类名拼写错误"]
+      }
+    }
+  ],
+  "grading_rules": {
+    "exam_mode": {
+      "strict_matching": true,
+      "allow_partial_credit": false,
+      "deduction_for_syntax_error": 0.5,
+      "deduction_for_typo": 0
+    },
+    "practice_mode": {
+      "strict_matching": false,
+      "allow_partial_credit": true,
+      "semantic_matching": true,
+      "provide_hints": true
+    }
+  },
+  "metadata": {
+    "version": "2.0",
+    "generated_at": "2026-08-06T00:00:00",
+    "converted_from": "2.2.2.json",
+    "difficulty_distribution": {
+      "easy": 1,
+      "medium": 2,
+      "hard": 1
+    },
+    "knowledge_point_coverage": {
+      "pandas": 1,
+      "数据加载": 1,
+      "sklearn": 3,
+      "数据集划分": 1,
+      "Pipeline": 1,
+      "数据标准化": 1,
+      "线性回归": 1,
+      "随机森林": 1
+    }
+  }
+}

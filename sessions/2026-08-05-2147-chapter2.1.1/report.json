@@ -1,0 +1,346 @@
+{
+  "file": "sessions/2026-08-05-2147-chapter2.1.1/practice.ipynb",
+  "chapter": "2.1.1",
+  "errors": [
+    {
+      "type": "fill_incorrect",
+      "count": 16,
+      "details": [
+        {
+          "cell_index": 0,
+          "line_index": 3,
+          "blank_index": 0,
+          "type": "empty_fill",
+          "template_line": "data = __________",
+          "expected_answer": "pd.read_csv(\"auto-mpg.csv\")",
+          "filled_answer": null,
+          "similarity": 0.0
+        },
+        {
+          "cell_index": 0,
+          "line_index": 5,
+          "blank_index": 0,
+          "type": "empty_fill",
+          "template_line": "print(__________)",
+          "expected_answer": "data.head(",
+          "filled_answer": null,
+          "similarity": 0.0
+        },
+        {
+          "cell_index": 0,
+          "line_index": 12,
+          "blank_index": 0,
+          "type": "missing_fill",
+          "template_line": "print(__________.__________.__________)",
+          "expected_answer": "data",
+          "filled_answer": null,
+          "similarity": 0.0
+        },
+        {
+          "cell_index": 0,
+          "line_index": 12,
+          "blank_index": 1,
+          "type": "missing_fill",
+          "template_line": "print(__________.__________.__________)",
+          "expected_answer": "isnull()",
+          "filled_answer": null,
+          "similarity": 0.0
+        },
+        {
+          "cell_index": 0,
+          "line_index": 12,
+          "blank_index": 2,
+          "type": "missing_fill",
+          "template_line": "print(__________.__________.__________)",
+          "expected_answer": "isnull(",
+          "filled_answer": null,
+          "similarity": 0.0
+        },
+        {
+          "cell_index": 0,
+          "line_index": 13,
+          "blank_index": 0,
+          "type": "missing_fill",
+          "template_line": "data = __________",
+          "expected_answer": "data.dropna()",
+          "filled_answer": null,
+          "similarity": 0.0
+        },
+        {
+          "cell_index": 0,
+          "line_index": 16,
+          "blank_index": 0,
+          "type": "missing_fill",
+          "template_line": "data['horsepower'] = __________(data['horsepower'], errors='coerce')",
+          "expected_answer": "pd.to_numeric",
+          "filled_answer": null,
+          "similarity": 0.0
+        },
+        {
+          "cell_index": 0,
+          "line_index": 17,
+          "blank_index": 0,
+          "type": "missing_fill",
+          "template_line": "data = __________",
+          "expected_answer": "data.dropna(subset=['horsepower'])",
+          "filled_answer": null,
+          "similarity": 0.0
+        },
+        {
+          "cell_index": 0,
+          "line_index": 30,
+          "blank_index": 0,
+          "type": "missing_fill",
+          "template_line": "data[numerical_features] = __________",
+          "expected_answer": "scaler.fit_transform(data[numerical_features])",
+          "filled_answer": null,
+          "similarity": 0.0
+        },
+        {
+          "cell_index": 0,
+          "line_index": 34,
+          "blank_index": 0,
+          "type": "missing_fill",
+          "template_line": "selected_features = __________",
+          "expected_answer": "['cylinders','displacement','horsepower','weight','acceleration','model year','origin']",
+          "filled_answer": null,
+          "similarity": 0.0
+        },
+        {
+          "cell_index": 0,
+          "line_index": 35,
+          "blank_index": 0,
+          "type": "missing_fill",
+          "template_line": "X = __________",
+          "expected_answer": "data[selected_features]",
+          "filled_answer": null,
+          "similarity": 0.0
+        },
+        {
+          "cell_index": 0,
+          "line_index": 36,
+          "blank_index": 0,
+          "type": "missing_fill",
+          "template_line": "y = __________",
+          "expected_answer": "data['mpg']",
+          "filled_answer": null,
+          "similarity": 0.0
+        },
+        {
+          "cell_index": 0,
+          "line_index": 39,
+          "blank_index": 0,
+          "type": "missing_fill",
+          "template_line": "X_train, X_test, y_train, y_test = __________(__________, random_state=42)",
+          "expected_answer": "train_test_split",
+          "filled_answer": null,
+          "similarity": 0.0
+        },
+        {
+          "cell_index": 0,
+          "line_index": 39,
+          "blank_index": 1,
+          "type": "missing_fill",
+          "template_line": "X_train, X_test, y_train, y_test = __________(__________, random_state=42)",
+          "expected_answer": "X, y, test_size=0.2",
+          "filled_answer": null,
+          "similarity": 0.0
+        },
+        {
+          "cell_index": 0,
+          "line_index": 47,
+          "blank_index": 0,
+          "type": "missing_fill",
+          "template_line": "__________('2.1.1_cleaned_data.csv', __________)",
+          "expected_answer": "cleaned_data.to_csv",
+          "filled_answer": null,
+          "similarity": 0.0
+        },
+        {
+          "cell_index": 0,
+          "line_index": 47,
+          "blank_index": 1,
+          "type": "missing_fill",
+          "template_line": "__________('2.1.1_cleaned_data.csv', __________)",
+          "expected_answer": "index=False",
+          "filled_answer": null,
+          "similarity": 0.0
+        }
+      ],
+      "deduction": 128,
+      "knowledge_point": "Pandas",
+      "topic": "填空错误"
+    }
+  ],
+  "warnings": [],
+  "score": 0,
+  "total_score": 100,
+  "fill_comparison": [
+    {
+      "cell_index": 0,
+      "line_index": 3,
+      "blank_index": 0,
+      "type": "empty_fill",
+      "template_line": "data = __________",
+      "expected_answer": "pd.read_csv(\"auto-mpg.csv\")",
+      "filled_answer": null,
+      "similarity": 0.0
+    },
+    {
+      "cell_index": 0,
+      "line_index": 5,
+      "blank_index": 0,
+      "type": "empty_fill",
+      "template_line": "print(__________)",
+      "expected_answer": "data.head(",
+      "filled_answer": null,
+      "similarity": 0.0
+    },
+    {
+      "cell_index": 0,
+      "line_index": 12,
+      "blank_index": 0,
+      "type": "missing_fill",
+      "template_line": "print(__________.__________.__________)",
+      "expected_answer": "data",
+      "filled_answer": null,
+      "similarity": 0.0
+    },
+    {
+      "cell_index": 0,
+      "line_index": 12,
+      "blank_index": 1,
+      "type": "missing_fill",
+      "template_line": "print(__________.__________.__________)",
+      "expected_answer": "isnull()",
+      "filled_answer": null,
+      "similarity": 0.0
+    },
+    {
+      "cell_index": 0,
+      "line_index": 12,
+      "blank_index": 2,
+      "type": "missing_fill",
+      "template_line": "print(__________.__________.__________)",
+      "expected_answer": "isnull(",
+      "filled_answer": null,
+      "similarity": 0.0
+    },
+    {
+      "cell_index": 0,
+      "line_index": 13,
+      "blank_index": 0,
+      "type": "missing_fill",
+      "template_line": "data = __________",
+      "expected_answer": "data.dropna()",
+      "filled_answer": null,
+      "similarity": 0.0
+    },
+    {
+      "cell_index": 0,
+      "line_index": 16,
+      "blank_index": 0,
+      "type": "missing_fill",
+      "template_line": "data['horsepower'] = __________(data['horsepower'], errors='coerce')",
+      "expected_answer": "pd.to_numeric",
+      "filled_answer": null,
+      "similarity": 0.0
+    },
+    {
+      "cell_index": 0,
+      "line_index": 17,
+      "blank_index": 0,
+      "type": "missing_fill",
+      "template_line": "data = __________",
+      "expected_answer": "data.dropna(subset=['horsepower'])",
+      "filled_answer": null,
+      "similarity": 0.0
+    },
+    {
+      "cell_index": 0,
+      "line_index": 30,
+      "blank_index": 0,
+      "type": "missing_fill",
+      "template_line": "data[numerical_features] = __________",
+      "expected_answer": "scaler.fit_transform(data[numerical_features])",
+      "filled_answer": null,
+      "similarity": 0.0
+    },
+    {
+      "cell_index": 0,
+      "line_index": 34,
+      "blank_index": 0,
+      "type": "missing_fill",
+      "template_line": "selected_features = __________",
+      "expected_answer": "['cylinders','displacement','horsepower','weight','acceleration','model year','origin']",
+      "filled_answer": null,
+      "similarity": 0.0
+    },
+    {
+      "cell_index": 0,
+      "line_index": 35,
+      "blank_index": 0,
+      "type": "missing_fill",
+      "template_line": "X = __________",
+      "expected_answer": "data[selected_features]",
+      "filled_answer": null,
+      "similarity": 0.0
+    },
+    {
+      "cell_index": 0,
+      "line_index": 36,
+      "blank_index": 0,
+      "type": "missing_fill",
+      "template_line": "y = __________",
+      "expected_answer": "data['mpg']",
+      "filled_answer": null,
+      "similarity": 0.0
+    },
+    {
+      "cell_index": 0,
+      "line_index": 39,
+      "blank_index": 0,
+      "type": "missing_fill",
+      "template_line": "X_train, X_test, y_train, y_test = __________(__________, random_state=42)",
+      "expected_answer": "train_test_split",
+      "filled_answer": null,
+      "similarity": 0.0
+    },
+    {
+      "cell_index": 0,
+      "line_index": 39,
+      "blank_index": 1,
+      "type": "missing_fill",
+      "template_line": "X_train, X_test, y_train, y_test = __________(__________, random_state=42)",
+      "expected_answer": "X, y, test_size=0.2",
+      "filled_answer": null,
+      "similarity": 0.0
+    },
+    {
+      "cell_index": 0,
+      "line_index": 47,
+      "blank_index": 0,
+      "type": "missing_fill",
+      "template_line": "__________('2.1.1_cleaned_data.csv', __________)",
+      "expected_answer": "cleaned_data.to_csv",
+      "filled_answer": null,
+      "similarity": 0.0
+    },
+    {
+      "cell_index": 0,
+      "line_index": 47,
+      "blank_index": 1,
+      "type": "missing_fill",
+      "template_line": "__________('2.1.1_cleaned_data.csv', __________)",
+      "expected_answer": "index=False",
+      "filled_answer": null,
+      "similarity": 0.0
+    }
+  ],
+  "implementation_comparison": [],
+  "result_comparison": [],
+  "knowledge_points": {},
+  "start_time": "2026-08-05T21:47:33.580413",
+  "end_time": "2026-08-05T21:52:26.158867",
+  "duration_minutes": 4
+}

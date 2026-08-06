@@ -1,0 +1,191 @@
+{
+  "chapter": "1.1.2",
+  "title": "读取数据集",
+  "mode": "exam",
+  "total_score": 34,
+  "earned_score": 0,
+  "percentage": 0.0,
+  "details": [
+    {
+      "item_id": "M1",
+      "description": "读取数据集",
+      "earned": 0,
+      "max": 2,
+      "correct": false,
+      "details": "失败规则: [\"{'must_contain': ['pd.read_csv', 'sensor_data.csv', 'read_csv'], 'must_assign_to': 'data'}\", '{\\'must_have_arg\\': \"\\'sensor_data.csv\\'\"}']",
+      "user_code": "log_path = Path('/Users/air/Downloads/GUIDE_AI_3/人工智能训练师_3级_sucai/1.1.2-materials/1.1.2_practice_202608052257_execution_log.json')",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M2",
+      "description": "对传感器类型进行分组，并计算每个组的数据数量和平均值",
+      "earned": 0,
+      "max": 1,
+      "correct": false,
+      "details": "失败规则: [\"{'must_contain': ['data.groupby', 'count', 'mean'], 'must_assign_to': 'sensor_stats'}\", '{\\'must_have_arg\\': \"\\'SensorType\\'\"}', '{\\'must_have_arg\\': \"\\'Value\\'\"}']",
+      "user_code": "import matplotlib.pyplot as plt",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M3",
+      "description": "对传感器类型进行分组，并计算每个组的数据数量和平均值",
+      "earned": 0,
+      "max": 1,
+      "correct": false,
+      "details": "失败规则: [\"{'must_contain': ['data.groupby', 'count', 'mean'], 'must_assign_to': 'sensor_stats'}\", '{\\'must_have_arg\\': \"\\'SensorType\\'\"}', '{\\'must_have_arg\\': \"\\'Value\\'\"}']",
+      "user_code": "import matplotlib.pyplot as plt",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M4",
+      "description": "对传感器类型进行分组，并计算每个组的数据数量和平均值",
+      "earned": 0,
+      "max": 1,
+      "correct": false,
+      "details": "失败规则: [\"{'must_contain': ['data.groupby', 'count', 'mean'], 'must_assign_to': 'sensor_stats'}\", '{\\'must_have_arg\\': \"\\'SensorType\\'\"}', '{\\'must_have_arg\\': \"\\'Value\\'\"}']",
+      "user_code": "import matplotlib.pyplot as plt",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M5",
+      "description": "筛选出温度和湿度数据，然后按位置和传感器类型分组，计算每个组的平均值",
+      "earned": 0,
+      "max": 1,
+      "correct": false,
+      "details": "失败规则: [\"{'must_contain': ['unstack', 'Humidity', 'Location'], 'must_assign_to': 'location_stats'}\", '{\\'must_have_arg\\': \"\\'SensorType\\'\"}', '{\\'must_have_arg\\': \"\\'Temperature\\'\"}']",
+      "user_code": "sensor_stats = _____________(_____________)['Value']._____________",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M6",
+      "description": "筛选出温度和湿度数据，然后按位置和传感器类型分组，计算每个组的平均值",
+      "earned": 0,
+      "max": 1,
+      "correct": false,
+      "details": "失败规则: [\"{'must_contain': ['unstack', 'Humidity', 'Location'], 'must_assign_to': 'location_stats'}\", '{\\'must_have_arg\\': \"\\'SensorType\\'\"}', '{\\'must_have_arg\\': \"\\'Temperature\\'\"}']",
+      "user_code": "sensor_stats = _____________(_____________)['Value']._____________",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M7",
+      "description": "标记异常值",
+      "earned": 0,
+      "max": 3,
+      "correct": false,
+      "details": "失败规则: [\"{'must_contain': ['where', 'np.where', 'is_abnormal']}\", '{\\'must_have_arg\\': \"\\'is_abnormal\\'\"}']",
+      "user_code": "location_stats = data[data['SensorType']._____________._____________['Value'].mean().unstack()",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M8",
+      "description": "标记异常值",
+      "earned": 0,
+      "max": 3,
+      "correct": false,
+      "details": "失败规则: [\"{'must_contain': ['Value', 'Temperature', 'SensorType']}\", '{\\'must_have_arg\\': \"\\'SensorType\\'\"}', '{\\'must_have_arg\\': \"\\'Temperature\\'\"}']",
+      "user_code": "print(\"每个位置的温度和湿度数据平均值:\")",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M9",
+      "description": "标记异常值",
+      "earned": 0,
+      "max": 3,
+      "correct": false,
+      "details": "失败规则: [\"{'must_contain': ['Value', 'Humidity', 'SensorType']}\", '{\\'must_have_arg\\': \"\\'Humidity\\'\"}']",
+      "user_code": "location_stats = data[data['SensorType']._____________._____________['Value'].mean().unstack()",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M10",
+      "description": "输出异常值数量",
+      "earned": 0,
+      "max": 2,
+      "correct": false,
+      "details": "失败规则: [\"{'must_contain': ['is_abnormal', '异常值数量:', 'print']}\", '{\\'must_have_arg\\': \"\\'异常值数量:\\'\"}', '{\\'must_have_arg\\': \"\\'is_abnormal\\'\"}']",
+      "user_code": "",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M11",
+      "description": "使用前向填充和后向填充的方法填补缺失值",
+      "earned": 0,
+      "max": 2,
+      "correct": false,
+      "details": "失败规则: [\"{'must_contain': ['fillna', 'Value', 'ffill']}\", '{\\'must_have_arg\\': \"\\'Value\\'\"}', '{\\'must_have_arg\\': \"\\'ffill\\'\"}']",
+      "user_code": "",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M12",
+      "description": "使用前向填充和后向填充的方法填补缺失值",
+      "earned": 0,
+      "max": 2,
+      "correct": false,
+      "details": "失败规则: [\"{'must_contain': ['fillna', 'Value', 'ffill']}\", '{\\'must_have_arg\\': \"\\'Value\\'\"}', '{\\'must_have_arg\\': \"\\'ffill\\'\"}']",
+      "user_code": "",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M13",
+      "description": "使用前向填充和后向填充的方法填补缺失值",
+      "earned": 0,
+      "max": 2,
+      "correct": false,
+      "details": "失败规则: [\"{'must_contain': ['fillna', 'Value', 'bfill']}\", '{\\'must_have_arg\\': \"\\'Value\\'\"}', '{\\'must_have_arg\\': \"\\'bfill\\'\"}']",
+      "user_code": "",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M14",
+      "description": "使用前向填充和后向填充的方法填补缺失值",
+      "earned": 0,
+      "max": 2,
+      "correct": false,
+      "details": "失败规则: [\"{'must_contain': ['fillna', 'Value', 'bfill']}\", '{\\'must_have_arg\\': \"\\'Value\\'\"}', '{\\'must_have_arg\\': \"\\'bfill\\'\"}']",
+      "user_code": "",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M15",
+      "description": "删除用于标记异常值的列，并将清洗后的数据保存到新的CSV文件中",
+      "earned": 0,
+      "max": 2,
+      "correct": false,
+      "details": "失败规则: [\"{'must_contain': ['is_abnormal', 'drop', 'data.drop'], 'must_assign_to': 'cleaned_data'}\", '{\\'must_have_arg\\': \"\\'is_abnormal\\'\"}']",
+      "user_code": "",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M16",
+      "description": "删除用于标记异常值的列，并将清洗后的数据保存到新的CSV文件中",
+      "earned": 0,
+      "max": 2,
+      "correct": false,
+      "details": "失败规则: [\"{'must_contain': ['is_abnormal', 'drop', 'data.drop'], 'must_assign_to': 'cleaned_data'}\", '{\\'must_have_arg\\': \"\\'is_abnormal\\'\"}']",
+      "user_code": "",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M17",
+      "description": "删除用于标记异常值的列，并将清洗后的数据保存到新的CSV文件中",
+      "earned": 0,
+      "max": 2,
+      "correct": false,
+      "details": "失败规则: [\"{'must_contain': ['to_csv', 'cleaned_sensor_data.csv', 'cleaned_data.to_csv']}\", '{\\'must_have_arg\\': \"\\'cleaned_sensor_data.csv\\'\"}']",
+      "user_code": "",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M18",
+      "description": "删除用于标记异常值的列，并将清洗后的数据保存到新的CSV文件中",
+      "earned": 0,
+      "max": 2,
+      "correct": false,
+      "details": "失败规则: [\"{'must_contain': ['to_csv', 'cleaned_sensor_data.csv', 'cleaned_data.to_csv']}\", '{\\'must_have_arg\\': \"\\'cleaned_sensor_data.csv\\'\"}']",
+      "user_code": "",
+      "difficulty": "hard"
+    }
+  ],
+  "graded_at": "2026-08-06T23:22:35.824220"
+}
