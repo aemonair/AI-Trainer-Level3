@@ -1019,15 +1019,28 @@ def find_execution_log(practice_path: Path) -> Optional[Path]:
     """查找与练习文件对应的execution_log.json"""
     practice_name = practice_path.stem  # 不带扩展名的文件名
     
-    # 尝试在同目录查找
+    # 尝试在同目录查找（旧架构）
     log_path = practice_path.parent / f'{practice_name}_execution_log.json'
     if log_path.exists():
         return log_path
     
-    # 尝试在Session目录查找
+    # 尝试在Session目录查找（兼容旧架构）
     session_dir = practice_path.parent
     if session_dir.name.startswith('20') and 'chapter' in session_dir.name:
         log_path = session_dir / 'execution_log.json'
+        if log_path.exists():
+            return log_path
+    
+    # 支持新架构：logs/execution_log.json
+    if session_dir.name.startswith('20') and 'chapter' in session_dir.name:
+        log_path = session_dir / 'logs' / 'execution_log.json'
+        if log_path.exists():
+            return log_path
+    
+    # 如果 practice_path 在 workspace/ 下，尝试上一级
+    if practice_path.parent.name == 'workspace':
+        session_dir = practice_path.parent.parent
+        log_path = session_dir / 'logs' / 'execution_log.json'
         if log_path.exists():
             return log_path
     
@@ -1880,7 +1893,11 @@ def main():
             logger.error(f"Session目录不存在: {session_dir}")
             return
         
-        practice_path = session_dir / 'practice.ipynb'
+        # 支持新架构（workspace/）和旧架构
+        practice_path = session_dir / 'workspace' / 'practice.ipynb'
+        if not practice_path.exists():
+            practice_path = session_dir / 'practice.ipynb'
+        
         if not practice_path.exists():
             logger.error(f"练习文件不存在: {practice_path}")
             return

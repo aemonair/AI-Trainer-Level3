@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Session Metadata",
+  "description": "Session元数据，记录考试/练习的基本信息",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "session_id",
+    "chapter",
+    "mode",
+    "created_at",
+    "status"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0",
+      "description": "Schema版本号"
+    },
+    "session_id": {
+      "type": "string",
+      "description": "Session唯一标识，格式：YYYYMMDD_HHMMSS_{random6}_chapter{chapter}",
+      "pattern": "^\\d{8}_\\d{6}_[a-z0-9]{6}_chapter[\\d.]+$"
+    },
+    "chapter": {
+      "type": "string",
+      "description": "章节编号，如 1.1.1",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "mode": {
+      "type": "string",
+      "enum": ["practice", "exam"],
+      "description": "Session模式：practice=练习，exam=考试"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Session创建时间（ISO 8601）"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Session最后更新时间（ISO 8601）"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["created", "in_progress", "completed", "abandoned"],
+      "description": "Session状态"
+    },
+    "template_file": {
+      "type": "string",
+      "description": "模板notebook的绝对路径"
+    },
+    "practice_file": {
+      "type": "string",
+      "description": "练习notebook的相对路径（相对于workspace/）"
+    },
+    "kernel_info": {
+      "type": "object",
+      "description": "Jupyter Kernel信息",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Kernel名称"
+        },
+        "language": {
+          "type": "string",
+          "description": "编程语言"
+        },
+        "python_version": {
+          "type": "string",
+          "description": "Python版本"
+        }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "自定义标签"
+    },
+    "notes": {
+      "type": "string",
+      "description": "备注信息"
+    }
+  },
+  "additionalProperties": false
+}

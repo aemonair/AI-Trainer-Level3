@@ -1,0 +1,130 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Execution Log",
+  "description": "执行日志，记录Cell执行的完整历史",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "session_id",
+    "created_at",
+    "events"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0",
+      "description": "Schema版本号"
+    },
+    "session_id": {
+      "type": "string",
+      "description": "关联的Session ID"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "日志创建时间（ISO 8601）"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "日志最后更新时间（ISO 8601）"
+    },
+    "kernel_info": {
+      "type": "object",
+      "description": "Kernel运行时信息",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "python_version": {
+          "type": "string"
+        }
+      }
+    },
+    "events": {
+      "type": "array",
+      "description": "执行事件列表",
+      "items": {
+        "type": "object",
+        "required": [
+          "event_id",
+          "cell_index",
+          "timestamp",
+          "source",
+          "status"
+        ],
+        "properties": {
+          "event_id": {
+            "type": "integer",
+            "description": "事件唯一ID（从1开始递增）"
+          },
+          "cell_index": {
+            "type": "integer",
+            "description": "Cell索引（从0开始）"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "description": "执行时间（ISO 8601）"
+          },
+          "source": {
+            "type": "string",
+            "description": "执行的代码内容"
+          },
+          "source_hash": {
+            "type": "string",
+            "description": "代码内容的SHA256哈希（用于去重和对比）"
+          },
+          "output": {
+            "type": "string",
+            "description": "标准输出内容"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["success", "error", "warning"],
+            "description": "执行状态"
+          },
+          "error": {
+            "type": "object",
+            "description": "错误信息（仅当status=error时存在）",
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "异常类型，如 NameError, SyntaxError"
+              },
+              "message": {
+                "type": "string",
+                "description": "错误消息"
+              },
+              "traceback": {
+                "type": "string",
+                "description": "完整堆栈跟踪"
+              },
+              "line_number": {
+                "type": "integer",
+                "description": "错误发生的行号"
+              },
+              "fingerprint": {
+                "type": "string",
+                "description": "错误指纹（用于识别重复错误模式），格式：{type}_{name}_line{line}"
+              }
+            }
+          },
+          "duration_ms": {
+            "type": "number",
+            "description": "执行耗时（毫秒）"
+          },
+          "execution_count": {
+            "type": "integer",
+            "description": "IPython execution counter"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,149 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Session Report",
+  "description": "Session评分报告",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "session_id",
+    "chapter",
+    "scored_at",
+    "total_score",
+    "earned_score",
+    "percentage",
+    "items"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0",
+      "description": "Schema版本号"
+    },
+    "session_id": {
+      "type": "string",
+      "description": "关联的Session ID"
+    },
+    "chapter": {
+      "type": "string",
+      "description": "章节编号"
+    },
+    "scored_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "评分时间（ISO 8601）"
+    },
+    "total_score": {
+      "type": "number",
+      "description": "总分"
+    },
+    "earned_score": {
+      "type": "number",
+      "description": "得分"
+    },
+    "percentage": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "正确率（百分比）"
+    },
+    "process_penalty": {
+      "type": "number",
+      "description": "过程罚分（基于execution_log分析）"
+    },
+    "final_score": {
+      "type": "number",
+      "description": "最终得分（earned_score - process_penalty）"
+    },
+    "items": {
+      "type": "array",
+      "description": "评分项列表",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "description",
+          "max_score",
+          "earned_score",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "评分项ID，如 M1, M2"
+          },
+          "cell_index": {
+            "type": "integer",
+            "description": "对应的Cell索引"
+          },
+          "description": {
+            "type": "string",
+            "description": "评分项描述"
+          },
+          "max_score": {
+            "type": "number",
+            "description": "该项满分"
+          },
+          "earned_score": {
+            "type": "number",
+            "description": "该项得分"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["correct", "partial", "incorrect", "missing"],
+            "description": "评分状态"
+          },
+          "feedback": {
+            "type": "string",
+            "description": "反馈信息"
+          },
+          "expected_answer": {
+            "type": "string",
+            "description": "期望答案"
+          },
+          "actual_answer": {
+            "type": "string",
+            "description": "实际答案"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "detected_errors": {
+      "type": "array",
+      "description": "检测到的错误列表（来自process_auditor）",
+      "items": {
+        "type": "object",
+        "properties": {
+          "error_type": {
+            "type": "string",
+            "description": "错误类型"
+          },
+          "cell_index": {
+            "type": "integer",
+            "description": "发生错误的Cell索引"
+          },
+          "occurrence_count": {
+            "type": "integer",
+            "description": "该错误重复出现次数"
+          },
+          "penalty": {
+            "type": "number",
+            "description": "该项罚分"
+          }
+        }
+      }
+    },
+    "summary": {
+      "type": "string",
+      "description": "评分总结（Markdown格式）"
+    },
+    "suggestions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "改进建议列表"
+    }
+  },
+  "additionalProperties": false
+}

@@ -166,7 +166,8 @@ class ProcessAuditor:
                 'stability_score': 85,  # 稳定性得分（0-100）
             }
         """
-        entries = self.execution_log.get('entries', [])
+        # 支持新旧两种格式：'events' (v1.0.0) 和 'entries' (旧版)
+        entries = self.execution_log.get('events', self.execution_log.get('entries', []))
         
         if not entries:
             return {
@@ -197,8 +198,14 @@ class ProcessAuditor:
             for attempt_num, entry in enumerate(history, 1):
                 # 只关注有错误的执行
                 if entry.get('error'):
-                    error_code = entry['code']
-                    error_msg = entry['error']
+                    # 支持新旧两种格式：'source' (v1.0.0) 和 'code' (旧版)
+                    error_code = entry.get('source', entry.get('code', ''))
+                    # 支持新旧两种格式：error对象 (v1.0.0) 和 error字符串 (旧版)
+                    error_obj = entry.get('error')
+                    if isinstance(error_obj, dict):
+                        error_msg = error_obj.get('message', error_obj.get('type', 'Unknown'))
+                    else:
+                        error_msg = error_obj
                     
                     # 判断是否与最终代码不同（避免记录最终调试过程中的正常尝试）
                     if final_code and self._is_error_different_from_final(error_code, final_code):

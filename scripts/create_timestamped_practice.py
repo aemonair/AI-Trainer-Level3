@@ -1,15 +1,19 @@
 #!/usr/bin/env python3
 """
-创建考试会话（Exam Session）
+创建考试会话（Exam Session）- v2 重构版
 
 核心功能：
-1. 从模板创建带时间戳的练习文件（放在原来的materials目录）
-2. 生成manifest.json记录考试元数据
-3. 支持旧模式兼容
+1. 使用 SessionFactory 创建 Session
+2. 自动生成 session_id（格式：YYYYMMDD_HHMMSS_{random6}_chapter{chapter}）
+3. 创建标准目录结构（workspace/logs/reports）
+4. 注入执行日志初始化Cell到notebook
+5. 支持旧模式兼容（可选）
 
 用法:
   python3 scripts/create_timestamped_practice.py 1.1.1
+  python3 scripts/create_timestamped_practice.py 1.1.1 --notebook 1.1.1.ipynb
   python3 scripts/create_timestamped_practice.py 1.1.1 --review
+  python3 scripts/create_timestamped_practice.py 1.1.1 --mode exam
 """
 import argparse
 import csv
@@ -19,121 +23,125 @@ import subprocess
 import sys
 from pathlib import Path
 
-ROOT = Path('.').resolve()
+# 添加项目根目录到 sys.path
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))
 
-parser = argparse.ArgumentParser(description='创建考试会话（Exam Session）')
-parser.add_argument('chapter', nargs='?', default='1.1.1', help='章节编号，如 1.1.1')
-parser.add_argument('--review', action='store_true', help='同时创建 review 复盘文件（仅在有错误需要记录时使用）')
-args = parser.parse_args()
+from core.session_factory import SessionFactory
 
-chapter = args.chapter
-do_review = args.review
 
-item_dir = ROOT / f'{chapter}-materials'
-base_nb = item_dir / f'{chapter}.ipynb'
+def parse_args() -> argparse.Namespace:
+    """解析命令行参数"""
+    parser = argparse.ArgumentParser(description='创建考试会话（Exam Session）')
+    parser.add_argument(
+        'chapter',
+        nargs='?',
+        default='1.1.1',
+        help='章节编号，如 1.1.1'
+    )
+    parser.add_argument(
+        '--notebook',
+        type=str,
+        default=None,
+        help='指定模板 notebook 文件名（可选）'
+    )
+    parser.add_argument(
+        '--mode',
+        type=str,
+        default='practice',
+        choices=['practice', 'exam'],
+        help='Session模式（默认：practice）'
+    )
+    parser.add_argument(
+        '--review',
+        action='store_true',
+        help='同时创建 review 复盘文件（仅在有错误需要记录时使用）'
+    )
+    parser.add_argument(
+        '--no-git',
+        action='store_true',
+        help='跳过 git 操作'
+    )
+    return parser.parse_args()
 
-if not item_dir.exists():
-    raise SystemExit(f'Missing chapter folder: {item_dir}')
-if not base_nb.exists():
-    raise SystemExit(f'Missing base template notebook: {base_nb}')
 
-now = datetime.datetime.now()
-now_str = now.strftime('%Y%m%d%H%M')
-
-# 创建带时间戳的练习文件（放在原来的materials目录）
-practice_nb = item_dir / f'{chapter}_practice_{now_str}.ipynb'
-
-# 创建专属执行日志文件（与practice文件时间戳对应）
-execution_log_path = item_dir / f'{chapter}_practice_{now_str}_execution_log.json'
-execution_log_init = {
-    'session_start': now.isoformat(),
-    'last_updated': now.isoformat(),
-    'total_executions': 0,
-    'practice_file': str(practice_nb),
-    'exam_id': f'{chapter}_{now_str}',
-    'entries': [],
-}
-execution_log_path.write_text(json.dumps(execution_log_init, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-
-# 直接复制模板文件，不添加额外单元格
-nb = json.loads(base_nb.read_text(encoding='utf-8'))
-
-# 自动在第一个Cell前插入日志初始化Cell（用户无感知）
-log_path_str = str(execution_log_path)
-
-# 使用字符串模板避免f-string中的逗号问题
-code_template = """# 自动初始化执行日志记录器（请勿删除）
+def inject_logger_init_cell(nb: dict, session) -> dict:
+    """
+    注入执行日志初始化Cell到notebook
+    
+    参数:
+        nb: notebook 字典
+        session: Session 对象
+    
+    返回:
+        修改后的 notebook 字典
+    """
+    session_id = session.session_id
+    root_dir = str(session.root_dir)
+    
+    # 使用字符串模板避免f-string中的逗号问题
+    code_template = """# 自动初始化执行日志记录器（请勿删除）
 import sys
 from pathlib import Path
 try:
-    log_path = Path('{LOG_PATH}')
-    # 智能查找scripts目录（兼容Jupyter）
-    scripts_dir = Path.cwd() / 'scripts'
-    if not scripts_dir.exists():
-        # 向上查找直到找到包含scripts/execution_logger.py的目录
-        for parent in Path.cwd().parents:
-            if (parent / 'scripts' / 'execution_logger.py').exists():
-                scripts_dir = parent / 'scripts'
-                break
-    if scripts_dir.exists():
-        sys.path.insert(0, str(scripts_dir))
-    from execution_logger import ExecutionLogger
-    logger = ExecutionLogger(log_path=log_path, auto_save=True)
+    # 添加项目根目录到路径
+    root_dir = Path('{ROOT_DIR}')
+    sys.path.insert(0, str(root_dir))
+    
+    from core.session import Session
+    from scripts.execution_logger import ExecutionLogger
+    
+    session = Session('{SESSION_ID}', root_dir)
+    logger = ExecutionLogger(session=session, auto_save=True)
     logger.start()
     print('✅ 执行日志记录器已自动启动')
 except Exception as e:
     print(f'⚠️ 日志记录器初始化失败（不影响练习）: {{e}}')
 """
+    
+    log_init_code = code_template.format(ROOT_DIR=root_dir, SESSION_ID=session_id)
+    log_init_cell = {
+        "cell_type": "code",
+        "execution_count": None,
+        "metadata": {
+            "tags": ["auto-init-execution-logger"],
+            "description": "自动初始化执行日志记录器（无需手动运行）"
+        },
+        "outputs": [],
+        "source": [line + '\n' for line in log_init_code.strip().split('\n')]
+    }
+    
+    # 插入到第一个Cell之前
+    nb['cells'].insert(0, log_init_cell)
+    return nb
 
-log_init_code = code_template.format(LOG_PATH=log_path_str)
-log_init_cell = {
-    "cell_type": "code",
-    "execution_count": None,
-    "metadata": {
-        "tags": ["auto-init-execution-logger"],
-        "description": "自动初始化执行日志记录器（无需手动运行）"
-    },
-    "outputs": [],
-    "source": [line + '\n' for line in log_init_code.strip().split('\n')]
-}
 
-# 插入到第一个Cell之前
-nb['cells'].insert(0, log_init_cell)
-
-practice_nb.write_text(json.dumps(nb, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
-print(f'Created: {practice_nb.name}')
-print(f'✅ 已自动注入日志初始化Cell（用户无感知）')
-
-# 创建manifest.json（考试元数据）
-manifest = {
-    'exam_id': f'{chapter}_{now_str}',
-    'chapter': chapter,
-    'start_time': now.isoformat(),
-    'practice_file': str(practice_nb),
-    'status': 'in_progress',
-    'template_file': str(base_nb),
-}
-
-manifest_path = item_dir / f'{chapter}_practice_{now_str}_manifest.json'
-manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-print(f'Manifest saved: {manifest_path.name}')
-print(f'Execution log initialized: {execution_log_path.name}')
-
-if do_review:
-    practice_md = item_dir / f'{chapter}_practice_{now_str}_review.md'
+def create_review_file(session, chapter: str, now_str: str) -> Path:
+    """
+    创建 review 复盘文件
+    
+    参数:
+        session: Session 实例
+        chapter: 章节编号
+        now_str: 时间戳字符串
+    
+    返回:
+        review 文件路径
+    """
+    review_path = session.workspace_dir / f'{chapter}_practice_{now_str}_review.md'
     review_content = f'''# {chapter} 练习 review ({now_str})
 
-- 考试ID：`{chapter}_{now_str}`
-- 练习 notebook：`{practice_nb.name}`
-- 模板 notebook：`{base_nb.name}`（保持填空原样）
+- Session ID：`{session.session_id}`
+- 练习 notebook：`practice.ipynb`
+- 模板 notebook：`{Path(session.load_metadata()['template_file']).name}`（保持填空原样）
 
 ## 练习目标
-- 在 `{practice_nb.name}` 中完成所有下划线填空
+- 在 `practice.ipynb` 中完成所有下划线填空
 - 运行 notebook，确认计算结果没有异常
 - 和 `_guide.md` 对照，记录差异与错误点
 
 ## 练习步骤
-1. 打开 `{practice_nb.name}`，完成所有下划线填空
+1. 打开 `practice.ipynb`，完成所有下划线填空
 2. 运行 notebook，确认计算结果没有异常
 3. 与 `_guide.md` 对照，补充差异记录
 
@@ -153,35 +161,109 @@ if do_review:
 - 需要改进的地方：
   - 
 '''
-    practice_md.write_text(review_content, encoding='utf-8')
-    print(f'Created: {practice_md.name}')
+    review_path.write_text(review_content, encoding='utf-8')
+    return review_path
+
+
+def main():
+    """主函数"""
+    args = parse_args()
+    chapter = args.chapter
+    do_review = args.review
+    no_git = args.no_git
     
-    log_csv = ROOT / 'daily_practice_log.csv'
-    if not log_csv.exists():
-        with log_csv.open('w', newline='', encoding='utf-8') as f:
-            writer = csv.writer(f)
-            writer.writerow(['date','notebook','summary','completed_steps','errors_found','error_rate','error_points','improvement_actions','fixed','notes'])
-    row = [
-        datetime.date.today().isoformat(),
-        f'{chapter}_{now_str}',
-        f'创建 {chapter} 考试会话并生成 review 记录',
-        '创建练习 notebook->生成复盘 md',
-        '0',
-        '0%',
-        '待练习后补充',
-        '完成基本练习版本创建',
-        'no',
-        str(practice_md)
-    ]
-    with log_csv.open('a', newline='', encoding='utf-8') as f:
-        writer = csv.writer(f)
-        writer.writerow(row)
+    # 创建 SessionFactory
+    factory = SessionFactory(ROOT)
     
-    subprocess.run(['python3', 'scripts/aggregate_reviews.py'], check=True)
-    subprocess.run(['git', 'add', str(practice_nb), str(manifest_path), str(execution_log_path), str(log_csv), 'reports/reviews_summary.csv', 'reports/reviews_summary.md'], check=True)
-    subprocess.run(['git', 'commit', '-m', f'Create exam session for {chapter} with review ({now_str})'], check=True)
-    print('review_added')
-else:
-    subprocess.run(['git', 'add', str(practice_nb), str(manifest_path), str(execution_log_path)], check=True)
-    subprocess.run(['git', 'commit', '-m', f'Create exam session for {chapter} ({now_str})'], check=True)
-    print('session_created')
+    try:
+        # 创建 Session
+        session = factory.create(
+            chapter=chapter,
+            mode=args.mode,
+            notebook_name=args.notebook
+        )
+        
+        # 注入日志初始化Cell
+        nb = json.loads(session.practice_nb_path.read_text(encoding='utf-8'))
+        nb = inject_logger_init_cell(nb, session)
+        session.practice_nb_path.write_text(
+            json.dumps(nb, ensure_ascii=False, indent=1) + '\n',
+            encoding='utf-8'
+        )
+        
+        # 输出 Session 信息
+        print(f'✅ Session 创建成功')
+        print(f'   Session ID: {session.session_id}')
+        print(f'   章节: {chapter}')
+        print(f'   模式: {args.mode}')
+        print(f'   目录: {session.session_dir}')
+        print(f'   练习文件: {session.practice_nb_path}')
+        print(f'   执行日志: {session.execution_log_path}')
+        
+        # 生成时间戳（用于兼容旧模式）
+        now = datetime.datetime.now()
+        now_str = now.strftime('%Y%m%d%H%M')
+        
+        # 如果需要创建 review 文件
+        if do_review:
+            review_path = create_review_file(session, chapter, now_str)
+            print(f'   Review 文件: {review_path}')
+            
+            # 更新 daily_practice_log.csv
+            log_csv = ROOT / 'daily_practice_log.csv'
+            if not log_csv.exists():
+                with log_csv.open('w', newline='', encoding='utf-8') as f:
+                    writer = csv.writer(f)
+                    writer.writerow([
+                        'date', 'notebook', 'summary', 'completed_steps',
+                        'errors_found', 'error_rate', 'error_points',
+                        'improvement_actions', 'fixed', 'notes'
+                    ])
+            
+            row = [
+                datetime.date.today().isoformat(),
+                session.session_id,
+                f'创建 {chapter} 考试会话并生成 review 记录',
+                '创建练习 notebook->生成复盘 md',
+                '0',
+                '0%',
+                '待练习后补充',
+                '完成基本练习版本创建',
+                'no',
+                str(review_path)
+            ]
+            with log_csv.open('a', newline='', encoding='utf-8') as f:
+                writer = csv.writer(f)
+                writer.writerow(row)
+            
+            # 运行聚合脚本
+            subprocess.run(['python3', 'scripts/aggregate_reviews.py'], check=True)
+        
+        # Git 操作（可选）
+        if not no_git:
+            files_to_add = [
+                str(session.session_dir),
+            ]
+            if do_review:
+                files_to_add.append(str(log_csv))
+                files_to_add.append('reports/reviews_summary.csv')
+                files_to_add.append('reports/reviews_summary.md')
+            
+            subprocess.run(['git', 'add'] + files_to_add, check=True)
+            commit_msg = f'Create exam session for {chapter} ({session.session_id})'
+            if do_review:
+                commit_msg += ' with review'
+            subprocess.run(['git', 'commit', '-m', commit_msg], check=True)
+        
+        print(f'\n🎉 完成！请在 Jupyter 中打开: {session.practice_nb_path}')
+        
+    except FileNotFoundError as e:
+        print(f'❌ 错误: {e}', file=sys.stderr)
+        sys.exit(1)
+    except ValueError as e:
+        print(f'❌ 错误: {e}', file=sys.stderr)
+        sys.exit(1)
+
+
+if __name__ == '__main__':
+    main()
