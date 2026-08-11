@@ -1,8 +1,160 @@
 {
   "schema_version": "1.0.0",
   "session_id": "20260808_113703_0cd1fc_chapter1.1.2",
-  "created_at": "2026-08-08T11:37:03.119726",
-  "updated_at": "2026-08-08T11:37:03.119728",
+  "logger": {
+    "version": "2.0.0"
+  },
+  "created_at": "2026-08-08T11:37:03.119595",
+  "updated_at": "2026-08-08T11:45:24.563817",
   "kernel_info": {},
-  "events": []
+  "events": [
+    {
+      "event_id": 1,
+      "cell_index": 1,
+      "timestamp": "2026-08-08T11:37:39.968313",
+      "source": "# 自动初始化执行日志记录器（请勿删除）\nimport sys\nfrom pathlib import Path\ntry:\n    # 添加项目根目录到路径\n    root_dir = Path('/Users/air/Downloads/GUIDE_AI_3/人工智能训练师_3级_sucai')\n    sys.path.insert(0, str(root_dir))\n    \n    from core.session import Session\n    from scripts.execution_logger import ExecutionLogger\n    \n    session = Session('20260808_113703_0cd1fc_chapter1.1.2', root_dir)\n    logger = ExecutionLogger(session=session, auto_save=True)\n    logger.start()\n    print('✅ 执行日志记录器已自动启动')\nexcept Exception as e:\n    print(f'⚠️ 日志记录器初始化失败（不影响练习）: {e}')",
+      "source_hash": "0737d91ef56dd98b7c86a7fa6f07c198219960ef7a78c0075b56f374b25303ab",
+      "output": "<ExecutionResult object at 1076a7880, execution_count=1 error_before_exec=None error_in_exec=None info=<ExecutionInfo object at 1076a7850, raw_cell=\"# 自动初始化执行日志记录器（请勿删除）\nimport sys\nfrom pathlib impor..\" store_history=True silent=False shell_futures=True cell_id=None> result=None>",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 2
+    },
+    {
+      "event_id": 2,
+      "cell_index": 2,
+      "timestamp": "2026-08-08T11:38:49.113364",
+      "source": "import pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\n# 读取数据集 2分\ndata = pd.read_csv(\"sensor_data.csv\")",
+      "source_hash": "4bb8eb45cc8e39642264085d5434dc3aafb9841e853e9969c4604b700c1d4226",
+      "output": "<ExecutionResult object at 1077e1ee0, execution_count=2 error_before_exec=None error_in_exec=None info=<ExecutionInfo object at 1077e1f40, raw_cell=\"import pandas as pd\nimport numpy as np\nimport matp..\" store_history=True silent=False shell_futures=True cell_id=None> result=None>",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 3
+    },
+    {
+      "event_id": 3,
+      "cell_index": 3,
+      "timestamp": "2026-08-08T11:38:49.123220",
+      "source": "# 1. 传感器数据统计\n# 对传感器类型进行分组，并计算每个组的数据数量和平均值 3分\nsensor_stats = data.groupby('SensorType')['Value'].agg({'count', 'mean'})\n# 输出结果\nprint(\"传感器数据数量和平均值:\")\nprint(sensor_stats)",
+      "source_hash": "1dbeb307de64beaf89598308da9d55c1821d76ab1a360c1bcdd785558fc711e3",
+      "output": "<ExecutionResult object at 107a0a610, execution_count=3 error_before_exec=None error_in_exec=None info=<ExecutionInfo object at 107a0a760, raw_cell=\"# 1. 传感器数据统计\n# 对传感器类型进行分组，并计算每个组的数据数量和平均值 3分\nsenso..\" store_history=True silent=False shell_futures=True cell_id=None> result=None>",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 4
+    },
+    {
+      "event_id": 4,
+      "cell_index": 4,
+      "timestamp": "2026-08-08T11:40:10.546624",
+      "source": "# 2. 按位置统计温度和湿度数据\n# 筛选出温度和湿度数据，然后按位置和传感器类型分组，计算每个组的平均值 2分\nlocation_stats = data[data['SensorType'].isin(['Temperature','Humidity']).groupby(['Location','SensorType'])['Value'].mean().unstack()\n# 输出结果\nprint(\"每个位置的温度和湿度数据平均值:\")\nprint(location_stats)",
+      "source_hash": "14edf7d66744a8e0c301ebd7dbada3f8a56a33ca74ec7d37c70cd52fc99b0433",
+      "output": "<ExecutionResult object at 12fc99880, execution_count=4 error_before_exec=invalid syntax (4261627146.py, line 5) error_in_exec=None info=<ExecutionInfo object at 12fc99400, raw_cell=\"# 2. 按位置统计温度和湿度数据\n# 筛选出温度和湿度数据，然后按位置和传感器类型分组，计算每个组..\" store_history=True silent=False shell_futures=True cell_id=None> result=None>",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 5
+    },
+    {
+      "event_id": 5,
+      "cell_index": 5,
+      "timestamp": "2026-08-08T11:40:35.183643",
+      "source": "# 2. 按位置统计温度和湿度数据\n# 筛选出温度和湿度数据，然后按位置和传感器类型分组，计算每个组的平均值 2分\nlocation_stats = data[data['SensorType'].isin(['Temperature','Humidity'])].groupby(['Location','SensorType'])['Value'].mean().unstack()\n# 输出结果\nprint(\"每个位置的温度和湿度数据平均值:\")\nprint(location_stats)",
+      "source_hash": "fbe76449199f4ae7fedbb4af6c1c179d315546fd8fe037c448bc64482a06d91d",
+      "output": "<ExecutionResult object at 12fd69e80, execution_count=5 error_before_exec=None error_in_exec=None info=<ExecutionInfo object at 12fd69c70, raw_cell=\"# 2. 按位置统计温度和湿度数据\n# 筛选出温度和湿度数据，然后按位置和传感器类型分组，计算每个组..\" store_history=True silent=False shell_futures=True cell_id=None> result=None>",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 6
+    },
+    {
+      "event_id": 6,
+      "cell_index": 6,
+      "timestamp": "2026-08-08T11:43:36.588475",
+      "source": "# 3. 数据清洗和异常值处理\n# 标记异常值 3分\ndata['is_abnormal'] = data (\n    ((data[Temperature]) & ((data['Value'] < -10) | (data['Value'] > 50))) |\n    ((data[Humidity]) & ((data['Value'] < 0) | (data['Value'] > 100))),\n    True, False\n)\n# 输出异常值数量 2分\nprint(\"异常值数量:\", data['is_abnormal'].count())\n# 填补缺失值\n# 使用前向填充和后向填充的方法填补缺失值 4分\ndata['Value'].fillna(method='bfill', inplace=True)\ndata['Value'].fillna(method='ffill', inplace=True)\n# 保存清洗后的数据\n# 删除用于标记异常值的列，并将清洗后的数据保存到新的CSV文件中 4分\ncleaned_data = data.drop(column=['is_abnormal'])\ncleaned_data.to_csv('cleaned_sensor_data.csv', index=False)\nprint(\"数据清洗完成，已保存为 'cleaned_sensor_data.csv'\")",
+      "source_hash": "3b46cd3732b352cc9819ae0cfe6b082bad3c66c620781860a4fc6a545378be58",
+      "output": "<ExecutionResult object at 144ee9040, execution_count=6 error_before_exec=None error_in_exec=name 'Temperature' is not defined info=<ExecutionInfo object at 144ee9700, raw_cell=\"# 3. 数据清洗和异常值处理\n# 标记异常值 3分\ndata['is_abnormal'] = d..\" store_history=True silent=False shell_futures=True cell_id=None> result=None>",
+      "status": "error",
+      "error": {
+        "type": "NameError",
+        "message": "name 'Temperature' is not defined",
+        "traceback": "NoneType: None\n"
+      },
+      "duration_ms": 0.0,
+      "execution_count": 7
+    },
+    {
+      "event_id": 7,
+      "cell_index": 7,
+      "timestamp": "2026-08-08T11:43:52.759818",
+      "source": "# 3. 数据清洗和异常值处理\n# 标记异常值 3分\ndata['is_abnormal'] = data (\n    ((data['Temperature']) & ((data['Value'] < -10) | (data['Value'] > 50))) |\n    ((data['Humidity']) & ((data['Value'] < 0) | (data['Value'] > 100))),\n    True, False\n)\n# 输出异常值数量 2分\nprint(\"异常值数量:\", data['is_abnormal'].count())\n# 填补缺失值\n# 使用前向填充和后向填充的方法填补缺失值 4分\ndata['Value'].fillna(method='bfill', inplace=True)\ndata['Value'].fillna(method='ffill', inplace=True)\n# 保存清洗后的数据\n# 删除用于标记异常值的列，并将清洗后的数据保存到新的CSV文件中 4分\ncleaned_data = data.drop(column=['is_abnormal'])\ncleaned_data.to_csv('cleaned_sensor_data.csv', index=False)\nprint(\"数据清洗完成，已保存为 'cleaned_sensor_data.csv'\")",
+      "source_hash": "8fea95f607190305e5917cb245c8f90c1fd51d88e93ccfc507a357aac58d3098",
+      "output": "<ExecutionResult object at 144cbbb20, execution_count=7 error_before_exec=None error_in_exec='Temperature' info=<ExecutionInfo object at 1448386d0, raw_cell=\"# 3. 数据清洗和异常值处理\n# 标记异常值 3分\ndata['is_abnormal'] = d..\" store_history=True silent=False shell_futures=True cell_id=None> result=None>",
+      "status": "error",
+      "error": {
+        "type": "KeyError",
+        "message": "'Temperature'",
+        "traceback": "NoneType: None\n"
+      },
+      "duration_ms": 0.0,
+      "execution_count": 8
+    },
+    {
+      "event_id": 8,
+      "cell_index": 8,
+      "timestamp": "2026-08-08T11:44:18.498770",
+      "source": "# 3. 数据清洗和异常值处理\n# 标记异常值 3分\ndata['is_abnormal'] = np.where (\n    ((data['Temperature']) & ((data['Value'] < -10) | (data['Value'] > 50))) |\n    ((data['Humidity']) & ((data['Value'] < 0) | (data['Value'] > 100))),\n    True, False\n)\n# 输出异常值数量 2分\nprint(\"异常值数量:\", data['is_abnormal'].count())\n# 填补缺失值\n# 使用前向填充和后向填充的方法填补缺失值 4分\ndata['Value'].fillna(method='bfill', inplace=True)\ndata['Value'].fillna(method='ffill', inplace=True)\n# 保存清洗后的数据\n# 删除用于标记异常值的列，并将清洗后的数据保存到新的CSV文件中 4分\ncleaned_data = data.drop(column=['is_abnormal'])\ncleaned_data.to_csv('cleaned_sensor_data.csv', index=False)\nprint(\"数据清洗完成，已保存为 'cleaned_sensor_data.csv'\")",
+      "source_hash": "f725500e4ff1f1315d73dee7f4ab9a49f760cf3c33f23f4bf785656cd88ce96f",
+      "output": "<ExecutionResult object at 144944dc0, execution_count=8 error_before_exec=None error_in_exec='Temperature' info=<ExecutionInfo object at 144944d90, raw_cell=\"# 3. 数据清洗和异常值处理\n# 标记异常值 3分\ndata['is_abnormal'] = n..\" store_history=True silent=False shell_futures=True cell_id=None> result=None>",
+      "status": "error",
+      "error": {
+        "type": "KeyError",
+        "message": "'Temperature'",
+        "traceback": "NoneType: None\n"
+      },
+      "duration_ms": 0.0,
+      "execution_count": 9
+    },
+    {
+      "event_id": 9,
+      "cell_index": 9,
+      "timestamp": "2026-08-08T11:44:57.725673",
+      "source": "# 3. 数据清洗和异常值处理\n# 标记异常值 3分\ndata['is_abnormal'] = np.where (\n    ((data['SensorType']=='Temperature') & ((data['Value'] < -10) | (data['Value'] > 50))) |\n    ((data['SensorType']=='Humidity') & ((data['Value'] < 0) | (data['Value'] > 100))),\n    True, False\n)\n# 输出异常值数量 2分\nprint(\"异常值数量:\", data['is_abnormal'].count())\n# 填补缺失值\n# 使用前向填充和后向填充的方法填补缺失值 4分\ndata['Value'].fillna(method='bfill', inplace=True)\ndata['Value'].fillna(method='ffill', inplace=True)\n# 保存清洗后的数据\n# 删除用于标记异常值的列，并将清洗后的数据保存到新的CSV文件中 4分\ncleaned_data = data.drop(column=['is_abnormal'])\ncleaned_data.to_csv('cleaned_sensor_data.csv', index=False)\nprint(\"数据清洗完成，已保存为 'cleaned_sensor_data.csv'\")",
+      "source_hash": "7b85eded6aead2afbbb1c2dcc48996e8886a3f6cef8db71e05b5a398534c0d0c",
+      "output": "<ExecutionResult object at 145b413a0, execution_count=9 error_before_exec=None error_in_exec=drop() got an unexpected keyword argument 'column' info=<ExecutionInfo object at 145b41e80, raw_cell=\"# 3. 数据清洗和异常值处理\n# 标记异常值 3分\ndata['is_abnormal'] = n..\" store_history=True silent=False shell_futures=True cell_id=None> result=None>",
+      "status": "error",
+      "error": {
+        "type": "TypeError",
+        "message": "drop() got an unexpected keyword argument 'column'",
+        "traceback": "NoneType: None\n"
+      },
+      "duration_ms": 0.0,
+      "execution_count": 10
+    },
+    {
+      "event_id": 10,
+      "cell_index": 10,
+      "timestamp": "2026-08-08T11:45:05.917834",
+      "source": "# 3. 数据清洗和异常值处理\n# 标记异常值 3分\ndata['is_abnormal'] = np.where (\n    ((data['SensorType']=='Temperature') & ((data['Value'] < -10) | (data['Value'] > 50))) |\n    ((data['SensorType']=='Humidity') & ((data['Value'] < 0) | (data['Value'] > 100))),\n    True, False\n)\n# 输出异常值数量 2分\nprint(\"异常值数量:\", data['is_abnormal'].count())\n# 填补缺失值\n# 使用前向填充和后向填充的方法填补缺失值 4分\ndata['Value'].fillna(method='bfill', inplace=True)\ndata['Value'].fillna(method='ffill', inplace=True)\n# 保存清洗后的数据\n# 删除用于标记异常值的列，并将清洗后的数据保存到新的CSV文件中 4分\ncleaned_data = data.drop(columns=['is_abnormal'])\ncleaned_data.to_csv('cleaned_sensor_data.csv', index=False)\nprint(\"数据清洗完成，已保存为 'cleaned_sensor_data.csv'\")",
+      "source_hash": "3518d61e916509a534a811ee067693eea99936e49b5a4284fa3aa62e5f76bb2f",
+      "output": "<ExecutionResult object at 144a7b340, execution_count=10 error_before_exec=None error_in_exec=None info=<ExecutionInfo object at 144a7b550, raw_cell=\"# 3. 数据清洗和异常值处理\n# 标记异常值 3分\ndata['is_abnormal'] = n..\" store_history=True silent=False shell_futures=True cell_id=None> result=None>",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 11
+    },
+    {
+      "event_id": 11,
+      "cell_index": 11,
+      "timestamp": "2026-08-08T11:45:24.563020",
+      "source": "# 3. 数据清洗和异常值处理\n# 标记异常值 3分\ndata['is_abnormal'] = np.where (\n    ((data['SensorType']=='Temperature') & ((data['Value'] < -10) | (data['Value'] > 50))) |\n    ((data['SensorType']=='Humidity') & ((data['Value'] < 0) | (data['Value'] > 100))),\n    True, False\n)\n# 输出异常值数量 2分\nprint(\"异常值数量:\", data['is_abnormal'].sum())\n# 填补缺失值\n# 使用前向填充和后向填充的方法填补缺失值 4分\ndata['Value'].fillna(method='bfill', inplace=True)\ndata['Value'].fillna(method='ffill', inplace=True)\n# 保存清洗后的数据\n# 删除用于标记异常值的列，并将清洗后的数据保存到新的CSV文件中 4分\ncleaned_data = data.drop(columns=['is_abnormal'])\ncleaned_data.to_csv('cleaned_sensor_data.csv', index=False)\nprint(\"数据清洗完成，已保存为 'cleaned_sensor_data.csv'\")",
+      "source_hash": "4d3a772007f9e829e67c34386c8dccaf43038ac4ed77c3b4545471e0fde810ec",
+      "output": "<ExecutionResult object at 145be6dc0, execution_count=11 error_before_exec=None error_in_exec=None info=<ExecutionInfo object at 145be6f10, raw_cell=\"# 3. 数据清洗和异常值处理\n# 标记异常值 3分\ndata['is_abnormal'] = n..\" store_history=True silent=False shell_futures=True cell_id=None> result=None>",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 12
+    }
+  ]
 }

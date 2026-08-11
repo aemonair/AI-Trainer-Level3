@@ -1,8 +1,180 @@
 {
   "schema_version": "1.0.0",
   "session_id": "20260808_000924_1eebe7_chapter2.1.1",
-  "created_at": "2026-08-08T00:09:24.573378",
-  "updated_at": "2026-08-08T00:09:24.573383",
+  "logger": {
+    "version": "2.0.0"
+  },
+  "created_at": "2026-08-08T00:09:24.573148",
+  "updated_at": "2026-08-08T00:26:44.061471",
   "kernel_info": {},
-  "events": []
+  "events": [
+    {
+      "event_id": 1,
+      "cell_index": 1,
+      "timestamp": "2026-08-08T00:10:44.676782",
+      "source": "# 自动初始化执行日志记录器（请勿删除）\nimport sys\nfrom pathlib import Path\ntry:\n    # 添加项目根目录到路径\n    root_dir = Path('/Users/air/Downloads/GUIDE_AI_3/人工智能训练师_3级_sucai')\n    sys.path.insert(0, str(root_dir))\n    \n    from core.session import Session\n    from scripts.execution_logger import ExecutionLogger\n    \n    session = Session('20260808_000924_1eebe7_chapter2.1.1', root_dir)\n    logger = ExecutionLogger(session=session, auto_save=True)\n    logger.start()\n    print('✅ 执行日志记录器已自动启动')\nexcept Exception as e:\n    print(f'⚠️ 日志记录器初始化失败（不影响练习）: {e}')\nprint(\"hello\")\nprint(xxx)",
+      "source_hash": "a24b1f55013a1f22aa16042a44ddddf24f3b5ec341558067f34fe917c58b8d13",
+      "output": "<ExecutionResult object at 107ee5eb0, execution_count=1 error_before_exec=None error_in_exec=name 'xxx' is not defined info=<ExecutionInfo object at 107ee5d60, raw_cell=\"# 自动初始化执行日志记录器（请勿删除）\nimport sys\nfrom pathlib impor..\" store_history=True silent=False shell_futures=True cell_id=None> result=None>",
+      "status": "error",
+      "error": {
+        "type": "NameError",
+        "message": "name 'xxx' is not defined",
+        "traceback": "NoneType: None\n"
+      },
+      "duration_ms": 0.0,
+      "execution_count": 2
+    },
+    {
+      "event_id": 2,
+      "cell_index": 1,
+      "timestamp": "2026-08-08T00:11:38.392129",
+      "source": "# 自动初始化执行日志记录器（请勿删除）\nimport sys\nfrom pathlib import Path\ntry:\n    # 添加项目根目录到路径\n    root_dir = Path('/Users/air/Downloads/GUIDE_AI_3/人工智能训练师_3级_sucai')\n    sys.path.insert(0, str(root_dir))\n    \n    from core.session import Session\n    from scripts.execution_logger import ExecutionLogger\n    \n    session = Session('20260808_000924_1eebe7_chapter2.1.1', root_dir)\n    logger = ExecutionLogger(session=session, auto_save=True)\n    logger.start()\n    print('✅ 执行日志记录器已自动启动')\nexcept Exception as e:\n    print(f'⚠️ 日志记录器初始化失败（不影响练习）: {e}')",
+      "source_hash": "e67a689b0b0ec04e22effe492689de062a76714201f37772aa1edfc01a18839e",
+      "output": "<ExecutionResult object at 10788aa30, execution_count=1 error_before_exec=None error_in_exec=None info=<ExecutionInfo object at 10788ab20, raw_cell=\"# 自动初始化执行日志记录器（请勿删除）\nimport sys\nfrom pathlib impor..\" store_history=True silent=False shell_futures=True cell_id=None> result=None>",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 2
+    },
+    {
+      "event_id": 3,
+      "cell_index": 2,
+      "timestamp": "2026-08-08T00:23:57.685775",
+      "source": "import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = pd.read_csv(\"auto-mpg.csv\")\nprint(\"数据集的前五行:\")\nprint(data.head())\n\n# 显示每一列的数据类型\nprint(data.dtypes)\n\n# 检查缺失值并删除缺失值所在的行  2分\nprint(\"\\n检查缺失值:\")\nprint(data.isnull().sum())  \ndata = dropna()\n\n# 将 'horsepower' 列转换为数值类型，并（删除）处理转换中的异常值 1分\ndata['horsepower'] = pd.to_numeric(data['horsepower'], errors='coerce')\ndata = dropna(subsets=['horsepower'])\n\n# 显示每一列的数据类型\nprint(data.horsepower.dtypes)\n\n# 检查清洗后的缺失值\nprint(\"\\n检查清洗后的缺失值:\")\nprint(data.isnull().sum())\n\nfrom sklearn.preprocessing import StandardScaler\n# 对数值型数据进行标准化处理 1分\nnumerical_features = ['displacement', 'horsepower', 'weight', 'acceleration']\nscaler = StandardScaler()\ndata[numerical_features] = scaler.fit_transfrom(data[numerical_features])\n\nfrom sklearn.model_selection import train_test_split\n# 选择特征、自变量和目标变量 2分\nselected_features = ['cylinders','displacement','horsepower','weight','acceleration','model year','origin']\nX = data[selected_features]\ny = data['mpg']\n\n# 划分数据集为训练集和测试集（训练集占8成） 1分\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size==0.2, random_state=42)\n\n\n# 将特征和目标变量合并到一个数据框中\ncleaned_data = X.copy()\ncleaned_data['mpg'] = y\n\n# 保存清洗和处理后的数据（不存储额外的索引号） 1分\ncleaned_data.to_csv('2.1.1_cleaned_data.csv', index=False)\n\n# 打印消息指示文件已保存\nprint(\"\\n清洗后的数据已保存到 2.1.1_cleaned_data.csv\")",
+      "source_hash": "0a3910177a33d4331fb577b71200e2a98783e58374701fadbd31ad46131cef21",
+      "output": "<ExecutionResult object at 107c27e20, execution_count=2 error_before_exec=None error_in_exec=name 'dropna' is not defined info=<ExecutionInfo object at 107c27df0, raw_cell=\"import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = p..\" store_history=True silent=False shell_futures=True cell_id=None> result=None>",
+      "status": "error",
+      "error": {
+        "type": "NameError",
+        "message": "name 'dropna' is not defined",
+        "traceback": "NoneType: None\n"
+      },
+      "duration_ms": 0.0,
+      "execution_count": 3
+    },
+    {
+      "event_id": 4,
+      "cell_index": 3,
+      "timestamp": "2026-08-08T00:24:19.349195",
+      "source": "import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = pd.read_csv(\"auto-mpg.csv\")\nprint(\"数据集的前五行:\")\nprint(data.head())\n\n# 显示每一列的数据类型\nprint(data.dtypes)\n\n# 检查缺失值并删除缺失值所在的行  2分\nprint(\"\\n检查缺失值:\")\nprint(data.isnull().sum())  \ndata = data.dropna()\n\n# 将 'horsepower' 列转换为数值类型，并（删除）处理转换中的异常值 1分\ndata['horsepower'] = pd.to_numeric(data['horsepower'], errors='coerce')\ndata = dropna(subsets=['horsepower'])\n\n# 显示每一列的数据类型\nprint(data.horsepower.dtypes)\n\n# 检查清洗后的缺失值\nprint(\"\\n检查清洗后的缺失值:\")\nprint(data.isnull().sum())\n\nfrom sklearn.preprocessing import StandardScaler\n# 对数值型数据进行标准化处理 1分\nnumerical_features = ['displacement', 'horsepower', 'weight', 'acceleration']\nscaler = StandardScaler()\ndata[numerical_features] = scaler.fit_transfrom(data[numerical_features])\n\nfrom sklearn.model_selection import train_test_split\n# 选择特征、自变量和目标变量 2分\nselected_features = ['cylinders','displacement','horsepower','weight','acceleration','model year','origin']\nX = data[selected_features]\ny = data['mpg']\n\n# 划分数据集为训练集和测试集（训练集占8成） 1分\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size==0.2, random_state=42)\n\n\n# 将特征和目标变量合并到一个数据框中\ncleaned_data = X.copy()\ncleaned_data['mpg'] = y\n\n# 保存清洗和处理后的数据（不存储额外的索引号） 1分\ncleaned_data.to_csv('2.1.1_cleaned_data.csv', index=False)\n\n# 打印消息指示文件已保存\nprint(\"\\n清洗后的数据已保存到 2.1.1_cleaned_data.csv\")",
+      "source_hash": "c34d1bf10844e64ac8396e824b253ed4f843d96d437748b49dc57b6d75b22360",
+      "output": "<ExecutionResult object at 10b5bd7f0, execution_count=3 error_before_exec=None error_in_exec=name 'dropna' is not defined info=<ExecutionInfo object at 10bda3b20, raw_cell=\"import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = p..\" store_history=True silent=False shell_futures=True cell_id=None> result=None>",
+      "status": "error",
+      "error": {
+        "type": "NameError",
+        "message": "name 'dropna' is not defined",
+        "traceback": "NoneType: None\n"
+      },
+      "duration_ms": 0.0,
+      "execution_count": 4
+    },
+    {
+      "event_id": 5,
+      "cell_index": 4,
+      "timestamp": "2026-08-08T00:24:39.285626",
+      "source": "import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = pd.read_csv(\"auto-mpg.csv\")\nprint(\"数据集的前五行:\")\nprint(data.head())\n\n# 显示每一列的数据类型\nprint(data.dtypes)\n\n# 检查缺失值并删除缺失值所在的行  2分\nprint(\"\\n检查缺失值:\")\nprint(data.isnull().sum())  \ndata = data.dropna()\n\n# 将 'horsepower' 列转换为数值类型，并（删除）处理转换中的异常值 1分\ndata['horsepower'] = pd.to_numeric(data['horsepower'], errors='coerce')\ndata = data.dropna(subsets=['horsepower'])\n\n# 显示每一列的数据类型\nprint(data.horsepower.dtypes)\n\n# 检查清洗后的缺失值\nprint(\"\\n检查清洗后的缺失值:\")\nprint(data.isnull().sum())\n\nfrom sklearn.preprocessing import StandardScaler\n# 对数值型数据进行标准化处理 1分\nnumerical_features = ['displacement', 'horsepower', 'weight', 'acceleration']\nscaler = StandardScaler()\ndata[numerical_features] = scaler.fit_transfrom(data[numerical_features])\n\nfrom sklearn.model_selection import train_test_split\n# 选择特征、自变量和目标变量 2分\nselected_features = ['cylinders','displacement','horsepower','weight','acceleration','model year','origin']\nX = data[selected_features]\ny = data['mpg']\n\n# 划分数据集为训练集和测试集（训练集占8成） 1分\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size==0.2, random_state=42)\n\n\n# 将特征和目标变量合并到一个数据框中\ncleaned_data = X.copy()\ncleaned_data['mpg'] = y\n\n# 保存清洗和处理后的数据（不存储额外的索引号） 1分\ncleaned_data.to_csv('2.1.1_cleaned_data.csv', index=False)\n\n# 打印消息指示文件已保存\nprint(\"\\n清洗后的数据已保存到 2.1.1_cleaned_data.csv\")",
+      "source_hash": "f8a05d74a081910cdf6179f8720caf8fca15ecc756dc8f0f88bb8a71745a43e9",
+      "output": "<ExecutionResult object at 10afc5c40, execution_count=4 error_before_exec=None error_in_exec=dropna() got an unexpected keyword argument 'subsets' info=<ExecutionInfo object at 10afc5c10, raw_cell=\"import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = p..\" store_history=True silent=False shell_futures=True cell_id=None> result=None>",
+      "status": "error",
+      "error": {
+        "type": "TypeError",
+        "message": "dropna() got an unexpected keyword argument 'subsets'",
+        "traceback": "NoneType: None\n"
+      },
+      "duration_ms": 0.0,
+      "execution_count": 5
+    },
+    {
+      "event_id": 6,
+      "cell_index": 5,
+      "timestamp": "2026-08-08T00:24:56.609336",
+      "source": "import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = pd.read_csv(\"auto-mpg.csv\")\nprint(\"数据集的前五行:\")\nprint(data.head())\n\n# 显示每一列的数据类型\nprint(data.dtypes)\n\n# 检查缺失值并删除缺失值所在的行  2分\nprint(\"\\n检查缺失值:\")\nprint(data.isnull().sum())  \ndata = data.dropna()\n\n# 将 'horsepower' 列转换为数值类型，并（删除）处理转换中的异常值 1分\ndata['horsepower'] = pd.to_numeric(data['horsepower'], errors='coerce')\ndata = pd.dropna(subsets=['horsepower'])\n\n# 显示每一列的数据类型\nprint(data.horsepower.dtypes)\n\n# 检查清洗后的缺失值\nprint(\"\\n检查清洗后的缺失值:\")\nprint(data.isnull().sum())\n\nfrom sklearn.preprocessing import StandardScaler\n# 对数值型数据进行标准化处理 1分\nnumerical_features = ['displacement', 'horsepower', 'weight', 'acceleration']\nscaler = StandardScaler()\ndata[numerical_features] = scaler.fit_transfrom(data[numerical_features])\n\nfrom sklearn.model_selection import train_test_split\n# 选择特征、自变量和目标变量 2分\nselected_features = ['cylinders','displacement','horsepower','weight','acceleration','model year','origin']\nX = data[selected_features]\ny = data['mpg']\n\n# 划分数据集为训练集和测试集（训练集占8成） 1分\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size==0.2, random_state=42)\n\n\n# 将特征和目标变量合并到一个数据框中\ncleaned_data = X.copy()\ncleaned_data['mpg'] = y\n\n# 保存清洗和处理后的数据（不存储额外的索引号） 1分\ncleaned_data.to_csv('2.1.1_cleaned_data.csv', index=False)\n\n# 打印消息指示文件已保存\nprint(\"\\n清洗后的数据已保存到 2.1.1_cleaned_data.csv\")",
+      "source_hash": "e4b4eb890f9618ce6f62696faf607ba7ead2f45fa921d912966bdb4883d234f1",
+      "output": "<ExecutionResult object at 10b6c13d0, execution_count=5 error_before_exec=None error_in_exec=module 'pandas' has no attribute 'dropna' info=<ExecutionInfo object at 10b6c1610, raw_cell=\"import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = p..\" store_history=True silent=False shell_futures=True cell_id=None> result=None>",
+      "status": "error",
+      "error": {
+        "type": "AttributeError",
+        "message": "module 'pandas' has no attribute 'dropna'",
+        "traceback": "NoneType: None\n"
+      },
+      "duration_ms": 0.0,
+      "execution_count": 6
+    },
+    {
+      "event_id": 7,
+      "cell_index": 6,
+      "timestamp": "2026-08-08T00:25:20.206665",
+      "source": "import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = pd.read_csv(\"auto-mpg.csv\")\nprint(\"数据集的前五行:\")\nprint(data.head())\n\n# 显示每一列的数据类型\nprint(data.dtypes)\n\n# 检查缺失值并删除缺失值所在的行  2分\nprint(\"\\n检查缺失值:\")\nprint(data.isnull().sum())  \ndata = data.dropna()\n\n# 将 'horsepower' 列转换为数值类型，并（删除）处理转换中的异常值 1分\ndata['horsepower'] = pd.to_numeric(data['horsepower'], errors='coerce')\ndata = data.drop(subsets=['horsepower'])\n\n# 显示每一列的数据类型\nprint(data.horsepower.dtypes)\n\n# 检查清洗后的缺失值\nprint(\"\\n检查清洗后的缺失值:\")\nprint(data.isnull().sum())\n\nfrom sklearn.preprocessing import StandardScaler\n# 对数值型数据进行标准化处理 1分\nnumerical_features = ['displacement', 'horsepower', 'weight', 'acceleration']\nscaler = StandardScaler()\ndata[numerical_features] = scaler.fit_transfrom(data[numerical_features])\n\nfrom sklearn.model_selection import train_test_split\n# 选择特征、自变量和目标变量 2分\nselected_features = ['cylinders','displacement','horsepower','weight','acceleration','model year','origin']\nX = data[selected_features]\ny = data['mpg']\n\n# 划分数据集为训练集和测试集（训练集占8成） 1分\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size==0.2, random_state=42)\n\n\n# 将特征和目标变量合并到一个数据框中\ncleaned_data = X.copy()\ncleaned_data['mpg'] = y\n\n# 保存清洗和处理后的数据（不存储额外的索引号） 1分\ncleaned_data.to_csv('2.1.1_cleaned_data.csv', index=False)\n\n# 打印消息指示文件已保存\nprint(\"\\n清洗后的数据已保存到 2.1.1_cleaned_data.csv\")",
+      "source_hash": "c1861c6c2febb15739edd5e0b10e085728a80010641be6469f4647bbf20b62e1",
+      "output": "<ExecutionResult object at 10f086880, execution_count=6 error_before_exec=None error_in_exec=drop() got an unexpected keyword argument 'subsets' info=<ExecutionInfo object at 10f086a60, raw_cell=\"import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = p..\" store_history=True silent=False shell_futures=True cell_id=None> result=None>",
+      "status": "error",
+      "error": {
+        "type": "TypeError",
+        "message": "drop() got an unexpected keyword argument 'subsets'",
+        "traceback": "NoneType: None\n"
+      },
+      "duration_ms": 0.0,
+      "execution_count": 7
+    },
+    {
+      "event_id": 8,
+      "cell_index": 7,
+      "timestamp": "2026-08-08T00:25:37.331534",
+      "source": "import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = pd.read_csv(\"auto-mpg.csv\")\nprint(\"数据集的前五行:\")\nprint(data.head())\n\n# 显示每一列的数据类型\nprint(data.dtypes)\n\n# 检查缺失值并删除缺失值所在的行  2分\nprint(\"\\n检查缺失值:\")\nprint(data.isnull().sum())  \ndata = data.dropna()\n\n# 将 'horsepower' 列转换为数值类型，并（删除）处理转换中的异常值 1分\ndata['horsepower'] = pd.to_numeric(data['horsepower'], errors='coerce')\ndata = data.drop(subset=['horsepower'])\n\n# 显示每一列的数据类型\nprint(data.horsepower.dtypes)\n\n# 检查清洗后的缺失值\nprint(\"\\n检查清洗后的缺失值:\")\nprint(data.isnull().sum())\n\nfrom sklearn.preprocessing import StandardScaler\n# 对数值型数据进行标准化处理 1分\nnumerical_features = ['displacement', 'horsepower', 'weight', 'acceleration']\nscaler = StandardScaler()\ndata[numerical_features] = scaler.fit_transfrom(data[numerical_features])\n\nfrom sklearn.model_selection import train_test_split\n# 选择特征、自变量和目标变量 2分\nselected_features = ['cylinders','displacement','horsepower','weight','acceleration','model year','origin']\nX = data[selected_features]\ny = data['mpg']\n\n# 划分数据集为训练集和测试集（训练集占8成） 1分\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size==0.2, random_state=42)\n\n\n# 将特征和目标变量合并到一个数据框中\ncleaned_data = X.copy()\ncleaned_data['mpg'] = y\n\n# 保存清洗和处理后的数据（不存储额外的索引号） 1分\ncleaned_data.to_csv('2.1.1_cleaned_data.csv', index=False)\n\n# 打印消息指示文件已保存\nprint(\"\\n清洗后的数据已保存到 2.1.1_cleaned_data.csv\")",
+      "source_hash": "149c8bf51e0e45f4cbec109f80ef51bcbc2e59b0d597f70757cd0b1f4753fabd",
+      "output": "<ExecutionResult object at 10def3dc0, execution_count=7 error_before_exec=None error_in_exec=drop() got an unexpected keyword argument 'subset' info=<ExecutionInfo object at 10ac6bee0, raw_cell=\"import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = p..\" store_history=True silent=False shell_futures=True cell_id=None> result=None>",
+      "status": "error",
+      "error": {
+        "type": "TypeError",
+        "message": "drop() got an unexpected keyword argument 'subset'",
+        "traceback": "NoneType: None\n"
+      },
+      "duration_ms": 0.0,
+      "execution_count": 8
+    },
+    {
+      "event_id": 9,
+      "cell_index": 8,
+      "timestamp": "2026-08-08T00:26:02.350094",
+      "source": "import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = pd.read_csv(\"auto-mpg.csv\")\nprint(\"数据集的前五行:\")\nprint(data.head())\n\n# 显示每一列的数据类型\nprint(data.dtypes)\n\n# 检查缺失值并删除缺失值所在的行  2分\nprint(\"\\n检查缺失值:\")\nprint(data.isnull().sum())  \ndata = data.dropna()\n\n# 将 'horsepower' 列转换为数值类型，并（删除）处理转换中的异常值 1分\ndata['horsepower'] = pd.to_numeric(data['horsepower'], errors='coerce')\ndata = data.dropna(subset=['horsepower'])\n\n# 显示每一列的数据类型\nprint(data.horsepower.dtypes)\n\n# 检查清洗后的缺失值\nprint(\"\\n检查清洗后的缺失值:\")\nprint(data.isnull().sum())\n\nfrom sklearn.preprocessing import StandardScaler\n# 对数值型数据进行标准化处理 1分\nnumerical_features = ['displacement', 'horsepower', 'weight', 'acceleration']\nscaler = StandardScaler()\ndata[numerical_features] = scaler.fit_transfrom(data[numerical_features])\n\nfrom sklearn.model_selection import train_test_split\n# 选择特征、自变量和目标变量 2分\nselected_features = ['cylinders','displacement','horsepower','weight','acceleration','model year','origin']\nX = data[selected_features]\ny = data['mpg']\n\n# 划分数据集为训练集和测试集（训练集占8成） 1分\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size==0.2, random_state=42)\n\n\n# 将特征和目标变量合并到一个数据框中\ncleaned_data = X.copy()\ncleaned_data['mpg'] = y\n\n# 保存清洗和处理后的数据（不存储额外的索引号） 1分\ncleaned_data.to_csv('2.1.1_cleaned_data.csv', index=False)\n\n# 打印消息指示文件已保存\nprint(\"\\n清洗后的数据已保存到 2.1.1_cleaned_data.csv\")",
+      "source_hash": "7520d9caf0dbd7d04c518148c78f79f9b6ef0e677e68d55d1c24b59e1783129a",
+      "output": "<ExecutionResult object at 10b27c490, execution_count=8 error_before_exec=None error_in_exec='StandardScaler' object has no attribute 'fit_transfrom' info=<ExecutionInfo object at 10b27cdc0, raw_cell=\"import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = p..\" store_history=True silent=False shell_futures=True cell_id=None> result=None>",
+      "status": "error",
+      "error": {
+        "type": "AttributeError",
+        "message": "'StandardScaler' object has no attribute 'fit_transfrom'",
+        "traceback": "NoneType: None\n"
+      },
+      "duration_ms": 0.0,
+      "execution_count": 9
+    },
+    {
+      "event_id": 10,
+      "cell_index": 9,
+      "timestamp": "2026-08-08T00:26:25.015395",
+      "source": "import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = pd.read_csv(\"auto-mpg.csv\")\nprint(\"数据集的前五行:\")\nprint(data.head())\n\n# 显示每一列的数据类型\nprint(data.dtypes)\n\n# 检查缺失值并删除缺失值所在的行  2分\nprint(\"\\n检查缺失值:\")\nprint(data.isnull().sum())  \ndata = data.dropna()\n\n# 将 'horsepower' 列转换为数值类型，并（删除）处理转换中的异常值 1分\ndata['horsepower'] = pd.to_numeric(data['horsepower'], errors='coerce')\ndata = data.dropna(subset=['horsepower'])\n\n# 显示每一列的数据类型\nprint(data.horsepower.dtypes)\n\n# 检查清洗后的缺失值\nprint(\"\\n检查清洗后的缺失值:\")\nprint(data.isnull().sum())\n\nfrom sklearn.preprocessing import StandardScaler\n# 对数值型数据进行标准化处理 1分\nnumerical_features = ['displacement', 'horsepower', 'weight', 'acceleration']\nscaler = StandardScaler()\ndata[numerical_features] = scaler.fit_transform(data[numerical_features])\n\nfrom sklearn.model_selection import train_test_split\n# 选择特征、自变量和目标变量 2分\nselected_features = ['cylinders','displacement','horsepower','weight','acceleration','model year','origin']\nX = data[selected_features]\ny = data['mpg']\n\n# 划分数据集为训练集和测试集（训练集占8成） 1分\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size==0.2, random_state=42)\n\n\n# 将特征和目标变量合并到一个数据框中\ncleaned_data = X.copy()\ncleaned_data['mpg'] = y\n\n# 保存清洗和处理后的数据（不存储额外的索引号） 1分\ncleaned_data.to_csv('2.1.1_cleaned_data.csv', index=False)\n\n# 打印消息指示文件已保存\nprint(\"\\n清洗后的数据已保存到 2.1.1_cleaned_data.csv\")",
+      "source_hash": "351021d2159db17411adea0ca05ca1612de57b054831336e03404a0d345710a9",
+      "output": "<ExecutionResult object at 16a3a2340, execution_count=9 error_before_exec=None error_in_exec=name 'test_size' is not defined info=<ExecutionInfo object at 16a3a2070, raw_cell=\"import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = p..\" store_history=True silent=False shell_futures=True cell_id=None> result=None>",
+      "status": "error",
+      "error": {
+        "type": "NameError",
+        "message": "name 'test_size' is not defined",
+        "traceback": "NoneType: None\n"
+      },
+      "duration_ms": 0.0,
+      "execution_count": 10
+    },
+    {
+      "event_id": 11,
+      "cell_index": 10,
+      "timestamp": "2026-08-08T00:26:44.061214",
+      "source": "import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = pd.read_csv(\"auto-mpg.csv\")\nprint(\"数据集的前五行:\")\nprint(data.head())\n\n# 显示每一列的数据类型\nprint(data.dtypes)\n\n# 检查缺失值并删除缺失值所在的行  2分\nprint(\"\\n检查缺失值:\")\nprint(data.isnull().sum())  \ndata = data.dropna()\n\n# 将 'horsepower' 列转换为数值类型，并（删除）处理转换中的异常值 1分\ndata['horsepower'] = pd.to_numeric(data['horsepower'], errors='coerce')\ndata = data.dropna(subset=['horsepower'])\n\n# 显示每一列的数据类型\nprint(data.horsepower.dtypes)\n\n# 检查清洗后的缺失值\nprint(\"\\n检查清洗后的缺失值:\")\nprint(data.isnull().sum())\n\nfrom sklearn.preprocessing import StandardScaler\n# 对数值型数据进行标准化处理 1分\nnumerical_features = ['displacement', 'horsepower', 'weight', 'acceleration']\nscaler = StandardScaler()\ndata[numerical_features] = scaler.fit_transform(data[numerical_features])\n\nfrom sklearn.model_selection import train_test_split\n# 选择特征、自变量和目标变量 2分\nselected_features = ['cylinders','displacement','horsepower','weight','acceleration','model year','origin']\nX = data[selected_features]\ny = data['mpg']\n\n# 划分数据集为训练集和测试集（训练集占8成） 1分\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n\n\n# 将特征和目标变量合并到一个数据框中\ncleaned_data = X.copy()\ncleaned_data['mpg'] = y\n\n# 保存清洗和处理后的数据（不存储额外的索引号） 1分\ncleaned_data.to_csv('2.1.1_cleaned_data.csv', index=False)\n\n# 打印消息指示文件已保存\nprint(\"\\n清洗后的数据已保存到 2.1.1_cleaned_data.csv\")",
+      "source_hash": "9f305224ca42f419de61bb4f2808060d6863dbec7184a3e550fe44f8684cf79f",
+      "output": "<ExecutionResult object at 16a603f10, execution_count=10 error_before_exec=None error_in_exec=None info=<ExecutionInfo object at 16a603400, raw_cell=\"import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = p..\" store_history=True silent=False shell_futures=True cell_id=None> result=None>",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 11
+    }
+  ]
 }

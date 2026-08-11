@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "session_id": "20260802_1542_e44f2d_chapter3.2.1",
+  "chapter": "3.2.1",
+  "mode": "practice",
+  "created_at": "2026-08-08T17:19:30.167921",
+  "updated_at": "2026-08-08T17:19:30.167937",
+  "status": "completed",
+  "template_file": "",
+  "practice_file": "practice.ipynb",
+  "migrated_from": "backup/3.2.1-materials/3.2.1_practice_202608021542_result.json",
+  "historical_score": {
+    "score": 100,
+    "total_score": 100,
+    "errors": [],
+    "warnings": [],
+    "fill_comparison": [],
+    "implementation_comparison": [],
+    "result_comparison": [],
+    "knowledge_points": {},
+    "duration_minutes": 0
+  }
+}

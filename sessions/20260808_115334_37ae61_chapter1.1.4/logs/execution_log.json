@@ -1,8 +1,88 @@
 {
   "schema_version": "1.0.0",
   "session_id": "20260808_115334_37ae61_chapter1.1.4",
-  "created_at": "2026-08-08T11:53:34.512870",
-  "updated_at": "2026-08-08T11:53:34.512871",
+  "logger": {
+    "version": "2.0.0"
+  },
+  "created_at": "2026-08-08T11:53:34.512741",
+  "updated_at": "2026-08-08T11:58:11.552764",
   "kernel_info": {},
-  "events": []
+  "events": [
+    {
+      "event_id": 1,
+      "cell_index": 1,
+      "timestamp": "2026-08-08T11:54:23.378632",
+      "source": "# 自动初始化执行日志记录器（请勿删除）\nimport sys\nfrom pathlib import Path\ntry:\n    # 添加项目根目录到路径\n    root_dir = Path('/Users/air/Downloads/GUIDE_AI_3/人工智能训练师_3级_sucai')\n    sys.path.insert(0, str(root_dir))\n    \n    from core.session import Session\n    from scripts.execution_logger import ExecutionLogger\n    \n    session = Session('20260808_115334_37ae61_chapter1.1.4', root_dir)\n    logger = ExecutionLogger(session=session, auto_save=True)\n    logger.start()\n    print('✅ 执行日志记录器已自动启动')\nexcept Exception as e:\n    print(f'⚠️ 日志记录器初始化失败（不影响练习）: {e}')",
+      "source_hash": "95d54e8b8d96e464f1c65661400adb3de2d2b3454715bd9c68889e06002f0323",
+      "output": "<ExecutionResult object at 105842f40, execution_count=1 error_before_exec=None error_in_exec=None info=<ExecutionInfo object at 1058427c0, raw_cell=\"# 自动初始化执行日志记录器（请勿删除）\nimport sys\nfrom pathlib impor..\" store_history=True silent=False shell_futures=True cell_id=None> result=None>",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 2
+    },
+    {
+      "event_id": 2,
+      "cell_index": 2,
+      "timestamp": "2026-08-08T11:54:51.718376",
+      "source": "import pandas\nimport numpy as np\nimport matplotlib.pyplot as plt\n\n# 1. 数据采集\n# 从本地文件中读取数据  2分\ndata =  pandas.read_csv(\"user_behavior_data.csv\")\nprint(\"数据采集完成，已加载到DataFrame中\")\n\n# 打印数据的前5条记录  2分\nprint(data.head())",
+      "source_hash": "54a6cda12fa9e0cfac92133cc8f73111ee820d146c98970e1f38dc3850afd2ec",
+      "output": "<ExecutionResult object at 105b942e0, execution_count=2 error_before_exec=None error_in_exec=None info=<ExecutionInfo object at 105b94220, raw_cell=\"import pandas\nimport numpy as np\nimport matplotlib..\" store_history=True silent=False shell_futures=True cell_id=None> result=None>",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 3
+    },
+    {
+      "event_id": 3,
+      "cell_index": 3,
+      "timestamp": "2026-08-08T11:56:58.823559",
+      "source": "# 2. 数据清洗与预处理\n# 处理缺失值（删除）  2分\ndata = data.dropna()\n\n# 数据类型转换\ndata['Age'] = data['Age'].astype(int)   # Age数据类型转换为int 2分\ndata['PurchaseAmount'] = data['PurchaseAmount'].astype(float) # PurchaseAmount数据类型转换为float  2分\ndata['ReviewScore'] = data['ReviewScore'](int)   # ReviewScore数据类型转换为int 2分\n\n# 处理异常值  2分\ndata = data[(data['Age'].between(18, 70)) & \n            (data['PurchaseAmount'] > 0) & \n            (data['ReviewScore'].between(1, 5))]\n\n# 数据标准化\ndata['PurchaseAmount'] = (data['PurchaseAmount'] - data['PurchaseAmount'].mean()) / data['PurchaseAmount'].std()  # PurchaseAmount数据标准化 2分\ndata['ReviewScore'] = (data['ReviewScore'] - data['ReviewScore'].mean()) / data['ReviewScore'].std()        # ReviewScore数据标准化 2分\n\n# 保存清洗后的数据  1分\ndata.to_csv('cleaned_user_behavior_data.csv', index=False)\nprint(\"数据清洗完成，已保存为 'cleaned_user_behavior_data.csv'\")",
+      "source_hash": "6d18dc72b77129750e780a45eb4c19838c4011fd21257243ca278c78ce7c6a0e",
+      "output": "<ExecutionResult object at 1058427c0, execution_count=3 error_before_exec=None error_in_exec='Series' object is not callable info=<ExecutionInfo object at 105842f10, raw_cell=\"# 2. 数据清洗与预处理\n# 处理缺失值（删除）  2分\ndata = data.dropna()..\" store_history=True silent=False shell_futures=True cell_id=None> result=None>",
+      "status": "error",
+      "error": {
+        "type": "TypeError",
+        "message": "'Series' object is not callable",
+        "traceback": "NoneType: None\n"
+      },
+      "duration_ms": 0.0,
+      "execution_count": 4
+    },
+    {
+      "event_id": 4,
+      "cell_index": 4,
+      "timestamp": "2026-08-08T11:57:05.968970",
+      "source": "# 2. 数据清洗与预处理\n# 处理缺失值（删除）  2分\ndata = data.dropna()\n\n# 数据类型转换\ndata['Age'] = data['Age'].astype(int)   # Age数据类型转换为int 2分\ndata['PurchaseAmount'] = data['PurchaseAmount'].astype(float) # PurchaseAmount数据类型转换为float  2分\ndata['ReviewScore'] = data['ReviewScore'].astype(int)   # ReviewScore数据类型转换为int 2分\n\n# 处理异常值  2分\ndata = data[(data['Age'].between(18, 70)) & \n            (data['PurchaseAmount'] > 0) & \n            (data['ReviewScore'].between(1, 5))]\n\n# 数据标准化\ndata['PurchaseAmount'] = (data['PurchaseAmount'] - data['PurchaseAmount'].mean()) / data['PurchaseAmount'].std()  # PurchaseAmount数据标准化 2分\ndata['ReviewScore'] = (data['ReviewScore'] - data['ReviewScore'].mean()) / data['ReviewScore'].std()        # ReviewScore数据标准化 2分\n\n# 保存清洗后的数据  1分\ndata.to_csv('cleaned_user_behavior_data.csv', index=False)\nprint(\"数据清洗完成，已保存为 'cleaned_user_behavior_data.csv'\")",
+      "source_hash": "ad80758d2efb1002f4f3b72b175f39177f8370f94c7584c75b91dc43dc70aebd",
+      "output": "<ExecutionResult object at 13a6dfdf0, execution_count=4 error_before_exec=None error_in_exec=None info=<ExecutionInfo object at 13a6df400, raw_cell=\"# 2. 数据清洗与预处理\n# 处理缺失值（删除）  2分\ndata = data.dropna()..\" store_history=True silent=False shell_futures=True cell_id=None> result=None>",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 5
+    },
+    {
+      "event_id": 5,
+      "cell_index": 5,
+      "timestamp": "2026-08-08T11:58:05.252232",
+      "source": "# 3. 数据统计\n# 统计每个购买类别的用户数 2分\npurchase_category_counts = data['PurchaseCategory'].value_counts()\nprint(\"每个购买类别的用户数:\\n\", purchase_category_counts)\n\n# 统计不同性别的平均购买金额 2分\ngender_purchase_amount_mean = data.groupby('Gender')['PurchaseAmount'].mean()\nprint(\"不同性别的平均购买金额:\\n\", gender_purchase_amount_mean)\n\n# 统计不同年龄段的用户数 2分\nbins = [18, 26, 36, 46, 56, 66, np.inf]\nlabels = ['18-25', '26-35', '36-45', '46-55', '56-65', '65+']\ndata['AgeGroup'] = pandas.cut(data['Age',bins=bins, labels=labels, right=False)\nage_group_counts = data['AgeGroup'].value_counts().sort_index()\nprint(\"不同年龄段的用户数:\\n\", age_group_counts)",
+      "source_hash": "dc2e99b0aa47e16b319010c3ef09f5131b455f24f1b9a7a5ced14495a888ccf4",
+      "output": "<ExecutionResult object at 13a68c160, execution_count=5 error_before_exec=invalid syntax (959028928.py, line 13) error_in_exec=None info=<ExecutionInfo object at 13a74ee50, raw_cell=\"# 3. 数据统计\n# 统计每个购买类别的用户数 2分\npurchase_category_coun..\" store_history=True silent=False shell_futures=True cell_id=None> result=None>",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 6
+    },
+    {
+      "event_id": 6,
+      "cell_index": 6,
+      "timestamp": "2026-08-08T11:58:11.552490",
+      "source": "# 3. 数据统计\n# 统计每个购买类别的用户数 2分\npurchase_category_counts = data['PurchaseCategory'].value_counts()\nprint(\"每个购买类别的用户数:\\n\", purchase_category_counts)\n\n# 统计不同性别的平均购买金额 2分\ngender_purchase_amount_mean = data.groupby('Gender')['PurchaseAmount'].mean()\nprint(\"不同性别的平均购买金额:\\n\", gender_purchase_amount_mean)\n\n# 统计不同年龄段的用户数 2分\nbins = [18, 26, 36, 46, 56, 66, np.inf]\nlabels = ['18-25', '26-35', '36-45', '46-55', '56-65', '65+']\ndata['AgeGroup'] = pandas.cut(data['Age'],bins=bins, labels=labels, right=False)\nage_group_counts = data['AgeGroup'].value_counts().sort_index()\nprint(\"不同年龄段的用户数:\\n\", age_group_counts)",
+      "source_hash": "0796fcb2cba3484a233067ac5fe5f72d7ca6c46726715114a3dc1c944ca8ec0d",
+      "output": "<ExecutionResult object at 13b02bc40, execution_count=6 error_before_exec=None error_in_exec=None info=<ExecutionInfo object at 13b02bb50, raw_cell=\"# 3. 数据统计\n# 统计每个购买类别的用户数 2分\npurchase_category_coun..\" store_history=True silent=False shell_futures=True cell_id=None> result=None>",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 7
+    }
+  ]
 }

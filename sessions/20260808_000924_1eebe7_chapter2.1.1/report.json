@@ -1,0 +1,37 @@
+{
+  "file": "sessions/20260808_000924_1eebe7_chapter2.1.1/workspace/practice.ipynb",
+  "chapter": "unknown",
+  "errors": [],
+  "warnings": [],
+  "score": 99,
+  "total_score": 100,
+  "total_blanks": 0,
+  "score_per_blank": 100.0,
+  "fill_comparison": [],
+  "implementation_comparison": [],
+  "result_comparison": [],
+  "knowledge_points": {},
+  "start_time": null,
+  "end_time": "2026-08-08T00:31:52.708895",
+  "process_audit": {
+    "process_penalty": 1,
+    "total_attempts": 11,
+    "error_attempts": 1,
+    "detected_errors": [
+      {
+        "cell_index": 1,
+        "error_code": "# 自动初始化执行日志记录器（请勿删除）\nimport sys\nfrom pathlib import Path\ntry:\n    # 添加项目根目录到路径\n    root_dir = Path('/Users/air/Downloads/GUIDE_AI_3/人工智能训练师_3级_sucai')\n    sys.path.insert(0, str(root_dir))\n    \n    fr",
+        "final_code": "import pandas as pd\n\n# 加载数据集并显示数据集的前五行 1分\ndata = pd.read_csv(\"auto-mpg.csv\")\nprint(\"数据集的前五行:\")\nprint(data.head())\n\n# 显示每一列的数据类型\nprint(data.dtypes)\n\n# 检查缺失值并删除缺失值所在的行  2分\nprint(\"\\n检查缺失值:\")\nprint(data.i",
+        "error_message": "name 'xxx' is not defined",
+        "severity": "low",
+        "attempt_number": 1,
+        "timestamp": "2026-08-08T00:10:44.676782"
+      }
+    ],
+    "stability_score": 90.9,
+    "message": "检测到1次错误尝试"
+  },
+  "ipython_history": null,
+  "scoring_mode": "dynamic",
+  "schema_details": []
+}

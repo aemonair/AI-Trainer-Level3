@@ -1,0 +1,302 @@
+{
+  "schema_version": "1.0.0",
+  "session_id": "20260802_1154_d7024a_chapter2.2.5",
+  "chapter": "2.2.5",
+  "mode": "practice",
+  "created_at": "2026-08-08T17:19:30.164559",
+  "updated_at": "2026-08-08T17:19:30.164570",
+  "status": "completed",
+  "template_file": "",
+  "practice_file": "practice.ipynb",
+  "migrated_from": "backup/2.2.5-materials/2.2.5_practice_202608021154_result.json",
+  "historical_score": {
+    "score": 0,
+    "total_score": 100,
+    "errors": [
+      {
+        "type": "unfilled_blanks",
+        "count": 1,
+        "details": [
+          {
+            "cell": 0,
+            "code": "import pandas as pd\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.tree import DecisionTreeRegressor\nimport pickle\nfrom sklearn.metrics import mean_squared_error, mean_absolute_erro"
+          }
+        ],
+        "deduction": 5,
+        "knowledge_point": "Pandas",
+        "topic": "未填空"
+      },
+      {
+        "type": "fill_incorrect",
+        "count": 14,
+        "details": [
+          {
+            "cell_index": 0,
+            "line_index": 5,
+            "type": "line_mismatch",
+            "answer_line": "df = pd.read_csv('fitness analysis.csv')",
+            "practice_line": "df = __________",
+            "description": "第6行不匹配"
+          },
+          {
+            "cell_index": 0,
+            "line_index": 6,
+            "type": "line_mismatch",
+            "answer_line": "print(df.head())",
+            "practice_line": "print(__________)",
+            "description": "第7行不匹配"
+          },
+          {
+            "cell_index": 0,
+            "line_index": 8,
+            "type": "line_mismatch",
+            "answer_line": "X = pd.get_dummies(X)  # 将分类变量转为数值变量",
+            "practice_line": "X = __________(X)  # 将分类变量转为数值变量",
+            "description": "第9行不匹配"
+          },
+          {
+            "cell_index": 0,
+            "line_index": 9,
+            "type": "line_mismatch",
+            "answer_line": "y = df['daily_steps']",
+            "practice_line": "y = __________",
+            "description": "第10行不匹配"
+          },
+          {
+            "cell_index": 0,
+            "line_index": 10,
+            "type": "line_mismatch",
+            "answer_line": "X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)",
+            "practice_line": "X_train, X_test, y_train, y_test = __________(__________, random_state=42)",
+            "description": "第11行不匹配"
+          },
+          {
+            "cell_index": 0,
+            "line_index": 11,
+            "type": "line_mismatch",
+            "answer_line": "dt_model = DecisionTreeRegressor(random_state=42)",
+            "practice_line": "__________ = __________(random_state=42)",
+            "description": "第12行不匹配"
+          },
+          {
+            "cell_index": 0,
+            "line_index": 12,
+            "type": "line_mismatch",
+            "answer_line": "dt_model.fit(X_train, y_train)",
+            "practice_line": "__________",
+            "description": "第13行不匹配"
+          },
+          {
+            "cell_index": 0,
+            "line_index": 14,
+            "type": "line_mismatch",
+            "answer_line": "pickle.dump(dt_model, model_file)",
+            "practice_line": "pickle.__________",
+            "description": "第15行不匹配"
+          },
+          {
+            "cell_index": 0,
+            "line_index": 15,
+            "type": "line_mismatch",
+            "answer_line": "y_pred = dt_model.predict(X_test)",
+            "practice_line": "y_pred = __________",
+            "description": "第16行不匹配"
+          },
+          {
+            "cell_index": 0,
+            "line_index": 18,
+            "type": "line_mismatch",
+            "answer_line": "results.to_csv(results_filename, index=False, sep='\\t')",
+            "practice_line": "__________(__________, index=False, sep='\\t')",
+            "description": "第19行不匹配"
+          },
+          {
+            "cell_index": 0,
+            "line_index": 20,
+            "type": "line_mismatch",
+            "answer_line": "with open(report_filename, 'w') as f:",
+            "practice_line": "with open(__________) as f:",
+            "description": "第21行不匹配"
+          },
+          {
+            "cell_index": 0,
+            "line_index": 21,
+            "type": "line_mismatch",
+            "answer_line": "f.write(f'均方误差: {mean_squared_error(y_test, y_pred)}\\n')",
+            "practice_line": "f.write(f'均方误差: {__________}\\n')",
+            "description": "第22行不匹配"
+          },
+          {
+            "cell_index": 0,
+            "line_index": 22,
+            "type": "line_mismatch",
+            "answer_line": "f.write(f'平均绝对误差: {mean_absolute_error(y_test, y_pred)}\\n')",
+            "practice_line": "f.write(f'平均绝对误差: {__________}\\n')",
+            "description": "第23行不匹配"
+          },
+          {
+            "cell_index": 0,
+            "line_index": 23,
+            "type": "line_mismatch",
+            "answer_line": "f.write(f'决定系数: {r2_score(y_test, y_pred)}\\n')",
+            "practice_line": "f.write(f'决定系数: {__________}\\n')",
+            "description": "第24行不匹配"
+          }
+        ],
+        "deduction": 112,
+        "knowledge_point": "Pandas",
+        "topic": "填空错误"
+      }
+    ],
+    "warnings": [
+      {
+        "type": "implementation_differs",
+        "count": 1,
+        "details": [
+          {
+            "cell_index": 0,
+            "type": "missing_function",
+            "missing": [
+              "pd.read_csv",
+              "pd.get_dummies"
+            ],
+            "answer_code": "import pandas as pd\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.tree import DecisionTreeRegressor\nimport pickle\nfrom sklearn.metrics import mean_squared_error, mean_absolute_erro",
+            "practice_code": "import pandas as pd\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.tree import DecisionTreeRegressor\nimport pickle\nfrom sklearn.metrics import mean_squared_error, mean_absolute_erro"
+          }
+        ],
+        "deduction": 3,
+        "knowledge_point": "Pandas",
+        "topic": "实现差异"
+      }
+    ],
+    "fill_comparison": [
+      {
+        "cell_index": 0,
+        "line_index": 5,
+        "type": "line_mismatch",
+        "answer_line": "df = pd.read_csv('fitness analysis.csv')",
+        "practice_line": "df = __________",
+        "description": "第6行不匹配"
+      },
+      {
+        "cell_index": 0,
+        "line_index": 6,
+        "type": "line_mismatch",
+        "answer_line": "print(df.head())",
+        "practice_line": "print(__________)",
+        "description": "第7行不匹配"
+      },
+      {
+        "cell_index": 0,
+        "line_index": 8,
+        "type": "line_mismatch",
+        "answer_line": "X = pd.get_dummies(X)  # 将分类变量转为数值变量",
+        "practice_line": "X = __________(X)  # 将分类变量转为数值变量",
+        "description": "第9行不匹配"
+      },
+      {
+        "cell_index": 0,
+        "line_index": 9,
+        "type": "line_mismatch",
+        "answer_line": "y = df['daily_steps']",
+        "practice_line": "y = __________",
+        "description": "第10行不匹配"
+      },
+      {
+        "cell_index": 0,
+        "line_index": 10,
+        "type": "line_mismatch",
+        "answer_line": "X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)",
+        "practice_line": "X_train, X_test, y_train, y_test = __________(__________, random_state=42)",
+        "description": "第11行不匹配"
+      },
+      {
+        "cell_index": 0,
+        "line_index": 11,
+        "type": "line_mismatch",
+        "answer_line": "dt_model = DecisionTreeRegressor(random_state=42)",
+        "practice_line": "__________ = __________(random_state=42)",
+        "description": "第12行不匹配"
+      },
+      {
+        "cell_index": 0,
+        "line_index": 12,
+        "type": "line_mismatch",
+        "answer_line": "dt_model.fit(X_train, y_train)",
+        "practice_line": "__________",
+        "description": "第13行不匹配"
+      },
+      {
+        "cell_index": 0,
+        "line_index": 14,
+        "type": "line_mismatch",
+        "answer_line": "pickle.dump(dt_model, model_file)",
+        "practice_line": "pickle.__________",
+        "description": "第15行不匹配"
+      },
+      {
+        "cell_index": 0,
+        "line_index": 15,
+        "type": "line_mismatch",
+        "answer_line": "y_pred = dt_model.predict(X_test)",
+        "practice_line": "y_pred = __________",
+        "description": "第16行不匹配"
+      },
+      {
+        "cell_index": 0,
+        "line_index": 18,
+        "type": "line_mismatch",
+        "answer_line": "results.to_csv(results_filename, index=False, sep='\\t')",
+        "practice_line": "__________(__________, index=False, sep='\\t')",
+        "description": "第19行不匹配"
+      },
+      {
+        "cell_index": 0,
+        "line_index": 20,
+        "type": "line_mismatch",
+        "answer_line": "with open(report_filename, 'w') as f:",
+        "practice_line": "with open(__________) as f:",
+        "description": "第21行不匹配"
+      },
+      {
+        "cell_index": 0,
+        "line_index": 21,
+        "type": "line_mismatch",
+        "answer_line": "f.write(f'均方误差: {mean_squared_error(y_test, y_pred)}\\n')",
+        "practice_line": "f.write(f'均方误差: {__________}\\n')",
+        "description": "第22行不匹配"
+      },
+      {
+        "cell_index": 0,
+        "line_index": 22,
+        "type": "line_mismatch",
+        "answer_line": "f.write(f'平均绝对误差: {mean_absolute_error(y_test, y_pred)}\\n')",
+        "practice_line": "f.write(f'平均绝对误差: {__________}\\n')",
+        "description": "第23行不匹配"
+      },
+      {
+        "cell_index": 0,
+        "line_index": 23,
+        "type": "line_mismatch",
+        "answer_line": "f.write(f'决定系数: {r2_score(y_test, y_pred)}\\n')",
+        "practice_line": "f.write(f'决定系数: {__________}\\n')",
+        "description": "第24行不匹配"
+      }
+    ],
+    "implementation_comparison": [
+      {
+        "cell_index": 0,
+        "type": "missing_function",
+        "missing": [
+          "pd.read_csv",
+          "pd.get_dummies"
+        ],
+        "answer_code": "import pandas as pd\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.tree import DecisionTreeRegressor\nimport pickle\nfrom sklearn.metrics import mean_squared_error, mean_absolute_erro",
+        "practice_code": "import pandas as pd\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.tree import DecisionTreeRegressor\nimport pickle\nfrom sklearn.metrics import mean_squared_error, mean_absolute_erro"
+      }
+    ],
+    "result_comparison": [],
+    "knowledge_points": {},
+    "duration_minutes": 0
+  }
+}

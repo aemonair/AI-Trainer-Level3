@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "session_id": "20260805_2218_ab3461_chapter2.1.2",
+  "chapter": "2.1.2",
+  "mode": "practice",
+  "created_at": "2026-08-05T22:18:05.744237",
+  "updated_at": "2026-08-05T23:18:22.100154",
+  "status": "completed",
+  "template_file": "/Users/air/Downloads/GUIDE_AI_3/人工智能训练师_3级_sucai/2.1.2-materials/2.1.2.ipynb",
+  "practice_file": "practice.ipynb",
+  "migrated_from": "backup/2.1.2-materials/2.1.2_practice_202608052218_result.json",
+  "historical_score": {
+    "score": 92,
+    "total_score": 100,
+    "errors": [
+      {
+        "type": "fill_incorrect",
+        "count": 1,
+        "details": [
+          {
+            "cell_index": 0,
+            "type": "line_count_mismatch",
+            "answer_lines": 27,
+            "practice_lines": 26,
+            "description": "答案有27行代码，你的代码有26行（不能增加或删除代码行，注释行除外）"
+          }
+        ],
+        "deduction": 8,
+        "knowledge_point": "Pandas",
+        "topic": "填空错误"
+      }
+    ],
+    "warnings": [],
+    "fill_comparison": [
+      {
+        "cell_index": 0,
+        "type": "line_count_mismatch",
+        "answer_lines": 27,
+        "practice_lines": 26,
+        "description": "答案有27行代码，你的代码有26行（不能增加或删除代码行，注释行除外）"
+      }
+    ],
+    "implementation_comparison": [],
+    "result_comparison": [],
+    "knowledge_points": {},
+    "duration_minutes": 60
+  }
+}

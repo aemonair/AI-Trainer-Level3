@@ -1,8 +1,68 @@
 {
   "schema_version": "1.0.0",
   "session_id": "20260809_095216_93be89_chapter3.2.2",
-  "created_at": "2026-08-09T09:52:16.381036",
-  "updated_at": "2026-08-09T09:52:16.381038",
+  "logger": {
+    "version": "2.0.0"
+  },
+  "created_at": "2026-08-09T09:52:16.380914",
+  "updated_at": "2026-08-09T09:56:38.314521",
   "kernel_info": {},
-  "events": []
+  "events": [
+    {
+      "event_id": 1,
+      "cell_index": 1,
+      "timestamp": "2026-08-09T09:52:37.544412",
+      "source": "# 自动初始化执行日志记录器（请勿删除）\nimport sys\nfrom pathlib import Path\ntry:\n    # 添加项目根目录到路径\n    root_dir = Path('/Users/air/Downloads/GUIDE_AI_3/人工智能训练师_3级_sucai')\n    sys.path.insert(0, str(root_dir))\n    \n    from core.session import Session\n    from scripts.execution_logger import ExecutionLogger\n    \n    session = Session('20260809_095216_93be89_chapter3.2.2', root_dir)\n    logger = ExecutionLogger(session=session, auto_save=True)\n    logger.start()\n    print('✅ 执行日志记录器已自动启动')\nexcept Exception as e:\n    print(f'⚠️ 日志记录器初始化失败（不影响练习）: {e}')",
+      "source_hash": "3f0dbfbedd36ca895eb24a5bd5b29cdaaa363d24f156e9f1d79b7640be963ebd",
+      "output": "<ExecutionResult object at 105bcf6d0, execution_count=1 error_before_exec=None error_in_exec=None info=<ExecutionInfo object at 105bcf700, raw_cell=\"# 自动初始化执行日志记录器（请勿删除）\nimport sys\nfrom pathlib impor..\" store_history=True silent=False shell_futures=True cell_id=None> result=None>",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 2
+    },
+    {
+      "event_id": 2,
+      "cell_index": 2,
+      "timestamp": "2026-08-09T09:55:58.630382",
+      "source": "import onnxruntime\nimport numpy as np\nfrom PIL import Image\n\n\n# 加载ONNX模型  2分\nort_session = onnxruntime('mnist.onnx')\n\n\n# 加载图像 2分\nimage = Image.open('img_test.png').convert('L')  # 转为灰度图\n\n\n#图像预处理 \nimage = image.resize((28, 28))  # 调整大小为MNIST模型的输入尺寸2分\nimage_array = np.array(image, dtype=np.float32)  # 转为numpy数组2分\nimage_array = np.expand_dims(image_array, axis=0)  # 添加batch维度2分\nimage_array = np.expand_dims(image_array, axis=0)  # 添加通道维度2分\n\n\n#返回模型输入列表 2分\nort_inputs = {ort_session.get_inputs()[0].name: image_array}\n# 执行预测 2分\nort_outs = ort_session.run(None, ort_inputs)\n\n\n# 获取预测结果 2分\npredicted_class = np.argmax(ort_outs[0])\n\n\n# 输出预测结果\nprint(f\"Predicted class: {predicted_class}\")",
+      "source_hash": "ade161d0518a07e09338ec35e0de756090d2f296c47e6d8acbaf6629173360a5",
+      "output": "<ExecutionResult object at 10610ad60, execution_count=2 error_before_exec=None error_in_exec='module' object is not callable info=<ExecutionInfo object at 10610ac70, raw_cell=\"import onnxruntime\nimport numpy as np\nfrom PIL imp..\" store_history=True silent=False shell_futures=True cell_id=None> result=None>",
+      "status": "error",
+      "error": {
+        "type": "TypeError",
+        "message": "'module' object is not callable",
+        "traceback": "NoneType: None\n"
+      },
+      "duration_ms": 0.0,
+      "execution_count": 3
+    },
+    {
+      "event_id": 3,
+      "cell_index": 3,
+      "timestamp": "2026-08-09T09:56:06.975545",
+      "source": "import onnxruntime\nimport numpy as np\nfrom PIL import Image\n\n\n# 加载ONNX模型  2分\nort_session = onnxruntime.load('mnist.onnx')\n\n\n# 加载图像 2分\nimage = Image.open('img_test.png').convert('L')  # 转为灰度图\n\n\n#图像预处理 \nimage = image.resize((28, 28))  # 调整大小为MNIST模型的输入尺寸2分\nimage_array = np.array(image, dtype=np.float32)  # 转为numpy数组2分\nimage_array = np.expand_dims(image_array, axis=0)  # 添加batch维度2分\nimage_array = np.expand_dims(image_array, axis=0)  # 添加通道维度2分\n\n\n#返回模型输入列表 2分\nort_inputs = {ort_session.get_inputs()[0].name: image_array}\n# 执行预测 2分\nort_outs = ort_session.run(None, ort_inputs)\n\n\n# 获取预测结果 2分\npredicted_class = np.argmax(ort_outs[0])\n\n\n# 输出预测结果\nprint(f\"Predicted class: {predicted_class}\")",
+      "source_hash": "1ee0a535e299d3c1dba58ce299cd6ff5700dafe20a60a33e5bd835f6b09ea807",
+      "output": "<ExecutionResult object at 10737d8b0, execution_count=3 error_before_exec=None error_in_exec=module 'onnxruntime' has no attribute 'load' info=<ExecutionInfo object at 10795be50, raw_cell=\"import onnxruntime\nimport numpy as np\nfrom PIL imp..\" store_history=True silent=False shell_futures=True cell_id=None> result=None>",
+      "status": "error",
+      "error": {
+        "type": "AttributeError",
+        "message": "module 'onnxruntime' has no attribute 'load'",
+        "traceback": "NoneType: None\n"
+      },
+      "duration_ms": 0.0,
+      "execution_count": 4
+    },
+    {
+      "event_id": 4,
+      "cell_index": 4,
+      "timestamp": "2026-08-09T09:56:38.313167",
+      "source": "import onnxruntime\nimport numpy as np\nfrom PIL import Image\n\n\n# 加载ONNX模型  2分\nort_session = onnxruntime.InferenceSession('mnist.onnx')\n\n\n# 加载图像 2分\nimage = Image.open('img_test.png').convert('L')  # 转为灰度图\n\n\n#图像预处理 \nimage = image.resize((28, 28))  # 调整大小为MNIST模型的输入尺寸2分\nimage_array = np.array(image, dtype=np.float32)  # 转为numpy数组2分\nimage_array = np.expand_dims(image_array, axis=0)  # 添加batch维度2分\nimage_array = np.expand_dims(image_array, axis=0)  # 添加通道维度2分\n\n\n#返回模型输入列表 2分\nort_inputs = {ort_session.get_inputs()[0].name: image_array}\n# 执行预测 2分\nort_outs = ort_session.run(None, ort_inputs)\n\n\n# 获取预测结果 2分\npredicted_class = np.argmax(ort_outs[0])\n\n\n# 输出预测结果\nprint(f\"Predicted class: {predicted_class}\")",
+      "source_hash": "6d320f32e8649efd0ebc2e7e06e7243dc5fdd04ddfe18fe056896966e1b7868c",
+      "output": "<ExecutionResult object at 1071ddaf0, execution_count=4 error_before_exec=None error_in_exec=None info=<ExecutionInfo object at 1071dd1f0, raw_cell=\"import onnxruntime\nimport numpy as np\nfrom PIL imp..\" store_history=True silent=False shell_futures=True cell_id=None> result=None>",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 5
+    }
+  ]
 }
