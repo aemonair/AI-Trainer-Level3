@@ -156,18 +156,46 @@ class ExecutionLogger:
             pass  # 不在IPython环境中，忽略
     
     def _register_ipython_hook(self, ip):
-        """注册IPython的post_run_cell事件钩子"""
+        """注册IPython的pre/post_run_cell事件钩子"""
+        import io as _io
+        
+        # 记录每次执行的开始时间（key: execution_count）
+        start_times = {}
+        # 记录每次执行的 stdout/stderr 捕获
+        captures = {}
+        
+        def pre_run_cell_hook(info):
+            """Cell执行前记录开始时间并启动输出捕获"""
+            try:
+                count = ip.execution_count
+                start_times[count] = time.perf_counter()
+                # 启动 stdout/stderr 捕获（IPython 提供 set_capture_streams）
+                cap = _io.StringIO()
+                captures[count] = cap
+                ip.set_capture_streams(cap, cap)
+            except Exception:
+                pass  # 捕获失败不影响执行
         
         def post_run_cell_hook(result):
             """Cell执行后自动记录日志"""
             try:
-                # 获取当前Cell的代码
+                count = ip.execution_count
+                
+                # 计算执行时间（真实耗时）
+                start = start_times.pop(count, None)
+                execution_time = (time.perf_counter() - start) if start is not None else 0.0
+                
+                # 获取捕获的 stdout/stderr
+                cap = captures.pop(count, None)
+                captured_output = cap.getvalue() if cap else ""
+                
+                # 获取当前Cell的代码（_ih 索引从1开始，最后一个即当前Cell）
                 cell_code = ip.user_ns.get('_ih', [''])[-1] if hasattr(ip, 'user_ns') else ""
                 
-                # 获取输出
-                output = ""
-                if result is not None:
-                    output = str(result)
+                # 获取输出：优先使用捕获的 stdout，其次使用返回值（result.result）
+                output = captured_output.strip()
+                if not output and result is not None and hasattr(result, 'result') and result.result is not None:
+                    output = str(result.result)
                 
                 # 获取错误信息（如果有）
                 error = None
@@ -179,19 +207,21 @@ class ExecutionLogger:
                     }
                 
                 # 记录执行
+                # cell_index 使用 execution_count-1（从0开始），作为执行序号
                 self.record_execution(
-                    cell_index=ip.execution_count - 1 if ip.execution_count else 0,
+                    cell_index=count - 1 if count else 0,
                     code=cell_code,
                     output=output,
                     error=error,
-                    execution_time=0.0,  # 暂时无法获取执行时间
-                    execution_count=ip.execution_count
+                    execution_time=execution_time,
+                    execution_count=count
                 )
             except Exception as e:
                 # 钩子本身出错，不影响用户
                 print(f"⚠️ 日志记录失败（不影响练习）: {e}")
         
         # 注册钩子
+        ip.events.register('pre_run_cell', pre_run_cell_hook)
         ip.events.register('post_run_cell', post_run_cell_hook)
         print("✅ IPython自动记录钩子已注册")
 

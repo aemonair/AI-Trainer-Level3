@@ -124,37 +124,26 @@ class SessionFactory:
         """
         复制章节相关数据文件到 workspace
         
+        注意：只从 template/ 目录复制文件，不再从 materials/ 复制额外文件
+        template/ 目录应该包含所有必要的素材文件
+        
         参数:
             chapter: 章节编号
             workspace_dir: workspace 目录
             strategy: 复制策略
         """
-        materials_dir = self.root_dir / f'{chapter}-materials'
-        if not materials_dir.exists():
+        # 只从 template/ 目录复制文件
+        template_dir = self.root_dir / 'template' / chapter
+        if not template_dir.exists():
             return
         
-        # 只复制必要的素材文件（排除旧版练习系统文件）
-        exclude_patterns = [
-            '_practice_',      # 旧版练习文件
-            '_result',         # 旧版结果文件（包含 _result.json, scoring_result 等）
-            '_manifest.json',  # 旧版清单文件
-            '_review.md',      # 旧版复盘文件
-            'scoring_result',  # 旧版评分结果
-        ]
-        
-        allowed_extensions = {'.csv', '.pkl', '.docx', '.md', '.txt', '.xlsx'}
-        
-        for file_path in materials_dir.iterdir():
+        # 复制 template 目录中的所有文件（排除 .ipynb，因为已经在 create() 中处理）
+        for file_path in template_dir.iterdir():
             if not file_path.is_file():
                 continue
             
-            # 检查扩展名
-            if file_path.suffix.lower() not in allowed_extensions:
-                continue
-            
-            # 排除旧版练习系统文件
-            file_name = file_path.name
-            if any(pattern in file_name for pattern in exclude_patterns):
+            # 跳过 .ipynb 文件（已在 create() 中作为模板处理）
+            if file_path.suffix.lower() == '.ipynb':
                 continue
             
             dest = workspace_dir / file_path.name
@@ -215,6 +204,12 @@ class SessionFactory:
         session.create_directories()
         
         # 初始化 metadata
+        # template_file 使用相对路径（相对项目根目录），避免绝对路径硬编码导致跨机器/跨目录失败
+        try:
+            template_rel = template_nb.relative_to(self.root_dir)
+        except ValueError:
+            # 模板不在项目根目录下时，退化为文件名
+            template_rel = Path(template_nb.name)
         metadata = {
             'schema_version': '1.0.0',
             'session_id': session_id,
@@ -223,7 +218,7 @@ class SessionFactory:
             'created_at': datetime.now().isoformat(),
             'updated_at': datetime.now().isoformat(),
             'status': 'created',
-            'template_file': str(template_nb),
+            'template_file': str(template_rel),
             'practice_file': 'practice.ipynb',
         }
         session.save_metadata(metadata)

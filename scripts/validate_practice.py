@@ -43,39 +43,33 @@ SCORING_DIR = ROOT / 'scoring'
 
 def load_scoring_schema(chapter: str) -> Optional[Dict]:
     """
-    加载评分标准文件
+    加载评分标准文件（优先使用 AST 版本）
     
     参数:
         chapter: 章节号（如 '1.1.1'）
     
     返回:
         评分标准字典，如果不存在则返回None
-    
-    评分标准结构:
-    {
-        'chapter': '1.1.1',
-        'total_score': 22,
-        'items': [
-            {
-                'id': 'M1',
-                'cell_index': 0,
-                'line_index': 4,
-                'blank_index': 0,
-                'type': 'api_call',
-                'description': '读取数据集',
-                'score': 1,
-                'answer': 'data = pd.read_csv("patient_data.csv")',
-                'template_line': 'data = _____'
-            }
-        ]
-    }
     """
+    # 优先使用 AST 版本
+    ast_schema_path = SCORING_DIR / f'{chapter}_ast.json'
+    if ast_schema_path.exists():
+        try:
+            with open(ast_schema_path, 'r', encoding='utf-8') as f:
+                schema = json.load(f)
+                logger.info(f"✅ 使用 AST 评分标准: {ast_schema_path.name}")
+                return schema
+        except Exception as e:
+            logger.warning(f"读取 AST 评分标准失败 {ast_schema_path}: {e}")
+    
+    # Fallback 到普通版本
     schema_path = SCORING_DIR / f'{chapter}.json'
     if not schema_path.exists():
         return None
     
     try:
         with open(schema_path, 'r', encoding='utf-8') as f:
+            logger.info(f"⚠️  使用普通评分标准: {schema_path.name}")
             return json.load(f)
     except Exception as e:
         logger.warning(f"读取评分标准失败 {schema_path}: {e}")
@@ -631,12 +625,15 @@ def compare_fill_answers(practice_path: Path, template_path: Path, answer_path: 
 
 def extract_outputs(nb: Dict) -> List[Dict]:
     """
-    提取所有输出
+    提取所有输出，跳过自动初始化的日志Cell
     
     修复：支持 text/plain、text/html（DataFrame样式化输出）、image/png（可视化）
     """
     outputs = []
     for cell in nb.get('cells', []):
+        # 跳过自动初始化的日志Cell
+        if is_auto_init_cell(cell):
+            continue
         if cell.get('cell_type') == 'code':
             cell_outputs = []
             for output in cell.get('outputs', []):
@@ -806,13 +803,15 @@ def check_implementation_details(practice_path: Path, answer_path: Path) -> List
                 'code_snippet': re.search(r"\w+\['\w+'\]\.dropna\(\)", code).group()
             })
         
-        # 检查 fillna() 没有赋值的情况
+        # 检查 fillna() 没有赋值的情况（排除 inplace=True）
         if re.search(r"(\w+)\['\w+'\]\.fillna\([^)]+\)", code) and not re.search(r"(\w+)\['\w+'\]\s*=\s*\w+\['\w+'\]\.fillna\(", code):
-            errors.append({
-                'type': 'logical_error',
-                'description': 'fillna() 没有赋值回去，不会修改原始DataFrame',
-                'code_snippet': re.search(r"\w+\['\w+'\]\.fillna\([^)]+\)", code).group()
-            })
+            # 检查是否使用了 inplace=True
+            if not re.search(r"fillna\([^)]*inplace\s*=\s*True", code):
+                errors.append({
+                    'type': 'logical_error',
+                    'description': 'fillna() 没有赋值回去，不会修改原始DataFrame',
+                    'code_snippet': re.search(r"\w+\['\w+'\]\.fillna\([^)]+\)", code).group()
+                })
         
         return errors
     
@@ -1328,6 +1327,138 @@ def align_cells_to_practice(template_nb: Dict, practice_nb: Dict) -> Dict[int, i
     return mapping
 
 
+def score_with_ast_schema(schema: Dict, practice_path: Path) -> Dict:
+    """
+    基于 AST 评分标准对练习文件进行验证（混合模式）
+    
+    验证层次：
+    1. AST 检查：是否使用了正确的函数/方法
+    2. 关键参数检查：文件名、变量名、关键参数是否正确
+    
+    参数:
+        schema: AST 评分标准字典
+        practice_path: 练习文件路径
+    
+    返回:
+        {
+            'total_score': 40,
+            'earned_score': 38,
+            'percentage': 95.0,
+            'details': [...],
+            'errors': [...],
+        }
+    """
+    practice_nb = load_notebook(practice_path)
+    if not practice_nb:
+        return {
+            'total_score': schema['exam']['total_score'],
+            'earned_score': 0,
+            'percentage': 0,
+            'details': [],
+            'errors': [{'type': 'file_load_error', 'message': '无法加载练习文件'}],
+        }
+    
+    details = []
+    errors = []
+    earned_score = 0
+    total_score = schema['exam']['total_score']
+    
+    for item in schema['items']:
+        item_id = item['id']
+        score = item['score']
+        description = item['description']
+        validators = item.get('validators', {})
+        practice_rules = validators.get('practice', {}).get('rules', [])
+        metadata = item.get('metadata', {})
+        
+        # 获取对应的 Cell
+        cell_index = metadata.get('cell_index', 0)
+        
+        # 跳过自动初始化的 Cell
+        cells = [c for c in practice_nb.get('cells', []) if not is_auto_init_cell(c) and c.get('cell_type') == 'code']
+        
+        if cell_index >= len(cells):
+            errors.append({
+                'type': 'cell_not_found',
+                'item_id': item_id,
+                'description': description,
+                'deduction': score,
+            })
+            continue
+        
+        cell = cells[cell_index]
+        source = ''.join(cell.get('source', []))
+        
+        # 验证规则
+        all_passed = True
+        failed_rules = []
+        
+        for rule in practice_rules:
+            if 'must_call' in rule:
+                # must_call 格式: "pd.read_csv read_csv vehicle_t"
+                keywords = rule['must_call'].split()
+                for keyword in keywords:
+                    if keyword.lower() not in source.lower():
+                        all_passed = False
+                        failed_rules.append(f"缺少关键字: {keyword}")
+                        break
+        
+        # 关键参数检查：从模板中提取期望的关键参数
+        if all_passed and 'template' in metadata:
+            template = metadata['template']
+            # 提取模板中的关键参数（如文件名、列名等）
+            # 匹配引号中的内容
+            import re
+            quoted_strings = re.findall(r'["\']([^"\']+)["\']', template)
+            # 匹配方括号中的列名
+            bracket_contents = re.findall(r"\['([^']+)'\]", template)
+            
+            # 检查关键参数
+            critical_params = quoted_strings + bracket_contents
+            for param in critical_params:
+                # 跳过占位符
+                if '_' in param and all(c == '_' for c in param.replace('_', '')):
+                    continue
+                # 检查参数是否在代码中
+                if param.lower() not in source.lower():
+                    all_passed = False
+                    failed_rules.append(f"缺少关键参数: {param}")
+                    break
+        
+        if all_passed:
+            earned_score += score
+        
+        detail = {
+            'item_id': item_id,
+            'description': description,
+            'max_score': score,
+            'earned_score': score if all_passed else 0,
+            'correct': all_passed,
+            'type': 'ast_check',
+        }
+        details.append(detail)
+        
+        if not all_passed:
+            errors.append({
+                'type': 'ast_check_failed',
+                'item_id': item_id,
+                'description': description,
+                'deduction': score,
+                'failed_rules': failed_rules,
+                'knowledge_point': 'api_call',
+            })
+    
+    percentage = (earned_score / total_score * 100) if total_score > 0 else 0
+    
+    return {
+        'total_score': total_score,
+        'earned_score': earned_score,
+        'percentage': round(percentage, 1),
+        'details': details,
+        'errors': errors,
+    }
+
+
 def score_with_schema(schema: Dict, practice_path: Path) -> Dict:
     """
     基于评分标准对练习文件进行严格评分
@@ -1428,7 +1559,7 @@ def score_with_schema(schema: Dict, practice_path: Path) -> Dict:
     }
 
 
-def validate_single_practice(practice_path: Path, compare_mode: str = 'all', detailed: bool = True, start_time: Optional[str] = None, audit_process: bool = False, analyze_history: bool = False, check_fill: bool = True, check_impl: bool = True, check_output: bool = True) -> Dict:
+def validate_single_practice(practice_path: Path, compare_mode: str = 'all', detailed: bool = True, start_time: Optional[str] = None, chapter: Optional[str] = None, audit_process: bool = False, analyze_history: bool = False, check_fill: bool = True, check_impl: bool = True, check_output: bool = True) -> Dict:
     """
     验证单个练习文件
     
@@ -1437,6 +1568,7 @@ def validate_single_practice(practice_path: Path, compare_mode: str = 'all', det
         compare_mode: 对比模式（已弃用，使用 check_fill/check_impl/check_output）
         detailed: 是否生成详细信息
         start_time: 考试开始时间（ISO格式，可选）
+        chapter: 章节号（可选，优先使用此参数）
         audit_process: 是否启用回溯审计（分析中间错误）
         analyze_history: 是否分析IPython历史命令
         check_fill: 是否检查填空（默认开启）
@@ -1446,7 +1578,9 @@ def validate_single_practice(practice_path: Path, compare_mode: str = 'all', det
     返回:
         验证结果字典
     """
-    chapter = extract_chapter_from_path(practice_path)
+    # 优先使用传入的 chapter 参数，否则从路径提取
+    if chapter is None:
+        chapter = extract_chapter_from_path(practice_path)
     
     if not start_time:
         manifest = load_manifest(practice_path)
@@ -1463,6 +1597,9 @@ def validate_single_practice(practice_path: Path, compare_mode: str = 'all', det
     
     scoring_schema = load_scoring_schema(chapter)
     use_schema = scoring_schema is not None
+    
+    # 判断是否使用 AST 验证
+    is_ast_schema = use_schema and 'exam' in scoring_schema and 'items' in scoring_schema and 'validators' in scoring_schema['items'][0]
     
     result = {
         'file': str(practice_path),
@@ -1481,14 +1618,17 @@ def validate_single_practice(practice_path: Path, compare_mode: str = 'all', det
         'end_time': datetime.now().isoformat(),
         'process_audit': None,
         'ipython_history': None,
-        'scoring_mode': 'schema' if use_schema else 'dynamic',
+        'scoring_mode': 'ast' if is_ast_schema else ('schema' if use_schema else 'dynamic'),
         'schema_details': [],
     }
     
     if use_schema:
-        logger.info(f"📋 使用评分标准: {chapter} (总分: {scoring_schema['total_score']})")
-        
-        schema_result = score_with_schema(scoring_schema, practice_path)
+        if is_ast_schema:
+            logger.info(f"📋 使用 AST 评分标准: {chapter} (总分: {scoring_schema['exam']['total_score']})")
+            schema_result = score_with_ast_schema(scoring_schema, practice_path)
+        else:
+            logger.info(f"📋 使用普通评分标准: {chapter} (总分: {scoring_schema['total_score']})")
+            schema_result = score_with_schema(scoring_schema, practice_path)
         
         result['total_score'] = schema_result['total_score']
         result['score'] = schema_result['earned_score']
@@ -1779,7 +1919,20 @@ def print_validation_report(results: List[Dict]):
         print(f"\n{'─'*80}")
         print(f"📁 章节: {r['chapter']}")
         print(f"📄 文件: {Path(r['file']).name}")
-        print(f"💯 得分: {r['score']}/100")
+        
+        # 显示实际总分（AST 总分或 100）
+        actual_total = r.get('total_score', 100)
+        if actual_total != 100:
+            print(f"💯 得分: {r['score']}/{actual_total} (换算: {r['score']/actual_total*100:.0f}%)")
+        else:
+            print(f"💯 得分: {r['score']}/100")
+        
+        # 显示每道题的得分详情
+        if r.get('schema_details'):
+            print(f"\n📋 评分详情:")
+            for detail in r['schema_details']:
+                status = "✅" if detail.get('correct') else "❌"
+                print(f"  {status} {detail['item_id']}: {detail['description']} - {detail['earned_score']}/{detail['max_score']}分")
         
         if r['fill_comparison']:
             print(f"\n📝 填空对比:")
@@ -1848,12 +2001,14 @@ def print_validation_report(results: List[Dict]):
     print(f"📈 汇总统计")
     print(f"{'='*80}")
     total = len(results)
-    perfect = sum(1 for r in results if r['score'] == 100)
+    # 修复：使用百分比判断是否满分，而不是固定 100 分
+    perfect = sum(1 for r in results if r['score'] == r.get('total_score', 100))
     avg_score = sum(r['score'] for r in results) / total if total > 0 else 0
+    avg_percentage = sum(r['score'] / r.get('total_score', 100) * 100 for r in results) / total if total > 0 else 0
     
     print(f"总练习数: {total}")
     print(f"完全正确: {perfect} ({perfect/total*100:.1f}%)")
-    print(f"平均分: {avg_score:.1f}")
+    print(f"平均分: {avg_score:.1f} (平均百分比: {avg_percentage:.1f}%)")
 
 
 def resolve_compare_mode(args: argparse.Namespace) -> str:
@@ -1902,18 +2057,21 @@ def main():
             logger.error(f"练习文件不存在: {practice_path}")
             return
         
-        # 读取metadata.json获取开始时间
+        # 读取metadata.json获取开始时间和章节
         metadata_path = session_dir / 'metadata.json'
         start_time = None
+        chapter = None
         if metadata_path.exists():
             import json as json_module
             metadata = json_module.loads(metadata_path.read_text(encoding='utf-8'))
             start_time = metadata.get('start_time')
+            chapter = metadata.get('chapter')
         
         result = validate_single_practice(
             practice_path,
             compare_mode=compare_mode,
             start_time=start_time,
+            chapter=chapter,
             audit_process=args.audit_process,
             analyze_history=args.analyze_history,
             check_fill=args.check_fill,

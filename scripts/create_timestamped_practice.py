@@ -77,15 +77,15 @@ def inject_logger_init_cell(nb: dict, session) -> dict:
         修改后的 notebook 字典
     """
     session_id = session.session_id
-    root_dir = str(session.root_dir)
     
     # 使用字符串模板避免f-string中的逗号问题
+    # 根目录在运行时通过 __file__ 推导，避免硬编码绝对路径导致跨机器/跨目录失败
     code_template = """# 自动初始化执行日志记录器（请勿删除）
 import sys
 from pathlib import Path
 try:
-    # 添加项目根目录到路径
-    root_dir = Path('{ROOT_DIR}')
+    # 运行时推导项目根目录（本文件位于 scripts/ 下，父目录即项目根目录）
+    root_dir = Path(__file__).resolve().parent.parent
     sys.path.insert(0, str(root_dir))
     
     from core.session import Session
@@ -99,7 +99,7 @@ except Exception as e:
     print(f'⚠️ 日志记录器初始化失败（不影响练习）: {{e}}')
 """
     
-    log_init_code = code_template.format(ROOT_DIR=root_dir, SESSION_ID=session_id)
+    log_init_code = code_template.format(SESSION_ID=session_id)
     log_init_cell = {
         "cell_type": "code",
         "execution_count": None,

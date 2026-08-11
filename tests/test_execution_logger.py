@@ -301,25 +301,25 @@ def test_duration_ms_conversion(session_with_template):
 
 
 def test_no_mkdir_in_logger(session_with_template):
-    """测试：ExecutionLogger 内部不再包含 mkdir 逻辑"""
-    import inspect
+    """测试：ExecutionLogger 不负责创建目录（目录由 SessionFactory 保证）"""
+    # 删除日志目录，模拟目录不存在的情况
+    import shutil
+    logs_dir = session_with_template.logs_dir
+    if logs_dir.exists():
+        shutil.rmtree(logs_dir)
     
-    # 获取 save 方法的源代码
-    source = inspect.getsource(ExecutionLogger.save)
+    logger = ExecutionLogger(session=session_with_template, auto_save=False)
+    logger.record_execution(cell_index=0, code="test")
     
-    # 不应该包含 mkdir
-    assert 'mkdir' not in source
-    assert 'makedirs' not in source
+    # save() 不应自动创建目录，目录不存在时应抛出异常
+    with pytest.raises(FileNotFoundError):
+        logger.save()
 
 
 def test_no_path_discovery_in_logger(session_with_template):
-    """测试：ExecutionLogger 内部不再包含路径自动发现逻辑"""
-    import inspect
+    """测试：ExecutionLogger 使用 Session 提供的路径，不自行发现路径"""
+    logger = ExecutionLogger(session=session_with_template, auto_save=False)
     
-    # 获取类的源代码
-    source = inspect.getsource(ExecutionLogger)
-    
-    # 不应该包含路径发现相关代码
-    assert '_find_default_log_path' not in source
-    assert 'glob' not in source
-    assert 'cwd' not in source
+    # 日志路径应直接来自 Session，而非自行搜索
+    assert logger.log_path == session_with_template.execution_log_path
+    assert logger.log_path == session_with_template.session_dir / 'logs' / 'execution_log.json'
