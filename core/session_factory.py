@@ -189,10 +189,15 @@ class SessionFactory:
             )
         
         # 确定要使用的模板 notebook
+        # 从 find_chapter_notebooks() 的结果中匹配（已优先 template/，fallback materials/）
         if notebook_name:
-            template_nb = self.root_dir / f'{chapter}-materials' / notebook_name
-            if not template_nb.exists():
-                raise FileNotFoundError(f"指定的 notebook 不存在: {template_nb}")
+            matched = [nb for nb in notebooks if nb.name == notebook_name]
+            if not matched:
+                raise FileNotFoundError(
+                    f"指定的 notebook 不存在: {notebook_name}\n"
+                    f"可用文件: {', '.join(nb.name for nb in notebooks)}"
+                )
+            template_nb = matched[0]
         else:
             template_nb = notebooks[0]
         

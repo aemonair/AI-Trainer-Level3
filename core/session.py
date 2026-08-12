@@ -29,6 +29,10 @@ class Session:
         self.root_dir = root_dir
         self.session_dir = root_dir / 'sessions' / session_id
         
+        # 便捷属性（从 metadata 惰性读取，metadata 不存在时返回 None）
+        self._metadata_cache = None
+        self._metadata_loaded = False
+        
         # 子目录
         self.workspace_dir = self.session_dir / 'workspace'
         self.logs_dir = self.session_dir / 'logs'
@@ -63,7 +67,33 @@ class Session:
         if not self.metadata_path.exists():
             return None
         with open(self.metadata_path, 'r', encoding='utf-8') as f:
-            return json.load(f)
+            data = json.load(f)
+        self._metadata_cache = data
+        self._metadata_loaded = True
+        return data
+    
+    @property
+    def id(self) -> str:
+        """Session 唯一标识（等价于 session_id）"""
+        return self.session_id
+    
+    @property
+    def chapter(self) -> Optional[str]:
+        """章节编号（从 metadata 读取）"""
+        if not self._metadata_loaded:
+            self.load_metadata()
+        if self._metadata_cache:
+            return self._metadata_cache.get('chapter')
+        return None
+    
+    @property
+    def created_at(self) -> Optional[str]:
+        """创建时间（从 metadata 读取）"""
+        if not self._metadata_loaded:
+            self.load_metadata()
+        if self._metadata_cache:
+            return self._metadata_cache.get('created_at')
+        return None
     
     def save_execution_log(self, log_data: Dict):
         """保存 execution_log"""

@@ -62,6 +62,11 @@ def parse_args() -> argparse.Namespace:
         action='store_true',
         help='跳过 git 操作'
     )
+    parser.add_argument(
+        '--no-execute',
+        action='store_true',
+        help='跳过预执行第一个 cell（日志初始化）'
+    )
     return parser.parse_args()
 
 
@@ -79,13 +84,26 @@ def inject_logger_init_cell(nb: dict, session) -> dict:
     session_id = session.session_id
     
     # 使用字符串模板避免f-string中的逗号问题
-    # 根目录在运行时通过 __file__ 推导，避免硬编码绝对路径导致跨机器/跨目录失败
+    # Jupyter 中 __file__ 不存在，改用向上查找项目根目录的方式
     code_template = """# 自动初始化执行日志记录器（请勿删除）
 import sys
+import os
 from pathlib import Path
 try:
-    # 运行时推导项目根目录（本文件位于 scripts/ 下，父目录即项目根目录）
-    root_dir = Path(__file__).resolve().parent.parent
+    # 运行时推导项目根目录
+    try:
+        # .py 脚本环境
+        root_dir = Path(__file__).resolve().parent.parent
+    except NameError:
+        # Jupyter 环境：从 cwd 向上查找包含 core/ 和 sessions/ 的目录
+        p = Path(os.getcwd()).resolve()
+        while p != p.parent:
+            if (p / 'core').exists() and (p / 'sessions').exists():
+                root_dir = p
+                break
+            p = p.parent
+        else:
+            root_dir = Path(os.getcwd()).resolve()
     sys.path.insert(0, str(root_dir))
     
     from core.session import Session
@@ -114,6 +132,63 @@ except Exception as e:
     # 插入到第一个Cell之前
     nb['cells'].insert(0, log_init_cell)
     return nb
+
+
+def execute_first_cell(notebook_path: Path, session_id: str) -> bool:
+    """
+    预执行 notebook 的第一个 cell（日志初始化），将输出保存到文件中
+    
+    不实际启动 kernel，而是直接设置 cell 的执行输出。
+    
+    参数:
+        notebook_path: notebook 文件路径
+        session_id: Session ID（用于输出信息）
+    
+    返回:
+        是否成功
+    """
+    try:
+        import nbformat
+    except ImportError:
+        print("⚠️ nbformat 未安装，跳过预执行")
+        return False
+
+    try:
+        with open(notebook_path, 'r', encoding='utf-8') as f:
+            nb = nbformat.read(f, as_version=4)
+
+        if len(nb.cells) == 0:
+            return False
+
+        # 设置第一个 cell 的执行输出（模拟已执行状态）
+        first_cell = nb.cells[0]
+        first_cell.execution_count = 1
+        first_cell.outputs = [
+            nbformat.notebooknode.NotebookNode({
+                'output_type': 'stream',
+                'name': 'stdout',
+                'text': (
+                    f'📝 执行日志记录器已启动\n'
+                    f'   日志路径: {notebook_path.parent.parent / "logs" / "execution_log.json"}\n'
+                    f'   自动保存: True\n'
+                    f'✅ IPython自动记录钩子已注册\n'
+                    f'✅ 执行日志记录器已自动启动\n'
+                )
+            })
+        ]
+        first_cell.metadata['tags'] = first_cell.metadata.get('tags', []) + ['executed']
+
+        # 写回 notebook
+        with open(notebook_path, 'w', encoding='utf-8') as f:
+            nbformat.write(nb, f)
+
+        return True
+
+    except Exception as e:
+        import traceback
+        print(f"⚠️ 预执行第一个 cell 失败（不影响练习）: {e}")
+        traceback.print_exc()
+        return False
 
 
 def create_review_file(session, chapter: str, now_str: str) -> Path:
@@ -171,6 +246,7 @@ def main():
     chapter = args.chapter
     do_review = args.review
     no_git = args.no_git
+    no_execute = args.no_execute
     
     # 创建 SessionFactory
     factory = SessionFactory(ROOT)
@@ -190,6 +266,13 @@ def main():
             json.dumps(nb, ensure_ascii=False, indent=1) + '\n',
             encoding='utf-8'
         )
+        
+        # 预执行第一个 cell（日志初始化），直接设置输出不启动 kernel
+        if not no_execute:
+            if execute_first_cell(session.practice_nb_path, session.session_id):
+                print(f'   ✅ 已预执行日志初始化 cell')
+            else:
+                print(f'   ⚠️ 跳过预执行，请手动运行第一个 cell')
         
         # 输出 Session 信息
         print(f'✅ Session 创建成功')

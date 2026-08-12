@@ -30,15 +30,21 @@ import json
 import re
 import argparse
 import logging
+import sys
 from datetime import datetime
 from typing import Dict, List, Optional, Tuple, Any
 import difflib
 
+# 添加项目根目录到 sys.path
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))
+
 logging.basicConfig(level=logging.INFO, format='%(message)s')
 logger = logging.getLogger(__name__)
 
-ROOT = Path(__file__).resolve().parent.parent
 SCORING_DIR = ROOT / 'scoring'
+
+from core.session_factory import SessionFactory
 
 
 def load_scoring_schema(chapter: str) -> Optional[Dict]:
@@ -2057,15 +2063,21 @@ def main():
             logger.error(f"练习文件不存在: {practice_path}")
             return
         
-        # 读取metadata.json获取开始时间和章节
-        metadata_path = session_dir / 'metadata.json'
-        start_time = None
-        chapter = None
-        if metadata_path.exists():
-            import json as json_module
-            metadata = json_module.loads(metadata_path.read_text(encoding='utf-8'))
-            start_time = metadata.get('start_time')
-            chapter = metadata.get('chapter')
+        # Session 对象（来自 --session 分支）
+        session_id = session_dir.name  # 从路径提取 session_id
+        session = SessionFactory(ROOT).load_session(session_id)
+        
+        # 通过 Session API 获取章节、路径（替代自拼）
+        chapter = session.chapter  # 优先使用 Session.metadata.chapter
+        if chapter is None:
+            # 回退：从 practice_nb_path 所在 session_dir 读取 metadata
+            metadata_path = session.session_dir / 'metadata.json'
+            if metadata_path.exists():
+                import json as json_module
+                metadata = json_module.loads(metadata_path.read_text(encoding='utf-8'))
+                chapter = metadata.get('chapter')
+        
+        start_time = None  # 保持旧行为：metadata 无 start_time，不计算 duration_minutes
         
         result = validate_single_practice(
             practice_path,
@@ -2079,17 +2091,11 @@ def main():
             check_output=args.check_output
         )
         
-        # 保存JSON报告到Session目录
-        report_path = session_dir / 'report.json'
-        generate_json_report(result, report_path)
+        # 通过 Session API 保存 report（而不是直接写入 session_dir 根目录）
+        session.save_report(result)  # 写入 reports/report.json
         
-        # 更新metadata状态
-        if metadata_path.exists():
-            import json as json_module
-            metadata = json_module.loads(metadata_path.read_text(encoding='utf-8'))
-            metadata['status'] = 'completed'
-            metadata['score'] = result['score']
-            metadata_path.write_text(json_module.dumps(metadata, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+        # 更新metadata状态（通过 Session API）
+        session.update_status('completed')
         
         print_validation_report([result])
         return
