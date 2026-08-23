@@ -24,3 +24,16 @@ dist/
 *.egg-info/
 uv.lock
 answers/*.zip
+
+# Temporary files
+.ipython/
+_check_sessions.py
+tmp_debug_ast.py
+backup/
+
+# Old reports
+reports/progress_analysis.md
+reports/weak_points_analysis.md
+reports/unknown_*.json
+reports/validation_report_*.md
+reports/*_20260823_*.json
