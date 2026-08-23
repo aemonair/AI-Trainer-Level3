@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0.0",
+  "session_id": "20260823_144325_618939_chapter3.2.2",
+  "chapter": "3.2.2",
+  "mode": "practice",
+  "created_at": "2026-08-23T14:43:25.998144",
+  "updated_at": "2026-08-23T14:43:25.999609",
+  "status": "in_progress",
+  "template_file": "template/3.2.2/3.2.2.ipynb",
+  "practice_file": "practice.ipynb"
+}
