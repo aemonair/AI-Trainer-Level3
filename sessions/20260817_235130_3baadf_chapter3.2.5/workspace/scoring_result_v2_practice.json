@@ -1,0 +1,111 @@
+{
+  "chapter": "3.2.5",
+  "title": "从标签文件中读取每一行，并去除行首尾的空白字符，得到类别名称（AST 版本）",
+  "mode": "practice",
+  "total_score": 17,
+  "earned_score": 10,
+  "percentage": 58.8,
+  "details": [
+    {
+      "item_id": "M1",
+      "description": "从标签文件中读取每一行，并去除行首尾的空白字符，得到类别名称列表",
+      "earned": 2,
+      "max": 2,
+      "correct": true,
+      "details": "通过",
+      "user_code": "class_names = [name.strip() for name in open('voc-model-labels.txt').readlines()]",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M2",
+      "description": "创建 ONNX Runtime 的推理会话，用于运行模型进行推理",
+      "earned": 2,
+      "max": 2,
+      "correct": true,
+      "details": "通过",
+      "user_code": "ort_session = ort.InferenceSession('version-RFB-320.onnx')",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M3",
+      "description": "获取模型输入的名称",
+      "earned": 2,
+      "max": 2,
+      "correct": true,
+      "details": "通过",
+      "user_code": "input_name = ort_session.get_inputs()[0].name",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M4",
+      "description": "如果保存结果的目录不存在，则创建该目录",
+      "earned": 2,
+      "max": 2,
+      "correct": true,
+      "details": "通过",
+      "user_code": "os.makedirs(result_path)",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M5",
+      "description": "使用 OpenCV 读取图像文件",
+      "earned": 0,
+      "max": 2,
+      "correct": false,
+      "details": "失败规则: [\"{'must_call': 'imread cv2.imread'}\"]",
+      "user_code": "orig_image = _______________",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M6",
+      "description": "将图像调整为 320x240 的尺寸（符合模型输入的尺寸要求）",
+      "earned": 0,
+      "max": 1,
+      "correct": false,
+      "details": "失败规则: [\"{'must_call': 'cv2.resize resize'}\"]",
+      "user_code": "image = _______________(_______________, (320, 240))",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M7",
+      "description": "将图像调整为 320x240 的尺寸（符合模型输入的尺寸要求）",
+      "earned": 0,
+      "max": 1,
+      "correct": false,
+      "details": "失败规则: [\"{'must_call': 'cv2.resize resize'}\"]",
+      "user_code": "image = _______________(_______________, (320, 240))",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M8",
+      "description": "定义图像归一化的均值数组",
+      "earned": 2,
+      "max": 2,
+      "correct": true,
+      "details": "通过",
+      "user_code": "image_mean = _______________([127, 127, 127])",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M9",
+      "description": "在第一个维度上扩展一个维度，将图像变为 (1, 通道数, 高度, 宽度)，以符合模型输入的维度要求",
+      "earned": 0,
+      "max": 1,
+      "correct": false,
+      "details": "失败规则: [\"{'must_call': 'expand_dims np.expand_dims'}\"]",
+      "user_code": "image = _______________(image, axis=0)",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M10",
+      "description": "使用 ONNX Runtime 运行模型，输入图像数据，得到模型输出的置信度和边界框",
+      "earned": 0,
+      "max": 2,
+      "correct": false,
+      "details": "失败规则: [\"{'must_call': 'ort_session.run'}\"]",
+      "user_code": "confidences, boxes = _______________(None, {input_name: image})",
+      "difficulty": "medium"
+    }
+  ],
+  "graded_at": "2026-08-21T23:37:28.303009"
+}

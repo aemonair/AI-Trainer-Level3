@@ -1,0 +1,150 @@
+{
+  "file": "sessions/20260813_222651_ddd8fb_chapter2.2.1/workspace/practice.ipynb",
+  "chapter": "2.2.1",
+  "errors": [
+    {
+      "type": "ast_check_failed",
+      "item_id": "M11",
+      "description": "训练模型",
+      "deduction": 1,
+      "failed_rules": [
+        "答案不匹配",
+        "  标准答案: model.fit(X_resampled, y_resampled)",
+        "  你的答案: model.fit(X_train, y_train)"
+      ],
+      "knowledge_point": "api_call"
+    },
+    {
+      "type": "ast_check_failed",
+      "item_id": "M12",
+      "description": "模型预测",
+      "deduction": 1,
+      "failed_rules": [
+        "答案不匹配",
+        "  标准答案: y_pred_resampled = model.predict(X_test)",
+        "  你的答案: y_pred_resampled = model.fit(X_train, y_train)"
+      ],
+      "knowledge_point": "api_call"
+    }
+  ],
+  "warnings": [],
+  "score": 11,
+  "total_score": 13,
+  "total_blanks": 0,
+  "score_per_blank": 100.0,
+  "fill_comparison": [],
+  "implementation_comparison": [],
+  "result_comparison": [],
+  "knowledge_points": {},
+  "start_time": null,
+  "end_time": "2026-08-13T23:34:20.416942",
+  "process_audit": null,
+  "ipython_history": null,
+  "scoring_mode": "ast",
+  "schema_details": [
+    {
+      "item_id": "M1",
+      "description": "加载数据集",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M2",
+      "description": "显示数据前几行",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M3",
+      "description": "划分训练集和测试集",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M4",
+      "description": "划分训练集和测试集",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M5",
+      "description": "完成代码填空",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M6",
+      "description": "训练模型",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M7",
+      "description": "保存模型",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M8",
+      "description": "模型预测",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M9",
+      "description": "完成代码填空",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M10",
+      "description": "训练模型",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M11",
+      "description": "训练模型",
+      "max_score": 1,
+      "earned_score": 0,
+      "correct": false,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M12",
+      "description": "模型预测",
+      "max_score": 1,
+      "earned_score": 0,
+      "correct": false,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M13",
+      "description": "完成代码填空",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    }
+  ]
+}

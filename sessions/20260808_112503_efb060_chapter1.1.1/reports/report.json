@@ -1,0 +1,197 @@
+{
+  "file": "sessions/20260808_112503_efb060_chapter1.1.1/workspace/practice.ipynb",
+  "chapter": "1.1.1",
+  "errors": [],
+  "warnings": [],
+  "score": 22,
+  "total_score": 22,
+  "total_blanks": 0,
+  "score_per_blank": 100.0,
+  "fill_comparison": [],
+  "implementation_comparison": [],
+  "result_comparison": [],
+  "knowledge_points": {},
+  "start_time": null,
+  "end_time": "2026-08-12T23:25:04.284325",
+  "process_audit": null,
+  "ipython_history": null,
+  "scoring_mode": "ast",
+  "schema_details": [
+    {
+      "item_id": "M1",
+      "description": "读取数据集",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M2",
+      "description": "创建新列'RiskLevel'，根据住院天数判断风险等级",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M3",
+      "description": "创建新列'RiskLevel'，根据住院天数判断风险等级",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M4",
+      "description": "创建新列'RiskLevel'，根据住院天数判断风险等级",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M5",
+      "description": "统计不同风险等级的患者数量",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M6",
+      "description": "统计不同风险等级的患者数量",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M7",
+      "description": "计算高风险患者占比",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M8",
+      "description": "计算低风险患者占比",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M9",
+      "description": "根据BMI值划分指定区间",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M10",
+      "description": "根据BMI值划分指定区间",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M11",
+      "description": "根据BMI值划分指定区间",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M12",
+      "description": "根据BMI值划分指定区间",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M13",
+      "description": "计算每个BMI区间中高风险患者的比例",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M14",
+      "description": "计算每个BMI区间中高风险患者的比例",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M15",
+      "description": "统计每个BMI区间的患者数量",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M16",
+      "description": "根据年龄值划分指定区间",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M17",
+      "description": "根据年龄值划分指定区间",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M18",
+      "description": "根据年龄值划分指定区间",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M19",
+      "description": "根据年龄值划分指定区间",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M20",
+      "description": "计算每个年龄区间中高风险患者的比例",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M21",
+      "description": "计算每个年龄区间中高风险患者的比例",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M22",
+      "description": "统计每个年龄区间的患者数量",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    }
+  ]
+}

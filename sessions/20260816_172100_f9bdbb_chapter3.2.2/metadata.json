@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0.0",
+  "session_id": "20260816_172100_f9bdbb_chapter3.2.2",
+  "chapter": "3.2.2",
+  "mode": "practice",
+  "created_at": "2026-08-16T17:21:00.379325",
+  "updated_at": "2026-08-22T11:45:40",
+  "status": "completed",
+  "template_file": "template/3.2.2/3.2.2.ipynb",
+  "practice_file": "practice.ipynb",
+  "score": "15/17",
+  "score_pct": 88.2
+}

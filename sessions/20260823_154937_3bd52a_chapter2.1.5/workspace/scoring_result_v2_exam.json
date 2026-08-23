@@ -1,0 +1,171 @@
+{
+  "chapter": "2.1.5",
+  "title": "第2.1.5章操作题（AST 版本）",
+  "mode": "exam",
+  "total_score": 16,
+  "earned_score": 13,
+  "percentage": 81.2,
+  "details": [
+    {
+      "item_id": "M1",
+      "description": "加载数据集",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data = pd.read_csv('健康咨询客户数据集.csv')",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M2",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "print(data.info())",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M3",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "print(data.isnull().sum())",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M4",
+      "description": "删除缺失值",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data_cleaned = data.dropna()",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M5",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data_cleaned.loc[:, 'Your age'] = pd.to_numeric(data['Your age'], errors='coerce')",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M6",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data_cleaned.loc[:, 'Your age'] = pd.to_numeric(data['Your age'], errors='coerce')",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M7",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data_cleaned.loc[:, 'Your age'] = data_cleaned['Your age'].astype(int)",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M8",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data_cleaned = data_cleaned.drop_duplicates()",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M9",
+      "description": "训练模型",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data_cleaned['How do you describe your current level of fitness ?'] = label_encoder.fit_transform(data['How do you describe your current level of fitness ?'])",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M10",
+      "description": "训练模型",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data_cleaned['How do you describe your current level of fitness ?'] = label_encoder.fit_transform(data['How do you describe your current level of fitness ?'])",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M11",
+      "description": "完成代码填空",
+      "earned": 0,
+      "max": 1,
+      "correct": false,
+      "details": "失败规则: [\"{'must_call': 'exercise_frequency_counts.plot'}\"]",
+      "user_code": "plt.pie(autopct='%1.1f%%', startangle=90, colors=plt.cm.Paired.colors)",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M12",
+      "description": "划分训练集和测试集",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "train_data, test_data = train_test_split(X, y, test_size=0.2, random_state=42)",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M13",
+      "description": "划分训练集和测试集",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "train_data, test_data = train_test_split(X, y, test_size=0.2, random_state=42)",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M14",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "cleaned_file_path = '2.1.5_cleaned_data.csv'",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M15",
+      "description": "保存结果到文件",
+      "earned": 0,
+      "max": 1,
+      "correct": false,
+      "details": "失败规则: [\"{'must_call': 'data_filled.to_csv to_csv'}\"]",
+      "user_code": "data_cleaned.to_csv(cleaned_file_path, index=False)",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M16",
+      "description": "保存结果到文件",
+      "earned": 0,
+      "max": 1,
+      "correct": false,
+      "details": "失败规则: [\"{'must_call': 'data_filled.to_csv to_csv'}\"]",
+      "user_code": "data_cleaned.to_csv(cleaned_file_path, index=False)",
+      "difficulty": "medium"
+    }
+  ],
+  "graded_at": "2026-08-23T15:58:59.314471"
+}

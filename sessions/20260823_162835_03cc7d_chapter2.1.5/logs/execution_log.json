@@ -1,8 +1,24 @@
 {
   "schema_version": "1.0.0",
   "session_id": "20260823_162835_03cc7d_chapter2.1.5",
-  "created_at": "2026-08-23T16:28:35.843968",
-  "updated_at": "2026-08-23T16:28:35.843969",
+  "logger": {
+    "version": "2.0.0"
+  },
+  "created_at": "2026-08-23T16:28:35.843815",
+  "updated_at": "2026-08-23T16:31:12.364209",
   "kernel_info": {},
-  "events": []
+  "events": [
+    {
+      "event_id": 1,
+      "cell_index": 1,
+      "timestamp": "2026-08-23T16:31:12.364039",
+      "source": "import pandas as pd\n\n# 加载数据集\ndata = pd.read_csv('健康咨询客户数据集.csv')\n\n# 查看表结构基本信息\nprint(data.info())\n\n# 显示每一列的空缺值数量\nprint(data.isnull().sum())\n\n# 删除含有缺失值的行\ndata_cleaned = data.dropna()\n\n# 转换 'Your age' 列的数据类型为整数类型，并处理异常值\ndata_cleaned.loc[:, 'Your age'] = pd.to_numeric(data['Your age'], errors='coerce')\ndata_cleaned = data_cleaned.dropna(subset=['Your age'])\ndata_cleaned = data_cleaned[data_cleaned['Your age'] >= 0]\ndata_cleaned.loc[:, 'Your age'] = data_cleaned['Your age'].astype(int)\n\nprint(data_cleaned['Your age'].dtype)\n\n# 检查和删除重复值\nduplicates_removed = data_cleaned.duplicated().sum()\ndata_cleaned = data_cleaned.drop_duplicates()\n\nprint(f\"Removed {duplicates_removed} duplicate rows\")\n\nfrom sklearn.preprocessing import LabelEncoder\n\n# 归一化 'How do you describe your current level of fitness ?' 列\nlabel_encoder = LabelEncoder()\ndata_cleaned['How do you describe your current level of fitness ?'] = label_encoder.fit_transform(data_cleaned['How do you describe your current level of fitness ?'])\n\nprint(data_cleaned['How do you describe your current level of fitness ?'].unique())\n\nfrom sklearn.preprocessing import LabelEncoder\nimport matplotlib.pyplot as plt\n\n# 去掉列名中的空格\ndata.columns = data.columns.str.strip()\n# 显示数据集的列名\nprint(data.columns)\n\n# 删除包含缺失值的行\ndata_cleaned = data.dropna(subset=['How often do you exercise?'])\n\n# 统计不同健身频率的分布情况\nexercise_frequency_counts = data_cleaned['How often do you exercise?'].value_counts()\n\n# 绘制饼图\nplt.figure(figsize=(10, 6))\nexercise_frequency_counts.plot.pie(autopct='%1.1f%%', startangle=90, colors=plt.cm.Paired.colors)\nplt.title('Distribution of Exercise Frequency')\nplt.ylabel('')\nplt.show()\n\nimport pandas as pd\nfrom sklearn.model_selection import train_test_split\nimport matplotlib.pyplot as plt\n\n# 填充缺失值\ndata_filled = data.apply(lambda x: x.fillna(x.mode()[0]))\n\n# 划分数据（测试集占比20%）\ntrain_data, test_data = train_test_split(data_filled, test_size=0.2, random_state=42)\n\n# 保存处理后的数据\ncleaned_file_path = '2.1.5_cleaned_data.csv'\ndata_filled.to_csv(cleaned_file_path, index=False)",
+      "source_hash": "0f2ca4152167952140ffad6dbd97017c8cc2d4c1f18b1044d2fa90c5c68edf04",
+      "output": "",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 2
+    }
+  ]
 }

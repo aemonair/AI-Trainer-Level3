@@ -1,0 +1,131 @@
+{
+  "chapter": "3.2.2",
+  "title": "加载ONNX模型（AST 版本）",
+  "mode": "exam",
+  "total_score": 17,
+  "earned_score": 17,
+  "percentage": 100.0,
+  "details": [
+    {
+      "item_id": "M1",
+      "description": "加载ONNX模型",
+      "earned": 2,
+      "max": 2,
+      "correct": true,
+      "details": "通过",
+      "user_code": "ort_session = onnxruntime.InferenceSession('mnist.onnx')",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M2",
+      "description": "加载图像",
+      "earned": 2,
+      "max": 2,
+      "correct": true,
+      "details": "通过",
+      "user_code": "image = Image.open('img_test.png').convert('L')  # 转为灰度图",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M3",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "image = image.resize((28, 28))  # 调整大小为MNIST模型的输入尺寸2分",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M4",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "image_array = np.array(image, dtype=np.float32)  # 转为numpy数组2分",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M5",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "image_array = np.array(image, dtype=np.float32)  # 转为numpy数组2分",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M6",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "image_array = np.expand_dims(image_array, axis=0)  # 添加batch维度2分",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M7",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "image_array = np.expand_dims(image_array, axis=0)  # 添加batch维度2分",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M8",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "image_array = np.expand_dims(image_array, axis=0)  # 添加通道维度2分",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M9",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "image_array = np.expand_dims(image_array, axis=0)  # 添加通道维度2分",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M10",
+      "description": "返回模型输入列表",
+      "earned": 2,
+      "max": 2,
+      "correct": true,
+      "details": "通过",
+      "user_code": "ort_inputs = {ort_session.get_inputs()[0].name: image_array}",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M11",
+      "description": "执行预测",
+      "earned": 2,
+      "max": 2,
+      "correct": true,
+      "details": "通过",
+      "user_code": "ort_outs = ort_session.run(None, ort_inputs)",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M12",
+      "description": "获取预测结果",
+      "earned": 2,
+      "max": 2,
+      "correct": true,
+      "details": "通过",
+      "user_code": "predicted_class = np.argmax(ort_outs[0])",
+      "difficulty": "medium"
+    }
+  ],
+  "graded_at": "2026-08-23T17:07:10.722375"
+}

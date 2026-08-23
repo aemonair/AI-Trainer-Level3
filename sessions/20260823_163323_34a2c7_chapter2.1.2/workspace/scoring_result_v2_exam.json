@@ -1,0 +1,161 @@
+{
+  "chapter": "2.1.2",
+  "title": "第2.1.2章操作题（AST 版本）",
+  "mode": "exam",
+  "total_score": 15,
+  "earned_score": 15,
+  "percentage": 100.0,
+  "details": [
+    {
+      "item_id": "M1",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data = pd.read_excel('大学生低碳生活行为的影响因素数据集.xlsx')",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M2",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "initial_row_count = data.shape[0]   #处理前的数据行数",
+      "difficulty": "easy"
+    },
+    {
+      "item_id": "M3",
+      "description": "删除缺失值",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data = data.dropna()                #删除缺失值所在行",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M4",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "final_row_count = data.shape[0]     #处理后的数据行数",
+      "difficulty": "easy"
+    },
+    {
+      "item_id": "M5",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data = data.drop_duplicates()",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M6",
+      "description": "训练模型",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data[numerical_features] = scaler.fit_transform(data[numerical_features])",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M7",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "selected_features = [",
+      "difficulty": "easy"
+    },
+    {
+      "item_id": "M8",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "'1.您的性别○男性   ○女性',",
+      "difficulty": "easy"
+    },
+    {
+      "item_id": "M9",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "'4.您的月生活费○≦1,000元   ○1,001-2,000元   ○2,001-3,000元   ○≧3,001元',",
+      "difficulty": "easy"
+    },
+    {
+      "item_id": "M10",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "'8.您是否认为低碳生活会提高您的生活质量？'",
+      "difficulty": "easy"
+    },
+    {
+      "item_id": "M11",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "'8.您是否认为低碳生活会提高您的生活质量？'",
+      "difficulty": "easy"
+    },
+    {
+      "item_id": "M12",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "y = data['低碳行为积极性']",
+      "difficulty": "easy"
+    },
+    {
+      "item_id": "M13",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "y = data['低碳行为积极性']",
+      "difficulty": "easy"
+    },
+    {
+      "item_id": "M14",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "y = data['低碳行为积极性']",
+      "difficulty": "easy"
+    },
+    {
+      "item_id": "M15",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "y = data['低碳行为积极性']",
+      "difficulty": "easy"
+    }
+  ],
+  "graded_at": "2026-08-23T16:38:33.287809"
+}

@@ -1,8 +1,36 @@
 {
   "schema_version": "1.0.0",
   "session_id": "20260822_123055_87da9f_chapter2.2.3",
-  "created_at": "2026-08-22T12:30:55.901193",
-  "updated_at": "2026-08-22T12:30:55.901195",
+  "logger": {
+    "version": "2.0.0"
+  },
+  "created_at": "2026-08-22T12:30:55.901016",
+  "updated_at": "2026-08-22T12:34:53.705541",
   "kernel_info": {},
-  "events": []
+  "events": [
+    {
+      "event_id": 1,
+      "cell_index": 1,
+      "timestamp": "2026-08-22T12:34:46.549045",
+      "source": "import pandas as pd\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.ensemble import RandomForestRegressor\nimport pickle\nfrom sklearn.metrics import mean_squared_error, r2_score\nimport xgboost as xgb\n\n# 加载数据集\ndf = pd.read_csv('fitness analysis.csv')\n\n# 显示前五行数据\nprint(df.head())\n\n# 去除所有字符串字段的前后空格\ndf = df.applymap(lambda x: x.strip() if isinstance(x, str) else x)\n\n# 检查和清理列名\ndf.columns = df.columns.str.strip()\n\n# 选择相关特征进行建模\nX = df[['Your gender', 'How important is exercise to you ?', 'How healthy do you consider yourself?']]\nX = pd.get_dummies(X)  # 将分类变量转为数值变量\n\n# 将年龄段转为数值变量\ny = df['Your age'].apply(lambda x: int(x.split(' ')[0]))  # 假设年龄段为整数\n\n# 将数据集划分为训练集和测试集（测试集占比20%）\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n\n# 创建随机森林回归模型（创建的决策树的数量为100）\nrf_model = RandomForestRegressor(n_estimators=100, random_state=42)\n# 训练随机森林回归模型\nrf_model.fit(X_train, y_train)\n\n# 保存训练好的模型\nwith open('2.2.3_model.pkl', 'wb') as model_file:\n    pickle.dump(rf_model, model_file)\n\n# 进行结果预测\ny_pred = rf_model.predict(X_test)\nresults_df = pd.DataFrame(y_pred, columns=['预测结果'])\nresults_df.to_csv('2.2.3_results.txt', index=False)\n\n# 使用测试工具对模型进行测试，并记录测试结果\ntrain_score = rf_model.score(X_train, y_train)   #训练集分数\ntest_score = rf_model.score(X_test, y_test)    #测试集分数\nmse = mean_squared_error(y_test, y_pred)  #均方误差\nr2 = r2_score(y_test, y_pred)  #决定系数\nwith open('2.2.3_report.txt', 'w') as report_file:\n    report_file.write(f'训练集得分: {train_score}\\n')\n    report_file.write(f'测试集得分: {test_score}\\n')\n    report_file.write(f'均方误差(MSE): {mse}\\n')\n    report_file.write(f'决定系数(R^2): {r2}\\n')\n\n# 运用工具分析算法中错误案例产生的原因并进行纠正\n# 初始化XGBoost回归模型（构建100棵树）\nxgb_model = xgb.XGBRegressor(n_estimators=100, random_state=42)\n# 训练XGBoost回归模型\nxgb_model.fit(X_train, y_train)\n# 使用XGBoost回归模型在测试集上进行结果预测\ny_pred_xgb = xgb_model.predict(X_test)\n\nresults_df_xgb = pd.DataFrame(y_pred_xgb, columns=['预测结果'])\nresults_df_xgb.to_csv('2.2.3_results_xgb.txt', index=False)\n\nwith open('2.2.3_report_xgb.txt', 'w') as xgb_report_file:\n    xgb_report_file.write(f'XGBoost训练集得分: {xgb_model.score(X_train, y_train)}\\n')\n    xgb_report_file.write(f'XGBoost测试集得分: {xgb_model.score(X_test, y_test)}\\n')\n    xgb_report_file.write(f'XGBoost均方误差(MSE): {mean_squared_error(y_test, y_pred)}\\n')\n    xgb_report_file.write(f'XGBoost决定系数(R^2): {r2_score(y_test, y_pred))}\\n')",
+      "source_hash": "6459e48a2a1d0efa6608f0cfea6c9c5ee6edf8321c52560527f4c56055040f7d",
+      "output": "",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 2
+    },
+    {
+      "event_id": 2,
+      "cell_index": 2,
+      "timestamp": "2026-08-22T12:34:53.705309",
+      "source": "import pandas as pd\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.ensemble import RandomForestRegressor\nimport pickle\nfrom sklearn.metrics import mean_squared_error, r2_score\nimport xgboost as xgb\n\n# 加载数据集\ndf = pd.read_csv('fitness analysis.csv')\n\n# 显示前五行数据\nprint(df.head())\n\n# 去除所有字符串字段的前后空格\ndf = df.applymap(lambda x: x.strip() if isinstance(x, str) else x)\n\n# 检查和清理列名\ndf.columns = df.columns.str.strip()\n\n# 选择相关特征进行建模\nX = df[['Your gender', 'How important is exercise to you ?', 'How healthy do you consider yourself?']]\nX = pd.get_dummies(X)  # 将分类变量转为数值变量\n\n# 将年龄段转为数值变量\ny = df['Your age'].apply(lambda x: int(x.split(' ')[0]))  # 假设年龄段为整数\n\n# 将数据集划分为训练集和测试集（测试集占比20%）\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n\n# 创建随机森林回归模型（创建的决策树的数量为100）\nrf_model = RandomForestRegressor(n_estimators=100, random_state=42)\n# 训练随机森林回归模型\nrf_model.fit(X_train, y_train)\n\n# 保存训练好的模型\nwith open('2.2.3_model.pkl', 'wb') as model_file:\n    pickle.dump(rf_model, model_file)\n\n# 进行结果预测\ny_pred = rf_model.predict(X_test)\nresults_df = pd.DataFrame(y_pred, columns=['预测结果'])\nresults_df.to_csv('2.2.3_results.txt', index=False)\n\n# 使用测试工具对模型进行测试，并记录测试结果\ntrain_score = rf_model.score(X_train, y_train)   #训练集分数\ntest_score = rf_model.score(X_test, y_test)    #测试集分数\nmse = mean_squared_error(y_test, y_pred)  #均方误差\nr2 = r2_score(y_test, y_pred)  #决定系数\nwith open('2.2.3_report.txt', 'w') as report_file:\n    report_file.write(f'训练集得分: {train_score}\\n')\n    report_file.write(f'测试集得分: {test_score}\\n')\n    report_file.write(f'均方误差(MSE): {mse}\\n')\n    report_file.write(f'决定系数(R^2): {r2}\\n')\n\n# 运用工具分析算法中错误案例产生的原因并进行纠正\n# 初始化XGBoost回归模型（构建100棵树）\nxgb_model = xgb.XGBRegressor(n_estimators=100, random_state=42)\n# 训练XGBoost回归模型\nxgb_model.fit(X_train, y_train)\n# 使用XGBoost回归模型在测试集上进行结果预测\ny_pred_xgb = xgb_model.predict(X_test)\n\nresults_df_xgb = pd.DataFrame(y_pred_xgb, columns=['预测结果'])\nresults_df_xgb.to_csv('2.2.3_results_xgb.txt', index=False)\n\nwith open('2.2.3_report_xgb.txt', 'w') as xgb_report_file:\n    xgb_report_file.write(f'XGBoost训练集得分: {xgb_model.score(X_train, y_train)}\\n')\n    xgb_report_file.write(f'XGBoost测试集得分: {xgb_model.score(X_test, y_test)}\\n')\n    xgb_report_file.write(f'XGBoost均方误差(MSE): {mean_squared_error(y_test, y_pred)}\\n')\n    xgb_report_file.write(f'XGBoost决定系数(R^2): {r2_score(y_test, y_pred)}\\n')",
+      "source_hash": "9f5b2a9484fa4f88d7136f2f6f80766be272a39a4d776f8c78ed43a328e66ac1",
+      "output": "",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 3
+    }
+  ]
 }

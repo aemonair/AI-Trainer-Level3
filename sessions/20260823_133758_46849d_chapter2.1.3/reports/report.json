@@ -1,0 +1,157 @@
+{
+  "file": "/Users/air/Downloads/GUIDE_AI_3/人工智能训练师_3级_sucai/sessions/20260823_133758_46849d_chapter2.1.3/workspace/practice.ipynb",
+  "chapter": "2.1.3",
+  "errors": [],
+  "warnings": [],
+  "score": 17,
+  "total_score": 17,
+  "total_blanks": 0,
+  "score_per_blank": 100.0,
+  "fill_comparison": [],
+  "implementation_comparison": [],
+  "result_comparison": [],
+  "knowledge_points": {},
+  "start_time": null,
+  "end_time": "2026-08-23T14:06:11.861788",
+  "process_audit": null,
+  "ipython_history": null,
+  "scoring_mode": "ast",
+  "schema_details": [
+    {
+      "item_id": "M1",
+      "description": "加载数据集",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M2",
+      "description": "显示数据前几行",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M3",
+      "description": "完成代码填空",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M4",
+      "description": "完成代码填空",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M5",
+      "description": "完成代码填空",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M6",
+      "description": "完成代码填空",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M7",
+      "description": "完成代码填空",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M8",
+      "description": "完成代码填空",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M9",
+      "description": "训练模型",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M10",
+      "description": "完成代码填空",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M11",
+      "description": "完成代码填空",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M12",
+      "description": "完成代码填空",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M13",
+      "description": "完成代码填空",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M14",
+      "description": "划分训练集和测试集",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M15",
+      "description": "划分训练集和测试集",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M16",
+      "description": "保存结果到文件",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M17",
+      "description": "保存结果到文件",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    }
+  ]
+}

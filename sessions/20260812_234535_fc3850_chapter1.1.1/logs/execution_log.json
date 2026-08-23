@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "session_id": "20260812_234535_fc3850_chapter1.1.1",
+  "logger": {
+    "version": "2.0.0"
+  },
+  "created_at": "2026-08-12T23:45:35.974556",
+  "updated_at": "2026-08-12T23:45:37.764573",
+  "kernel_info": {},
+  "events": [
+    {
+      "event_id": 1,
+      "cell_index": 1,
+      "timestamp": "2026-08-12T23:45:37.211133",
+      "source": "# 自动初始化执行日志记录器（请勿删除）\nimport sys\nimport os\nfrom pathlib import Path\ntry:\n    # 运行时推导项目根目录\n    try:\n        # .py 脚本环境\n        root_dir = Path(__file__).resolve().parent.parent\n    except NameError:\n        # Jupyter 环境：从 cwd 向上查找包含 core/ 和 sessions/ 的目录\n        p = Path(os.getcwd()).resolve()\n        while p != p.parent:\n            if (p / 'core').exists() and (p / 'sessions').exists():\n                root_dir = p\n                break\n            p = p.parent\n        else:\n            root_dir = Path(os.getcwd()).resolve()\n    sys.path.insert(0, str(root_dir))\n    \n    from core.session import Session\n    from scripts.execution_logger import ExecutionLogger\n    \n    session = Session('20260812_234535_fc3850_chapter1.1.1', root_dir)\n    logger = ExecutionLogger(session=session, auto_save=True)\n    logger.start()\n    print('✅ 执行日志记录器已自动启动')\nexcept Exception as e:\n    print(f'⚠️ 日志记录器初始化失败（不影响练习）: {e}')",
+      "source_hash": "0ab75b092154a5fde979b7cad9ef72ddcb049ac61f61cc82e7b237f6724cfc30",
+      "output": "",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 2
+    },
+    {
+      "event_id": 2,
+      "cell_index": 2,
+      "timestamp": "2026-08-12T23:45:37.764431",
+      "source": "import pandas as pd\nimport numpy as np\n\n# 读取数据集 1分\ndata = _____________",
+      "source_hash": "a412899229a630af01878c9a9b2bb9581f6a5861a8755840a52255d96922896d",
+      "output": "",
+      "status": "error",
+      "error": {
+        "type": "NameError",
+        "message": "name '_____________' is not defined",
+        "traceback": "NoneType: None\n"
+      },
+      "duration_ms": 0.0,
+      "execution_count": 3
+    }
+  ]
+}

@@ -1,0 +1,189 @@
+{
+  "file": "/Users/air/Downloads/GUIDE_AI_3/人工智能训练师_3级_sucai/sessions/20260823_143656_b3110f_chapter2.2.2/workspace/practice.ipynb",
+  "chapter": "2.2.2",
+  "errors": [],
+  "warnings": [],
+  "score": 21,
+  "total_score": 21,
+  "total_blanks": 0,
+  "score_per_blank": 100.0,
+  "fill_comparison": [],
+  "implementation_comparison": [],
+  "result_comparison": [],
+  "knowledge_points": {},
+  "start_time": null,
+  "end_time": "2026-08-23T14:42:36.494972",
+  "process_audit": null,
+  "ipython_history": null,
+  "scoring_mode": "ast",
+  "schema_details": [
+    {
+      "item_id": "M1",
+      "description": "正确加载 auto-mpg.csv 数据集",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M2",
+      "description": "显示数据前几行",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M3",
+      "description": "将 horsepower 列转换为数值类型",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M4",
+      "description": "将 horsepower 列转换为数值类型",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M5",
+      "description": "删除缺失值",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M6",
+      "description": "选择特征列",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M7",
+      "description": "选择目标变量",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M8",
+      "description": "使用 train_test_split 划分训练集和测试集",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M9",
+      "description": "使用 train_test_split 划分训练集和测试集",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M10",
+      "description": "创建包含 StandardScaler 和 LinearRegression 的 Pipeline",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M11",
+      "description": "创建包含 StandardScaler 和 LinearRegression 的 Pipeline",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M12",
+      "description": "创建包含 StandardScaler 和 LinearRegression 的 Pipeline",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M13",
+      "description": "训练 Pipeline 模型",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M14",
+      "description": "保存模型",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M15",
+      "description": "模型预测",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M16",
+      "description": "保存结果到 CSV",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M17",
+      "description": "初始化 RandomForestRegressor 模型",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M18",
+      "description": "初始化 RandomForestRegressor 模型",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M19",
+      "description": "训练随机森林模型",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M20",
+      "description": "随机森林模型预测",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M21",
+      "description": "保存随机森林结果到 CSV",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    }
+  ]
+}

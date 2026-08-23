@@ -1,0 +1,149 @@
+{
+  "file": "sessions/20260819_231852_b1bb39_chapter2.1.1/workspace/practice.ipynb",
+  "chapter": "2.1.1",
+  "errors": [],
+  "warnings": [],
+  "score": 20,
+  "total_score": 20,
+  "total_blanks": 0,
+  "score_per_blank": 100.0,
+  "fill_comparison": [],
+  "implementation_comparison": [],
+  "result_comparison": [],
+  "knowledge_points": {},
+  "start_time": null,
+  "end_time": "2026-08-19T23:27:41.546904",
+  "process_audit": null,
+  "ipython_history": null,
+  "scoring_mode": "exam",
+  "schema_details": [
+    {
+      "item_id": "M1",
+      "description": "加载数据集并显示数据集的前五行",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M2",
+      "description": "加载数据集并显示数据集的前五行",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M3",
+      "description": "检查缺失值并删除缺失值所在的行",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M4",
+      "description": "检查缺失值并删除缺失值所在的行",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M5",
+      "description": "检查缺失值并删除缺失值所在的行",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M6",
+      "description": "检查缺失值并删除缺失值所在的行",
+      "max_score": 2,
+      "earned_score": 2,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M7",
+      "description": "将 'horsepower' 列转换为数值类型，并（删除）处理转换中的异常值",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M8",
+      "description": "将 'horsepower' 列转换为数值类型，并（删除）处理转换中的异常值",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M9",
+      "description": "对数值型数据进行标准化处理",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M10",
+      "description": "选择特征、自变量和目标变量",
+      "max_score": 2,
+      "earned_score": 2,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M11",
+      "description": "选择特征、自变量和目标变量",
+      "max_score": 2,
+      "earned_score": 2,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M12",
+      "description": "选择特征、自变量和目标变量",
+      "max_score": 2,
+      "earned_score": 2,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M13",
+      "description": "划分数据集为训练集和测试集（训练集占8成）",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M14",
+      "description": "划分数据集为训练集和测试集（训练集占8成）",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M15",
+      "description": "保存清洗和处理后的数据（不存储额外的索引号）",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M16",
+      "description": "保存清洗和处理后的数据（不存储额外的索引号）",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    }
+  ]
+}

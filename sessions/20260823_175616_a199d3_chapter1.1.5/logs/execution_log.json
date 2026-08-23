@@ -1,8 +1,48 @@
 {
   "schema_version": "1.0.0",
   "session_id": "20260823_175616_a199d3_chapter1.1.5",
-  "created_at": "2026-08-23T17:56:16.277590",
-  "updated_at": "2026-08-23T17:56:16.277592",
+  "logger": {
+    "version": "2.0.0"
+  },
+  "created_at": "2026-08-23T17:56:16.277422",
+  "updated_at": "2026-08-23T18:01:12.118499",
   "kernel_info": {},
-  "events": []
+  "events": [
+    {
+      "event_id": 1,
+      "cell_index": 1,
+      "timestamp": "2026-08-23T17:56:49.782006",
+      "source": "import pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\n\n# 1. 数据采集\n# 从本地文件中读取数据  2分\ndata = pd.read_csv('vehicle_traffic_data.csv')\nprint(\"数据采集完成，已加载到DataFrame中\")\n\n# 打印数据的前5条记录 2分\nprint(data.head())",
+      "source_hash": "78c2693b1a20f31a922ab8b15b7bc507287bbaf5ab39d28c4de5722ad924e870",
+      "output": "",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 2
+    },
+    {
+      "event_id": 2,
+      "cell_index": 2,
+      "timestamp": "2026-08-23T17:58:15.851809",
+      "source": "# 2. 数据清洗与预处理\n# 处理缺失值（删除）  2分\ndata = data.dropna()\n\n# 数据类型转换\ndata['Age'] = data['Age'].astype(int)       #Age数据类型转换为int 1分\ndata['Speed'] = data['Speed'].astype(float)     #Speed数据类型转换为float 1分\ndata['TravelDistance'] = data['TravelDistance'].astype(float)     #TravelDistance数据类型转换为float 1分\ndata['TravelTime'] = data['TravelTime'].astype(float)     #TravelTime数据类型转换为float 1分\n\n# 处理异常值  2分\ndata = data[(data['Age'].between(18, 70))  & \n            (data['Speed'].between(0, 200)) & \n            (data['TravelDistance'].between(1, 1000)) & \n            (data['TravelTime'].between(1, 1440))]\n\n# 保存清洗后的数据  1分\ndata.to_csv('cleaned_vehicle_traffic_data.csv', index=False)\nprint(\"数据清洗完成，已保存为 'cleaned_vehicle_traffic_data.csv'\")",
+      "source_hash": "e3f3fca1743671e890a685fc467a0d15ce48ac47026f2a9dec23edcc0eb2d390",
+      "output": "",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 3
+    },
+    {
+      "event_id": 3,
+      "cell_index": 3,
+      "timestamp": "2026-08-23T18:01:12.118125",
+      "source": "# 3. 数据合理性审核\n# 审核字段合理性 1分\nunreasonable_data = data[~((data['Age'].between(18, 70))  & \n                            (data['Speed'].between(0, 200)) & \n                            (data['TravelDistance'].between(1, 1000)) & \n                            (data['TravelTime'].between(1, 1440))\n                          )]\nprint(\"不合理的数据:\\n\", unreasonable_data)\n\n# 4. 数据统计\n# 统计每种交通事件的发生次数  2分\ntraffic_event_counts = data.groupby('TrafficEvent').value_counts()\nprint(\"每种交通事件的发生次数:\\n\", traffic_event_counts)\n\n# 统计不同性别的平均车速、行驶距离和行驶时间  2分\ngender_stats = data.groupby('Gender').agg({'Speed':'mean', 'TravelDistance':'mean', 'TravelTime':'mean'})\nprint(\"不同性别的平均车速、行驶距离和行驶时间:\\n\", gender_stats)\n\n# 统计不同年龄段的驾驶员数  5分\nage_bins = [18, 26, 36, 46, 56, 66, np.inf]\nage_labels = ['18-25', '26-35', '36-45', '46-55', '56-65', '65+']\ndata['AgeGroup'] = pd.cut(data['Age'],bins=age_bins,labels=age_labels, right=False)\nage_group_counts = data['AgeGroup'].value_counts()\nprint(\"不同年龄段的驾驶员数:\\n\", age_group_counts)",
+      "source_hash": "5beed3cf57d03bf0fdfe991fcb267c8c7f40ceebfca732779d6a2344c40c0580",
+      "output": "",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 4
+    }
+  ]
 }

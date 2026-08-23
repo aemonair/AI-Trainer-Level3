@@ -1,8 +1,36 @@
 {
   "schema_version": "1.0.0",
   "session_id": "20260822_123700_ea07e2_chapter3.2.1",
-  "created_at": "2026-08-22T12:37:00.691638",
-  "updated_at": "2026-08-22T12:37:00.691640",
+  "logger": {
+    "version": "2.0.0"
+  },
+  "created_at": "2026-08-22T12:37:00.691514",
+  "updated_at": "2026-08-22T15:23:44.961632",
   "kernel_info": {},
-  "events": []
+  "events": [
+    {
+      "event_id": 1,
+      "cell_index": 1,
+      "timestamp": "2026-08-22T15:23:32.384922",
+      "source": "import onnxruntime as ort\nimport numpy as np\nimport scipy.special\nfrom PIL import Image\n\n\n# 预处理图像\ndef preprocess_image(image, resize_size=256, crop_size=224, mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]):\n  image = image.resize((resize_size, resize_size), Image.BILINEAR)\n  w, h = image.size\n  left = (w - crop_size) / 2\n  top = (h - crop_size) / 2\n  image = image.crop((left, top, left + crop_size, top + crop_size))\n  image = np.array(image).astype(np.float32)\n  image = image / 255.0\n  image = (image - mean) / std\n  image = np.transpose(image, (2, 0, 1))\n  image = image.reshape((1,) + image.shape)\n  return image\n\n\n# 模型加载 2分\nsession = ort.InferenceSession('resnet.onnx')\n\n\n# 加载类别标签\nlabels_path = 'labels.txt'\nwith open(labels_path) as f:\n  labels = [line.strip() for line in f.readlines()]\n\n\n# 获取模型输入和输出的名称\ninput_name = session.get_inputs()[0].name\noutput_name = session.get_outputs()[0].name\n\n\n# 加载图片 2分\nimage = Image.open('img_test.jpg').convert('RGB')\n\n\n# 预处理图片 2分\nprocessed_image = processed_image(image)\n\n\n# 确保输入数据是 float32 类型\nprocessed_image = processed_image.astype(np.float32)\n\n\n# 进行图片识别 2分\noutput = session.run([output_name], {input_name: processed_image})[0]\n\n\n# 应用 softmax 函数获取概率 2分\nprobabilities = scipy.special.softmax(output, axis=-1)\n\n\n# 获取最高的5个概率和对应的类别索引 3分\ntop5_idx = probabilities[0][-5:][::-1]\ntop5_prob = probabilities[0][top5_idx]\n\n\n# 打印结果\nprint(\"Top 5 predicted classes:\")\nfor i in range(5):\n  print(f\"{i+1}: {labels[top5_idx[i]]} - Probability: {top5_prob[i]}\")",
+      "source_hash": "140a177e0aaa1ab3af173986560cad0d7314be32237dae34d29ae30aea797177",
+      "output": "",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 2
+    },
+    {
+      "event_id": 2,
+      "cell_index": 2,
+      "timestamp": "2026-08-22T15:23:44.961250",
+      "source": "import onnxruntime as ort\nimport numpy as np\nimport scipy.special\nfrom PIL import Image\n\n\n# 预处理图像\ndef preprocess_image(image, resize_size=256, crop_size=224, mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]):\n  image = image.resize((resize_size, resize_size), Image.BILINEAR)\n  w, h = image.size\n  left = (w - crop_size) / 2\n  top = (h - crop_size) / 2\n  image = image.crop((left, top, left + crop_size, top + crop_size))\n  image = np.array(image).astype(np.float32)\n  image = image / 255.0\n  image = (image - mean) / std\n  image = np.transpose(image, (2, 0, 1))\n  image = image.reshape((1,) + image.shape)\n  return image\n\n\n# 模型加载 2分\nsession = ort.InferenceSession('resnet.onnx')\n\n\n# 加载类别标签\nlabels_path = 'labels.txt'\nwith open(labels_path) as f:\n  labels = [line.strip() for line in f.readlines()]\n\n\n# 获取模型输入和输出的名称\ninput_name = session.get_inputs()[0].name\noutput_name = session.get_outputs()[0].name\n\n\n# 加载图片 2分\nimage = Image.open('img_test.jpg').convert('RGB')\n\n\n# 预处理图片 2分\nprocessed_image = preprocess_image(image)\n\n\n# 确保输入数据是 float32 类型\nprocessed_image = processed_image.astype(np.float32)\n\n\n# 进行图片识别 2分\noutput = session.run([output_name], {input_name: processed_image})[0]\n\n\n# 应用 softmax 函数获取概率 2分\nprobabilities = scipy.special.softmax(output, axis=-1)\n\n\n# 获取最高的5个概率和对应的类别索引 3分\ntop5_idx = probabilities[0][-5:][::-1]\ntop5_prob = probabilities[0][top5_idx]\n\n\n# 打印结果\nprint(\"Top 5 predicted classes:\")\nfor i in range(5):\n  print(f\"{i+1}: {labels[top5_idx[i]]} - Probability: {top5_prob[i]}\")",
+      "source_hash": "b15ae1db9da2a30ebdc64a371f6e0a21559234fa1f7ad08a676defb234b1a14c",
+      "output": "",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 3
+    }
+  ]
 }

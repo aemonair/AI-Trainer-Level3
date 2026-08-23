@@ -1,8 +1,36 @@
 {
   "schema_version": "1.0.0",
   "session_id": "20260823_133812_2633a7_chapter2.1.4",
-  "created_at": "2026-08-23T13:38:12.010872",
-  "updated_at": "2026-08-23T13:38:12.010874",
+  "logger": {
+    "version": "2.0.0"
+  },
+  "created_at": "2026-08-23T13:38:12.010747",
+  "updated_at": "2026-08-23T13:51:11.097343",
   "kernel_info": {},
-  "events": []
+  "events": [
+    {
+      "event_id": 1,
+      "cell_index": 1,
+      "timestamp": "2026-08-23T13:50:57.029707",
+      "source": "import pandas as pd\n\n# 加载数据集并指定编码为gbk\ndata = pd.read_csv('medical_data.csv' , encoding='gbk')\n\n# 查看数据类型\nprint(data.dtypes)\n# 查看表结构基本信息\nprint(data.info())\n\n# 显示每一列的空缺值数量\nprint(data.isnull().sum())\n\n# 规范日期格式\ndata['就诊日期'] = pd.to_datetime(data['就诊日期'])\ndata['诊断日期'] = pd.to_datetime(data['诊断日期'])\n\n# 修改列名\npd.rename(columns={'病人ID':'患者ID'}, inplace=True)\n\n# 查看修改后的表结构\nprint(data.head())\n\nfrom datetime import datetime\n\n# 增加诊断延迟和病程列 诊断日期-就诊日期\ndata['诊断延迟'] = (data['诊断日期']-data['就诊日期']).dt.days\ndata['病程'] = (datetime(2024, 9, 1) - data['诊断日期']).dt.days\n\n# 删除不合理的数据\ndata = data[(data['诊断延迟'] >= 0) & (data['年龄'] > 0) & (data['年龄'] < 120)]\n\n# 查看修改后的数据\nprint(data.describe())\n\n# 删除重复值并记录删除的行数\ninitial_rows = data.shape[0]\ndata.drop_duplicates(inplace=True)\ndeleted_rows = initial_rows - data.shape[0]\n\nprint(f'删除的重复行数: {deleted_rows}')\n\nfrom sklearn.preprocessing import MinMaxScaler\n\n# 对需要归一化的列进行处理\nscaler = MinMaxScaler()\ncolumns_to_normalize = ['年龄','体重','身高']\ndata[columns_to_normalize] = scaler.fit_transform(data[columns_to_normalize])\n\n# 查看归一化后的数据\nprint(data.head())\n\nimport matplotlib.pyplot as plt\nimport matplotlib.font_manager as fm\n\n\n# 统计治疗结果分布\ntreatment_outcome_distribution = data.groupby('疾病类型')['治疗结果'].value_counts().unstack()\n\n# 设置中文字体\nfont_path = 'C:/Windows/Fonts/simhei.ttf'  # 根据你的系统调整字体路径\nmy_font = fm.FontProperties(fname=font_path)\n\n# 绘制柱状图\ntreatment_outcome_distribution.plt.show(kind='?', stacked=True)\nplt.title('不同疾病类型的治疗结果分布', fontproperties=my_font)\nplt.xlabel('疾病类型', fontproperties=my_font)\nplt.ylabel('治疗结果数量', fontproperties=my_font)\nplt.xticks(fontproperties=my_font)  # 设置x轴刻度标签的字体\nplt.yticks(fontproperties=my_font)  # 设置y轴刻度标签的字体\nplt.legend(prop=my_font)  # 设置图例字体\nplt.show()\n\n# 绘制散点图\nplt.scatter(data['年龄'], data['疾病严重程度'])\nplt.title('年龄和疾病严重程度的关系', fontproperties=my_font)\nplt.xlabel('年龄', fontproperties=my_font)\nplt.ylabel('疾病严重程度', fontproperties=my_font)\nplt.xticks(fontproperties=my_font)  # 设置x轴刻度标签的字体\nplt.yticks(fontproperties=my_font)  # 设置y轴刻度标签的字体\nplt.legend(prop=my_font)  # 设置图例字体\nplt.show()\n\n# 保存处理后得数据\noutput_path = '2.1.4_cleaned_data.csv'\ndata.to_csv(output_path, index=False)",
+      "source_hash": "269a3578f96293defbd25de3690f3a5eb10c6aef1b495dcb060ed9069949d07e",
+      "output": "",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 2
+    },
+    {
+      "event_id": 2,
+      "cell_index": 2,
+      "timestamp": "2026-08-23T13:51:11.097066",
+      "source": "import pandas as pd\n\n# 加载数据集并指定编码为gbk\ndata = pd.read_csv('medical_data.csv' , encoding='gbk')\n\n# 查看数据类型\nprint(data.dtypes)\n# 查看表结构基本信息\nprint(data.info())\n\n# 显示每一列的空缺值数量\nprint(data.isnull().sum())\n\n# 规范日期格式\ndata['就诊日期'] = pd.to_datetime(data['就诊日期'])\ndata['诊断日期'] = pd.to_datetime(data['诊断日期'])\n\n# 修改列名\ndata.rename(columns={'病人ID':'患者ID'}, inplace=True)\n\n# 查看修改后的表结构\nprint(data.head())\n\nfrom datetime import datetime\n\n# 增加诊断延迟和病程列 诊断日期-就诊日期\ndata['诊断延迟'] = (data['诊断日期']-data['就诊日期']).dt.days\ndata['病程'] = (datetime(2024, 9, 1) - data['诊断日期']).dt.days\n\n# 删除不合理的数据\ndata = data[(data['诊断延迟'] >= 0) & (data['年龄'] > 0) & (data['年龄'] < 120)]\n\n# 查看修改后的数据\nprint(data.describe())\n\n# 删除重复值并记录删除的行数\ninitial_rows = data.shape[0]\ndata.drop_duplicates(inplace=True)\ndeleted_rows = initial_rows - data.shape[0]\n\nprint(f'删除的重复行数: {deleted_rows}')\n\nfrom sklearn.preprocessing import MinMaxScaler\n\n# 对需要归一化的列进行处理\nscaler = MinMaxScaler()\ncolumns_to_normalize = ['年龄','体重','身高']\ndata[columns_to_normalize] = scaler.fit_transform(data[columns_to_normalize])\n\n# 查看归一化后的数据\nprint(data.head())\n\nimport matplotlib.pyplot as plt\nimport matplotlib.font_manager as fm\n\n\n# 统计治疗结果分布\ntreatment_outcome_distribution = data.groupby('疾病类型')['治疗结果'].value_counts().unstack()\n\n# 设置中文字体\nfont_path = 'C:/Windows/Fonts/simhei.ttf'  # 根据你的系统调整字体路径\nmy_font = fm.FontProperties(fname=font_path)\n\n# 绘制柱状图\ntreatment_outcome_distribution.plt.show(kind='?', stacked=True)\nplt.title('不同疾病类型的治疗结果分布', fontproperties=my_font)\nplt.xlabel('疾病类型', fontproperties=my_font)\nplt.ylabel('治疗结果数量', fontproperties=my_font)\nplt.xticks(fontproperties=my_font)  # 设置x轴刻度标签的字体\nplt.yticks(fontproperties=my_font)  # 设置y轴刻度标签的字体\nplt.legend(prop=my_font)  # 设置图例字体\nplt.show()\n\n# 绘制散点图\nplt.scatter(data['年龄'], data['疾病严重程度'])\nplt.title('年龄和疾病严重程度的关系', fontproperties=my_font)\nplt.xlabel('年龄', fontproperties=my_font)\nplt.ylabel('疾病严重程度', fontproperties=my_font)\nplt.xticks(fontproperties=my_font)  # 设置x轴刻度标签的字体\nplt.yticks(fontproperties=my_font)  # 设置y轴刻度标签的字体\nplt.legend(prop=my_font)  # 设置图例字体\nplt.show()\n\n# 保存处理后得数据\noutput_path = '2.1.4_cleaned_data.csv'\ndata.to_csv(output_path, index=False)",
+      "source_hash": "5d0e28d06e5bcc0fbe59b6d230e87bc8502db9aa794ee2b9356e0621ba8eff52",
+      "output": "",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 3
+    }
+  ]
 }

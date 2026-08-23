@@ -1,0 +1,231 @@
+{
+  "chapter": "1.1.1",
+  "title": "读取数据集（AST 版本）",
+  "mode": "exam",
+  "total_score": 22,
+  "earned_score": 22,
+  "percentage": 100.0,
+  "details": [
+    {
+      "item_id": "M1",
+      "description": "读取数据集",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data = pd.read_csv('patient_data.csv')",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M2",
+      "description": "创建新列'RiskLevel'，根据住院天数判断风险等级",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data['RiskLevel'] = np.where(data['DaysInHospital'] > 7, '高风险患者', '低风险患者')",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M3",
+      "description": "创建新列'RiskLevel'，根据住院天数判断风险等级",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data['RiskLevel'] = np.where(data['DaysInHospital'] > 7, '高风险患者', '低风险患者')",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M4",
+      "description": "创建新列'RiskLevel'，根据住院天数判断风险等级",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data['RiskLevel'] = np.where(data['DaysInHospital'] > 7, '高风险患者', '低风险患者')",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M5",
+      "description": "统计不同风险等级的患者数量",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "risk_counts = data['RiskLevel'].value_counts()",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M6",
+      "description": "统计不同风险等级的患者数量",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "risk_counts = data['RiskLevel'].value_counts()",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M7",
+      "description": "计算高风险患者占比",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "high_risk_ratio = risk_counts['高风险患者'] / len(data)",
+      "difficulty": "easy"
+    },
+    {
+      "item_id": "M8",
+      "description": "计算低风险患者占比",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "low_risk_ratio = risk_counts['低风险患者'] / len(data)",
+      "difficulty": "easy"
+    },
+    {
+      "item_id": "M9",
+      "description": "根据BMI值划分指定区间",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data['BMIRange'] = pd.cut(data['BMI'], bins=bmi_bins, labels=bmi_labels, right=False)  # 使用左闭右开区间",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M10",
+      "description": "根据BMI值划分指定区间",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data['BMIRange'] = pd.cut(data['BMI'], bins=bmi_bins, labels=bmi_labels, right=False)  # 使用左闭右开区间",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M11",
+      "description": "根据BMI值划分指定区间",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data['BMIRange'] = pd.cut(data['BMI'], bins=bmi_bins, labels=bmi_labels, right=False)  # 使用左闭右开区间",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M12",
+      "description": "根据BMI值划分指定区间",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data['BMIRange'] = pd.cut(data['BMI'], bins=bmi_bins, labels=bmi_labels, right=False)  # 使用左闭右开区间",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M13",
+      "description": "计算每个BMI区间中高风险患者的比例",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "bmi_risk_rate = data.groupby('BMIRange')['RiskLevel'].apply(lambda x: (x == '高风险患者').mean())",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M14",
+      "description": "计算每个BMI区间中高风险患者的比例",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "bmi_risk_rate = data.groupby('BMIRange')['RiskLevel'].apply(lambda x: (x == '高风险患者').mean())",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M15",
+      "description": "统计每个BMI区间的患者数量",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "bmi_patient_count = data['BMIRange'].value_counts()",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M16",
+      "description": "根据年龄值划分指定区间",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data['AgeRange'] = pd.cut(data['Age'], bins=age_bins, labels=age_labels, right=False)  # 使用左闭右开区间",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M17",
+      "description": "根据年龄值划分指定区间",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data['AgeRange'] = pd.cut(data['Age'], bins=age_bins, labels=age_labels, right=False)  # 使用左闭右开区间",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M18",
+      "description": "根据年龄值划分指定区间",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data['AgeRange'] = pd.cut(data['Age'], bins=age_bins, labels=age_labels, right=False)  # 使用左闭右开区间",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M19",
+      "description": "根据年龄值划分指定区间",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data['AgeRange'] = pd.cut(data['Age'], bins=age_bins, labels=age_labels, right=False)  # 使用左闭右开区间",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M20",
+      "description": "计算每个年龄区间中高风险患者的比例",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "age_risk_rate = data.groupby('AgeRange')['RiskLevel'].apply(lambda x: (x == '高风险患者').mean())",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M21",
+      "description": "计算每个年龄区间中高风险患者的比例",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "age_risk_rate = data.groupby('AgeRange')['RiskLevel'].apply(lambda x: (x == '高风险患者').mean())",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M22",
+      "description": "统计每个年龄区间的患者数量",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "age_patient_count = data['AgeRange'].value_counts()",
+      "difficulty": "medium"
+    }
+  ],
+  "graded_at": "2026-08-23T17:32:38.332392"
+}

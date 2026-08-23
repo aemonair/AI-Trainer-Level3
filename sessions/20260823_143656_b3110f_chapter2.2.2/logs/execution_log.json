@@ -1,8 +1,48 @@
 {
   "schema_version": "1.0.0",
   "session_id": "20260823_143656_b3110f_chapter2.2.2",
-  "created_at": "2026-08-23T14:36:56.436205",
-  "updated_at": "2026-08-23T14:36:56.436206",
+  "logger": {
+    "version": "2.0.0"
+  },
+  "created_at": "2026-08-23T14:36:56.436083",
+  "updated_at": "2026-08-23T14:42:12.458244",
   "kernel_info": {},
-  "events": []
+  "events": [
+    {
+      "event_id": 1,
+      "cell_index": 1,
+      "timestamp": "2026-08-23T14:41:34.709823",
+      "source": "import pandas as pd\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.pipeline import Pipeline\nimport pickle\nfrom sklearn.ensemble import RandomForestRegressor\n\n# 加载数据集\ndf = pd.read_csv('auto-mpg.csv')\n\n# 显示前五行数据\nprint(df.head())\n\n# 处理缺失值\n# 将 'horsepower' 列中的所有值转换为数值类型\ndf['horsepower'] = pd.to_numeric(df['horsepower'], errors='coerce')\n# 删除包含缺失值的行\ndf = df.dropna()\n\n# 选择相关特征进行建模（定义自变量（返回一个DataFrame）和因变量）\nX = df['cylinders','displacement','horsepower','weight','acceleration','model year','origin']\ny = df['mpg']\n\n# 将数据集划分为训练集和测试集（测试集占比20%）\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n\n# 创建包含标准化和线性回归的管道\npipeline = Pipeline([('scaler', StandardScaler()),('linreg', LinearRegression())])\n\n# 训练模型\npipeline.run()\n\n# 保存训练好的模型\nwith open('2.2.2_model.pkl', 'wb') as model_file:\n    pickle.dump(pipeline, model_file)\n\n# 预测并保存结果\ny_pred = pipeline.predict(X_test)\nresults_df = pd.DataFrame(y_pred, columns=['预测结果'])\nresults_df.to_csv('2.2.2_results.txt', index=False)\n\n# 测试模型\nwith open('2.2.2_report.txt', 'w') as results_file:\n    results_file.write(f'训练集得分: {pipeline.score(X_train, y_train)}\\n')\n    results_file.write(f'测试集得分: {pipeline.score(X_test, y_test)}\\n')\n\n# 创建随机森林回归模型实例（创建的决策树的数量为100）\nrf_model = RandomForestRegressor(n_estimators=100, random_state=42)\n# 训练随机森林回归模型\nrf_model.fit(X_train, y_train)\n\n# 使用随机森林模型进行预测\ny_pred_rf = rf_model.predict(X_test)\n\n# 保存新的结果\nresults_rf_df = pd.DataFrame(y_pred_rf, columns=['预测结果'])\nresults_rf_df.to_csv('2.2.2_results_rf.txt', index=False)\n\n# 测试模型并保存得分\nwith open('2.2.2_report_rf.txt', 'w') as results_rf_file:\n    results_rf_file.write(f'训练集得分: {rf_model.score(X_train, y_train)}\\n')\n    results_rf_file.write(f'测试集得分: {rf_model.score(X_test, y_test)}\\n')",
+      "source_hash": "7549d8135da536e5901f7cfd8679d4eabd02afc3965fb2c4482474121cd31d90",
+      "output": "",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 2
+    },
+    {
+      "event_id": 2,
+      "cell_index": 2,
+      "timestamp": "2026-08-23T14:41:53.812974",
+      "source": "import pandas as pd\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.pipeline import Pipeline\nimport pickle\nfrom sklearn.ensemble import RandomForestRegressor\n\n# 加载数据集\ndf = pd.read_csv('auto-mpg.csv')\n\n# 显示前五行数据\nprint(df.head())\n\n# 处理缺失值\n# 将 'horsepower' 列中的所有值转换为数值类型\ndf['horsepower'] = pd.to_numeric(df['horsepower'], errors='coerce')\n# 删除包含缺失值的行\ndf = df.dropna()\n\n# 选择相关特征进行建模（定义自变量（返回一个DataFrame）和因变量）\nX = df[['cylinders','displacement','horsepower','weight','acceleration','model year','origin']]\ny = df['mpg']\n\n# 将数据集划分为训练集和测试集（测试集占比20%）\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n\n# 创建包含标准化和线性回归的管道\npipeline = Pipeline([('scaler', StandardScaler()),('linreg', LinearRegression())])\n\n# 训练模型\npipeline.run()\n\n# 保存训练好的模型\nwith open('2.2.2_model.pkl', 'wb') as model_file:\n    pickle.dump(pipeline, model_file)\n\n# 预测并保存结果\ny_pred = pipeline.predict(X_test)\nresults_df = pd.DataFrame(y_pred, columns=['预测结果'])\nresults_df.to_csv('2.2.2_results.txt', index=False)\n\n# 测试模型\nwith open('2.2.2_report.txt', 'w') as results_file:\n    results_file.write(f'训练集得分: {pipeline.score(X_train, y_train)}\\n')\n    results_file.write(f'测试集得分: {pipeline.score(X_test, y_test)}\\n')\n\n# 创建随机森林回归模型实例（创建的决策树的数量为100）\nrf_model = RandomForestRegressor(n_estimators=100, random_state=42)\n# 训练随机森林回归模型\nrf_model.fit(X_train, y_train)\n\n# 使用随机森林模型进行预测\ny_pred_rf = rf_model.predict(X_test)\n\n# 保存新的结果\nresults_rf_df = pd.DataFrame(y_pred_rf, columns=['预测结果'])\nresults_rf_df.to_csv('2.2.2_results_rf.txt', index=False)\n\n# 测试模型并保存得分\nwith open('2.2.2_report_rf.txt', 'w') as results_rf_file:\n    results_rf_file.write(f'训练集得分: {rf_model.score(X_train, y_train)}\\n')\n    results_rf_file.write(f'测试集得分: {rf_model.score(X_test, y_test)}\\n')",
+      "source_hash": "47c3f3e80296cb96a792b4574fd381609b7144d568ec929aaf1196c837316181",
+      "output": "",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 3
+    },
+    {
+      "event_id": 3,
+      "cell_index": 3,
+      "timestamp": "2026-08-23T14:42:12.457993",
+      "source": "import pandas as pd\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.pipeline import Pipeline\nimport pickle\nfrom sklearn.ensemble import RandomForestRegressor\n\n# 加载数据集\ndf = pd.read_csv('auto-mpg.csv')\n\n# 显示前五行数据\nprint(df.head())\n\n# 处理缺失值\n# 将 'horsepower' 列中的所有值转换为数值类型\ndf['horsepower'] = pd.to_numeric(df['horsepower'], errors='coerce')\n# 删除包含缺失值的行\ndf = df.dropna()\n\n# 选择相关特征进行建模（定义自变量（返回一个DataFrame）和因变量）\nX = df[['cylinders','displacement','horsepower','weight','acceleration','model year','origin']]\ny = df['mpg']\n\n# 将数据集划分为训练集和测试集（测试集占比20%）\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n\n# 创建包含标准化和线性回归的管道\npipeline = Pipeline([('scaler', StandardScaler()),('linreg', LinearRegression())])\n\n# 训练模型\npipeline.fit(X_train, y_train)\n\n# 保存训练好的模型\nwith open('2.2.2_model.pkl', 'wb') as model_file:\n    pickle.dump(pipeline, model_file)\n\n# 预测并保存结果\ny_pred = pipeline.predict(X_test)\nresults_df = pd.DataFrame(y_pred, columns=['预测结果'])\nresults_df.to_csv('2.2.2_results.txt', index=False)\n\n# 测试模型\nwith open('2.2.2_report.txt', 'w') as results_file:\n    results_file.write(f'训练集得分: {pipeline.score(X_train, y_train)}\\n')\n    results_file.write(f'测试集得分: {pipeline.score(X_test, y_test)}\\n')\n\n# 创建随机森林回归模型实例（创建的决策树的数量为100）\nrf_model = RandomForestRegressor(n_estimators=100, random_state=42)\n# 训练随机森林回归模型\nrf_model.fit(X_train, y_train)\n\n# 使用随机森林模型进行预测\ny_pred_rf = rf_model.predict(X_test)\n\n# 保存新的结果\nresults_rf_df = pd.DataFrame(y_pred_rf, columns=['预测结果'])\nresults_rf_df.to_csv('2.2.2_results_rf.txt', index=False)\n\n# 测试模型并保存得分\nwith open('2.2.2_report_rf.txt', 'w') as results_rf_file:\n    results_rf_file.write(f'训练集得分: {rf_model.score(X_train, y_train)}\\n')\n    results_rf_file.write(f'测试集得分: {rf_model.score(X_test, y_test)}\\n')",
+      "source_hash": "80c88fc8647f13ea0029a0147d2414ba0b6bd736e73a0b87c0c67c477826dd95",
+      "output": "",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 4
+    }
+  ]
 }

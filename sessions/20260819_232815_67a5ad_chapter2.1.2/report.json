@@ -1,0 +1,141 @@
+{
+  "file": "sessions/20260819_232815_67a5ad_chapter2.1.2/workspace/practice.ipynb",
+  "chapter": "2.1.2",
+  "errors": [],
+  "warnings": [],
+  "score": 13,
+  "total_score": 15,
+  "total_blanks": 0,
+  "score_per_blank": 86.66666666666667,
+  "fill_comparison": [],
+  "implementation_comparison": [],
+  "result_comparison": [],
+  "knowledge_points": {},
+  "start_time": null,
+  "end_time": "2026-08-21T21:51:34.618352",
+  "process_audit": null,
+  "ipython_history": null,
+  "scoring_mode": "exam",
+  "schema_details": [
+    {
+      "item_id": "M1",
+      "description": "完成代码填空",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M2",
+      "description": "完成代码填空",
+      "max_score": 1,
+      "earned_score": 0,
+      "correct": false,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M3",
+      "description": "删除缺失值",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M4",
+      "description": "完成代码填空",
+      "max_score": 1,
+      "earned_score": 0,
+      "correct": false,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M5",
+      "description": "完成代码填空",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M6",
+      "description": "训练模型",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M7",
+      "description": "完成代码填空",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M8",
+      "description": "完成代码填空",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M9",
+      "description": "完成代码填空",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M10",
+      "description": "完成代码填空",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M11",
+      "description": "完成代码填空",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M12",
+      "description": "完成代码填空",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M13",
+      "description": "完成代码填空",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M14",
+      "description": "完成代码填空",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M15",
+      "description": "完成代码填空",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    }
+  ]
+}

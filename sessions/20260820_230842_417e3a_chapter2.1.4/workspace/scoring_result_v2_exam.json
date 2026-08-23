@@ -1,0 +1,201 @@
+{
+  "chapter": "2.1.4",
+  "title": "第2.1.4章操作题（AST 版本）",
+  "mode": "exam",
+  "total_score": 19,
+  "earned_score": 17,
+  "percentage": 89.5,
+  "details": [
+    {
+      "item_id": "M1",
+      "description": "加载数据集",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data = pd.read_csv('medical_data.csv', encoding='gbk')",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M2",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "print(data.info())",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M3",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data.rename(columns={'病人ID':'患者ID'}, inplace=True)",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M4",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data.rename(columns={'病人ID':'患者ID'}, inplace=True)",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M5",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data['诊断延迟'] = (data['诊断日期']-data['就诊日期']).dt.days",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M6",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data = data[(data['诊断延迟'] >= 0) & (data['年龄'] > 0) & (data['年龄'] < 120)]",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M7",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data = data[(data['诊断延迟'] >= 0) & (data['年龄'] > 0) & (data['年龄'] < 120)]",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M8",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data = data[(data['诊断延迟'] >= 0) & (data['年龄'] > 0) & (data['年龄'] < 120)]",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M9",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data = data[(data['诊断延迟'] >= 0) & (data['年龄'] > 0) & (data['年龄'] < 120)]",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M10",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data.drop_duplicates(inplace=True)",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M11",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "columns_to_normalize = ['年龄','体重','身高']",
+      "difficulty": "easy"
+    },
+    {
+      "item_id": "M12",
+      "description": "训练模型",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data[columns_to_normalize] = scaler.fit_transform(data[columns_to_normalize])",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M13",
+      "description": "完成代码填空",
+      "earned": 0,
+      "max": 1,
+      "correct": false,
+      "details": "失败规则: ['{\\'must_call\\': \"treatment_outcome_distribution.plot(kind=\\'bar\\'\"}']",
+      "user_code": "plt.scatter([data['疾病类型'], data['治疗结果数量']], stacked=True)",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M14",
+      "description": "完成代码填空",
+      "earned": 0,
+      "max": 1,
+      "correct": false,
+      "details": "失败规则: ['{\\'must_call\\': \"treatment_outcome_distribution.plot(kind=\\'bar\\'\"}']",
+      "user_code": "plt.scatter([data['疾病类型'], data['治疗结果数量']], stacked=True)",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M15",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "plt.scatter(data['年龄'], data['疾病严重程度'])",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M16",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "plt.scatter(data['年龄'], data['疾病严重程度'])",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M17",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "plt.scatter(data['年龄'], data['疾病严重程度'])",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M18",
+      "description": "保存结果到文件",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data.to_csv(output_path, index=False)",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M19",
+      "description": "保存结果到文件",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data.to_csv(output_path, index=False)",
+      "difficulty": "medium"
+    }
+  ],
+  "graded_at": "2026-08-21T22:20:35.659054"
+}

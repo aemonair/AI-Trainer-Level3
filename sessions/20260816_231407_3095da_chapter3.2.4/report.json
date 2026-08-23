@@ -1,0 +1,93 @@
+{
+  "file": "sessions/20260816_231407_3095da_chapter3.2.4/workspace/practice.ipynb",
+  "chapter": "3.2.4",
+  "errors": [],
+  "warnings": [],
+  "score": 14,
+  "total_score": 15,
+  "total_blanks": 0,
+  "score_per_blank": 93.33333333333333,
+  "fill_comparison": [],
+  "implementation_comparison": [],
+  "result_comparison": [],
+  "knowledge_points": {},
+  "start_time": null,
+  "end_time": "2026-08-17T00:14:51.271864",
+  "process_audit": null,
+  "ipython_history": null,
+  "scoring_mode": "practice",
+  "schema_details": [
+    {
+      "item_id": "M1",
+      "description": "加载模型",
+      "max_score": 2,
+      "earned_score": 2,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M2",
+      "description": "加载类别标签",
+      "max_score": 2,
+      "earned_score": 2,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M3",
+      "description": "加载图片",
+      "max_score": 2,
+      "earned_score": 2,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M4",
+      "description": "预处理图片",
+      "max_score": 2,
+      "earned_score": 2,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M5",
+      "description": "进行图片识别",
+      "max_score": 2,
+      "earned_score": 2,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M6",
+      "description": "应用 softmax 函数获取识别分类后的准确率",
+      "max_score": 2,
+      "earned_score": 2,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M7",
+      "description": "模型预测",
+      "max_score": 1,
+      "earned_score": 0,
+      "correct": false,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M8",
+      "description": "获取预测准确值（百分比）",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    },
+    {
+      "item_id": "M9",
+      "description": "获取预测类别标签",
+      "max_score": 1,
+      "earned_score": 1,
+      "correct": true,
+      "type": "ast_check"
+    }
+  ]
+}

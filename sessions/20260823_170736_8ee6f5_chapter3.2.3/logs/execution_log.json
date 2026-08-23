@@ -1,8 +1,96 @@
 {
   "schema_version": "1.0.0",
   "session_id": "20260823_170736_8ee6f5_chapter3.2.3",
-  "created_at": "2026-08-23T17:07:36.249300",
-  "updated_at": "2026-08-23T17:07:36.249301",
+  "logger": {
+    "version": "2.0.0"
+  },
+  "created_at": "2026-08-23T17:07:36.249172",
+  "updated_at": "2026-08-23T17:11:10.025779",
   "kernel_info": {},
-  "events": []
+  "events": [
+    {
+      "event_id": 1,
+      "cell_index": 1,
+      "timestamp": "2026-08-23T17:09:46.538329",
+      "source": "# 导入必要的库\nimport numpy as np\nfrom PIL import Image\nimport onnxruntime as ort\n\n\n# 定义预处理函数，用于将图片转换为模型所需的输入格式\ndef preprocess(image_path):\n    input_shape = (1, 1, 64, 64)    # 模型输入期望的形状，这里是 (N, C, H, W)，N=batch size, C=channels, H=height, W=width\n    img = Image.open(image_path).convert('L')    # 打开图像文件并将其转换为灰度图  1分\n    img = img.resize((64, 64), Image.ANTIALIAS)    # 调整图像大小到模型输入所需的尺寸\n    img_data = np.array(img, dtype=np.float32)    # 将PIL图像对象转换为numpy数组，并确保数据类型是float32\n    # 调整数组的形状以匹配模型输入的形状\n    img_data = np.expand_dims(img_data, axis=0)  # 添加 batch 维度\n    img_data = np.expand_dims(img_data, axis=1)  # 添加 channel 维度\n    assert img_data.shape == input_shape, f\"Expected shape {input_shape}, but got {img_data.shape}\"    # 确保最终的形状与模型输入要求的形状一致\n    return img_data    # 返回预处理后的图像数据\n\n\n# 定义情感类别与数字标签的映射表 3分\nemotion_table = {'neutral':0, 'happiness':1, 'surprise':2,'sadness':3, 'anger':4, 'disgust':5, 'fear':6, 'contempt':7}\n\n\n# 加载模型 3分\nort_session = ort.InferenceSessioin('emotion-ferplus.onnx')    # 使用onnxruntime创建一个会话，用于加载并运行模型\n\n\n# 加载本地图片并进行预处理 3分\ninput_data = preprocess('img_test.png')\n\n\n# 准备输入数据，确保其符合模型输入的要求\nort_inputs = {ort_session.get_inputs()[0].name: input_data}    # ort_session.get_inputs()[0].name 是获取模型的第一个输入的名字\n\n\n# 运行模型，进行预测 3分\nort_outs = ort_session.run(None, ort_inputs)\n\n\n# 解码模型输出，找到预测概率最高的情感类别 3分\npredicted_label = np.argmax(ort_outs[0])\n\n\n# 根据预测的标签找到对应的情感名称 3分\npredicted_emotion = emotion_table.keys()[predicted_label]\n\n\n# 输出预测的情感\nprint(f\"Predicted emotion: {predicted_emotion}\")",
+      "source_hash": "bebbb53f5fb57912bf4d7e37ec8abef1eb15be0f195115c187a13a48d41d3b25",
+      "output": "",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 2
+    },
+    {
+      "event_id": 2,
+      "cell_index": 2,
+      "timestamp": "2026-08-23T17:09:58.301998",
+      "source": "# 导入必要的库\nimport numpy as np\nfrom PIL import Image\nimport onnxruntime as ort\n\n\n# 定义预处理函数，用于将图片转换为模型所需的输入格式\ndef preprocess(image_path):\n    input_shape = (1, 1, 64, 64)    # 模型输入期望的形状，这里是 (N, C, H, W)，N=batch size, C=channels, H=height, W=width\n    img = Image.open(image_path).convert('L')    # 打开图像文件并将其转换为灰度图  1分\n    img = img.resize((64, 64), Image.ANTIALIAS)    # 调整图像大小到模型输入所需的尺寸\n    img_data = np.array(img, dtype=np.float32)    # 将PIL图像对象转换为numpy数组，并确保数据类型是float32\n    # 调整数组的形状以匹配模型输入的形状\n    img_data = np.expand_dims(img_data, axis=0)  # 添加 batch 维度\n    img_data = np.expand_dims(img_data, axis=1)  # 添加 channel 维度\n    assert img_data.shape == input_shape, f\"Expected shape {input_shape}, but got {img_data.shape}\"    # 确保最终的形状与模型输入要求的形状一致\n    return img_data    # 返回预处理后的图像数据\n\n\n# 定义情感类别与数字标签的映射表 3分\nemotion_table = {'neutral':0, 'happiness':1, 'surprise':2,'sadness':3, 'anger':4, 'disgust':5, 'fear':6, 'contempt':7}\n\n\n# 加载模型 3分\nort_session = ort.InferenceSession('emotion-ferplus.onnx')    # 使用onnxruntime创建一个会话，用于加载并运行模型\n\n\n# 加载本地图片并进行预处理 3分\ninput_data = preprocess('img_test.png')\n\n\n# 准备输入数据，确保其符合模型输入的要求\nort_inputs = {ort_session.get_inputs()[0].name: input_data}    # ort_session.get_inputs()[0].name 是获取模型的第一个输入的名字\n\n\n# 运行模型，进行预测 3分\nort_outs = ort_session.run(None, ort_inputs)\n\n\n# 解码模型输出，找到预测概率最高的情感类别 3分\npredicted_label = np.argmax(ort_outs[0])\n\n\n# 根据预测的标签找到对应的情感名称 3分\npredicted_emotion = emotion_table.keys()[predicted_label]\n\n\n# 输出预测的情感\nprint(f\"Predicted emotion: {predicted_emotion}\")",
+      "source_hash": "3b474d6d0ff48d3c28f37882a13e569e73e216def8902d5a08346ed432fb9362",
+      "output": "",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 3
+    },
+    {
+      "event_id": 3,
+      "cell_index": 3,
+      "timestamp": "2026-08-23T17:10:06.126691",
+      "source": "# 导入必要的库\nimport numpy as np\nfrom PIL import Image\nimport onnxruntime as ort\n\n\n# 定义预处理函数，用于将图片转换为模型所需的输入格式\ndef preprocess(image_path):\n    input_shape = (1, 1, 64, 64)    # 模型输入期望的形状，这里是 (N, C, H, W)，N=batch size, C=channels, H=height, W=width\n    img = Image.open(image_path).convert('L')    # 打开图像文件并将其转换为灰度图  1分\n    img = img.resize((64, 64), Image.ANTIALIAS)    # 调整图像大小到模型输入所需的尺寸\n    img_data = np.array(img, dtype=np.float32)    # 将PIL图像对象转换为numpy数组，并确保数据类型是float32\n    # 调整数组的形状以匹配模型输入的形状\n    img_data = np.expand_dims(img_data, axis=0)  # 添加 batch 维度\n    img_data = np.expand_dims(img_data, axis=1)  # 添加 channel 维度\n    assert img_data.shape == input_shape, f\"Expected shape {input_shape}, but got {img_data.shape}\"    # 确保最终的形状与模型输入要求的形状一致\n    return img_data    # 返回预处理后的图像数据\n\n\n# 定义情感类别与数字标签的映射表 3分\nemotion_table = {'neutral':0, 'happiness':1, 'surprise':2,'sadness':3, 'anger':4, 'disgust':5, 'fear':6, 'contempt':7}\n\n\n# 加载模型 3分\nort_session = ort.InferenceSession('emotion-ferplus.onnx')    # 使用onnxruntime创建一个会话，用于加载并运行模型\n\n\n# 加载本地图片并进行预处理 3分\ninput_data = preprocess('img_test.png')\n\n\n# 准备输入数据，确保其符合模型输入的要求\nort_inputs = {ort_session.get_inputs()[0].name: input_data}    # ort_session.get_inputs()[0].name 是获取模型的第一个输入的名字\n\n\n# 运行模型，进行预测 3分\nort_outs = ort_session.run(None, ort_inputs)\n\n\n# 解码模型输出，找到预测概率最高的情感类别 3分\npredicted_label = np.argmax(ort_outs[0])\n\n\n# 根据预测的标签找到对应的情感名称 3分\npredicted_emotion = emotion_table.get_keys()[predicted_label]\n\n\n# 输出预测的情感\nprint(f\"Predicted emotion: {predicted_emotion}\")",
+      "source_hash": "5238777065bd37ff19f7daa51d3f1f035b441e63e56dd0e6da4adfa0d26d36e5",
+      "output": "",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 4
+    },
+    {
+      "event_id": 4,
+      "cell_index": 4,
+      "timestamp": "2026-08-23T17:10:12.632903",
+      "source": "# 导入必要的库\nimport numpy as np\nfrom PIL import Image\nimport onnxruntime as ort\n\n\n# 定义预处理函数，用于将图片转换为模型所需的输入格式\ndef preprocess(image_path):\n    input_shape = (1, 1, 64, 64)    # 模型输入期望的形状，这里是 (N, C, H, W)，N=batch size, C=channels, H=height, W=width\n    img = Image.open(image_path).convert('L')    # 打开图像文件并将其转换为灰度图  1分\n    img = img.resize((64, 64), Image.ANTIALIAS)    # 调整图像大小到模型输入所需的尺寸\n    img_data = np.array(img, dtype=np.float32)    # 将PIL图像对象转换为numpy数组，并确保数据类型是float32\n    # 调整数组的形状以匹配模型输入的形状\n    img_data = np.expand_dims(img_data, axis=0)  # 添加 batch 维度\n    img_data = np.expand_dims(img_data, axis=1)  # 添加 channel 维度\n    assert img_data.shape == input_shape, f\"Expected shape {input_shape}, but got {img_data.shape}\"    # 确保最终的形状与模型输入要求的形状一致\n    return img_data    # 返回预处理后的图像数据\n\n\n# 定义情感类别与数字标签的映射表 3分\nemotion_table = {'neutral':0, 'happiness':1, 'surprise':2,'sadness':3, 'anger':4, 'disgust':5, 'fear':6, 'contempt':7}\n\n\n# 加载模型 3分\nort_session = ort.InferenceSession('emotion-ferplus.onnx')    # 使用onnxruntime创建一个会话，用于加载并运行模型\n\n\n# 加载本地图片并进行预处理 3分\ninput_data = preprocess('img_test.png')\n\n\n# 准备输入数据，确保其符合模型输入的要求\nort_inputs = {ort_session.get_inputs()[0].name: input_data}    # ort_session.get_inputs()[0].name 是获取模型的第一个输入的名字\n\n\n# 运行模型，进行预测 3分\nort_outs = ort_session.run(None, ort_inputs)\n\n\n# 解码模型输出，找到预测概率最高的情感类别 3分\npredicted_label = np.argmax(ort_outs[0])\n\n\n# 根据预测的标签找到对应的情感名称 3分\npredicted_emotion = emotion_table.keys()[predicted_label]\n\n\n# 输出预测的情感\nprint(f\"Predicted emotion: {predicted_emotion}\")",
+      "source_hash": "3b474d6d0ff48d3c28f37882a13e569e73e216def8902d5a08346ed432fb9362",
+      "output": "",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 5
+    },
+    {
+      "event_id": 5,
+      "cell_index": 5,
+      "timestamp": "2026-08-23T17:10:36.197746",
+      "source": "# 导入必要的库\nimport numpy as np\nfrom PIL import Image\nimport onnxruntime as ort\n\n\n# 定义预处理函数，用于将图片转换为模型所需的输入格式\ndef preprocess(image_path):\n    input_shape = (1, 1, 64, 64)    # 模型输入期望的形状，这里是 (N, C, H, W)，N=batch size, C=channels, H=height, W=width\n    img = Image.open(image_path).convert('L')    # 打开图像文件并将其转换为灰度图  1分\n    img = img.resize((64, 64), Image.ANTIALIAS)    # 调整图像大小到模型输入所需的尺寸\n    img_data = np.array(img, dtype=np.float32)    # 将PIL图像对象转换为numpy数组，并确保数据类型是float32\n    # 调整数组的形状以匹配模型输入的形状\n    img_data = np.expand_dims(img_data, axis=0)  # 添加 batch 维度\n    img_data = np.expand_dims(img_data, axis=1)  # 添加 channel 维度\n    assert img_data.shape == input_shape, f\"Expected shape {input_shape}, but got {img_data.shape}\"    # 确保最终的形状与模型输入要求的形状一致\n    return img_data    # 返回预处理后的图像数据\n\n\n# 定义情感类别与数字标签的映射表 3分\nemotion_table = {'neutral':0, 'happiness':1, 'surprise':2,'sadness':3, 'anger':4, 'disgust':5, 'fear':6, 'contempt':7}\n\n\n# 加载模型 3分\nort_session = ort.InferenceSession('emotion-ferplus.onnx')    # 使用onnxruntime创建一个会话，用于加载并运行模型\n\n\n# 加载本地图片并进行预处理 3分\ninput_data = preprocess('img_test.png')\n\n\n# 准备输入数据，确保其符合模型输入的要求\nort_inputs = {ort_session.get_inputs()[0].name: input_data}    # ort_session.get_inputs()[0].name 是获取模型的第一个输入的名字\n\n\n# 运行模型，进行预测 3分\nort_outs = ort_session.run(None, ort_inputs)\n\n\n# 解码模型输出，找到预测概率最高的情感类别 3分\npredicted_label = np.argmax(ort_outs[0])\n\nprint (emotion_table.keys())\n# 根据预测的标签找到对应的情感名称 3分\npredicted_emotion = emotion_table.keys()[predicted_label]\n\n\n# 输出预测的情感\nprint(f\"Predicted emotion: {predicted_emotion}\")",
+      "source_hash": "50282355ef104c61846325ea9eb1b34b2256252572571776b89d0624fe0b1e8e",
+      "output": "",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 6
+    },
+    {
+      "event_id": 6,
+      "cell_index": 6,
+      "timestamp": "2026-08-23T17:11:05.029916",
+      "source": "# 导入必要的库\nimport numpy as np\nfrom PIL import Image\nimport onnxruntime as ort\n\n\n# 定义预处理函数，用于将图片转换为模型所需的输入格式\ndef preprocess(image_path):\n    input_shape = (1, 1, 64, 64)    # 模型输入期望的形状，这里是 (N, C, H, W)，N=batch size, C=channels, H=height, W=width\n    img = Image.open(image_path).convert('L')    # 打开图像文件并将其转换为灰度图  1分\n    img = img.resize((64, 64), Image.ANTIALIAS)    # 调整图像大小到模型输入所需的尺寸\n    img_data = np.array(img, dtype=np.float32)    # 将PIL图像对象转换为numpy数组，并确保数据类型是float32\n    # 调整数组的形状以匹配模型输入的形状\n    img_data = np.expand_dims(img_data, axis=0)  # 添加 batch 维度\n    img_data = np.expand_dims(img_data, axis=1)  # 添加 channel 维度\n    assert img_data.shape == input_shape, f\"Expected shape {input_shape}, but got {img_data.shape}\"    # 确保最终的形状与模型输入要求的形状一致\n    return img_data    # 返回预处理后的图像数据\n\n\n# 定义情感类别与数字标签的映射表 3分\nemotion_table = {'neutral':0, 'happiness':1, 'surprise':2,'sadness':3, 'anger':4, 'disgust':5, 'fear':6, 'contempt':7}\n\n\n# 加载模型 3分\nort_session = ort.InferenceSession('emotion-ferplus.onnx')    # 使用onnxruntime创建一个会话，用于加载并运行模型\n\n\n# 加载本地图片并进行预处理 3分\ninput_data = preprocess('img_test.png')\n\n\n# 准备输入数据，确保其符合模型输入的要求\nort_inputs = {ort_session.get_inputs()[0].name: input_data}    # ort_session.get_inputs()[0].name 是获取模型的第一个输入的名字\n\n\n# 运行模型，进行预测 3分\nort_outs = ort_session.run(None, ort_inputs)\n\n\n# 解码模型输出，找到预测概率最高的情感类别 3分\npredicted_label = np.argmax(ort_outs[0])\n\nprint (emotion_table.keys())\n# 根据预测的标签找到对应的情感名称 3分\npredicted_emotion = list(emotion_table.keys())[predicted_label]\n\n\n# 输出预测的情感\nprint(f\"Predicted emotion: {predicted_emotion}\")",
+      "source_hash": "6e9b5aeda29ac43ef27a98627da6ba7b4e336066c52b6d8c48ad7092306e054a",
+      "output": "",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 7
+    },
+    {
+      "event_id": 7,
+      "cell_index": 7,
+      "timestamp": "2026-08-23T17:11:10.025430",
+      "source": "# 导入必要的库\nimport numpy as np\nfrom PIL import Image\nimport onnxruntime as ort\n\n\n# 定义预处理函数，用于将图片转换为模型所需的输入格式\ndef preprocess(image_path):\n    input_shape = (1, 1, 64, 64)    # 模型输入期望的形状，这里是 (N, C, H, W)，N=batch size, C=channels, H=height, W=width\n    img = Image.open(image_path).convert('L')    # 打开图像文件并将其转换为灰度图  1分\n    img = img.resize((64, 64), Image.ANTIALIAS)    # 调整图像大小到模型输入所需的尺寸\n    img_data = np.array(img, dtype=np.float32)    # 将PIL图像对象转换为numpy数组，并确保数据类型是float32\n    # 调整数组的形状以匹配模型输入的形状\n    img_data = np.expand_dims(img_data, axis=0)  # 添加 batch 维度\n    img_data = np.expand_dims(img_data, axis=1)  # 添加 channel 维度\n    assert img_data.shape == input_shape, f\"Expected shape {input_shape}, but got {img_data.shape}\"    # 确保最终的形状与模型输入要求的形状一致\n    return img_data    # 返回预处理后的图像数据\n\n\n# 定义情感类别与数字标签的映射表 3分\nemotion_table = {'neutral':0, 'happiness':1, 'surprise':2,'sadness':3, 'anger':4, 'disgust':5, 'fear':6, 'contempt':7}\n\n\n# 加载模型 3分\nort_session = ort.InferenceSession('emotion-ferplus.onnx')    # 使用onnxruntime创建一个会话，用于加载并运行模型\n\n\n# 加载本地图片并进行预处理 3分\ninput_data = preprocess('img_test.png')\n\n\n# 准备输入数据，确保其符合模型输入的要求\nort_inputs = {ort_session.get_inputs()[0].name: input_data}    # ort_session.get_inputs()[0].name 是获取模型的第一个输入的名字\n\n\n# 运行模型，进行预测 3分\nort_outs = ort_session.run(None, ort_inputs)\n\n\n# 解码模型输出，找到预测概率最高的情感类别 3分\npredicted_label = np.argmax(ort_outs[0])\n\n# print (emotion_table.keys())\n# 根据预测的标签找到对应的情感名称 3分\npredicted_emotion = list(emotion_table.keys())[predicted_label]\n\n\n# 输出预测的情感\nprint(f\"Predicted emotion: {predicted_emotion}\")",
+      "source_hash": "b8f5a1ae6ca91b55894251f410caa189f39e307b431cefb62898e282b5e2d551",
+      "output": "",
+      "status": "success",
+      "error": null,
+      "duration_ms": 0.0,
+      "execution_count": 8
+    }
+  ]
 }

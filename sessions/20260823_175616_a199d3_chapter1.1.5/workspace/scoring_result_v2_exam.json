@@ -1,0 +1,291 @@
+{
+  "chapter": "1.1.5",
+  "title": "从本地文件中读取数据（AST 版本）",
+  "mode": "exam",
+  "total_score": 40,
+  "earned_score": 40,
+  "percentage": 100.0,
+  "details": [
+    {
+      "item_id": "M1",
+      "description": "从本地文件中读取数据",
+      "earned": 2,
+      "max": 2,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data = pd.read_csv('vehicle_traffic_data.csv')",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M2",
+      "description": "打印数据的前5条记录",
+      "earned": 2,
+      "max": 2,
+      "correct": true,
+      "details": "通过",
+      "user_code": "print(data.head())",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M3",
+      "description": "处理缺失值（删除）",
+      "earned": 2,
+      "max": 2,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data = data.dropna()",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M4",
+      "description": "处理缺失值（删除）",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data['Age'] = data['Age'].astype(int)       #Age数据类型转换为int 1分",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M5",
+      "description": "处理缺失值（删除）",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data['Age'] = data['Age'].astype(int)       #Age数据类型转换为int 1分",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M6",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data['Speed'] = data['Speed'].astype(float)     #Speed数据类型转换为float 1分",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M7",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data['Speed'] = data['Speed'].astype(float)     #Speed数据类型转换为float 1分",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M8",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data['TravelDistance'] = data['TravelDistance'].astype(float)     #TravelDistance数据类型转换为float 1分",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M9",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data['TravelDistance'] = data['TravelDistance'].astype(float)     #TravelDistance数据类型转换为float 1分",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M10",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data['TravelTime'] = data['TravelTime'].astype(float)     #TravelTime数据类型转换为float 1分",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M11",
+      "description": "完成代码填空",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data['TravelTime'] = data['TravelTime'].astype(float)     #TravelTime数据类型转换为float 1分",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M12",
+      "description": "处理异常值",
+      "earned": 2,
+      "max": 2,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data = data[(data['Age'].between(18, 70))  &",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M13",
+      "description": "处理异常值",
+      "earned": 2,
+      "max": 2,
+      "correct": true,
+      "details": "通过",
+      "user_code": "(data['Speed'].between(0, 200)) &",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M14",
+      "description": "处理异常值",
+      "earned": 2,
+      "max": 2,
+      "correct": true,
+      "details": "通过",
+      "user_code": "(data['TravelDistance'].between(1, 1000)) &",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M15",
+      "description": "处理异常值",
+      "earned": 2,
+      "max": 2,
+      "correct": true,
+      "details": "通过",
+      "user_code": "(data['TravelTime'].between(1, 1440))]",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M16",
+      "description": "保存清洗后的数据",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data.to_csv('cleaned_vehicle_traffic_data.csv', index=False)",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M17",
+      "description": "审核字段合理性",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "unreasonable_data = data[~((data['Age'].between(18, 70))  &",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M18",
+      "description": "审核字段合理性",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "(data['Speed'].between(0, 200)) &",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M19",
+      "description": "审核字段合理性",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "(data['TravelDistance'].between(1, 1000)) &",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M20",
+      "description": "审核字段合理性",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "(data['TravelTime'].between(1, 1440))",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M21",
+      "description": "统计每种交通事件的发生次数",
+      "earned": 2,
+      "max": 2,
+      "correct": true,
+      "details": "通过",
+      "user_code": "traffic_event_counts = data.groupby('TrafficEvent').value_counts()",
+      "difficulty": "medium"
+    },
+    {
+      "item_id": "M22",
+      "description": "统计不同性别的平均车速、行驶距离和行驶时间",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "gender_stats = data.groupby('Gender').agg({'Speed':'mean', 'TravelDistance':'mean', 'TravelTime':'mean'})",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M23",
+      "description": "统计不同性别的平均车速、行驶距离和行驶时间",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "gender_stats = data.groupby('Gender').agg({'Speed':'mean', 'TravelDistance':'mean', 'TravelTime':'mean'})",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M24",
+      "description": "统计不同年龄段的驾驶员数",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "age_labels = ['18-25', '26-35', '36-45', '46-55', '56-65', '65+']",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M25",
+      "description": "统计不同年龄段的驾驶员数",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "age_labels = ['18-25', '26-35', '36-45', '46-55', '56-65', '65+']",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M26",
+      "description": "统计不同年龄段的驾驶员数",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "age_labels = ['18-25', '26-35', '36-45', '46-55', '56-65', '65+']",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M27",
+      "description": "统计不同年龄段的驾驶员数",
+      "earned": 1,
+      "max": 1,
+      "correct": true,
+      "details": "通过",
+      "user_code": "age_labels = ['18-25', '26-35', '36-45', '46-55', '56-65', '65+']",
+      "difficulty": "hard"
+    },
+    {
+      "item_id": "M28",
+      "description": "统计不同年龄段的驾驶员数",
+      "earned": 5,
+      "max": 5,
+      "correct": true,
+      "details": "通过",
+      "user_code": "data['AgeGroup'] = pd.cut(data['Age'],bins=age_bins,labels=age_labels, right=False)",
+      "difficulty": "medium"
+    }
+  ],
+  "graded_at": "2026-08-23T18:01:34.939699"
+}

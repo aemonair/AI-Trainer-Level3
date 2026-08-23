@@ -4,8 +4,10 @@
   "chapter": "2.2.1",
   "mode": "practice",
   "created_at": "2026-08-13T22:26:51.242148",
-  "updated_at": "2026-08-13T22:26:51.243229",
-  "status": "in_progress",
+  "updated_at": "2026-08-22T11:45:20",
+  "status": "completed",
   "template_file": "template/2.2.1/2.2.1.ipynb",
-  "practice_file": "practice.ipynb"
+  "practice_file": "practice.ipynb",
+  "score": "13/13",
+  "score_pct": 100.0
 }
