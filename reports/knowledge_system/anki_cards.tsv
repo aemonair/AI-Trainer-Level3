@@ -1,0 +1,126 @@
+正面	背面	标签
+【数据保存】data.to_csv()
+保存为CSV文件	出现次数: 44
+正确率: 86.4%
+❌ 错误6次	pandas:数据保存
+【数据读取】pd.read_csv
+读取CSV文件	出现次数: 31
+正确率: 100.0%	pandas:数据读取
+【统计计算】data.mean()
+计算平均值	出现次数: 25
+正确率: 88.0%
+❌ 错误3次	pandas:统计计算
+【区间判断】data.between()
+检查值是否在区间内	出现次数: 20
+正确率: 100.0%	pandas:区间判断
+【分组聚合】data.groupby()
+按列分组	出现次数: 20
+正确率: 100.0%	pandas:分组聚合
+【区间分组】pd.cut()
+将连续值划分到区间	出现次数: 19
+正确率: 100.0%	pandas:区间分组
+【类型转换】data.astype()
+数据类型转换	出现次数: 18
+正确率: 100.0%	pandas:类型转换
+【数据删除】data.drop()
+删除列或行	出现次数: 18
+正确率: 88.9%
+❌ 错误2次	pandas:数据删除
+【ONNX模型推理】ort_session.run
+执行ONNX模型推理	出现次数: 17
+正确率: 100.0%	pandas:onnx模型推理
+【ONNX模型加载】onnxruntime.InferenceSession
+加载ONNX模型创建推理会话	出现次数: 16
+正确率: 100.0%	pandas:onnx模型加载
+【函数应用】data.apply()
+应用自定义函数	出现次数: 15
+正确率: 100.0%	pandas:函数应用
+【Numpy数组】np.array
+创建numpy数组	出现次数: 14
+正确率: 100.0%	pandas:numpy数组
+【统计计算】data.sum()
+求和	出现次数: 12
+正确率: 100.0%	pandas:统计计算
+【缺失值处理】data.dropna()
+删除缺失值	出现次数: 12
+正确率: 100.0%	pandas:缺失值处理
+【Numpy类型】np.float32
+32位浮点类型	出现次数: 12
+正确率: 100.0%	pandas:numpy类型
+【Numpy数组】np.expand_dims
+扩展数组维度	出现次数: 11
+正确率: 90.9%
+❌ 错误1次	pandas:numpy数组
+【计数统计】data.value_counts()
+统计各值出现次数	出现次数: 11
+正确率: 100.0%	pandas:计数统计
+【图像处理】Image.open
+打开图像文件	出现次数: 10
+正确率: 100.0%	pandas:图像处理
+【图像处理】image.convert
+转换图像模式	出现次数: 10
+正确率: 100.0%	pandas:图像处理
+【缺失值检测】data.isnull()
+检测缺失值	出现次数: 9
+正确率: 100.0%	pandas:缺失值检测
+【Softmax函数】scipy.special.softmax
+应用softmax函数计算概率	出现次数: 8
+正确率: 100.0%	pandas:softmax函数
+【Numpy数组】np.argmax
+返回最大值索引	出现次数: 7
+正确率: 85.7%
+❌ 错误1次	pandas:numpy数组
+【条件判断】np.where()
+条件选择	出现次数: 7
+正确率: 100.0%	pandas:条件判断
+【图像处理】image.resize
+调整图像大小	出现次数: 6
+正确率: 66.7%
+❌ 错误2次	pandas:图像处理 薄弱点
+【数据长度】len(data)
+获取数据行数	出现次数: 6
+正确率: 66.7%
+❌ 错误2次	pandas:数据长度 薄弱点
+【重复值检测】data.duplicated()
+检测重复行	出现次数: 5
+正确率: 80.0%
+❌ 错误1次	pandas:重复值检测
+【ONNX模型输入】ort_session.get_inputs
+获取模型输入信息	出现次数: 5
+正确率: 100.0%	pandas:onnx模型输入
+【分组聚合】data.agg()
+聚合计算	出现次数: 5
+正确率: 100.0%	pandas:分组聚合
+【文件读取】with open
+使用with语句安全打开文件	出现次数: 5
+正确率: 100.0%	pandas:文件读取
+【缺失值处理】data.fillna()
+填充缺失值	出现次数: 4
+正确率: 100.0%	pandas:缺失值处理
+【统计计算】data.std()
+计算标准差	出现次数: 4
+正确率: 100.0%	pandas:统计计算
+【文件读取】open().readlines
+读取文件所有行	出现次数: 3
+正确率: 100.0%	pandas:文件读取
+【字符串处理】strip()
+去除字符串首尾空白	出现次数: 3
+正确率: 100.0%	pandas:字符串处理
+【目录操作】os.makedirs
+创建目录	出现次数: 3
+正确率: 100.0%	pandas:目录操作
+【OpenCV图像读取】cv2.imread
+使用OpenCV读取图像	出现次数: 2
+正确率: 100.0%	pandas:opencv图像读取
+【OpenCV图像处理】cv2.resize
+使用OpenCV调整图像大小	出现次数: 2
+正确率: 100.0%	pandas:opencv图像处理
+【数据重塑】data.unstack()
+行转列	出现次数: 2
+正确率: 100.0%	pandas:数据重塑
+【布尔过滤】data.isin()
+检查值是否在列表中	出现次数: 2
+正确率: 100.0%	pandas:布尔过滤
+【字典操作】list().keys
+将字典键转为列表	出现次数: 1
+正确率: 100.0%	pandas:字典操作

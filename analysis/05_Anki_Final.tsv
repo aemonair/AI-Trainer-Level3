@@ -1,0 +1,83 @@
+Front	Back	Tags
+PIL Image.resize 参数顺序是什么？	image.resize((width, height))
+注意：只有一个参数，是(width, height)元组
+不是resize(width, height)两个参数	图像处理::易错
+DataFrame保存CSV的考试模板是什么？	data.to_csv('output.csv', index=False)
+⚠️ 变量名必须与题目中的一致！
+index=False不保存行索引	Pandas::高频
+如何计算分类准确率？	(y_test == y_pred).mean()
+原理：==返回布尔Series，True=1, False=0
+.mean()计算True的比例	ML::易错
+ONNX如何构造输入字典？	input_name = ort_session.get_inputs()[0].name
+ort_inputs = {input_name: input_data}
+⚠️ 不是np.expand_dims()[0].name	ONNX::高频
+ONNX推理的完整流程？	1. ort_session = ort.InferenceSession('model.onnx')
+2. input_name = ort_session.get_inputs()[0].name
+3. ort_inputs = {input_name: data}
+4. ort_outs = ort_session.run(None, ort_inputs)
+5. predicted = np.argmax(ort_outs[0])	ONNX::流程
+PIL图像预处理的完整流程？	1. image = Image.open('img.png').convert('L')  # 或RGB
+2. image = image.resize((28, 28))  # (width, height)
+3. arr = np.array(image, dtype=np.float32)
+4. arr = np.expand_dims(arr, axis=0)	图像处理::流程
+Top-K预测如何实现？	top_k_idx = np.argsort(probs[0])[-K:][::-1]
+⚠️ 用argsort不是argmax
+argsort返回升序索引
+[-K:]取最后K个，[::-1]反转变降序	ML::易错
+pd.cut的right=False是什么意思？	right=False表示左闭右开区间 [a, b)
+例如：bins=[0, 18.5, 24], right=False
+[0, 18.5) 包含0不包含18.5
+默认right=True是左开右闭 (a, b]	Pandas::易错
+groupby+apply计算比例的模板？	rate = data.groupby('col')['target'].apply(
+    lambda x: (x == '目标值').mean()
+)
+(x==val)返回布尔Series
+.mean()计算True的比例	Pandas::高频
+fillna的method参数用法？	data['col'].fillna(method='ffill', inplace=True)  # 前向填充
+data['col'].fillna(method='bfill', inplace=True)  # 后向填充
+⚠️ 必须inplace=True才生效	Pandas::易错
+np.where多条件怎么写？	data['new'] = np.where(
+    (data['col1'] > 0) & (data['col2'] < 100),
+    '满足',
+    '不满足'
+)
+⚠️ 每个条件加括号，用&连接	Pandas::高频
+机器学习完整流程模板？	1. X = data.drop(['target'], axis=1); y = data['target']
+2. X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+3. model = LogisticRegression(max_iter=1000)
+4. model.fit(X_train, y_train)
+5. y_pred = model.predict(X_test)
+6. accuracy = (y_test == y_pred).mean()	ML::流程
+Softmax+获取概率值？	probs = scipy.special.softmax(output, axis=-1)
+predicted_idx = np.argmax(probs[0])
+prob_value = probs[0][predicted_idx] * 100  # 百分比
+axis=-1表示沿最后一个维度计算	ML::高频
+类别映射的两种方式？	方式1: emotion_table = {'neutral': 0, ...}
+         predicted = list(emotion_table.keys())[idx]
+方式2: names = [l.strip() for l in open('labels.txt').readlines()]
+         predicted = names[idx]	ONNX::高频
+PIL convert('L')和convert('RGB')区别？	convert('L') → 灰度图（单通道）
+convert('RGB') → 彩色图（三通道）
+根据模型输入要求选择	图像处理::基础
+np.expand_dims的axis参数？	np.expand_dims(arr, axis=0) → 在第0维扩展
+例如: (28,28) → (1,28,28) 添加batch维度
+np.expand_dims(arr, axis=-1) → 在最后一维扩展
+例如: (28,28) → (28,28,1) 添加通道维度	NumPy::易错
+数据清洗中dropna和fillna的区别？	dropna() → 删除包含NaN的行
+data.dropna() 删除任何有NaN的行
+data.dropna(subset=['col']) 只检查指定列
+
+fillna() → 填充NaN值
+method='ffill' 前向填充
+method='bfill' 后向填充	Pandas::基础
+unstack的作用？	将最内层行索引转为列名
+常用于groupby后的多列分组结果
+例: data.groupby(['A','B'])['C'].mean().unstack()
+将B的值转为列名	Pandas::高频
+train_test_split参数含义？	train_test_split(X, y, test_size=0.2, random_state=42)
+test_size=0.2 → 20%数据作为测试集
+random_state=42 → 保证每次划分一致
+返回: X_train, X_test, y_train, y_test	ML::基础
+classification_report参数zero_division？	classification_report(y_test, y_pred, zero_division=1)
+zero_division=1 → 当某类别无预测时返回1而不是warning
+防止除零错误	ML::易错

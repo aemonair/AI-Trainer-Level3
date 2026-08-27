@@ -1,0 +1,173 @@
+人工智能训练师（四级）操作技能复习题
+43 / 116
+人工智能训练师（三级）操作技能考核
+试题单
+准考证号：
+试题代码：
+试题名称：智能信用评分Logistic 回归模型开发与测试
+考核时间：20min
+1.场地设备要求
+（1）人工智能训练师主机1 台；
+（2）Python 编译环境；
+（3）Finance 数据集。
+2.工作任务
+互联网金融飞速发展，使得个人金融理财变得越来越容易。而其中信用评分技术是一种对贷
+款申请人（信用卡申请人）做风险评估分值的统计模型，可以根据客户提供的资料、客户的
+历史数据、第三方平台数据（芝麻分、京东、微信等），对客户的信用进行评估。现要求根
+据提供的finance 数据集，补全2.2.1.ipynb 代码。选择合适的特征，开发一个申请的评分
+模型，利用测试工具对模型进行测试，并对测试结果进行分析，完成测试报告，并运用工具
+对错误原因进行纠正。
+（1）正确加载数据集，显示前五行的数据。
+（2）使用Logistic 模型进行模型训练，要求设定自变量和因变量，并根据自变量特征进行
+模型训练，最终将训练好的模型以文件名2.2.1_model.pkl 保存到考生文件夹，结果文件以
+2.2.1_results.txt 保存到考生文件夹。
+（3）使用测试工具对模型进行测试，并记录测试结果，命名2.2.1_report.txt，保存到考
+生文件夹
+（4）对测试结果进行详细分析，并编写测试报告，包括模型性能评估、错误分析及改进建
+议，将答案写到答题卷文件中，答题卷文件命名为“ 2.2.1.docx” ，保存到考生文件夹。
+（5）运用工具分析算法中错误案例产生的原因并进行纠正，重新得到模型训练结果，以文
+http://skillks.com 在线实操模拟考试
+人工智能训练师（四级）操作技能复习题
+44 / 116
+件名2.2.1_results_xg.txt 保存到考生文件夹。
+（6）将以上代码以及运行结果，以html 格式保存并命名为2.2.1.html，保存到考生文件
+夹，考生文件夹命名为“ 准考证号+身份证后6 位” 。
+数据集说明：
+Unnamed: 0 - 索引号。
+SeriousDlqin2yrs - 个人在过去两年内是否出现过严重的拖欠（1 表示有严重拖欠，0 表
+示没有）。
+RevolvingUtilizationOfUnsecuredLines - 这是指个人未偿还的信用额度与总信用额度的
+比例。
+age - 客户的年龄。
+NumberOfTime30-59DaysPastDueNotWorse - 在过去一段时间内，贷款逾期30 至59 天的次
+数。
+DebtRatio - 债务比率。
+MonthlyIncome - 客户的月收入。
+NumberOfOpenCreditLinesAndLoans - 正在使用的信贷账户或贷款的数量。
+NumberOfTimes90DaysLate - 贷款逾期超过90 天的次数。
+NumberRealEstateLoansOrLines - 持有的房地产相关贷款或信贷的数量。
+NumberOfTime60-89DaysPastDueNotWorse - 贷款逾期60 至89 天的次数。
+NumberOfDependents - 家庭中依赖该个人的人数。
+3.技能要求
+(1) 能维护日常训练集与测试集。
+(2) 能使用工具对算法进行训练。
+(3) 能使用测试工具对人工智能产品的使用进行测试。
+(4) 能对测试结果进行分析，编写测试报告。
+(5) 能运用工具，分析算法中错误案例产生的原因并进行纠正。
+4.质量指标
+(1) 深入理解业务，训练符合业务需求的模型。
+http://skillks.com 在线实操模拟考试
+accuracy = (y_test == y_pred ) . mean () 
+print ( f“ 模型准确率：{ accuracy :.2f}" ) 
+＃处理数据不平衡
+smote = SMOTE ( random_state=42) 
+X_resampled , y_resampled = smote .fit_resample (X_train , y_train ) 
+＃重新训练模型
+model .fit (X_resampled , y_resampled ) 
+＃重新预测
+y_pred_resampled = model. predict (X_test ) 
+＃保存新结果
+pd . DataFrame (y_pred_resampled , 
+columns = [ ＇预测结果
+' ]) . to_csv ( '2.2.1_results_xg.txt' , index=False) 
+＃生成新的测试报告
+report_resampled = classification_report (y_test , y_pred_resampled , zero_division=l ) 
+with open ( '2.2.l_report_xg.txt' ,
+'w' ) as file : 
+file .write ( report_resampled ) 
+＃分析新的测试结果
+accuracy_resampled = (y_test == y_pred_resampled ) . mean () 
+print ( f” 重新采样后的模型准确率：{ accuracy_resampled :.2f}" ) 
+http://skillks.com 在线实操模拟考试
+人工智能训练师（四级）操作技能复习题
+46 / 116
+人工智能训练师（三级）操作技能考核
+试题评分表
+准考证号：
+试题代码：
+试题名称：智能信用评分Logistic 回归模型开发与测试
+考核时间：20min
+测量分评分表
+细则编
+号
+配分
+评分细则描述
+规定或
+标称值
+结果或
+实际值
+得分
+M1
+2
+正确加载数据集，得1 分，显示前
+五行的数据，得1 分，总计得2 分；
+根据数
+据
+M2
+1
+训练集与测试集的准确划分得1
+分；
+根据数
+据
+M3
+2
+初始化Logistic 回归模型得2
+分；
+根据数
+据
+M4
+2
+训练Logistic 回归模型得2 分；
+根据数
+据
+M5
+1
+正确保存Logistic 回归模型文件
+得1 分；
+根据数
+据
+M6
+1
+使用Logistic 回归模型在测试集
+上进行预测得1 分；
+根据数
+据
+M7
+2
+正确计算Logistic 回归模型的准
+确率得2 分；
+根据数
+据
+M8
+2
+正确处理数据不平衡问题得2 分；
+根据数
+据
+M9
+2
+模型重新训练得2 分
+根据数
+据
+M10
+1
+正确生成新预测结果得1 分；
+根据数
+据
+M11
+1
+正确分析新的测试结果得1 分；
+根据数
+据
+M12
+3
+正确填写2.2.1.docx 测试报告：其
+中模型性能评估得1 分、错误分析
+得1 分，改进建议得1 分，总计得
+3 分；
+根据数
+据
+合计配
+分
+20
+合计得分
+http://skillks.com 在线实操模拟考试

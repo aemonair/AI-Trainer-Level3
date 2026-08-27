@@ -1,0 +1,442 @@
+Front	Back	Tags
+"【1.1.1 原题场景】传感器数据需要根据 Value 是否超过阈值，新增一个分类列。题目类似：
+
+```python
+data['Level'] = ???
+```
+
+提示：条件满足/不满足分别返回两个值；NumPy 条件选择函数。
+
+问：应该想到哪个函数？"	"```python
+data['Level'] = np.where(
+    data['Value'] > threshold,
+    'High',
+    'Normal'
+)
+```
+
+⚠️ 你之前容易把 `np.where` 和 `np.cut` 混淆。"	1.1.1::np.where
+"【1.1.1 原题场景】题目需要把连续数值按多个区间划分成等级，例如：0~60、60~80、80~100。
+
+提示：这是“区间分箱”，不是简单的 True/False 二选一。
+
+问：应该用哪个函数？"	"```python
+pd.cut()
+```
+
+例如：
+```python
+pd.cut(data['score'], bins=[0,60,80,100])
+```
+
+⚠️ `np.where()` 更适合条件二选一；`pd.cut()` 用于连续值分箱。"	1.1.1::pd.cut
+"【1.1.1 原题场景】你在写数据处理代码时曾尝试过 `np.check`。
+
+题目需求：根据一个条件生成两个不同结果。
+
+提示：NumPy 中常用的“条件选择”函数。
+
+问：正确函数是什么？"	"```python
+np.where(condition, x, y)
+```
+
+不存在常规的 `np.check()` 用法。"	1.1.1::易错
+"【1.1.1 原题场景】你需要从 SensorType 中筛选 Temperature 和 Humidity。
+
+原代码结构：
+```python
+data[data['SensorType'] ???]
+```
+
+提示：判断一个值是否属于多个候选值。
+
+问：`???` 怎么写？"	"```python
+data['SensorType'].isin(['Temperature', 'Humidity'])
+```
+
+完整：
+```python
+data[data['SensorType'].isin(['Temperature', 'Humidity'])]
+```
+
+⚠️ `isin()` 的多个候选值放进列表。"	1.1.1::isin
+"【1.1.1 原题场景】筛选多个类别时，你之前容易写：
+```python
+isin('A', 'B')
+```
+
+问：正确写法是什么？"	"```python
+isin(['A', 'B'])
+```
+
+⚠️ `isin()` 接收一个可迭代的候选集合，考试里最常见就是列表。"	1.1.1::isin::易错
+"【1.1.1 原题场景】题目要求：按照 Gender 分组，计算 PurchaseAmount 的平均值。
+
+提示：先分组，再选择数值列，再求平均。
+
+问：代码怎么写？"	"```python
+data.groupby('Gender')['PurchaseAmount'].mean()
+```"	1.1.1::groupby
+"【1.1.2 原题场景】按照 SensorType 分组，同时统计每组数量和 Value 平均值。
+
+原代码起点：
+```python
+data.groupby('SensorType')['Value']
+```
+
+提示：两个聚合函数；使用 `agg`。
+
+问：怎么完成？"	"```python
+data.groupby('SensorType')['Value'].agg(['count', 'mean'])
+```
+
+⚠️ 你实际练习中这是高频易错点。"	1.1.2::groupby::agg
+"【1.1.2 原题场景】你需要同时执行 count 和 mean。
+
+曾经容易写成：
+```python
+.agg('count', 'mean')
+```
+
+问：为什么错？正确写法？"	"多个聚合函数应作为一个列表传入：
+```python
+.agg(['count', 'mean'])
+```
+
+不是：
+```python
+.agg('count', 'mean')
+```"	1.1.2::agg::易错
+"【1.1.2 原题场景】你要按列 SensorType 分组。
+
+哪一种写法正确？
+```python
+data.groupby('SensorType')
+```
+还是
+```python
+data.groupby['SensorType']
+```
+
+为什么？"	"```python
+data.groupby('SensorType')
+```
+
+`groupby` 是方法，需要 `()` 调用。
+
+⚠️ 这是你 Review 中实际出现过的括号错误。"	1.1.2::groupby::易错
+"【1.1.2 原题场景】题目要求“统计每个 PurchaseCategory 出现的次数”。
+
+提示：不需要 groupby，Pandas 有直接统计频数的方法。
+
+问：怎么写？"	"```python
+data['PurchaseCategory'].value_counts()
+```"	1.1.2::value_counts
+"【2.1 数据清洗原题场景】数据中存在缺失值，题目要求删除包含缺失值的记录。
+
+你曾经容易把 `dropna` 当成 NumPy/Pandas 模块函数。
+
+问：如果 `data` 是 DataFrame，应该怎么写？"	"```python
+data = data.dropna()
+```
+
+⚠️ `dropna()` 是 DataFrame/Series 的方法，不是 `np.dropna()`。"	2.1::dropna::易错
+"【2.1 数据清洗原题场景】题目要求将 Age 转成整数、Speed 转成浮点数。
+
+原结构：
+```python
+data = data.???({...})
+```
+
+提示：一次给多个列指定类型。
+
+问：怎么写？"	"```python
+data = data.astype({
+    'Age': 'int',
+    'Speed': 'float'
+})
+```"	2.1::astype
+"【2.1 数据清洗原题场景】缺失值需要使用后一个有效值进行填充。
+
+提示：backward fill。
+
+问：DataFrame 怎么写？"	"```python
+data.fillna(method='bfill')
+```
+
+含义：后向填充。"	2.1::fillna
+"【2.1 数据清洗原题场景】题目需要同时满足多个有效条件后再筛选数据。
+
+提示：先建立一个统一的布尔 mask。
+
+问：基本结构怎么写？"	"```python
+valid_mask = condition1 & condition2
+filtered = data[valid_mask]
+```
+
+⚠️ pandas 多条件通常使用 `&` / `|`，条件最好加括号。"	2.1::mask
+"【2.1 数据清洗原题场景】你需要筛选：Age > 18 且 Speed < 100。
+
+提示：pandas 的 AND 不是 Python 的 `and`。
+
+问：怎么写？"	"```python
+mask = (data['Age'] > 18) & (data['Speed'] < 100)
+data = data[mask]
+```
+
+⚠️ 注意每个条件的括号。"	2.1::布尔索引
+"【2.2 模型开发原题场景】机器学习题中需要把数据划分成训练集和测试集。
+
+提示：sklearn.model_selection。
+
+问：函数是什么？基本调用怎么写？"	"```python
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+```"	2.2::train_test_split
+"【2.2 模型开发原题场景】训练一个 sklearn 模型。
+
+原结构：
+```python
+model.???(X_train, y_train)
+y_pred = model.???(X_test)
+```
+
+提示：先训练，再预测。
+
+问：两个方法是什么？"	"```python
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+```"	2.2::fit_predict
+"【2.2 模型开发原题场景】题目要求计算分类模型预测准确率。
+
+提示：sklearn.metrics。
+
+问：函数是什么？"	"```python
+from sklearn.metrics import accuracy_score
+accuracy_score(y_test, y_pred)
+```"	2.2::accuracy
+"【2.2 模型开发原题场景】题目要求输出 precision、recall、F1 等分类指标。
+
+提示：不是单独调用三个函数；sklearn 有一个综合报告函数。
+
+问：是什么？"	"```python
+from sklearn.metrics import classification_report
+classification_report(y_test, y_pred)
+```"	2.2::classification_report
+"【2.2 模型开发原题场景】题目使用 XGBRegressor，需要设置树的数量。
+
+你之前容易想到 `max_iter`。
+
+问：参数是什么？"	"```python
+XGBRegressor(n_estimators=1000)
+```
+
+⚠️ `n_estimators` 控制树的数量；不要凭其他模型的参数习惯写 `max_iter`。"	2.2::XGBoost::易错
+"【2.2 模型开发原题场景】判断下面模型主要属于哪类任务：
+
+- LogisticRegression
+- LinearRegression
+- RandomForest
+
+提示：Logistic 的名字容易让人误以为是回归。"	"LogisticRegression：分类。
+
+LinearRegression：回归。
+
+RandomForest：既有分类器也有回归器，取决于具体使用的类/任务。"	2.2::模型辨析
+"【3.2 图像识别原题场景】使用 ONNX Runtime 加载模型。
+
+原代码：
+```python
+session = ort.???(model_path)
+```
+
+提示：Runtime 中负责推理会话的类。
+
+问：怎么写？"	"```python
+session = ort.InferenceSession(model_path)
+```
+
+⚠️ 你实际写错过：`InferenceSessioin`。正确拼写是 `InferenceSession`。"	3.2::ONNX
+"【3.2 图像识别原题场景】你曾经把 `InferenceSession` 拼成 `InferenceSessioin`。
+
+问：考试时看到 `ort.???`，完整拼写是什么？"	"```python
+ort.InferenceSession(model_path)
+```
+
+记住：`Session`，不是 `Sessioin`。"	3.2::ONNX::拼写
+"【3.2 图像识别原题场景】ONNX 模型输出类似：
+```python
+accuracy = [[0.02, 0.13, 0.85]]
+```
+
+要求找到概率最大的类别索引。
+
+提示：NumPy 找最大值位置；注意第一维是样本。
+
+问：怎么写？"	"```python
+idx = np.argmax(accuracy[0])
+```
+
+⚠️ 你之前容易直接写 `np.argmax(accuracy)`，考试时先根据输出结构取出样本。"	3.2::argmax
+"【3.2 图像识别原题场景】已经得到：
+```python
+idx = np.argmax(accuracy[0])
+```
+
+现在需要得到该类别的概率并转换为百分比。
+
+问：怎么写？"	"```python
+prob = accuracy[0][idx] * 100
+```"	3.2::概率
+"【3.2 图像识别原题场景】Python 字典中需要取得第一个 key。
+
+你曾经写过：
+```python
+my_dict.keys()[0]
+```
+
+问：为什么错？正确写法是什么？"	"`dict.keys()` 返回的是 view，不能直接用 `[0]` 索引。
+
+正确：
+```python
+list(my_dict.keys())[0]
+```"	3.2::dict::易错
+"【3.2 图像识别原题场景】题目要求取得字典所有 key。
+
+问：正确方法是什么？有没有 `get_keys()`？"	"正确：
+```python
+my_dict.keys()
+```
+
+没有 `get_keys()`。"	3.2::dict
+"【3.2 图像识别原题场景】模型输出是一批分类概率，你需要找到预测类别。
+
+提示：最大概率的位置就是类别索引。
+
+问：核心函数是什么？"	"```python
+np.argmax()
+```
+
+典型：
+```python
+idx = np.argmax(probabilities[0])
+```"	3.2::argmax
+"【综合原题】看到一个新的 Pandas 数据处理题，不确定从哪里开始。
+
+提示：不要直接写复杂代码，先完成固定流程。
+
+问：考试时建议按什么顺序？"	"① 读取数据
+② `head/info/shape` 看结构
+③ 清洗/处理缺失值和类型
+④ 建立筛选条件
+⑤ `groupby/agg/value_counts` 做统计
+⑥ 保存结果
+⑦ 根据结果写结论"	综合::考试流程
+"【综合原题】题目最后要求把处理结果保存为 CSV。
+
+提示：DataFrame 有一个直接的方法。
+
+问：常用写法？"	"```python
+result.to_csv('result.csv', index=False)
+```
+
+⚠️ `index=False` 通常用于避免把 DataFrame 索引额外保存成一列。"	综合::保存结果
+"【综合原题】刚拿到一个陌生 DataFrame，考试时最先看哪些东西？
+
+提示：结构、前几行、形状、类型。"	"```python
+data.head()
+data.info()
+data.shape
+data.dtypes
+```
+
+这一步可以帮助你确认列名、类型、缺失值和数据规模。"	综合::Pandas
+"【Review 易错复盘】你在 1.1.1 中反复出现 `np.where` / `np.cut` / 不存在函数的混淆。
+
+如果题目是“根据条件 A/B 二选一”，应该优先想到什么？"	"```python
+np.where(condition, A, B)
+```
+
+如果题目是“按照数值区间分组”，优先想到：
+```python
+pd.cut()
+```"	Review::1.1.1
+"【Review 易错复盘】你在 1.1.2 中反复卡在 groupby/agg。
+
+看到“分组 + 多个统计量”，先在脑中套哪个模板？"	"```python
+data.groupby('类别')['数值列'].agg(['count', 'mean'])
+```
+
+然后根据题目替换列名和聚合函数。"	Review::1.1.2
+"【Review 易错复盘】你在 3.2 中出现 `InferenceSessioin`、`keys()[0]` 等错误。
+
+如果考试时代码突然报 AttributeError/拼写错误，第一反应检查什么？"	"① API 名字是否拼写正确；
+② 是模块函数还是对象方法；
+③ 返回对象是否支持当前操作。
+
+你的典型例子：
+`InferenceSession`、`dict.keys()`。"	Review::3.2
+"【Review 易错复盘】你在代码题里有一种典型错误：凭感觉创造一个“好像存在”的函数。
+
+例如：`np.check`、`np.dropna`、`pd.split`。
+
+考试时遇到忘记 API，应该怎么处理？"	"不要连续试不存在的函数。
+
+先判断对象：
+- DataFrame 方法 → `data.xxx()`
+- Series 方法 → `data['col'].xxx()`
+- NumPy 函数 → `np.xxx()`
+- sklearn 函数/模型 → `sklearn...` / `model.xxx()`
+
+再回忆最接近的标准 API。"	Review::API辨析
+"【Review 易错复盘】你练习中 1.1.2 的迭代次数明显高于其他题。
+
+这说明考试前最应该额外复习哪个主题？"	"`groupby + agg`。
+
+尤其记住：
+```python
+groupby('列')
+.agg(['count', 'mean'])
+```
+
+以及“分组后选择列再聚合”的结构。"	Review::高频薄弱点
+"【Review 易错复盘】你练习中 1.1.1 也出现较多迭代。
+
+它最核心的函数辨析是什么？"	"`np.where()`：条件选择。
+
+`pd.cut()`：连续数值分箱。
+
+`isin()`：判断是否属于多个候选值。"	Review::高频薄弱点
+"【考试前自测】如果我只给你一句：
+
+“按类别统计每组的数量和平均值。”
+
+不看任何提示，你应该能马上写出什么代码结构？"	"```python
+data.groupby('类别')['数值列'].agg(['count', 'mean'])
+```
+
+如果你能在 5 秒内想到这个模板，这张卡就算掌握。"	自测::groupby
+"【考试前自测】如果我只给你一句：
+
+“判断每一行是否属于 A/B/C 三种类别之一。”
+
+应该马上想到什么？"	"```python
+data['col'].isin(['A', 'B', 'C'])
+```"	自测::isin
+"【考试前自测】如果我只给你一句：
+
+“如果 Value > 80 就标记 High，否则 Normal。”
+
+应该马上想到什么？"	"```python
+np.where(data['Value'] > 80, 'High', 'Normal')
+```"	自测::where
+"【考试前自测】如果我只给你一句：
+
+“找出模型输出中概率最大的类别。”
+
+应该马上想到什么？"	"```python
+idx = np.argmax(probabilities[0])
+```"	自测::argmax

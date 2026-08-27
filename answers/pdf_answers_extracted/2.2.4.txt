@@ -1,0 +1,219 @@
+人工智能训练师（四级）操作技能复习题
+55 / 116
+人工智能训练师（三级）操作技能考核
+试题单
+准考证号：
+试题代码：
+试题名称：低碳生活行为影响因素预测线性回归模型开发与测试
+考核时间：20min
+1.场地设备要求
+（1）人工智能训练师主机1 台；
+（2）Python 编译环境；
+（3）大学生低碳生活行为的影响因素数据集。
+2.工作任务
+在应对气候变化的背景下，了解和促进低碳生活行为变得越来越重要。现要求根据提供的
+“ 大学生低碳生活行为的影响因素数据集” ，补全2.2.4.ipynb 代码。选择合适的特征，开
+发一个预测大学生低碳生活行为的模型。利用测试工具对模型进行测试，并对测试结果进行
+分析，完成测试报告，并运用工具对错误原因进行纠正。
+（1）正确加载数据集，并显示前五行的数据。
+（2）请使用线性回归模型，要求设定自变量和因变量，并根据自变量特征进行模型训练，
+最终将训练好的模型以文件名2.2.4_model.pkl 保存到考生文件夹，结果文件以
+2.2.4_results.txt 保存到考生文件夹。
+（3）使用测试工具对模型进行测试，并记录测试结果，命名2.2.4_report.txt，保存到考
+生文件夹。
+（4）对测试结果进行详细分析，并编写测试报告，包括模型性能评估、错误分析及改进建
+议，将答案写到答题卷文件中，答题卷文件命名为“ 2.2.4.docx” ，保存到考生文件夹。
+（5）运用工具分析算法中错误案例产生的原因并进行纠正，重新得到模型训练结果，以文
+件名2.2.4_results_xg.txt 保存到考生文件夹。
+（6）将以上代码以及运行结果，以html 格式保存并命名为2.2.4.html，保存到考生文件
+http://skillks.com 在线实操模拟考试
+In [1]: import pandas as pd 
+from sklearn.model_selection import train_test_split 
+from sklearn.linear_model import LinearRegression 
+from sklearn.metrics import mean_squared_error, r2_score 
+import joblib 
+from xgboost import XGBRegressor 
+＃加载数据集
+data = pd . read_excel ( ＇大学生低碳生活行为的影响因素数据集．xlsx' )
+＃显示数据集的前五行
+print (data . head ()) 
+＃删除不必要的列并处理分类变量
+data_cleaned = data . drop ( columns = [ ＇序号＇，
+＇所用时间＇］）
+＃删除不必要的列
+data_cleaned = pd . get_dummies (data_cleaned , drop_first=True) 
+＃将分类变晕转换为哑变虽／指示变虽
+＃定义目标变最和特征
+target
+=
+'5 ．您进行过绿色低碳的相关生活方式吗？＇
+＃确保这是目标变最
+＃定义自变量和因变量
+X = data_cleaned . drop (columns=[target ]) 
+y = data_cleaned [target ] 
+＃将数据拆分为训练集和测试集（测试集占20%)
+X_train, X_test , y_train , y_test = train_test_split (X, y, test_size=0.2, random_state=42) 
+＃初始化线性回归模型
+model = LinearRegression () 
+＃训练线性回归模型
+model. fit (X_train, y_train ) 
+＃保存训练好的模型
+model_filename = '2.2.4_model.pkl' 
+joblib . dump (model, model_filename) 
+＃进行预测
+y_pred = model. predict (X_test ) 
+http://skillks.com 在线实操模拟考试
+＃将结果保存到文本文件中
+results = pd . DataFrame ({ ＇实际值
+'
+:
+y_test ,
+' 预测值
+'
+:
+y_pred })
+results filename = '2.2.4 results.txt' 
+results .to_csv( results_filename, index=False, sep='\t' 
+\ 
+) 
+＃使用制表符分隔值保存到文本文件
+＃将测试结果保存到报告文件中
+report_filename = '2.2.4_report.txt' 
+with open ( report_filename,
+'w' ) as 和
+f . write （干＇均方误差：{ mean_squared_error (y_test, y_pred )}\n' ) 
+千．write ( f' 决定系数：{ r2_score (y_test , y_pred )}\n' ) 
+＃分析并纠正错误（示例：使用XGBoost)
+＃初始化XGBoost模型（设定树的数量为106O，学习率为0.05,
+每棵树的最大深度为5,)
+xgb_model = XGBRegressor (n_estimators=1000, learning_rate=0.05, max_depth=S, subsample=0.8, colsample_bytree=0.8) 
+＃训练XGBoost模型
+xgb_model.fit (X_train , y_train ) 
+＃使用XGBoost模型进行预测
+y_pred_xg = xgb_model. predict (X_test ) 
+＃将XGBoost结果保存到文本文件中
+results_xg_filename = '2.2.4_results_xg.txt' 
+results_xg = pd . DataFrame ({
+' 实际值
+'
+:
+y_test ,
+＇预测值
+'
+:
+y_pred_xg })
+results_xg .to_csv( results_xg_filename, index=False, sep='\t' ) 
+＃使用制表符分隔值保存到文本文件
+＃将XGBoost测试结果保存到报告文件中
+report_filename_xgb = '2.2.4_report_xgb.txt' 
+with open ( report_filename_xgb,
+'w' ) as f : 
+f . write ( f' 均方误差：{ mean_squared_error (y_test, y_pred_xg)}\n' ) 
+f . write ( f' 决定系数：{ r2_score (y_test , y_pred_xg )}\n' ) 
+http://skillks.com 在线实操模拟考试
+人工智能训练师（四级）操作技能复习题
+57 / 116
+人工智能训练师（三级）操作技能考核
+试题评分表
+准考证号：
+试题代码：
+试题名称：低碳生活行为影响因素预测线性回归模型开发与测试
+考核时间：20min
+测量分评分表
+细则编
+号
+配分
+评分细则描述
+规定或
+标称值
+结果或
+实际值
+得分
+M1
+2
+正确加载数据集得1 分，显示前五
+行的数据得1 分，总计得2 分；
+根据数
+据
+M2
+1
+删除不必要的列得1 分；
+根据数
+据
+M3
+2
+正确定义自变量得1 分，因变量得
+1 分，总计得2 分；
+根据数
+据
+M4
+1
+训练集与测试集的准确划分得1
+分；
+根据数
+据
+M5
+1
+初始化线性回归模型得1 分；
+根据数
+据
+M6
+1
+训练线性回归模型得1 分；
+根据数
+据
+M7
+1
+正确保存线性回归模型文件得1
+分；
+根据数
+据
+M8
+1
+使用线性回归模型在测试集上进行
+结果预测得1 分；
+根据数
+据
+M9
+1
+保存线性回归模型预测的结果得1
+分；
+根据数
+据
+M10
+2
+正确计算线性回归模型的均方误差
+得1 分，决定系数得1 分，总计得
+2 分；
+根据数
+据
+M11
+1
+初始化XGBoost 模型得1 分；
+根据数
+据
+M12
+1
+训练XGBoost 模型得1 分；
+根据数
+据
+M13
+1
+使用XGBoost 模型进行预测结果得
+1 分；
+根据数
+据
+M14
+1
+正确计算XGBoost 模型的均方误差
+和决定系数得1 分；
+根据数
+据
+M15
+3
+正确填写2.2.4.docx 测试报告：其
+中模型性能评估得1 分、错误分析
+得1 分，改进建议得1 分，总计得
+根据数
+据
+http://skillks.com 在线实操模拟考试
